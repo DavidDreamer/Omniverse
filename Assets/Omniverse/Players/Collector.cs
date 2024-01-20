@@ -40,9 +40,7 @@ namespace Omniverse
 					continue;
 				}
 
-				var currencyItem = itemPresenter.Item as CurrencyItem;
-
-				if (currencyItem is null)
+				if (itemPresenter.Item is not IConsumableItem currencyItem)
 				{
 					continue;
 				}
