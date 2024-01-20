@@ -97,7 +97,7 @@ namespace Omniverse
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
 			await UniTask.Delay(TimeSpan.FromSeconds(unit.Presenter.DespawnDelay), cancellationToken: token);
-			UnityEngine.Object.Destroy(unit.Presenter.gameObject);
+			PrefabPool.Return(unit.Desc.Presentation.Prefab, unit.Presenter);
 		}
 		
 		private void DropLoot(Unit unit)
