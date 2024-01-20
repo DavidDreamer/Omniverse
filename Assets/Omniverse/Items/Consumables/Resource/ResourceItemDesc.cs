@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
+	[CreateAssetMenu]
 	public class ResourceItemDesc: ConsumableItemDesc
 	{
 		[field: SerializeField]
