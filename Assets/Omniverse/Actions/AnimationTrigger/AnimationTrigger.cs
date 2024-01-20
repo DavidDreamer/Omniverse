@@ -16,7 +16,10 @@ namespace Omniverse.Actions
 		{
 			foreach (Unit unit in context.Units)
 			{
-				unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Name));
+				if (unit.Presenter.Animator != null)
+				{
+					unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Name));
+				}
 			}
 
 			return UniTask.CompletedTask;

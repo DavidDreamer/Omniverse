@@ -59,10 +59,17 @@ namespace Omniverse
 			UniTaskCompletionSource = new UniTaskCompletionSource();
 
 			Unit = null;
-			
-			Hitbox.enabled = true;
-			Animator.enabled = true;
-			
+
+			if (Hitbox != null)
+			{
+				Hitbox.enabled = true;
+			}
+
+			if (Animator != null)
+			{
+				Animator.enabled = true;
+			}
+
 			if (NavMeshAgent != null)
 			{
 				NavMeshAgent.enabled = true;
