@@ -111,7 +111,7 @@ namespace Omniverse
 				Animator.enabled = false;
 			}
 
-			if (NavMeshAgent.enabled)
+			if (NavMeshAgent != null)
 			{
 				NavMeshAgent.enabled = false;
 			}
