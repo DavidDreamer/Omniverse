@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Omniverse.Abilities;
 using UnityEngine;
 
 namespace Omniverse
 {
+	[Serializable]
 	public class Unit
 	{
 		public UnitDesc Desc { get; }
