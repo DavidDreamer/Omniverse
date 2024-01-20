@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer.Unity;
+using Random = UnityEngine.Random;
 
 namespace Omniverse
 {
 	[UnityEngine.Scripting.Preserve]
-	public class UnitManager: IFixedTickable, IPostFixedTickable, ITickable
+	public class UnitManager: IFixedTickable, IPostFixedTickable, ITickable, IDisposable
 	{
 		private PrefabPool PrefabPool { get; }
 
@@ -14,12 +18,19 @@ namespace Omniverse
 
 		private List<Unit> Units { get; } = new();
 
+		private CancellationTokenSource CancellationTokenSource { get; } = new();
+		
 		public UnitManager(PrefabPool prefabPool, ItemManager itemManager)
 		{
 			PrefabPool = prefabPool;
 			ItemManager = itemManager;
 		}
 
+		public void Dispose()
+		{
+			CancellationTokenSource.Dispose();
+		}
+		
 		public Unit Spawn(UnitSpawnData data) => Spawn(data.UnitDesc, data.FactionID);
 
 		public Unit Spawn(UnitDesc desc, int factionID)
@@ -59,6 +70,8 @@ namespace Omniverse
 				if (ShouldBeKilled(unit))
 				{
 					Kill(unit);
+					Units.RemoveAt(i);
+					i--;
 				}
 			}
 
@@ -77,8 +90,16 @@ namespace Omniverse
 		{
 			unit.Die();
 			DropLoot(unit);
+
+			WaitForDespawn(unit, CancellationTokenSource.Token);
 		}
 
+		private async void WaitForDespawn(Unit unit, CancellationToken token)
+		{
+			await UniTask.Delay(TimeSpan.FromSeconds(unit.Presenter.DespawnDelay), cancellationToken: token);
+			UnityEngine.Object.Destroy(unit.Presenter.gameObject);
+		}
+		
 		private void DropLoot(Unit unit)
 		{
 			foreach (LootDesc loot in unit.Desc.Loot)

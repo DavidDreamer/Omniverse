@@ -31,6 +31,9 @@ namespace Omniverse
 		[field: HideInInspector]
 		private IDeathHandler[] DeathHandlers { get; set; }
 
+		[field: SerializeField]
+		public float DespawnDelay { get; private set; }
+		
 		public Unit Unit { get; private set; }
 
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
