@@ -24,7 +24,8 @@ namespace Omniverse
 
 		public void FixedTick()
 		{
-			Transform playerUnitTransform = Player.Unit.Presenter.Hitbox.transform;
+			Unit unit = Player.Unit;
+			Transform playerUnitTransform = unit.Presenter.Hitbox.transform;
 
 			int count = Physics.OverlapSphereNonAlloc(playerUnitTransform.position, Settings.Radius, Colliders,
 				Settings.LayerMask,
@@ -46,12 +47,12 @@ namespace Omniverse
 					continue;
 				}
 
-				if (currencyItem.CanBeConsumed() is false)
+				if (currencyItem.CanBeConsumed(unit) is false)
 				{
 					continue;
 				}
 
-				ItemManager.Consume(currencyItem, Player.Unit);
+				ItemManager.Consume(currencyItem, unit);
 			}
 		}
 	}

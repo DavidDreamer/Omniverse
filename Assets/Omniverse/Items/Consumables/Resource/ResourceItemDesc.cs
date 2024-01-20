@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	// [Serializable]
-	// public class ResourceItemDesc: ItemDesc
-	// {
-	// 	[field: SerializeField]
-	// 	[field: Resource]
-	// 	private int ResourceID { get; set; }
-	// 	
-	// 	[field: SerializeField]
-	// 	private int Amount { get; set; }
-	// }
+	[Serializable]
+	public class ResourceItemDesc: ConsumableItemDesc
+	{
+		[field: SerializeField]
+		[field: Resource]
+		public int ResourceID { get; private set; }
+
+		[field: SerializeField]
+		public int Amount { get; private set; }
+	}
 }

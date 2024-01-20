@@ -1,8 +1,8 @@
 namespace Omniverse
 {
-	public interface IConsumableItem
+	public interface IConsumableItem: IItem
 	{
-		bool CanBeConsumed();
+		bool CanBeConsumed(Unit unit);
 
 		void OnConsumed(Unit unit);
 	}
@@ -14,7 +14,7 @@ namespace Omniverse
 		{
 		}
 		
-		public abstract bool CanBeConsumed();
+		public abstract bool CanBeConsumed(Unit unit);
 
 		public abstract void OnConsumed(Unit unit);
 	}

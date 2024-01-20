@@ -12,7 +12,7 @@ namespace Omniverse
 		{
 		}
 		
-		public override bool CanBeConsumed() => true;
+		public override bool CanBeConsumed(Unit unit) => true;
 
 		public override void OnConsumed(Unit unit)
 		{

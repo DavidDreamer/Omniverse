@@ -27,6 +27,7 @@ namespace Omniverse
 		public void Consume(IConsumableItem item, Unit unit)
 		{
 			item.OnConsumed(unit);
+			Object.Destroy(item.Presenter.gameObject);
 		}
 	}
 }
