@@ -7,7 +7,7 @@ namespace Omniverse
 	public class CurrencyItemDesc: ConsumableItemDesc
 	{
 		[field: SerializeField]
-		[field: Resource]
+		[field: Currency]
 		public int CurrencyID { get; private set; }
 		
 		[field: SerializeField]
