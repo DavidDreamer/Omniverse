@@ -83,7 +83,10 @@ namespace Omniverse
 
 		public void Tick()
 		{
-			NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
+			if (NavMeshAgent != null)
+			{
+				NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
+			}
 		}
 		
 		public void AddForce(Vector3 force)
