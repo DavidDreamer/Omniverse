@@ -95,11 +95,22 @@ namespace Omniverse
 		public virtual void OnDeath()
 		{
 			Hitbox.enabled = false;
-			Animator.enabled = false;
-			NavMeshAgent.enabled = false;
 
-			Ragdoll.Enable(true);
-			
+			if (Animator != null)
+			{
+				Animator.enabled = false;
+			}
+
+			if (NavMeshAgent.enabled)
+			{
+				NavMeshAgent.enabled = false;
+			}
+
+			if (Ragdoll != null)
+			{
+				Ragdoll.Enable(true);
+			}
+
 			if (DeathHandlers != null)
 			{
 				foreach (IDeathHandler deathHandler in DeathHandlers)
