@@ -49,7 +49,7 @@ namespace Omniverse
 
 		public void Despawn(Unit unit)
 		{
-			PrefabPool.Return(unit.Desc.Presentation.Prefab, unit.Presenter);
+			PrefabPool.Return(unit.Presenter);
 			Units.Remove(unit);
 		}
 
@@ -97,7 +97,7 @@ namespace Omniverse
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
 			await UniTask.Delay(TimeSpan.FromSeconds(unit.Presenter.DespawnDelay), cancellationToken: token);
-			PrefabPool.Return(unit.Desc.Presentation.Prefab, unit.Presenter);
+			PrefabPool.Return(unit.Presenter);
 		}
 		
 		private void DropLoot(Unit unit)

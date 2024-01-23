@@ -30,7 +30,7 @@ namespace Omniverse
 			return CreateInstance(prefab);
 		}
 
-		public T Take<T>(T prefab) where T : MonoBehaviour, IPoolObject
+		public T Take<T>(T prefab) where T : MonoBehaviour, IPoolObject<T>
 		{
 			GameObject gameObject = Take(prefab.gameObject);
 			return gameObject.GetComponent<T>();
@@ -49,10 +49,10 @@ namespace Omniverse
 			Items[prefab].Push(instance);
 		}
 
-		public void Return<T>(T prefab, T instance) where T : MonoBehaviour, IPoolObject
+		public void Return<T>(T instance) where T : MonoBehaviour, IPoolObject<T>
 		{
 			instance.Cleanup();
-			Return(prefab.gameObject, instance.gameObject);
+			Return(instance.Prefab.gameObject, instance.gameObject);
 		}
 	}
 }

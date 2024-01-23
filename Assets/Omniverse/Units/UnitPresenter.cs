@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Omniverse
 {
-	public class UnitPresenter: MonoBehaviour, IPoolObject
+	public class UnitPresenter: MonoBehaviour, IPoolObject<UnitPresenter>
 	{
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
@@ -34,6 +34,8 @@ namespace Omniverse
 		[field: SerializeField]
 		public float DespawnDelay { get; private set; }
 		
+		public UnitPresenter Prefab { get; set; }
+
 		public Unit Unit { get; private set; }
 
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
