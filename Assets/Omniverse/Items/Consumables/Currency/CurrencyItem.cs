@@ -3,7 +3,7 @@ using Object = UnityEngine.Object;
 
 namespace Omniverse
 {
-	public class CurrencyItem: ConsumableItem<CurrencyItemDesc>
+	public class CurrencyItem: Item<CurrencyItemDesc>, IConsumableItem
 	{
 		[Inject]
 		private FactionManager FactionManager { get; set; }
@@ -12,9 +12,9 @@ namespace Omniverse
 		{
 		}
 		
-		public override bool CanBeConsumed(Unit unit) => true;
+		public bool CanBeConsumed(Unit unit) => true;
 
-		public override void OnConsumed(Unit unit)
+		public void OnConsumed(Unit unit)
 		{
 			Faction faction = FactionManager.Factions[unit.FactionID];
 			faction.ChangeCurrency(Desc.CurrencyID, Desc.Amount);

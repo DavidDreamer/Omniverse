@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Omniverse
 {
 	[CreateAssetMenu]
-	public class CurrencyItemDesc: ConsumableItemDesc
+	public class CurrencyItemDesc: ItemDesc
 	{
 		[field: SerializeField]
 		[field: Currency]

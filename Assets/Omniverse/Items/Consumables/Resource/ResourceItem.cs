@@ -1,12 +1,12 @@
 namespace Omniverse
 {
-	public class ResourceItem: ConsumableItem<ResourceItemDesc>
+	public class ResourceItem: Item<ResourceItemDesc>, IConsumableItem
 	{
 		public ResourceItem(ResourceItemDesc desc): base(desc)
 		{
 		}
 
-		public override bool CanBeConsumed(Unit unit)
+		public bool CanBeConsumed(Unit unit)
 		{
 			if (unit.Resources.TryGetValue(Desc.ResourceID, out Resource resource) is false)
 			{
@@ -21,7 +21,7 @@ namespace Omniverse
 			return true;
 		}
 
-		public override void OnConsumed(Unit unit)
+		public void OnConsumed(Unit unit)
 		{
 			Resource resource = unit.Resources[Desc.ResourceID];
 			resource.Change(Desc.Amount);
