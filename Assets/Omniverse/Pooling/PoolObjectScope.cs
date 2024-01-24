@@ -7,7 +7,7 @@ namespace Omniverse
 	{
 		private PrefabPool<T> Pool { get; }
 	
-		private T Instance { get; }
+		public T Instance { get; }
 	
 		public PoolObjectScope(PrefabPool<T> pool, T prefab)
 		{
