@@ -6,53 +6,46 @@ using VContainer.Unity;
 namespace Omniverse
 {
 	[UnityEngine.Scripting.Preserve]
-	public class PrefabPool
+	public class PrefabPool<T> where T: MonoBehaviour, IPoolObject
 	{
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
-		private Dictionary<GameObject, Stack<GameObject>> Items { get; } = new();
+		private Dictionary<T, Stack<T>> Items { get; } = new();
 
-		public GameObject Take(GameObject prefab)
+		private Dictionary<T, T> InstancePrefabPairs { get; } = new();
+		
+		public T Take(T prefab)
 		{
 			if (!Items.ContainsKey(prefab))
 			{
-				Items.Add(prefab, new Stack<GameObject>());
+				Items.Add(prefab, new Stack<T>());
 			}
 
 			if (Items[prefab].Count > 0)
 			{
-				GameObject instance = Items[prefab].Pop();
-				instance.SetActive(true);
+				T instance = Items[prefab].Pop();
+				instance.gameObject.SetActive(true);
 				return instance;
 			}
 
 			return CreateInstance(prefab);
 		}
 
-		public T Take<T>(T prefab) where T : MonoBehaviour, IPoolObject<T>
+		private T CreateInstance(T prefab)
 		{
-			GameObject gameObject = Take(prefab.gameObject);
-			return gameObject.GetComponent<T>();
-		}
-
-		private GameObject CreateInstance(GameObject prefab)
-		{
-			GameObject instance = Object.Instantiate(prefab);
-			ObjectResolver.InjectGameObject(instance);
+			T instance = Object.Instantiate(prefab);
+			ObjectResolver.InjectGameObject(instance.gameObject);
+			InstancePrefabPairs.Add(instance, prefab);
 			return instance;
 		}
 		
-		public void Return(GameObject prefab, GameObject instance)
-		{
-			instance.SetActive(false);
-			Items[prefab].Push(instance);
-		}
-
-		public void Return<T>(T instance) where T : MonoBehaviour, IPoolObject<T>
+		public void Return(T instance)
 		{
 			instance.Cleanup();
-			Return(instance.Prefab.gameObject, instance.gameObject);
+			instance.gameObject.SetActive(false);
+			T prefab = InstancePrefabPairs[instance];
+			Items[prefab].Push(instance);
 		}
 	}
 }

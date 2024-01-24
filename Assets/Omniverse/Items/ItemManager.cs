@@ -7,10 +7,8 @@ namespace Omniverse
 	[UnityEngine.Scripting.Preserve]
 	public class ItemManager
 	{
-		//private List<Item> Items { get; } = new();
-		
 		[Inject]
-		private PrefabPool PrefabPool { get; set; }
+		private PrefabPool<ItemPresenter> PrefabPool { get; set; }
 		
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }

@@ -12,7 +12,7 @@ namespace Omniverse
 	[UnityEngine.Scripting.Preserve]
 	public class UnitManager: IFixedTickable, IPostFixedTickable, ITickable, IDisposable
 	{
-		private PrefabPool PrefabPool { get; }
+		private PrefabPool<UnitPresenter> PrefabPool { get; }
 
 		private ItemManager ItemManager { get; }
 
@@ -20,7 +20,7 @@ namespace Omniverse
 
 		private CancellationTokenSource CancellationTokenSource { get; } = new();
 		
-		public UnitManager(PrefabPool prefabPool, ItemManager itemManager)
+		public UnitManager(PrefabPool<UnitPresenter> prefabPool, ItemManager itemManager)
 		{
 			PrefabPool = prefabPool;
 			ItemManager = itemManager;

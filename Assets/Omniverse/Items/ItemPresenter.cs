@@ -2,11 +2,9 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class ItemPresenter: MonoBehaviour, IPoolObject<ItemPresenter>
+	public class ItemPresenter: MonoBehaviour, IPoolObject
 	{
 		public IItem Item { get; set; }
-
-		public ItemPresenter Prefab { get; set; }
 
 		public virtual void Cleanup()
 		{

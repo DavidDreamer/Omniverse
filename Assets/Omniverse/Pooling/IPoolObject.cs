@@ -1,9 +1,7 @@
 ﻿namespace Omniverse
 {
-	public interface IPoolObject<T>
+	public interface IPoolObject
 	{
-		T Prefab { get; set; }
-		
 		void Cleanup();
 	}
 }

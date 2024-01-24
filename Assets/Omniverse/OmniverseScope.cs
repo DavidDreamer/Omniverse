@@ -8,7 +8,9 @@ namespace Omniverse
 	{
 		protected override void Configure(IContainerBuilder builder)
 		{
-			builder.Register<PrefabPool>(Lifetime.Singleton);
+			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
+			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
+			
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GlobalSettings.Instance.Factions.ToList());
 			builder.RegisterEntryPoint<ItemManager>().AsSelf();
 			builder.RegisterEntryPoint<UnitManager>().AsSelf();
