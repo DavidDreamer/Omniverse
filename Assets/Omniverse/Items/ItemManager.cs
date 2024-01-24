@@ -13,7 +13,7 @@ namespace Omniverse
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
-		public void Spawn(ItemDesc desc, Vector3 position, Quaternion rotation, Transform parent)
+		public void Spawn(ItemDesc desc, Vector3 position, Quaternion rotation)
 		{
 			IItem item = desc.Build();
 			ObjectResolver.Inject(item);
@@ -21,7 +21,6 @@ namespace Omniverse
 			ItemPresenter presenter = PrefabPool.Take(desc.Prefab);
 			Transform transform = presenter.transform;
 			transform.SetPositionAndRotation(position, rotation);
-			transform.SetParent(parent);
 			
 			presenter.Item = item;
 			item.Presenter = presenter;

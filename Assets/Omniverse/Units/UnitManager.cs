@@ -111,7 +111,7 @@ namespace Omniverse
 					continue;
 				}
 
-				ItemManager.Spawn(loot.Item, unit.Presenter.transform.position, Quaternion.identity, null);
+				ItemManager.Spawn(loot.Item, unit.Presenter.transform.position, Quaternion.identity);
 			}
 		}
 

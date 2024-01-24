@@ -1,5 +1,4 @@
 using VContainer;
-using Object = UnityEngine.Object;
 
 namespace Omniverse
 {
@@ -18,8 +17,6 @@ namespace Omniverse
 		{
 			Faction faction = FactionManager.Factions[unit.FactionID];
 			faction.ChangeCurrency(Desc.CurrencyID, Desc.Amount);
-
-			Object.Destroy(Presenter.gameObject);
 		}
 	}
 }
