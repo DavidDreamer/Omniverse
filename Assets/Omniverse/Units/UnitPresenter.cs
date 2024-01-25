@@ -29,6 +29,10 @@ namespace Omniverse
 
 		[field: SerializeField]
 		[field: HideInInspector]
+		public MeshFilter[] MeshFilters { get; private set; }
+		
+		[field: SerializeField]
+		[field: HideInInspector]
 		private IDeathHandler[] DeathHandlers { get; set; }
 
 		[field: SerializeField]
@@ -41,6 +45,7 @@ namespace Omniverse
 		private void OnValidate()
 		{
 			Renderers = GetComponentsInChildren<Renderer>(true);
+			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
 			DeathHandlers = GetComponentsInChildren<IDeathHandler>();
 		}
 
