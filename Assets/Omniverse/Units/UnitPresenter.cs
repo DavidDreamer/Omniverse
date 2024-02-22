@@ -82,7 +82,7 @@ namespace Omniverse
 
 			if (Ragdoll != null)
 			{
-				Ragdoll.Enable(true);
+				Ragdoll.Enable(false);
 			}
 		}
 
