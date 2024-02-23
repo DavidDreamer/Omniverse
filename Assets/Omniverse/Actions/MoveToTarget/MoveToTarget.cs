@@ -30,20 +30,20 @@ namespace Omniverse.Actions
 
 			Vector3 startPosition = transform.position;
 
-			float duration = projectileTrajectory.Parameters.Time;
-			float time = 0f;
+			float time = projectileTrajectory.Parameters.Time;
+			float currentTime = 0f;
 
-			while (time < duration)
+			while (currentTime < time)
 			{
 				await UniTask.NextFrame(token);
 
-				time = Mathf.MoveTowards(time, duration, Time.deltaTime * Desc.Speed);
+				currentTime = Mathf.MoveTowards(currentTime, time, Time.deltaTime * Desc.Speed);
+				float currentFactor = currentTime / time;
+				Vector3 currentPosition = projectileTrajectory.EvaluatePosition(currentFactor);
 
-				transform.position = projectileTrajectory.EvaluatePosition(time / duration);
+				unitPresenter.NavMeshAgent.nextPosition = currentPosition;
 			}
 
-			unitPresenter.NavMeshAgent.SetDestination(transform.position);
-			
 			context.Caster.Locked = false;
 
 			float deltaHeight = startPosition.y - targetPosition.y;
