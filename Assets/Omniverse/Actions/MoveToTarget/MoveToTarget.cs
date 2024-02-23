@@ -28,8 +28,6 @@ namespace Omniverse.Actions
 
 			context.Caster.Locked = true;
 
-			unitPresenter.NavMeshAgent.updatePosition = false;
-
 			Vector3 startPosition = transform.position;
 
 			float duration = projectileTrajectory.Parameters.Time;
@@ -44,8 +42,8 @@ namespace Omniverse.Actions
 				transform.position = projectileTrajectory.EvaluatePosition(time / duration);
 			}
 
-			unitPresenter.NavMeshAgent.updatePosition = true;
-
+			unitPresenter.NavMeshAgent.SetDestination(transform.position);
+			
 			context.Caster.Locked = false;
 
 			float deltaHeight = startPosition.y - targetPosition.y;
