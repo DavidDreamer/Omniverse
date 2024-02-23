@@ -41,9 +41,11 @@ namespace Omniverse.Actions
 				float currentFactor = currentTime / time;
 				Vector3 currentPosition = projectileTrajectory.EvaluatePosition(currentFactor);
 
-				unitPresenter.NavMeshAgent.nextPosition = currentPosition;
+				transform.position = currentPosition;
 			}
 
+			unitPresenter.NavMeshAgent.Warp(transform.position);
+			
 			context.Caster.Locked = false;
 
 			float deltaHeight = startPosition.y - targetPosition.y;
