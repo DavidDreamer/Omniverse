@@ -1,12 +1,14 @@
 ﻿using System.Linq;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse
 {
-	public class OmniverseScope: LifetimeScope
+    [CreateAssetMenu]
+	public class OmniverseInstaller: ScriptableObject, IInstaller
 	{
-		protected override void Configure(IContainerBuilder builder)
+		public void Install(IContainerBuilder builder)
 		{
 			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
