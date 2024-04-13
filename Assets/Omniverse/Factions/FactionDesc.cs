@@ -8,5 +8,8 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public string Name { get; private set; }
+		
+		[field: SerializeField]
+		public Color Color { get; private set; }
 	}
 }
