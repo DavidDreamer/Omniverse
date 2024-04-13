@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	[CreateAssetMenu]
+	[CreateAssetMenu(menuName = "Omniverse/Misc/Collector Settings")]
 	public class CollectorSettings: ScriptableObject
 	{
 		[field: SerializeField]

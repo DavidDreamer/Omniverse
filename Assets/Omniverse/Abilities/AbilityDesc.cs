@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Omniverse.Abilities
 {
-	[CreateAssetMenu(menuName = nameof(Omniverse) + "/" + nameof(AbilityDesc), fileName = nameof(AbilityDesc))]
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Ability")]
 	public class AbilityDesc: ScriptableObject
 	{
 		[field: SerializeField]

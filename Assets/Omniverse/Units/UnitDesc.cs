@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	[CreateAssetMenu(menuName = nameof(Omniverse) + "/" + nameof(UnitDesc), fileName = nameof(UnitDesc))]
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Unit", fileName = nameof(UnitDesc))]
 	public class UnitDesc: ScriptableObject
 	{
 		[field: SerializeField]

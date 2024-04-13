@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Omniverse
 {
-    [CreateAssetMenu]
+	[CreateAssetMenu(menuName = "Omniverse/Misc/Installer")]
 	public class OmniverseInstaller: ScriptableObject, IInstaller
 	{
 		public void Install(IContainerBuilder builder)

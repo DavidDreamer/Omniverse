@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	[CreateAssetMenu]
+	[CreateAssetMenu(menuName = "Omniverse/Misc/Projectile")]
 	public class Projectile: ScriptableObject
 	{
 		[field: SerializeField]

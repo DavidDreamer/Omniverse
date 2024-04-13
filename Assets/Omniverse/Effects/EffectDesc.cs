@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	[CreateAssetMenu(menuName = nameof(Omniverse) + "/" + nameof(EffectDesc), fileName = nameof(EffectDesc))]
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Effect")]
 	public class EffectDesc: ScriptableObject
 	{
 		[field: SerializeField]

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	[CreateAssetMenu]
+	[CreateAssetMenu(menuName = "Omniverse/Misc/Global Settings")]
 	public class GlobalSettings: PreloadedScriptableObject<GlobalSettings>
 	{
 		[field: SerializeField]
