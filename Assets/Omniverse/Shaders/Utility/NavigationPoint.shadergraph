@@ -8,9 +8,6 @@
         },
         {
             "m_Id": "e5260ef368ca46d4abe87549ff855234"
-        },
-        {
-            "m_Id": "441fdfdc3485461fbc8a90dd0bf091b0"
         }
     ],
     "m_Keywords": [],
@@ -527,29 +524,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.BooleanShaderProperty",
-    "m_ObjectId": "441fdfdc3485461fbc8a90dd0bf091b0",
-    "m_Guid": {
-        "m_GuidSerialized": "c49ba8fd-0a01-4d79-b144-b7bb2f0b40c1"
-    },
-    "m_Name": "Invert",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Invert",
-    "m_DefaultReferenceName": "_Invert",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": false
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "4d47ec58eb8444658dafcd6dc4010321",
     "m_Group": {
@@ -593,9 +567,6 @@
         },
         {
             "m_Id": "e5260ef368ca46d4abe87549ff855234"
-        },
-        {
-            "m_Id": "441fdfdc3485461fbc8a90dd0bf091b0"
         }
     ]
 }
