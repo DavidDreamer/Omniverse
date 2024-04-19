@@ -24,8 +24,9 @@ MonoBehaviour:
     <Capacity>k__BackingField: 10
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
-  <Stats>k__BackingField:
-    <MovementSpeed>k__BackingField: 10
-    <AngularSpeed>k__BackingField: 0
+  - <Tag>k__BackingField: {fileID: 11400000, guid: 03fa21da1c238924681319be8d97aa74, type: 2}
+    <Capacity>k__BackingField: 500
+    <Regeneration>k__BackingField: 0
+    <Vital>k__BackingField: 0
   <Abilities>k__BackingField: []
   <Loot>k__BackingField: []

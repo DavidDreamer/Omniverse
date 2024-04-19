@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640780f180c9458b829b8785353b40fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MovementSpeedProperty>k__BackingField: {fileID: 11400000, guid: 37ffe26b80b264d48915ed57748d7498, type: 2}
+  <RotationSpeedProperty>k__BackingField: {fileID: 11400000, guid: 03fa21da1c238924681319be8d97aa74, type: 2}
   <NavMeshAgent>k__BackingField: {fileID: -2109561056999165210}
   <Animator>k__BackingField: {fileID: 0}
   <Hitbox>k__BackingField: {fileID: 0}

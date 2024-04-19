@@ -9,6 +9,12 @@ namespace Omniverse
 	public class UnitPresenter: MonoBehaviour, IPoolObject
 	{
 		[field: SerializeField]
+		private PropertyTag MovementSpeedProperty { get; set; }
+		
+		[field: SerializeField]
+		private PropertyTag RotationSpeedProperty { get; set; }
+		
+		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
 
 		[field: SerializeField]
@@ -61,7 +67,15 @@ namespace Omniverse
 
 			if (NavMeshAgent != null)
 			{
-				NavMeshAgent.speed = Unit.Desc.Stats.MovementSpeed;
+				if (unit.Properties.TryGetValue(MovementSpeedProperty, out Property property))
+				{
+					NavMeshAgent.speed = property.Amount.Value;
+				}
+				
+				if (unit.Properties.TryGetValue(RotationSpeedProperty, out Property rotationSpeedProperty))
+				{
+					NavMeshAgent.angularSpeed = rotationSpeedProperty.Amount.Value;
+				}
 			}
 		}
 
@@ -162,12 +176,12 @@ namespace Omniverse
 				}
 				else
 				{
-					float delta = Unit.Desc.Stats.AngularSpeed * Time.deltaTime;
+					float delta = NavMeshAgent.angularSpeed * Time.deltaTime;
 					transform.forward = Vector3.RotateTowards(transform.forward, direction, delta, 1f);
 				}
 			}
 
-			Vector3 velocity = direction * Unit.Desc.Stats.MovementSpeed * Time.deltaTime;
+			Vector3 velocity = direction * NavMeshAgent.speed * Time.deltaTime;
 			Vector3 nextPosition = transform.position + velocity;
 
 			if (NavMesh.SamplePosition(nextPosition, out NavMeshHit hit, NavMeshAgent.height * 2, 1))
