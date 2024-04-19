@@ -38,6 +38,12 @@ namespace Omniverse
 		[field: SerializeField]
 		public float DespawnDelay { get; private set; }
 		
+		[field: SerializeField]
+		public GameObject Selection { get; set; }
+		
+		[field: SerializeField]
+		public GameObject Focus { get; set; }
+		
 		public Unit Unit { get; private set; }
 
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
