@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74aa2dd42114b07bc4f31701e6495c0, type: 3}
+  m_Name: Unit Controller Config
+  m_EditorClassIdentifier: 
+  <NavigationPointPrefab>k__BackingField: {fileID: 5909453928696323226, guid: 6928110548ccc8747a79d4c20eba8f70,
+    type: 3}
+  <NavigationPointDuration>k__BackingField: 0.5
+  <MaximumNavigationPoints>k__BackingField: 5

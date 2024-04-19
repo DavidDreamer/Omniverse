@@ -34,6 +34,24 @@
       },
       "hash": "1c8665bde1f45d051a9f86f2ec63a5b15bbeaaef"
     },
+    "com.david-dreamer.dreambox.rendering.core": {
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+      },
+      "hash": "446f4361ecb1ba5d65a1cc3f95b771867bc38676"
+    },
+    "com.david-dreamer.dreambox.rendering.urp": {
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/URP",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.10"
+      },
+      "hash": "446f4361ecb1ba5d65a1cc3f95b771867bc38676"
+    },
     "com.david-dreamer.dreambox.ui": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",
       "depth": 0,
@@ -278,9 +296,18 @@
     },
     "com.unity.modules.terrain": {
       "version": "1.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "builtin",
       "dependencies": {}
+    },
+    "com.unity.modules.terrainphysics": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0"
+      }
     },
     "com.unity.modules.ui": {
       "version": "1.0.0",
