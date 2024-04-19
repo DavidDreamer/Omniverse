@@ -41,9 +41,9 @@ namespace Omniverse.Camera
 
 				AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
 
-				foreach (var pair in UnitSelector.SelectedUnits)
+				foreach (Unit unit in UnitSelector.SelectedUnits)
 				{
-					pair.Key.Presenter.NavMeshAgent.destination = position;
+					unit.Presenter.NavMeshAgent.destination = position;
 				}
 			}
 		}

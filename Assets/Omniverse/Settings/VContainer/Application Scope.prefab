@@ -48,9 +48,6 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  <OmniverseInstaller>k__BackingField: {fileID: 11400000, guid: ca47d808eb8c9f3479788eef6023b399,
-    type: 2}
-  <UnitSelectorConfig>k__BackingField: {fileID: 11400000, guid: aca95694849f74749807e2a6832c38ee,
-    type: 2}
-  <UnitControllerConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438,
-    type: 2}
+  <OmniverseInstaller>k__BackingField: {fileID: 11400000, guid: ca47d808eb8c9f3479788eef6023b399, type: 2}
+  <UnitSelectorConfig>k__BackingField: {fileID: 11400000, guid: aca95694849f74749807e2a6832c38ee, type: 2}
+  <UnitControllerConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438, type: 2}
