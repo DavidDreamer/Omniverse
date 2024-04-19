@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class ChangeResource: Action<ChangeResourceDesc>
+	public class ChangeProperty: Action<ChangePropertyDesc>
 	{
-		public ChangeResource(ChangeResourceDesc desc): base(desc)
+		public ChangeProperty(ChangePropertyDesc desc): base(desc)
 		{
 		}
 
@@ -15,9 +15,9 @@ namespace Omniverse.Actions
 		{
 			foreach (Unit unit in context.Units)
 			{
-				var data = new ChangeResourceData
+				var data = new ChangePropertyData
 				{
-					ResourceID = Desc.ResourceID,
+					Tag = Desc.PropertyTag,
 					Source = context.Caster,
 					Amount = Desc.Amount
 				};

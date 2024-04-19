@@ -11,9 +11,6 @@ namespace Omniverse
 		
 		[field: SerializeField]
 		public FactionDesc[] Factions { get; private set; }
-
-		[field: SerializeField]
-		public string[] Resources { get; private set; }
 		
 		[field: Header("Physics")]
 		[field: Layer]

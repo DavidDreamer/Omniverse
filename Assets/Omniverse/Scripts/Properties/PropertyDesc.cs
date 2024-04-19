@@ -4,11 +4,10 @@ using UnityEngine;
 namespace Omniverse
 {
 	[Serializable]
-	public class ResourceDesc
+	public class PropertyDesc
 	{
 		[field: SerializeField]
-		[field: Resource]
-		public int ID { get; private set; }
+		public PropertyTag Tag { get; private set; }
 
 		[field: SerializeField]
 		public float Capacity { get; private set; }

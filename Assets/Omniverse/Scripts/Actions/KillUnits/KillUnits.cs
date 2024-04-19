@@ -14,17 +14,7 @@ namespace Omniverse.Actions
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO: insta kill
-			var data = new ChangeResourceData
-			{
-				ResourceID = 0,
-				Amount = 1000
-			};
-				
-			foreach (Unit unit in context.Units)
-			{
-				unit.ChangeResource(data);
-			}
-	
+
 			return UniTask.CompletedTask;
 		}
 	}

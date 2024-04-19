@@ -10,7 +10,7 @@ namespace Omniverse
 			return itemDesc switch
 			{
 				CurrencyItemDesc desc => new CurrencyItem(desc),
-				ResourceItemDesc desc => new ResourceItem(desc),
+				PropertyItemDesc desc => new PropertyItem(desc),
 				_ => throw new ArgumentOutOfRangeException(nameof(itemDesc))
 			};
 		}

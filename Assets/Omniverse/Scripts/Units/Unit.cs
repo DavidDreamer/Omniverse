@@ -13,7 +13,7 @@ namespace Omniverse
 
 		public int FactionID { get; set; }
 
-		public Dictionary<int, Resource> Resources { get; }
+		public Dictionary<PropertyTag, Property> Properties { get; }
 
 		public List<Ability> Abilities { get; } = new();
 
@@ -36,10 +36,10 @@ namespace Omniverse
 			Desc = desc;
 			FactionID = factionID;
 			
-			Resources = new Dictionary<int, Resource>();
-			foreach (ResourceDesc resourceDesc in Desc.Resources)
+			Properties = new Dictionary<PropertyTag, Property>();
+			foreach (PropertyDesc resourceDesc in Desc.Properties)
 			{
-				Resources.Add(resourceDesc.ID, new Resource(resourceDesc));
+				Properties.Add(resourceDesc.Tag, new Property(resourceDesc));
 			}
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
@@ -51,7 +51,7 @@ namespace Omniverse
 
 		public void FixedTick()
 		{
-			foreach (var resource in Resources)
+			foreach (var resource in Properties)
 			{
 				resource.Value.FixedTick();
 			}
@@ -95,9 +95,9 @@ namespace Omniverse
 			}
 		}
 
-		public void ChangeResource(ChangeResourceData data)
+		public void ChangeResource(ChangePropertyData data)
 		{
-			Resource resource = Resources[data.ResourceID];
+			Property resource = Properties[data.Tag];
 
 			resource.Change(data.Amount);
 		}

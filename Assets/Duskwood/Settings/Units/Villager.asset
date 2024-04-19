@@ -15,7 +15,15 @@ MonoBehaviour:
   <Presentation>k__BackingField:
     <Prefab>k__BackingField: {fileID: 6729940977733104255, guid: f8479afb9cbf9e64390582a26e1a1e0f, type: 3}
     <Icon>k__BackingField: {fileID: 0}
-  <Resources>k__BackingField: []
+  <Properties>k__BackingField:
+  - <Tag>k__BackingField: {fileID: 11400000, guid: 078464ef9808b7440ad089f85f9d4b75, type: 2}
+    <Capacity>k__BackingField: 100
+    <Regeneration>k__BackingField: 0
+    <Vital>k__BackingField: 1
+  - <Tag>k__BackingField: {fileID: 11400000, guid: 37ffe26b80b264d48915ed57748d7498, type: 2}
+    <Capacity>k__BackingField: 10
+    <Regeneration>k__BackingField: 0
+    <Vital>k__BackingField: 0
   <Stats>k__BackingField:
     <MovementSpeed>k__BackingField: 10
     <AngularSpeed>k__BackingField: 0

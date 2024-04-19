@@ -12,7 +12,7 @@ namespace Omniverse.Actions
 				AnimationTriggerDesc desc => new AnimationTrigger(desc),
 				ApplyEffectDesc desc => new ApplyEffect(desc),
 				ApplyForceDesc desc => new ApplyForce(desc),
-				ChangeResourceDesc desc => new ChangeResource(desc),
+				ChangePropertyDesc desc => new ChangeProperty(desc),
 				ClearUnitsDesc desc => new ClearUnits(desc),
 				CollectUnitTargetsFromSectorDesc desc => new CollectUnitTargetsFromSector(desc),
 				CollectUnitTargetsFromSphereDesc desc => new CollectUnitTargetsFromSphere(desc),

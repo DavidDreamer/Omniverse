@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class Resource
+	public class Property
 	{
 		public AsyncReactiveProperty<float> Capacity { get; }
 		
@@ -17,7 +17,7 @@ namespace Omniverse
 
 		public bool OutOf => Amount.Value == 0;
 		
-		public Resource(ResourceDesc desc)
+		public Property(PropertyDesc desc)
 		{
 			Capacity = new AsyncReactiveProperty<float>(desc.Capacity);
 			Amount = new AsyncReactiveProperty<float>(desc.Capacity);

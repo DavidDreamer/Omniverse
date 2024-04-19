@@ -11,7 +11,7 @@ namespace Omniverse
 		public Presentation Presentation { get; private set; }
 
 		[field: SerializeField]
-		public List<ResourceDesc> Resources { get; private set; }
+		public List<PropertyDesc> Properties { get; private set; }
 
 		[field: SerializeField]
 		public CharacterStats Stats { get; private set; }

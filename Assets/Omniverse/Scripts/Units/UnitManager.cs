@@ -82,7 +82,7 @@ namespace Omniverse
 					return false;
 				}
 				
-				return unit.Resources.Values.Any(resource => resource.Vital && resource.OutOf);
+				return unit.Properties.Values.Any(resource => resource.Vital && resource.OutOf);
 			}
 		}
 

@@ -1,8 +1,8 @@
 ﻿namespace Omniverse
 {
-	public struct ChangeResourceData
+	public struct ChangePropertyData
 	{
-		public int ResourceID { get; set; }
+		public PropertyTag Tag { get; set; }
 
 		public Unit Source { get; set; }
 

@@ -47,18 +47,6 @@ namespace Omniverse.Actions
 			unitPresenter.NavMeshAgent.Warp(transform.position);
 			
 			context.Caster.Locked = false;
-
-			float deltaHeight = startPosition.y - targetPosition.y;
-			if (deltaHeight >= Desc.LethalHeight)
-			{
-				var damage = new ChangeResourceData
-				{
-					ResourceID = 0,
-					Amount = -1
-				};
-
-				context.Caster.ChangeResource(damage);
-			}
 		}
 	}
 }

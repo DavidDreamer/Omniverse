@@ -4,11 +4,10 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class ChangeResourceDesc: IActionDesc
+	public class ChangePropertyDesc: IActionDesc
 	{
 		[field: SerializeField]
-		[field: Resource]
-		public int ResourceID { get; private set; }
+		public PropertyTag PropertyTag { get; private set; }
 
 		[field: SerializeField]
 		public int Amount { get; private set; }
