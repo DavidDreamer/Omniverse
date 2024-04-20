@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 77597338}
   - component: {fileID: 77597337}
   m_Layer: 0
-  m_Name: MapScope
+  m_Name: GameScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   - {fileID: 1627585134}
   - {fileID: 1471369613}
   - {fileID: 1475823153}
-  <MapSettings>k__BackingField: {fileID: 11400000, guid: ddc732f160381bb40ac14ba20f5ed8c6, type: 2}
+  <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
   <MiniMap>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
 --- !u!4 &77597338
 Transform:

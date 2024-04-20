@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
 	public class CollectUnitTargetsFromSector: CollectUnitTargets<CollectUnitTargetsFromSectorDesc>
 	{
+		[Inject]
+		private PhysicsSettings PhysicsSettings { get; set; }
+		
 		public CollectUnitTargetsFromSector(CollectUnitTargetsFromSectorDesc desc): base(desc)
 		{
 		}
@@ -19,7 +23,7 @@ namespace Omniverse.Actions
 				transform.forward,
 				Desc.Radius,
 				Desc.Angle,
-				GlobalSettings.Instance.HitboxLayerMask);
+				PhysicsSettings.HitboxLayerMask);
 		}
 	}
 }

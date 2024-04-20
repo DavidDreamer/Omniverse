@@ -2,12 +2,16 @@
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
 	public class CollectUnitTargetsFromSphere: CollectUnitTargets<CollectUnitTargetsFromSphereDesc>
 	{
+		[Inject]
+		private PhysicsSettings PhysicsSettings { get; set; }
+		
 		public CollectUnitTargetsFromSphere(CollectUnitTargetsFromSphereDesc desc): base(desc)
 		{
 		}
@@ -15,7 +19,7 @@ namespace Omniverse.Actions
 		public override IEnumerable<Unit> GetUnits(ExecutionContext context)
 		{
 			Vector3 position = context.Points.First();
-			return PhysicsHelper.GetUnitsInSphere(position, Desc.Radius, GlobalSettings.Instance.HitboxLayerMask);
+			return PhysicsHelper.GetUnitsInSphere(position, Desc.Radius, PhysicsSettings.HitboxLayerMask);
 		}
 	}
 }
