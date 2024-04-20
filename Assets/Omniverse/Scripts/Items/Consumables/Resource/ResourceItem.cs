@@ -2,12 +2,12 @@ using VContainer;
 
 namespace Omniverse
 {
-	public class CurrencyItem: Item<CurrencyItemDesc>, IConsumableItem
+	public class ResourceItem: Item<ResourceItemDesc>, IConsumableItem
 	{
 		[Inject]
 		private FactionManager FactionManager { get; set; }
 
-		public CurrencyItem(CurrencyItemDesc desc): base(desc)
+		public ResourceItem(ResourceItemDesc desc): base(desc)
 		{
 		}
 		
@@ -16,7 +16,7 @@ namespace Omniverse
 		public void OnConsumed(Unit unit)
 		{
 			Faction faction = FactionManager.Factions[unit.FactionID];
-			faction.ChangeCurrency(Desc.CurrencyID, Desc.Amount);
+			faction.ChangeCurrency(Desc.Resource, Desc.Amount);
 		}
 	}
 }

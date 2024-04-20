@@ -9,7 +9,7 @@ namespace Omniverse
 		
 		private FactionDesc Desc { get; }
 		
-		public Dictionary<int, AsyncReactiveProperty<int>> Currencies { get; } = new();
+		public Dictionary<ResourceDesc, AsyncReactiveProperty<int>> Resources { get; } = new();
 
 		public Faction(int id, FactionDesc desc)
 		{
@@ -17,14 +17,14 @@ namespace Omniverse
 			Desc = desc;
 		}
 
-		public void ChangeCurrency(int id, int amount)
+		public void ChangeCurrency(ResourceDesc resource, int amount)
 		{
-			if (Currencies.ContainsKey(id) is false)
+			if (Resources.ContainsKey(resource) is false)
 			{
-				Currencies.Add(id, new AsyncReactiveProperty<int>(0));
+				Resources.Add(resource, new AsyncReactiveProperty<int>(0));
 			}
 
-			Currencies[id].Value += amount;
+			Resources[resource].Value += amount;
 		}
 	}
 }
