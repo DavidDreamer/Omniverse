@@ -1,12 +1,12 @@
 {
-    "name": "Omniverse.UI",
-    "rootNamespace": "Omniverse.UI",
+    "name": "Omniverse.Core",
+    "rootNamespace": "Omniverse.Core",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:a800ed0346bedf24b83a8334d9d79077",
-        "GUID:982fb07580c14034db6e6f7e0a2e08f4",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:7900f524ca37ee847a70422f636ab5c5",
+        "GUID:27955ab605692424a85f77ff6cf21d7d",
+        "GUID:b582d1c6099b0904a917f0be28dd1018"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

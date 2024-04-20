@@ -1,0 +1,16 @@
+{
+    "name": "Omniverse.Client",
+    "rootNamespace": "Omniverse.Client",
+    "references": [
+        "GUID:a800ed0346bedf24b83a8334d9d79077"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
