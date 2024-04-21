@@ -18,9 +18,12 @@ namespace Omniverse
 		{
 			builder.RegisterInstance(GameSettings);
 			builder.RegisterInstance(GameSettings.MapSettings);
-			
-			builder.RegisterComponentInNewPrefab(MiniMap, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-			
+
+			if (MiniMap != null)
+			{
+				builder.RegisterComponentInNewPrefab(MiniMap, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+			}
+
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
 		}
 	}
