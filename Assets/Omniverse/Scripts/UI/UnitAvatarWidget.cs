@@ -1,6 +1,7 @@
 using System.Linq;
 using Omniverse.Input;
 using UnityEngine;
+using UnityEngine.UI;
 using VContainer;
 
 namespace Omniverse.UI
@@ -11,6 +12,8 @@ namespace Omniverse.UI
 		public PropertyTag HealthTag;
 		
 		public PropertyBarWidget Health;
+
+		public Image Icon;
 		
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
@@ -20,6 +23,8 @@ namespace Omniverse.UI
 			if (UnitSelector.SelectedUnits.Count > 0)
 			{
 				Unit unit = UnitSelector.SelectedUnits.First();
+
+				Icon.sprite = unit.Desc.Presentation.Icon;
 				
 				if (unit.Properties.TryGetValue(HealthTag, out Property property))
 				{
