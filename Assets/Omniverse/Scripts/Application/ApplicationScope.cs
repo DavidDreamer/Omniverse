@@ -1,5 +1,7 @@
 using Omniverse;
 using Omniverse.Camera;
+using Omniverse.Cameras;
+using Omniverse.Input;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

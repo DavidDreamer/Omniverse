@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Camera
+namespace Omniverse.Input
 {
 	public class UnitController: ITickable
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Camera
+namespace Omniverse.Input
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/UnitControllerConfig")]
 	public class UnitControllerConfig: ScriptableObject

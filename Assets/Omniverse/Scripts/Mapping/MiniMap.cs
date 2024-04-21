@@ -4,7 +4,7 @@ using UnityEngine.Experimental.Rendering;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse
+namespace Omniverse.Mapping
 {
 	public class MiniMap: MonoBehaviour, IInitializable, IDisposable
 	{

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-namespace Omniverse.Camera
+namespace Omniverse.Input
 {
 	public static class NavmeshUtils
 	{

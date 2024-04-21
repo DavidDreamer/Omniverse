@@ -1,7 +1,7 @@
 ﻿using Dreambox.Core;
 using UnityEngine;
 
-namespace Omniverse.Camera
+namespace Omniverse.Cameras
 {
 	[CreateAssetMenu(menuName = "Omniverse/Camera/ControllerConfig")]
 	public class CameraControllerConfig: ScriptableObject

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Omniverse.Camera
+namespace Omniverse.Cameras
 {
 	[Serializable]
 	public class ScreenBordersMovement

@@ -1,0 +1,21 @@
+{
+    "name": "Omniverse.Application",
+    "rootNamespace": "Omniverse.Application",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:a800ed0346bedf24b83a8334d9d79077",
+        "GUID:fa2939490d7ed97459f5d9c24d51f0fc",
+        "GUID:982fb07580c14034db6e6f7e0a2e08f4",
+        "GUID:6d23840a86944564fbcf80ce47c04045",
+        "GUID:7459b32695f670745a3cb48a35e1dbaf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

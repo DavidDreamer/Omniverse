@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
 
-namespace Omniverse.Camera
+namespace Omniverse.Input
 {
 	public class UnitSelector: ITickable
 	{
