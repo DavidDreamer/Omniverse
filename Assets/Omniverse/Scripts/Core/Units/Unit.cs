@@ -33,6 +33,8 @@ namespace Omniverse
 
 		public Unit Target { get; set; }
 		
+		private AttackModule AttackModule { get; set; }
+		
 		public Unit(UnitDesc desc, int factionID)
 		{
 			Desc = desc;
@@ -49,6 +51,8 @@ namespace Omniverse
 				var ability = new Ability(abilityDesc, this);
 				Abilities.Add(ability);
 			}
+
+			AttackModule = new AttackModule(desc.Attack);
 		}
 
 		public void FixedTick()

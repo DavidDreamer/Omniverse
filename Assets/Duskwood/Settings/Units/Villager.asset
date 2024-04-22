@@ -28,13 +28,9 @@ MonoBehaviour:
     <Capacity>k__BackingField: 500
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
-  - <Tag>k__BackingField: {fileID: 11400000, guid: 394e602f8e01c774a8e13f8b7b98e534, type: 2}
-    <Capacity>k__BackingField: 1
-    <Regeneration>k__BackingField: 0
-    <Vital>k__BackingField: 0
-  - <Tag>k__BackingField: {fileID: 11400000, guid: aabb8cf8e12366c4ba8ea70c0c1c318b, type: 2}
-    <Capacity>k__BackingField: 1
-    <Regeneration>k__BackingField: 0
-    <Vital>k__BackingField: 0
+  <Attack>k__BackingField:
+    <Range>k__BackingField: 1
+    <Speed>k__BackingField: 1
+    <Damage>k__BackingField: 1
   <Abilities>k__BackingField: []
   <Loot>k__BackingField: []

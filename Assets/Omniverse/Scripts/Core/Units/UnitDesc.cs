@@ -14,6 +14,9 @@ namespace Omniverse
 		public List<PropertyDesc> Properties { get; private set; }
 		
 		[field: SerializeField]
+		public AttackDesc Attack { get; private set; }
+		
+		[field: SerializeField]
 		public List<AbilityDesc> Abilities { get; private set; }
 		
 		[field: SerializeField]
