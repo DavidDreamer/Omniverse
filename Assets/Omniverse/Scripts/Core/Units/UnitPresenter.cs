@@ -110,6 +110,11 @@ namespace Omniverse
 		{
 			if (NavMeshAgent != null)
 			{
+				if (Unit.Target != null)
+				{
+					NavMeshAgent.destination = Unit.Target.Presenter.transform.position;
+				}
+				
 				NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
 			}
 		}

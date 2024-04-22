@@ -31,6 +31,8 @@ namespace Omniverse
 
 		public UnitStatus Status { get; private set; }
 
+		public Unit Target { get; set; }
+		
 		public Unit(UnitDesc desc, int factionID)
 		{
 			Desc = desc;

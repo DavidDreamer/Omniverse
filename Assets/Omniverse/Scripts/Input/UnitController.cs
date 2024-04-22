@@ -21,19 +21,38 @@ namespace Omniverse.Input
 
 		public void Tick()
 		{
-			if (Mouse.current.rightButton.wasReleasedThisFrame)
-			{
-				ProcessNavigationPoint();
-			}
-		}
-
-		private void ProcessNavigationPoint()
-		{
-			if (UnitSelector.SelectedUnits.Count == 0)
+			if (!Mouse.current.rightButton.wasReleasedThisFrame)
 			{
 				return;
 			}
 			
+			if (UnitSelector.SelectedUnits.Count == 0)
+			{
+				return;
+			}
+
+			Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Mouse.current.position.value);
+
+			if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity))
+			{
+				var unitPresenter = hit.transform.GetComponentInParent<UnitPresenter>();
+
+				if (unitPresenter != null)
+				{
+					foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
+					{
+						selectedUnit.Target = unitPresenter.Unit;
+					}
+
+					return;
+				}
+			}
+			
+			ProcessNavigationPoint();
+		}
+
+		private void ProcessNavigationPoint()
+		{
 			if (NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position))
 			{
 				NavigationPoint navigationPoint =
@@ -43,6 +62,7 @@ namespace Omniverse.Input
 
 				foreach (Unit unit in UnitSelector.SelectedUnits)
 				{
+					unit.Target = null;
 					unit.Presenter.NavMeshAgent.destination = position;
 				}
 			}
