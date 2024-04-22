@@ -21,7 +21,7 @@ MonoBehaviour:
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
   - <Tag>k__BackingField: {fileID: 11400000, guid: 37ffe26b80b264d48915ed57748d7498, type: 2}
-    <Capacity>k__BackingField: 10
+    <Capacity>k__BackingField: 5
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <Tag>k__BackingField: {fileID: 11400000, guid: 03fa21da1c238924681319be8d97aa74, type: 2}
