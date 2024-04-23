@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
-	public class AttackDesc
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Attack")]
+	public class AttackDesc: ScriptableObject
 	{
 		[field: SerializeField]
 		public float Range { get; private set; }

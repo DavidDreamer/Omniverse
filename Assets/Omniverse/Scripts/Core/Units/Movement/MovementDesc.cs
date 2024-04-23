@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	[CreateAssetMenu(menuName = "Omniverse/Decs/Movement")]
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Movement")]
 	public class MovementDesc: ScriptableObject
 	{
 		[field: SerializeField]
