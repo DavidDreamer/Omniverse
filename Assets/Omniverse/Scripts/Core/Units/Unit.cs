@@ -33,7 +33,7 @@ namespace Omniverse
 
 		public Unit Target { get; set; }
 		
-		private AttackModule AttackModule { get; set; }
+		public Attack Attack { get; private set; }
 		
 		public Unit(UnitDesc desc, int factionID)
 		{
@@ -52,7 +52,7 @@ namespace Omniverse
 				Abilities.Add(ability);
 			}
 
-			AttackModule = new AttackModule(desc.Attack);
+			Attack = new Attack(desc.Attack);
 		}
 
 		public void FixedTick()
@@ -63,10 +63,7 @@ namespace Omniverse
 			}
 
 			UpdateEffects(Time.fixedDeltaTime);
-		}
-
-		public void Tick()
-		{
+			
 			if (IsDead)
 			{
 				return;
@@ -76,8 +73,25 @@ namespace Omniverse
 			{
 				return;
 			}
-			
-			Presenter.Tick();
+
+			if (Presenter.NavMeshAgent != null)
+			{
+				if (Target != null)
+				{
+					Presenter.NavMeshAgent.destination = Target.Presenter.transform.position;
+					
+					if (Presenter.NavMeshAgent.remainingDistance <= Attack.Range)
+					{
+						if (Time.time - Attack.lastTime > Attack.Speed)
+						{
+							Presenter.NavMeshAgent.isStopped = true;
+							Attack.Perform(Target);
+						}
+					}
+				}
+			}
+
+			Presenter.FixedTick();
 		}
 
 		private void UpdateEffects(float deltaTime)

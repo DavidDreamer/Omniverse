@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Dreambox.Core;
 using Dreambox.Physics;
 using UnityEngine;
@@ -106,15 +107,10 @@ namespace Omniverse
 			}
 		}
 
-		public void Tick()
+		public void FixedTick()
 		{
 			if (NavMeshAgent != null)
 			{
-				if (Unit.Target != null)
-				{
-					NavMeshAgent.destination = Unit.Target.Presenter.transform.position;
-				}
-				
 				NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
 			}
 		}
@@ -162,11 +158,6 @@ namespace Omniverse
 			UniTaskCompletionSource.TrySetResult();
 		}
 
-		public void UpdateMovementFromNavMeshAgent()
-		{
-			Animator.SetFloat(AnimatorParameter.Get("MovementSpeed"), NavMeshAgent.velocity.magnitude);
-		}
-		
 		public void MoveDirection(Vector3 direction)
 		{
 			Animator.SetFloat(AnimatorParameter.Get("MovementSpeed"), direction != Vector3.zero ? 1f : 0f);

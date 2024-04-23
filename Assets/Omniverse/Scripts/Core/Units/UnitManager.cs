@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 namespace Omniverse
 {
 	[UnityEngine.Scripting.Preserve]
-	public class UnitManager: IFixedTickable, IPostFixedTickable, ITickable, IDisposable
+	public class UnitManager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		private PrefabPool<UnitPresenter> PrefabPool { get; }
 
@@ -41,6 +41,8 @@ namespace Omniverse
 			};
 
 			unit.Presenter.Bind(unit);
+			//TODO
+			unit.Presenter.GetComponentInChildren<UnitRenderer>().Initialize(unit.Presenter);
 
 			Units.Add(unit);
 
@@ -112,14 +114,6 @@ namespace Omniverse
 				}
 
 				ItemManager.Spawn(loot.Item, unit.Presenter.transform.position, Quaternion.identity);
-			}
-		}
-
-		public void Tick()
-		{
-			for (var i = 0; i < Units.Count; i++)
-			{
-				Units[i].Tick();
 			}
 		}
 
