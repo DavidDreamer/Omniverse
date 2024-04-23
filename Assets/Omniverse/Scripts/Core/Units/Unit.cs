@@ -33,6 +33,8 @@ namespace Omniverse
 
 		public Unit Target { get; set; }
 		
+		public Movement Movement { get; private set; }
+		
 		public Attack Attack { get; private set; }
 		
 		public Unit(UnitDesc desc, int factionID)
@@ -52,6 +54,11 @@ namespace Omniverse
 				Abilities.Add(ability);
 			}
 
+			if (desc.Movement != null)
+			{
+				Movement = new Movement(desc.Movement);
+			}
+			
 			Attack = new Attack(desc.Attack);
 		}
 

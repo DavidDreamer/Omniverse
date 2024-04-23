@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ee0fe94fb6411ea8395217379b80c5, type: 3}
-  m_Name: Rotation Speed
+  m_Script: {fileID: 11500000, guid: eb39d79cf761421b88a16f909882c4d1, type: 3}
+  m_Name: Villager.Movement
   m_EditorClassIdentifier: 
+  <Speed>k__BackingField: 5
+  <RotationSpeed>k__BackingField: 500

@@ -20,14 +20,7 @@ MonoBehaviour:
     <Capacity>k__BackingField: 100
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
-  - <Tag>k__BackingField: {fileID: 11400000, guid: 37ffe26b80b264d48915ed57748d7498, type: 2}
-    <Capacity>k__BackingField: 5
-    <Regeneration>k__BackingField: 0
-    <Vital>k__BackingField: 0
-  - <Tag>k__BackingField: {fileID: 11400000, guid: 03fa21da1c238924681319be8d97aa74, type: 2}
-    <Capacity>k__BackingField: 500
-    <Regeneration>k__BackingField: 0
-    <Vital>k__BackingField: 0
+  <Movement>k__BackingField: {fileID: 11400000, guid: e23fe4f94682998499e409fcbcc7fce9, type: 2}
   <Attack>k__BackingField:
     <Range>k__BackingField: 1
     <Speed>k__BackingField: 1

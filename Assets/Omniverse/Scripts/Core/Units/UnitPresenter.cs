@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Dreambox.Core;
 using Dreambox.Physics;
 using UnityEngine;
@@ -9,12 +8,6 @@ namespace Omniverse
 {
 	public class UnitPresenter: MonoBehaviour, IPoolObject
 	{
-		[field: SerializeField]
-		private PropertyTag MovementSpeedProperty { get; set; }
-		
-		[field: SerializeField]
-		private PropertyTag RotationSpeedProperty { get; set; }
-		
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
 
@@ -68,14 +61,15 @@ namespace Omniverse
 
 			if (NavMeshAgent != null)
 			{
-				if (unit.Properties.TryGetValue(MovementSpeedProperty, out Property property))
+				if (Unit.Movement == null)
 				{
-					NavMeshAgent.speed = property.Amount.Value;
+					NavMeshAgent.speed = 0;
+					NavMeshAgent.angularSpeed = 0;
 				}
-				
-				if (unit.Properties.TryGetValue(RotationSpeedProperty, out Property rotationSpeedProperty))
+				else
 				{
-					NavMeshAgent.angularSpeed = rotationSpeedProperty.Amount.Value;
+					NavMeshAgent.speed = Unit.Movement.Speed;
+					NavMeshAgent.angularSpeed = Unit.Movement.RotationSpeed;
 				}
 			}
 		}
