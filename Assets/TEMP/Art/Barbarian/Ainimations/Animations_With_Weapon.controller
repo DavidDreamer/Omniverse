@@ -161,7 +161,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2696331294994868291}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
@@ -180,8 +180,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: MovementSpeed
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsMoving
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7242809926224463299}
@@ -211,7 +211,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7242809926224463299}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
@@ -288,6 +288,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: IsMoving
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -355,7 +361,7 @@ AnimatorStateMachine:
     m_Position: {x: 420, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2696331294994868291}
-    m_Position: {x: 420, y: 320, z: 0}
+    m_Position: {x: 420, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1547369000516224303}
     m_Position: {x: 30, y: 220, z: 0}
@@ -586,8 +592,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: MovementSpeed
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsMoving
     m_EventTreshold: 0.001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2531900766639462621}
