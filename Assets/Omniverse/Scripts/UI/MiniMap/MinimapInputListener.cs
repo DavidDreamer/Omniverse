@@ -15,7 +15,7 @@ namespace Omniverse.UI
 		private RectTransform RectTransform { get; set; }
 		
 		[Inject]
-		private MiniMap MiniMap { get; set; }
+		private Map Map { get; set; }
 		
 		[field: SerializeField]
 		public CameraController CameraController { get; set; }
@@ -34,7 +34,7 @@ namespace Omniverse.UI
 		{
 			Mova = false;
 
-			Vector2 sizeMultiplier = MiniMap.MapSettings.Size / RectTransform.rect.size;
+			Vector2 sizeMultiplier = Map.MapSettings.Size / RectTransform.rect.size;
 			Vector2 worldSpacePosition = eventData.position * sizeMultiplier;
 			Vector3 viewPoint = new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
 

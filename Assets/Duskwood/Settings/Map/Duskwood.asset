@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037cecba6aa3436e931894375818544a, type: 3}
   m_Name: Duskwood
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: {x: 512, y: 512}
+  <Size>k__BackingField: {x: 256, y: 256}

@@ -12,16 +12,16 @@ namespace Omniverse
 		private GameSettings GameSettings { get; set; }
 
 		[field: SerializeField]
-		private MiniMap MiniMap { get; set; }
+		private Map Map { get; set; }
 
 		protected override void Configure(IContainerBuilder builder)
 		{
 			builder.RegisterInstance(GameSettings);
 			builder.RegisterInstance(GameSettings.MapSettings);
 
-			if (MiniMap != null)
+			if (Map != null)
 			{
-				builder.RegisterComponentInNewPrefab(MiniMap, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+				builder.RegisterComponentInNewPrefab(Map, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			}
 
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());

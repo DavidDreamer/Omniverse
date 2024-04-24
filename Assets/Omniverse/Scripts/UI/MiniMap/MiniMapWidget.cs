@@ -12,11 +12,11 @@ namespace Omniverse.UI
         public MiniMapCameraBounds CameraBounds;
         
         [Inject]
-        private MiniMap MiniMap { get; set; }
+        private Map Map { get; set; }
    
         void Start()
         {
-            Image.texture = MiniMap.RenderTexture;
+            Image.texture = Map.RenderTexture;
         }
     }
 }

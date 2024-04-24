@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Mapping
 {
-	public class MiniMap: MonoBehaviour, IInitializable, IDisposable
+	public class Map: MonoBehaviour, IInitializable, IDisposable
 	{
 		[field: SerializeField]
 		private UnityEngine.Camera Camera { get; set; }
@@ -29,6 +29,8 @@ namespace Omniverse.Mapping
 
 			Camera.targetTexture = RenderTexture;
 
+			Camera.orthographicSize = MapSettings.Size.x / 2f;
+			
 			Camera.transform.position = new Vector3(MapSettings.Size.x / 2f, Camera.transform.position.y,
 				MapSettings.Size.y / 2f);
 		}

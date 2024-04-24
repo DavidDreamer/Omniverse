@@ -13,7 +13,7 @@ namespace Omniverse.UI
 		public RectTransform RectTransform { get; set; }
 		
 		[Inject]
-		private MiniMap MiniMap { get; set; }
+		private Map Map { get; set; }
 		
 		private void Update()
 		{
@@ -32,8 +32,8 @@ namespace Omniverse.UI
 			
 			Rect parentRect = ParentRectTransform.rect;
 			
-			float mapRelativePositionX = Mathf.InverseLerp(0, MiniMap.MapSettings.Size.x, viewPoint.x);
-			float mapRelativePositionY = Mathf.InverseLerp(0, MiniMap.MapSettings.Size.y, viewPoint.z);
+			float mapRelativePositionX = Mathf.InverseLerp(0, Map.MapSettings.Size.x, viewPoint.x);
+			float mapRelativePositionY = Mathf.InverseLerp(0, Map.MapSettings.Size.y, viewPoint.z);
 
 			float width = parentRect.width / 2f;
 			float rectRelativePositionX = Mathf.Lerp(-width, width, mapRelativePositionX);
@@ -46,13 +46,13 @@ namespace Omniverse.UI
 
 			Vector2 ConvertWorldSpaceSizeToRectSpace(Vector2 size)
 			{
-				return size * (parentRect.size / MiniMap.MapSettings.Size);
+				return size * (parentRect.size / Map.MapSettings.Size);
 			}
 			
 			Vector2 ConverCoordinateFromWorldToRectSpace(Vector3 position)
 			{
-				float mapRelativePositionX = Mathf.InverseLerp(0, MiniMap.MapSettings.Size.x, position.x);
-				float mapRelativePositionY = Mathf.InverseLerp(0, MiniMap.MapSettings.Size.y, position.z);
+				float mapRelativePositionX = Mathf.InverseLerp(0, Map.MapSettings.Size.x, position.x);
+				float mapRelativePositionY = Mathf.InverseLerp(0, Map.MapSettings.Size.y, position.z);
 
 				return new Vector2(mapRelativePositionX, mapRelativePositionY);
 			}
