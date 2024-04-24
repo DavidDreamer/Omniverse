@@ -71,5 +71,12 @@ namespace Omniverse.Cameras
 
 			transform.position = position;
 		}
+
+		public void SetViewPoint(Vector3 viewPoint)
+		{
+			float distanceToViewPoint = CurrentHeight / Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.x);
+
+			transform.position = viewPoint - transform.forward * distanceToViewPoint;
+		}
 	}
 }
