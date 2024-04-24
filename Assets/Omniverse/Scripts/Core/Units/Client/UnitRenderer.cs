@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
@@ -15,12 +14,17 @@ namespace Omniverse
 		[field: SerializeField]
 		public Animator Animator { get; set; }
 
+		[field: SerializeField]
+		private HealthBar HealthBar { get; set; }
+		
 		private UnitPresenter UnitPresenter { get; set; }
 
 		public void Initialize(UnitPresenter unitPresenter)
 		{
 			UnitPresenter = unitPresenter;
 			UnitPresenter.Unit.Attack.Started += OnAttackStarted;
+
+			HealthBar.Initialize(unitPresenter.Unit);
 		}
 		
 		private void OnDestroy()

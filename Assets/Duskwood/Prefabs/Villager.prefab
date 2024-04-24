@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3561786261258850335}
   - component: {fileID: 2969977138651332981}
   - component: {fileID: 1583755911620966548}
+  - component: {fileID: 6069931450004688369}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6069931450004688369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903829691301418183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a19aecef9c240e68866097108f1f357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MeshRenderer>k__BackingField: {fileID: 1583755911620966548}
 --- !u!1 &8680132588275390120
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Animator>k__BackingField: {fileID: 5451573002638560260}
+  <HealthBar>k__BackingField: {fileID: 6069931450004688369}
 --- !u!4 &5451573002648380360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400044, guid: 5d3a4d7e09b44414eb131bf09a6ed74d, type: 3}

@@ -5,7 +5,6 @@ Shader "Omniverse/HealthBar"
         BackgroundColor ("BackgroundColor", Color) = (0,0,0,1)
         MainColor ("MainColor", Color) = (1,1,1,1)
         Scale ("Scale", Vector) = (1,1,1,1)
-        Amount ("Amount", float) = 1
     }
     SubShader
     {
@@ -24,27 +23,38 @@ Shader "Omniverse/HealthBar"
             CGPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
+            #pragma multi_compile_instancing
 
+            #include "UnityCG.cginc"
+            
             uniform float4 BackgroundColor;
             uniform float4 MainColor;
             uniform float4 Scale;
-            uniform float Amount;
-
+            
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float, Amount)
+            UNITY_INSTANCING_BUFFER_END(Props)
+            
             struct VertexInput
             {
                 float4 vertex : POSITION;
                 float4 tex : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct VertexOutput
             {
                 float4 pos : SV_POSITION;
                 float4 tex : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
             
             VertexOutput Vert(VertexInput input)
             {
                 VertexOutput output;
+
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_TRANSFER_INSTANCE_ID(input, output);
                 
                 output.pos = mul(UNITY_MATRIX_P,
                                  mul(UNITY_MATRIX_MV, float4(0.0, 0.0, 0.0, 1.0))
@@ -58,10 +68,13 @@ Shader "Omniverse/HealthBar"
 
             float4 Frag(VertexOutput input) : COLOR
             {
+                UNITY_SETUP_INSTANCE_ID(input);
+                const float amount = UNITY_ACCESS_INSTANCED_PROP(Props, Amount);
+
                 const float hClip = input.tex.x >= Scale.z && input.tex.x <= 1 - Scale.z;
                 const float VClip = input.tex.y >= Scale.w && input.tex.y <= 1 - Scale.w;
                 const float totalClip = hClip && VClip;
-                const float factor = totalClip && step(input.tex.x, Amount);
+                const float factor = totalClip && step(input.tex.x, amount);
                 return lerp(BackgroundColor, MainColor, factor);
             }
             ENDCG
