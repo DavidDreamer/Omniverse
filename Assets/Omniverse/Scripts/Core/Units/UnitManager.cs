@@ -42,7 +42,7 @@ namespace Omniverse
 
 			unit.Presenter.Bind(unit);
 			//TODO
-			unit.Presenter.GetComponentInChildren<UnitRenderer>().Initialize(unit.Presenter);
+			unit.Presenter.GetComponentInChildren<UnitRenderer>().Initialize(unit);
 
 			Units.Add(unit);
 

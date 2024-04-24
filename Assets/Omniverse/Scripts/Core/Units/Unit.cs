@@ -9,6 +9,8 @@ namespace Omniverse
 	[Serializable]
 	public class Unit
 	{
+		public event Action Died;
+		
 		public UnitDesc Desc { get; }
 
 		public int FactionID { get; set; }
@@ -129,8 +131,6 @@ namespace Omniverse
 			resource.Change(data.Amount);
 		}
 
-		public void AddForce(Vector3 force) => Presenter.AddForce(force);
-
 		public void ApplyEffect(Effect effect)
 		{
 			Effects.Add(effect);
@@ -145,6 +145,8 @@ namespace Omniverse
 			DeathCancellationTokenSource = null;
 
 			Presenter.OnDeath();
+			
+			Died?.Invoke();
 		}
 	}
 }

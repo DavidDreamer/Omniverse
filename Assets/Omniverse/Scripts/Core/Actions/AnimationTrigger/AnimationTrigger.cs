@@ -14,13 +14,14 @@ namespace Omniverse.Actions
 
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
-			foreach (Unit unit in context.Units)
-			{
-				if (unit.Presenter.Animator != null)
-				{
-					unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Name));
-				}
-			}
+			//TODO
+			// foreach (Unit unit in context.Units)
+			// {
+			// 	if (unit.Presenter.Animator != null)
+			// 	{
+			// 		unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Name));
+			// 	}
+			// }
 
 			return UniTask.CompletedTask;
 		}

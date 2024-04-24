@@ -20,7 +20,8 @@ namespace Omniverse.Actions
 				                .normalized *
 				                Random.Range(10, 30);
 
-				unit.AddForce(force);
+				//TODO
+				//unit.AddForce(force);
 			}
 
 			return UniTask.CompletedTask;

@@ -63,7 +63,8 @@ namespace Omniverse.Abilities
 
 			if (!string.IsNullOrEmpty(Desc.Cast.AnimationTrigger))
 			{
-				Unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Cast.AnimationTrigger));
+				//TODO:
+				//Unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Cast.AnimationTrigger));
 			}
 
 			await UniTask.Delay(TimeSpan.FromSeconds(Desc.Cast.Time), cancellationToken: token);

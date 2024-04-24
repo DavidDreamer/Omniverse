@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Dreambox.Physics;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -17,33 +18,48 @@ namespace Omniverse
 		[field: SerializeField]
 		private HealthBar HealthBar { get; set; }
 		
-		private UnitPresenter UnitPresenter { get; set; }
+		[field: SerializeField]
+		private Ragdoll Ragdoll { get; set; }
 
-		public void Initialize(UnitPresenter unitPresenter)
+		private Unit Unit { get; set; }
+
+		public void Initialize(Unit unit)
 		{
-			UnitPresenter = unitPresenter;
-			UnitPresenter.Unit.Attack.Started += OnAttackStarted;
+			Unit = unit;
+			Unit.Died += OnDied;
+			Unit.Attack.Started += OnAttackStarted;
 
-			HealthBar.Initialize(unitPresenter.Unit);
+			HealthBar.Initialize(Unit);
 		}
-		
+
 		private void OnDestroy()
 		{
-			if (UnitPresenter == null)
+			if (Unit == null)
 			{
 				return;
 			}
-
-			UnitPresenter.Unit.Attack.Started -= OnAttackStarted;
+			
+			Unit.Died -= OnDied;
+			Unit.Attack.Started -= OnAttackStarted;
 		}
 
 		private void Update()
 		{
-			Animator.SetBool(AnimatorVariables.IsMoving, UnitPresenter.NavMeshAgent.velocity.sqrMagnitude > 0);
+			Animator.SetBool(AnimatorVariables.IsMoving, Unit.Presenter.NavMeshAgent.velocity.sqrMagnitude > 0);
 			//TODO
 			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
 		}
 
+		private void OnDied()
+		{
+			Animator.enabled = false;
+			
+			if (Ragdoll != null)
+			{
+				Ragdoll.Enable(true);
+			}
+		}
+		
 		private void OnAttackStarted()
 		{
 			Animator.SetTrigger(AnimatorVariables.Attack);
