@@ -1,6 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using Dreambox.Core;
-using Dreambox.Physics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,31 +16,11 @@ namespace Omniverse
 		public AudioSource AudioSource { get; private set; }
 
 		[field: SerializeField]
-		[field: HideInInspector]
-		public Renderer[] Renderers { get; private set; }
-
-		[field: SerializeField]
-		[field: HideInInspector]
-		public MeshFilter[] MeshFilters { get; private set; }
-
-		[field: SerializeField]
 		public float DespawnDelay { get; private set; }
-
-		[field: SerializeField]
-		public GameObject Selection { get; set; }
-
-		[field: SerializeField]
-		public GameObject Focus { get; set; }
 
 		public Unit Unit { get; private set; }
 
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
-
-		private void OnValidate()
-		{
-			Renderers = GetComponentsInChildren<Renderer>(true);
-			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
-		}
 
 		public void Bind(Unit unit)
 		{

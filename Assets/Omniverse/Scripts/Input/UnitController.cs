@@ -35,13 +35,13 @@ namespace Omniverse.Input
 
 			if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity))
 			{
-				var unitPresenter = hit.transform.GetComponentInParent<UnitPresenter>();
+				var unitRenderer = hit.transform.GetComponentInChildren<UnitRenderer>();
 
-				if (unitPresenter != null)
+				if (unitRenderer != null)
 				{
-					foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
+					foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
 					{
-						selectedUnit.Target = unitPresenter.Unit;
+						selectedUnit.Unit.Target = unitRenderer.Unit;
 					}
 
 					return;
@@ -60,10 +60,10 @@ namespace Omniverse.Input
 
 				AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
 
-				foreach (Unit unit in UnitSelector.SelectedUnits)
+				foreach (UnitRenderer unitRenderer in UnitSelector.SelectedUnits)
 				{
-					unit.Target = null;
-					unit.Presenter.NavMeshAgent.destination = position;
+					unitRenderer.Unit.Target = null;
+					unitRenderer.Unit.Presenter.NavMeshAgent.destination = position;
 				}
 			}
 		}

@@ -7,7 +7,7 @@ namespace Omniverse
 	public class Presentation
 	{
 		[field: SerializeField]
-		public UnitPresenter Prefab { get; private set; }
+		public UnitRenderer Prefab { get; private set; }
 		
 		[field: SerializeField]
 		public Sprite Icon { get; private set; }

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Omniverse
@@ -12,19 +14,18 @@ namespace Omniverse
 	[UnityEngine.Scripting.Preserve]
 	public class UnitManager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
-		private PrefabPool<UnitPresenter> PrefabPool { get; }
+		[Inject]
+		private PrefabPool<UnitPresenter> PrefabPool { get; set; }
 
-		private ItemManager ItemManager { get; }
+		[Inject]
+		private ItemManager ItemManager { get; set; }
 
+		[Inject]
+		private UnitPresenter UnitPresenter { get; set; }
+		
 		private List<Unit> Units { get; } = new();
 
 		private CancellationTokenSource CancellationTokenSource { get; } = new();
-		
-		public UnitManager(PrefabPool<UnitPresenter> prefabPool, ItemManager itemManager)
-		{
-			PrefabPool = prefabPool;
-			ItemManager = itemManager;
-		}
 
 		public void Dispose()
 		{
@@ -35,15 +36,18 @@ namespace Omniverse
 
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
+			UnitPresenter unitPresenter = Object.Instantiate(UnitPresenter);
+			
 			var unit = new Unit(desc, factionID)
 			{
-				Presenter = PrefabPool.Take(desc.Presentation.Prefab)
+				Presenter = unitPresenter
 			};
 
 			unit.Presenter.Bind(unit);
-			//TODO
-			unit.Presenter.GetComponentInChildren<UnitRenderer>().Initialize(unit);
 
+			UnitRenderer unitRenderer = Object.Instantiate(desc.Presentation.Prefab, unitPresenter.transform);
+			unitRenderer.Initialize(unit);
+	
 			Units.Add(unit);
 
 			return unit;

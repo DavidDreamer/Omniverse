@@ -21,8 +21,28 @@ namespace Omniverse
 		[field: SerializeField]
 		private Ragdoll Ragdoll { get; set; }
 
-		private Unit Unit { get; set; }
+		[field: SerializeField]
+		public GameObject Selection { get; set; }
 
+		[field: SerializeField]
+		public GameObject Focus { get; set; }
+		
+		[field: SerializeField]
+		[field: HideInInspector]
+		public Renderer[] Renderers { get; private set; }
+
+		[field: SerializeField]
+		[field: HideInInspector]
+		public MeshFilter[] MeshFilters { get; private set; }
+		
+		public Unit Unit { get; private set; }
+
+		private void OnValidate()
+		{
+			Renderers = GetComponentsInChildren<Renderer>(true);
+			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
+		}
+		
 		public void Initialize(Unit unit)
 		{
 			Unit = unit;
@@ -52,12 +72,19 @@ namespace Omniverse
 
 		private void OnDied()
 		{
-			Animator.enabled = false;
+			ProcessLivingState(false);
+		}
+
+		private void ProcessLivingState(bool alive)
+		{
+			Animator.enabled = alive;
 			
 			if (Ragdoll != null)
 			{
-				Ragdoll.Enable(true);
+				Ragdoll.Enable(!alive);
 			}
+
+			HealthBar.gameObject.SetActive(alive);
 		}
 		
 		private void OnAttackStarted()

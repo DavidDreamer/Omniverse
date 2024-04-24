@@ -7,9 +7,9 @@ namespace Omniverse.Input
 {
 	public class UnitSelector: ITickable
 	{
-		public List<Unit> FocusedUnits { get; } = new();
+		public List<UnitRenderer> FocusedUnits { get; } = new();
 
-		public List<Unit> SelectedUnits { get; } = new();
+		public List<UnitRenderer> SelectedUnits { get; } = new();
 
 		private UnitSelectorConfig Config { get; }
 
@@ -33,16 +33,15 @@ namespace Omniverse.Input
 
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var unitPreseter = hitInfo.collider.GetComponentInParent<UnitPresenter>();
-			
-				if (unitPreseter != null)
+				var unitRenderer = hitInfo.collider.GetComponentInChildren<UnitRenderer>();
+				
+				if (unitRenderer != null)
 				{
-					Unit unit = unitPreseter.Unit;
-					bool isSelected = SelectedUnits.Contains(unit);
+					bool isSelected = SelectedUnits.Contains(unitRenderer);
 
 					if (!isSelected)
 					{
-						AddFocus(unit);
+						AddFocus(unitRenderer);
 					}
 
 					bool additiveMode = Keyboard.current.shiftKey.isPressed;
@@ -59,51 +58,51 @@ namespace Omniverse.Input
 						{
 							if (additiveMode)
 							{
-								RemoveFromSelection(unit);
+								RemoveFromSelection(unitRenderer);
 							}
 						}
 						else
 						{
-							AddToSelection(unit);
+							AddToSelection(unitRenderer);
 						}
 					}
 				}
 			}
 		}
 
-		private void AddToSelection(Unit unit)
+		private void AddToSelection(UnitRenderer unitRenderer)
 		{
-			unit.Presenter.Selection.SetActive(true);
-			SelectedUnits.Add(unit);
+			unitRenderer.Selection.SetActive(true);
+			SelectedUnits.Add(unitRenderer);
 		}
 
-		private void RemoveFromSelection(Unit unit)
+		private void RemoveFromSelection(UnitRenderer unitRenderer)
 		{
-			unit.Presenter.Selection.SetActive(false);
-			SelectedUnits.Remove(unit);
+			unitRenderer.Selection.SetActive(false);
+			SelectedUnits.Remove(unitRenderer);
 		}
 
 		private void ClearSelection()
 		{
-			foreach (Unit unit in SelectedUnits)
+			foreach (UnitRenderer unitRenderer in SelectedUnits)
 			{
-				unit.Presenter.Selection.SetActive(false);
+				unitRenderer.Selection.SetActive(false);
 			}
 
 			SelectedUnits.Clear();
 		}
 		
-		private void AddFocus(Unit unit)
+		private void AddFocus(UnitRenderer unitRenderer)
 		{
-			unit.Presenter.Focus.SetActive(true);
-			FocusedUnits.Add(unit);
+			unitRenderer.Focus.SetActive(true);
+			FocusedUnits.Add(unitRenderer);
 		}
 		
 		private void ClearFocus()
 		{
-			foreach (Unit unit in FocusedUnits)
+			foreach (UnitRenderer unitRenderer in FocusedUnits)
 			{
-				unit.Presenter.Focus.SetActive(false);
+				unitRenderer.Focus.SetActive(false);
 			}
 
 			FocusedUnits.Clear();

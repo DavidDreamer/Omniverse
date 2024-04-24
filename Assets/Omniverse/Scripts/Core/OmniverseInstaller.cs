@@ -10,9 +10,13 @@ namespace Omniverse
 		[field: SerializeField]
 		private PhysicsSettings PhysicsSettings { get; set; }
 		
+		[field: SerializeField]
+		private UnitPresenter UnitPresenter { get; set; }
+		
 		public void Install(IContainerBuilder builder)
 		{
 			builder.RegisterInstance(PhysicsSettings);
+			builder.RegisterInstance(UnitPresenter);
 			
 			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);

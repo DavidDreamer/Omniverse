@@ -22,7 +22,7 @@ namespace Omniverse.UI
 		{
 			if (UnitSelector.SelectedUnits.Count > 0)
 			{
-				Unit unit = UnitSelector.SelectedUnits.First();
+				Unit unit = UnitSelector.SelectedUnits.First().Unit;
 
 				Icon.sprite = unit.Desc.Presentation.Icon;
 				

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Villager
   m_EditorClassIdentifier: 
   <Presentation>k__BackingField:
-    <Prefab>k__BackingField: {fileID: 6729940977733104255, guid: f8479afb9cbf9e64390582a26e1a1e0f, type: 3}
+    <Prefab>k__BackingField: {fileID: 9075052480553932017, guid: 9b04fe423747fbb478b496ce9322aea5, type: 3}
     <Icon>k__BackingField: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
   <Properties>k__BackingField:
   - <Tag>k__BackingField: {fileID: 11400000, guid: 078464ef9808b7440ad089f85f9d4b75, type: 2}
