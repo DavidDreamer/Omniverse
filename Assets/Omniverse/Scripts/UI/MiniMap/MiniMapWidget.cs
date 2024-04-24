@@ -9,6 +9,8 @@ namespace Omniverse.UI
     {
         public RawImage Image;
 
+        public MiniMapCameraBounds CameraBounds;
+        
         [Inject]
         private MiniMap MiniMap { get; set; }
    

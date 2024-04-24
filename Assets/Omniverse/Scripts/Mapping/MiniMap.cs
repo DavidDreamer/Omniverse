@@ -12,7 +12,7 @@ namespace Omniverse.Mapping
 		private UnityEngine.Camera Camera { get; set; }
 
 		[Inject]
-		private MapSettings MapSettings { get; set; }
+		public MapSettings MapSettings { get; set; }
 
 		public RenderTexture RenderTexture { get; private set; }
 
