@@ -35,6 +35,9 @@ namespace Omniverse
 		[field: HideInInspector]
 		public MeshFilter[] MeshFilters { get; private set; }
 		
+		[field: SerializeField]
+		public AudioSource AudioSource { get; private set; }
+		
 		public Unit Unit { get; private set; }
 
 		private void OnValidate()

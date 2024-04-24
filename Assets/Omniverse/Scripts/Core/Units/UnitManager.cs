@@ -21,7 +21,7 @@ namespace Omniverse
 		private ItemManager ItemManager { get; set; }
 
 		[Inject]
-		private UnitPresenter UnitPresenter { get; set; }
+		private UnitManagerConfig Config { get; set; }
 		
 		private List<Unit> Units { get; } = new();
 
@@ -36,7 +36,7 @@ namespace Omniverse
 
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
-			UnitPresenter unitPresenter = Object.Instantiate(UnitPresenter);
+			UnitPresenter unitPresenter = Object.Instantiate(Config.UnitPresenter);
 			
 			var unit = new Unit(desc, factionID)
 			{
@@ -102,7 +102,7 @@ namespace Omniverse
 
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
-			await UniTask.Delay(TimeSpan.FromSeconds(unit.Presenter.DespawnDelay), cancellationToken: token);
+			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
 			PrefabPool.Return(unit.Presenter);
 		}
 		

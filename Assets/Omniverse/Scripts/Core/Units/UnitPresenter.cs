@@ -11,13 +11,7 @@ namespace Omniverse
 
 		[field: SerializeField]
 		public Collider Hitbox { get; private set; }
-
-		[field: SerializeField]
-		public AudioSource AudioSource { get; private set; }
-
-		[field: SerializeField]
-		public float DespawnDelay { get; private set; }
-
+		
 		public Unit Unit { get; private set; }
 
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();

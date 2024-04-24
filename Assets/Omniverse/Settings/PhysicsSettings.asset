@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e84331128a6f4a3fb19892c7a882b4be, type: 3}
-  m_Name: Physics Settings
+  m_Name: PhysicsSettings
   m_EditorClassIdentifier: 
   <HitboxLayer>k__BackingField: 0
   <HitboxLayerMask>k__BackingField:

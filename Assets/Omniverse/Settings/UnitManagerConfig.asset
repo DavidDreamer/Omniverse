@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5fa8be1ee9842ae80cbcc8c0806c123, type: 3}
-  m_Name: Omniverse Installer
+  m_Script: {fileID: 11500000, guid: 350d9b8e6c4d4484a06c4aa418614a64, type: 3}
+  m_Name: UnitManagerConfig
   m_EditorClassIdentifier: 
-  <PhysicsSettings>k__BackingField: {fileID: 11400000, guid: 0817cbc1212925141be8379b0d47f99c, type: 2}
   <UnitPresenter>k__BackingField: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+  <DespawnDelay>k__BackingField: 10
