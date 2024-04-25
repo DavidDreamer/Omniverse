@@ -23,29 +23,17 @@ namespace Omniverse.Cameras
 		private void ProcessScreenBorderMovements(ref Vector3 position)
 		{
 			Vector2 mousePosition = Mouse.current.position.value;
-			float sensativity = Config.ScreenBordersMovement.Sensitivity;
+			float threshold = Config.ScreenBordersMovement.Threshold;
 			float speed = Config.ScreenBordersMovement.Speed;
 			float deltaTime = Time.deltaTime;
-			
-			float halfScreenWidth = Screen.width / 2f;
-			float halfScreenHeight = Screen.height / 2f;
-			
-			float xDeltaRaw = mousePosition.x - halfScreenWidth;
-			float yDetalRaw = mousePosition.y - halfScreenHeight;
-		
-			float xDeltaClamped = Mathf.Clamp(Mathf.Abs(xDeltaRaw) / halfScreenWidth, sensativity, 1);
-			float yDeltaClamped = Mathf.Clamp(Mathf.Abs(yDetalRaw) / halfScreenHeight, sensativity, 1);
-			
-			float xDeltaNormalized = Mathf.InverseLerp(sensativity, 1, xDeltaClamped);
-			float yDeltaNormalized = Mathf.InverseLerp(sensativity, 1, yDeltaClamped);
-			
-			float xDirection = Mathf.Sign(xDeltaRaw);
-			float yDirection = Mathf.Sign(yDetalRaw);
 
-			float xOffset = xDeltaNormalized * xDirection * speed * deltaTime;
-			float yOffset = yDeltaNormalized * yDirection * speed * deltaTime;
-			
-			position += new Vector3(xOffset, 0, yOffset);
+			float xDirection = mousePosition.x < threshold ? -1 : mousePosition.x > Screen.width - threshold ? 1 : 0;
+			float yDirection = mousePosition.y < threshold ? -1 : mousePosition.y > Screen.height - threshold ? 1 : 0;
+			var direction = new Vector3(xDirection, 0, yDirection);
+
+			float distance = speed * deltaTime;
+
+			position += direction.normalized * distance;
 		}
 
 		private void ProcessBounds(ref Vector3 position)

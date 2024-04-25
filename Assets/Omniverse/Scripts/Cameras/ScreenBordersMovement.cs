@@ -7,8 +7,7 @@ namespace Omniverse.Cameras
 	public class ScreenBordersMovement
 	{
 		[field: SerializeField]
-		[field: Range(0f, 1f)]
-		public float Sensitivity { get; private set; }
+		public float Threshold { get; private set; }
 		
 		[field: SerializeField]
 		public float Speed { get; private set; }
