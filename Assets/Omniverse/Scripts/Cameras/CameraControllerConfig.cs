@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Cameras
 {
-	[CreateAssetMenu(menuName = "Omniverse/Camera/ControllerConfig")]
+	[CreateAssetMenu(menuName = "Omniverse/Config/CameraControllerConfig", fileName = nameof(CameraControllerConfig))]
 	public class CameraControllerConfig: ScriptableObject
 	{
 		[field: SerializeField]
