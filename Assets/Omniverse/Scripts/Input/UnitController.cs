@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
@@ -51,23 +52,36 @@ namespace Omniverse.Input
 			ProcessNavigationPoint();
 		}
 
+		public void ProcessNavigationPoint(Vector3 position)
+		{
+			if (NavMesh.SamplePosition(position, out NavMeshHit navMeshHit, float.MaxValue, 1))
+			{
+				CreateNavigationPoint(navMeshHit.position);
+			}
+		}
+		
 		private void ProcessNavigationPoint()
 		{
 			if (NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position))
 			{
-				NavigationPoint navigationPoint =
-					Object.Instantiate(Config.NavigationPointPrefab, position, Quaternion.identity);
-
-				AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
-
-				foreach (UnitRenderer unitRenderer in UnitSelector.SelectedUnits)
-				{
-					unitRenderer.Unit.Target = null;
-					unitRenderer.Unit.Presenter.NavMeshAgent.destination = position;
-				}
+				CreateNavigationPoint(position);
 			}
 		}
-		
+
+		private void CreateNavigationPoint(Vector3 position)
+		{
+			NavigationPoint navigationPoint =
+				Object.Instantiate(Config.NavigationPointPrefab, position, Quaternion.identity);
+
+			AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
+
+			foreach (UnitRenderer unitRenderer in UnitSelector.SelectedUnits)
+			{
+				unitRenderer.Unit.Target = null;
+				unitRenderer.Unit.Presenter.NavMeshAgent.destination = position;
+			}
+		}
+
 		private async UniTaskVoid AnimatieNavigationPoint(NavigationPoint navigationPoint, CancellationToken token)
 		{
 			float duration = Config.NavigationPointDuration;

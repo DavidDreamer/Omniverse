@@ -1,4 +1,6 @@
-﻿using Omniverse.Cameras;
+﻿using System;
+using Omniverse.Cameras;
+using Omniverse.Input;
 using Omniverse.Mapping;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +16,9 @@ namespace Omniverse.UI
 		[Inject]
 		private Map Map { get; set; }
 
+		[Inject]
+		private UnitController UnitController { get; set; }
+
 		[field: SerializeField]
 		public CameraController CameraController { get; set; }
 
@@ -21,30 +26,61 @@ namespace Omniverse.UI
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			MovingEnabled = true;
-
-			ProcessMovingToPointerPosition(eventData);
+			switch (eventData.button)
+			{
+				case PointerEventData.InputButton.Left:
+				{
+					MovingEnabled = true;
+					ProcessMovingToPointerPosition(eventData);
+					break;
+				}
+			}
 		}
 
 		public void OnPointerMove(PointerEventData eventData)
 		{
-			if (MovingEnabled)
+			switch (eventData.button)
 			{
-				ProcessMovingToPointerPosition(eventData);
+				case PointerEventData.InputButton.Left:
+				{
+					if (MovingEnabled)
+					{
+						ProcessMovingToPointerPosition(eventData);
+					}
+
+					break;
+				}
 			}
 		}
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			MovingEnabled = false;
+			switch (eventData.button)
+			{
+				case PointerEventData.InputButton.Left:
+				{
+					MovingEnabled = false;
+					break;
+				}
+				case PointerEventData.InputButton.Right:
+				{
+					Vector3 position = TransformPosition(eventData.position);
+					UnitController.ProcessNavigationPoint(position);
+					break;
+				}
+			}
+		}
+
+		private Vector3 TransformPosition(Vector2 position)
+		{
+			Vector2 sizeMultiplier = Map.MapSettings.Size / RectTransform.rect.size;
+			Vector2 worldSpacePosition = position * sizeMultiplier;
+			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
 		}
 
 		private void ProcessMovingToPointerPosition(PointerEventData eventData)
 		{
-			Vector2 sizeMultiplier = Map.MapSettings.Size / RectTransform.rect.size;
-			Vector2 worldSpacePosition = eventData.position * sizeMultiplier;
-			var viewPoint = new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
-
+			Vector3 viewPoint = TransformPosition(eventData.position);
 			CameraController.SetViewPoint(viewPoint);
 		}
 	}
