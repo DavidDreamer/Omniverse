@@ -3,8 +3,6 @@ Shader "Omniverse/HealthBar"
     Properties
     {
         BackgroundColor ("BackgroundColor", Color) = (0,0,0,1)
-        BaseColor ("BaseColor", Color) = (1,1,1,1)
-        SecondColor ("SecondColor", Color) = (1,1,1,1)
         Scale ("Scale", Vector) = (1,1,1,1)
     }
     SubShader
@@ -29,11 +27,11 @@ Shader "Omniverse/HealthBar"
             #include "UnityCG.cginc"
             
             uniform float4 BackgroundColor;
-            uniform float4 BaseColor;
-            uniform float4 SecondColor;
             uniform float4 Scale;
             
             UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float4, BaseColor)
+                UNITY_DEFINE_INSTANCED_PROP(float4, SecondColor)
                 UNITY_DEFINE_INSTANCED_PROP(float, Amount)
             UNITY_INSTANCING_BUFFER_END(Props)
             
@@ -78,7 +76,10 @@ Shader "Omniverse/HealthBar"
                 const float totalClip = hClip && VClip;
                 const float factor = totalClip && step(input.tex.x, amount);
 
-                const float4 combinedColor = lerp(BaseColor, SecondColor, input.tex.y);
+                const float4 baseColor = UNITY_ACCESS_INSTANCED_PROP(Props, BaseColor);
+                const float4 secondColor = UNITY_ACCESS_INSTANCED_PROP(Props, SecondColor);
+
+                const float4 combinedColor = lerp(baseColor, secondColor, input.tex.y);
                 
                 return lerp(BackgroundColor, combinedColor, factor);
             }

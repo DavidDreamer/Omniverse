@@ -13,13 +13,14 @@ namespace Omniverse.Camera
 
 		public void Start()
 		{
-			Spawn();
-			Spawn();
-			Spawn();
+			Spawn(0);
+			Spawn(0);
+			Spawn(1);
+			Spawn(1);
 
-			void Spawn()
+			void Spawn(int factionID)
 			{
-				Unit unit = UnitManager.Spawn(UnitDesc, 0);
+				Unit unit = UnitManager.Spawn(UnitDesc, factionID);
 				unit.Presenter.NavMeshAgent.Warp(transform.position);
 			}
 		}

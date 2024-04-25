@@ -1,9 +1,10 @@
 ﻿using Dreambox.Physics;
+using Omniverse.Client;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public class UnitRenderer: MonoBehaviour
+	public class UnitRenderer: MonoBehaviour, IPoolObject
 	{
 		private static class AnimatorVariables
 		{
@@ -93,6 +94,11 @@ namespace Omniverse
 		private void OnAttackStarted()
 		{
 			Animator.SetTrigger(AnimatorVariables.Attack);
+		}
+
+		public void Cleanup()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

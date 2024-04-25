@@ -112,6 +112,7 @@ MonoBehaviour:
   - {fileID: 6466041603510578255}
   <MeshFilters>k__BackingField:
   - {fileID: 2720175977097092568}
+  <AudioSource>k__BackingField: {fileID: 0}
 --- !u!1 &6367506806001111179
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a19aecef9c240e68866097108f1f357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Config>k__BackingField: {fileID: 11400000, guid: 97ca53884d0094b4ca34f4eda79b596b, type: 2}
   <MeshRenderer>k__BackingField: {fileID: 6466041603510578255}
 --- !u!1 &8328696707339511185
 GameObject:

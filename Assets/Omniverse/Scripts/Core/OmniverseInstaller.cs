@@ -18,7 +18,10 @@ namespace Omniverse
 			builder.RegisterInstance(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 			
+			builder.Register<Player>(Lifetime.Singleton).AsSelf();
+
 			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
+			builder.Register<PrefabPool<UnitRenderer>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
 			
 			builder.RegisterEntryPoint<ItemManager>().AsSelf();

@@ -15,7 +15,10 @@ namespace Omniverse
 	public class UnitManager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
-		private PrefabPool<UnitPresenter> PrefabPool { get; set; }
+		private PrefabPool<UnitPresenter> PresenterPool { get; set; }
+
+		[Inject]
+		private PrefabPool<UnitRenderer> RendererPool { get; set; }
 
 		[Inject]
 		private ItemManager ItemManager { get; set; }
@@ -36,7 +39,7 @@ namespace Omniverse
 
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
-			UnitPresenter unitPresenter = Object.Instantiate(Config.UnitPresenter);
+			UnitPresenter unitPresenter = PresenterPool.Take(Config.UnitPresenter);
 			
 			var unit = new Unit(desc, factionID)
 			{
@@ -45,7 +48,8 @@ namespace Omniverse
 
 			unit.Presenter.Bind(unit);
 
-			UnitRenderer unitRenderer = Object.Instantiate(desc.Presentation.Prefab, unitPresenter.transform);
+			UnitRenderer unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
+			unitRenderer.transform.SetParent(unitPresenter.transform, false);
 			unitRenderer.Initialize(unit);
 	
 			Units.Add(unit);
@@ -55,7 +59,7 @@ namespace Omniverse
 
 		public void Despawn(Unit unit)
 		{
-			PrefabPool.Return(unit.Presenter);
+			PresenterPool.Return(unit.Presenter);
 			Units.Remove(unit);
 		}
 
@@ -103,7 +107,7 @@ namespace Omniverse
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
 			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
-			PrefabPool.Return(unit.Presenter);
+			PresenterPool.Return(unit.Presenter);
 		}
 		
 		private void DropLoot(Unit unit)
