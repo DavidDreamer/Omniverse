@@ -72,13 +72,13 @@ namespace Omniverse.Input
 
 		private void AddToSelection(UnitRenderer unitRenderer)
 		{
-			unitRenderer.Selection.SetActive(true);
+			unitRenderer.Selection.gameObject.SetActive(true);
 			SelectedUnits.Add(unitRenderer);
 		}
 
 		private void RemoveFromSelection(UnitRenderer unitRenderer)
 		{
-			unitRenderer.Selection.SetActive(false);
+			unitRenderer.Selection.gameObject.SetActive(false);
 			SelectedUnits.Remove(unitRenderer);
 		}
 
@@ -86,7 +86,7 @@ namespace Omniverse.Input
 		{
 			foreach (UnitRenderer unitRenderer in SelectedUnits)
 			{
-				unitRenderer.Selection.SetActive(false);
+				unitRenderer.Selection.gameObject.SetActive(false);
 			}
 
 			SelectedUnits.Clear();
@@ -94,7 +94,7 @@ namespace Omniverse.Input
 		
 		private void AddFocus(UnitRenderer unitRenderer)
 		{
-			unitRenderer.Focus.SetActive(true);
+			unitRenderer.Focus.gameObject.SetActive(true);
 			FocusedUnits.Add(unitRenderer);
 		}
 		
@@ -102,7 +102,7 @@ namespace Omniverse.Input
 		{
 			foreach (UnitRenderer unitRenderer in FocusedUnits)
 			{
-				unitRenderer.Focus.SetActive(false);
+				unitRenderer.Focus.gameObject.SetActive(false);
 			}
 
 			FocusedUnits.Clear();

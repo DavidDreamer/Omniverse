@@ -28,31 +28,31 @@ namespace Omniverse.Client
 
 		private Unit Unit { get; set; }
 
+		private MaterialPropertyBlock MaterialPropertyBlock { get; set; }
+		
 		public void Initialize(Unit unit)
 		{
 			Unit = unit;
 
 			Property = Unit.Properties.Values.First();
 
+			MaterialPropertyBlock = new MaterialPropertyBlock();
+			
 			UpdateColors();
 		}
 
 		private void UpdateColors()
 		{
 			HealthBarColors colors = Player.FactionID == Unit.FactionID ? Config.AllyColors : Config.EnemyColors;
-			var materialPropertyBlock = new MaterialPropertyBlock();
-			MeshRenderer.GetPropertyBlock(materialPropertyBlock);
-			materialPropertyBlock.SetColor(ShaderVariables.BaseColor, colors.BaseColor);
-			materialPropertyBlock.SetColor(ShaderVariables.SecondColor, colors.SecondColor);
-			MeshRenderer.SetPropertyBlock(materialPropertyBlock);
+			MaterialPropertyBlock.SetColor(ShaderVariables.BaseColor, colors.BaseColor);
+			MaterialPropertyBlock.SetColor(ShaderVariables.SecondColor, colors.SecondColor);
+			MeshRenderer.SetPropertyBlock(MaterialPropertyBlock);
 		}
 
 		public void LateUpdate()
 		{
-			var materialPropertyBlock = new MaterialPropertyBlock();
-			MeshRenderer.GetPropertyBlock(materialPropertyBlock);
-			materialPropertyBlock.SetFloat(ShaderVariables.Amount, Property.Amount.Value / Property.Capacity.Value);
-			MeshRenderer.SetPropertyBlock(materialPropertyBlock);
+			MaterialPropertyBlock.SetFloat(ShaderVariables.Amount, Property.Amount.Value / Property.Capacity.Value);
+			MeshRenderer.SetPropertyBlock(MaterialPropertyBlock);
 		}
 	}
 }

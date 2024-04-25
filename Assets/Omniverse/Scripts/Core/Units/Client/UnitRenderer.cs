@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class UnitRenderer: MonoBehaviour, IPoolObject
+	public class UnitRenderer: UnitRendererBase, IPoolObject
 	{
 		private static class AnimatorVariables
 		{
@@ -23,10 +23,10 @@ namespace Omniverse
 		private Ragdoll Ragdoll { get; set; }
 
 		[field: SerializeField]
-		public GameObject Selection { get; set; }
+		public UnitMarker Selection { get; set; }
 
 		[field: SerializeField]
-		public GameObject Focus { get; set; }
+		public UnitMarker Focus { get; set; }
 		
 		[field: SerializeField]
 		[field: HideInInspector]
@@ -47,13 +47,15 @@ namespace Omniverse
 			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
 		}
 		
-		public void Initialize(Unit unit)
+		public override void Initialize(Unit unit)
 		{
 			Unit = unit;
 			Unit.Died += OnDied;
 			Unit.Attack.Started += OnAttackStarted;
 
 			HealthBar.Initialize(Unit);
+			Selection.Initialize(Unit);
+			Focus.Initialize(Unit);
 		}
 
 		private void OnDestroy()
@@ -96,9 +98,8 @@ namespace Omniverse
 			Animator.SetTrigger(AnimatorVariables.Attack);
 		}
 
-		public void Cleanup()
+		public override void Cleanup()
 		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

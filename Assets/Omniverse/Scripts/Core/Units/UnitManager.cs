@@ -6,11 +6,17 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Omniverse
 {
+	//TODO:
+	public abstract class UnitRendererBase: MonoBehaviour, IPoolObject
+	{
+		public abstract void Initialize(Unit unit);
+		public abstract void Cleanup();
+	}
+	
 	[UnityEngine.Scripting.Preserve]
 	public class UnitManager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
@@ -18,7 +24,7 @@ namespace Omniverse
 		private PrefabPool<UnitPresenter> PresenterPool { get; set; }
 
 		[Inject]
-		private PrefabPool<UnitRenderer> RendererPool { get; set; }
+		private PrefabPool<UnitRendererBase> RendererPool { get; set; }
 
 		[Inject]
 		private ItemManager ItemManager { get; set; }
@@ -48,7 +54,7 @@ namespace Omniverse
 
 			unit.Presenter.Bind(unit);
 
-			UnitRenderer unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
+			UnitRendererBase unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
 			unitRenderer.transform.SetParent(unitPresenter.transform, false);
 			unitRenderer.Initialize(unit);
 	

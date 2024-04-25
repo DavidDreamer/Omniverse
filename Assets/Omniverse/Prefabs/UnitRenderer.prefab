@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5392704209767176661}
+  - component: {fileID: 8959794130692617503}
   - component: {fileID: 8604740411776539160}
   m_Layer: 0
   m_Name: Selection
@@ -32,6 +33,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2066418286428893852}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8959794130692617503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241432840974445566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c8400d8f3a42fd9a936d35c0fed9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Config>k__BackingField: {fileID: 11400000, guid: 08bd4f68f17a8864bb3207609658cc1e, type: 2}
+  <DecalProjector>k__BackingField: {fileID: 8604740411776539160}
 --- !u!114 &8604740411776539160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,8 +121,8 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 0}
   <HealthBar>k__BackingField: {fileID: 6182869381328200461}
   <Ragdoll>k__BackingField: {fileID: 0}
-  <Selection>k__BackingField: {fileID: 2241432840974445566}
-  <Focus>k__BackingField: {fileID: 8328696707339511185}
+  <Selection>k__BackingField: {fileID: 8959794130692617503}
+  <Focus>k__BackingField: {fileID: 1918453499434130445}
   <Renderers>k__BackingField:
   - {fileID: 6466041603510578255}
   <MeshFilters>k__BackingField:
@@ -220,6 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886445726696911226}
+  - component: {fileID: 1918453499434130445}
   - component: {fileID: 4967376043883699280}
   m_Layer: 0
   m_Name: Focus
@@ -243,6 +259,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2066418286428893852}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1918453499434130445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328696707339511185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c8400d8f3a42fd9a936d35c0fed9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Config>k__BackingField: {fileID: 11400000, guid: 1b9cd9448208e6f47831d655ad715620, type: 2}
+  <DecalProjector>k__BackingField: {fileID: 4967376043883699280}
 --- !u!114 &4967376043883699280
 MonoBehaviour:
   m_ObjectHideFlags: 0
