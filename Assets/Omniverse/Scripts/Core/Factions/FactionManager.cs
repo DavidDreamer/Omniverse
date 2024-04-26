@@ -18,4 +18,11 @@ namespace Omniverse
 			}
 		}
 	}
+
+	public static class UnitFactionUtils
+	{
+		public static bool IsAllyFor(this Unit source, Unit target) => source.FactionID == target.FactionID;
+		
+		public static bool IsEnemyFor(this Unit source, Unit target) => source.FactionID != target.FactionID;
+	}
 }

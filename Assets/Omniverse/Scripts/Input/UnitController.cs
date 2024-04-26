@@ -42,7 +42,10 @@ namespace Omniverse.Input
 				{
 					foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
 					{
-						selectedUnit.Unit.Target = unitRenderer.Unit;
+						if (selectedUnit.Unit != unitRenderer.Unit)
+						{
+							selectedUnit.Unit.Target = unitRenderer.Unit;
+						}
 					}
 
 					return;

@@ -88,13 +88,16 @@ namespace Omniverse
 				if (Target != null)
 				{
 					Presenter.NavMeshAgent.destination = Target.Presenter.transform.position;
-					
-					if (Presenter.NavMeshAgent.remainingDistance <= Attack.Range)
+
+					if (Target.IsEnemyFor(this))
 					{
-						if (Time.time - Attack.lastTime > Attack.Speed)
+						if (Presenter.NavMeshAgent.remainingDistance <= Attack.Range)
 						{
-							Presenter.NavMeshAgent.isStopped = true;
-							Attack.Perform(Target);
+							if (Time.time - Attack.lastTime > Attack.Speed)
+							{
+								Presenter.NavMeshAgent.isStopped = true;
+								Attack.Perform(Target);
+							}
 						}
 					}
 				}
