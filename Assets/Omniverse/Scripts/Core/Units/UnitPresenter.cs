@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Omniverse.Camera;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,9 @@ namespace Omniverse
 
 		[field: SerializeField]
 		public Collider Hitbox { get; private set; }
+		
+		[field: SerializeField]
+		public FogOfWarAgent FogOfWarAgent { get; private set; }
 		
 		public Unit Unit { get; private set; }
 
@@ -32,6 +36,11 @@ namespace Omniverse
 					NavMeshAgent.speed = Unit.Movement.Speed;
 					NavMeshAgent.angularSpeed = Unit.Movement.RotationSpeed;
 				}
+			}
+
+			if (FogOfWarAgent != null)
+			{
+				FogOfWarAgent.FactionID = unit.FactionID;
 			}
 		}
 

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Duskwood
   m_EditorClassIdentifier: 
   <Resources>k__BackingField: []
-  <Factions>k__BackingField: []
+  <Factions>k__BackingField:
+  - <Name>k__BackingField: 
+    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: 
+    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <MapSettings>k__BackingField: {fileID: 11400000, guid: ddc732f160381bb40ac14ba20f5ed8c6, type: 2}

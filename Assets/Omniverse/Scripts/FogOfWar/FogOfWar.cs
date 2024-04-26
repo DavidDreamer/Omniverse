@@ -8,7 +8,7 @@ namespace Omniverse.Camera
 	{
 		public Vector3 Position;
 
-		public bool Reveled;
+		public bool[] Reveled;
 
 		public float Value;
 	}
@@ -20,7 +20,10 @@ namespace Omniverse.Camera
 		private Vector2Int Resolution { get; set; }
 
 		[Inject]
-		private MapSettings MapSettings { get; set; }
+		private GameSettings GameSettings { get; set; }
+
+		[Inject]
+		private Player Player { get; set; }
 		
 		public Texture2D texture;
 
@@ -37,7 +40,7 @@ namespace Omniverse.Camera
 		
 		private void Awake()
 		{
-			Resolution = MapSettings.Size / Multiplier;
+			Resolution = GameSettings.MapSettings.Size / Multiplier;
 			
 			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
 			Vector3 offset = size / 2f;
@@ -49,7 +52,8 @@ namespace Omniverse.Camera
 				{
 					Cells[x, y] = new FogOfWarCell
 					{
-						Position = new Vector3(x, 0, y) * Multiplier + offset
+						Position = new Vector3(x, 0, y) * Multiplier + offset,
+						Reveled = new bool[GameSettings.Factions.Length]
 					};
 				}
 			}
@@ -89,21 +93,30 @@ namespace Omniverse.Camera
 				{
 					FogOfWarCell cell = Cells[x, y];
 
-					cell.Reveled = false;
+					for (var i = 0; i < cell.Reveled.Length; i++)
+					{
+						cell.Reveled[i] = false;
+					}
+					
 					foreach (FogOfWarAgent agent in agents)
 					{
 						float distance = (agent.Cell.Position - cell.Position).sqrMagnitude;
-
-						cell.Reveled |= distance <= agent.Range * agent.Range;
+						
+						cell.Reveled[agent.FactionID] |= distance <= agent.Range * agent.Range;
 					}
 
-					cell.Value += (cell.Reveled ? -1 : 1) * delta;
+					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
 					cell.Value = Mathf.Clamp01(cell.Value);
 					
 					Color color = new Color(0, 0, 0, (cell.Value) * alpah);
 					
 					texture.SetPixel(x, y, color);
 				}
+			}
+			
+			foreach (FogOfWarAgent agent in agents)
+			{
+				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject.SetActive(agent.Cell.Reveled[Player.FactionID]);
 			}
 			
 			texture.Apply();
@@ -138,7 +151,7 @@ namespace Omniverse.Camera
 					Vector3 position = cell.Position;
 					Gizmos.DrawWireCube(cell.Position, size);
 
-					Gizmos.color = cell.Reveled ? Color.green : Color.red;
+					Gizmos.color = cell.Reveled[Player.FactionID] ? Color.green : Color.red;
 					Gizmos.DrawCube(position, size);
 					Gizmos.color = Color.white;
 				}
