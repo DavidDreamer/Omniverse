@@ -1,6 +1,5 @@
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.Camera
 {
@@ -11,18 +10,12 @@ namespace Omniverse.Camera
 
 		public UnitDesc UnitDesc;
 
+		public int FactionID;
+		
 		public void Start()
 		{
-			Spawn(0);
-			Spawn(0);
-			Spawn(1);
-			Spawn(1);
-
-			void Spawn(int factionID)
-			{
-				Unit unit = UnitManager.Spawn(UnitDesc, factionID);
-				unit.Presenter.NavMeshAgent.Warp(transform.position);
-			}
+			Unit unit = UnitManager.Spawn(UnitDesc, FactionID);
+			unit.Presenter.NavMeshAgent.Warp(transform.position);
 		}
 	}
 }
