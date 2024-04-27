@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Duskwood
   m_EditorClassIdentifier: 
   <Size>k__BackingField: {x: 256, y: 256}
+  <FogOfWar>k__BackingField: 1

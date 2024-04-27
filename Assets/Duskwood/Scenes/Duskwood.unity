@@ -159,13 +159,14 @@ MonoBehaviour:
   - {fileID: 330585543}
   - {fileID: 94579322}
   - {fileID: 1627585134}
-  - {fileID: 1471369613}
+  - {fileID: 0}
   - {fileID: 1475823153}
   - {fileID: 1786262018}
   - {fileID: 507580125}
   - {fileID: 858260885}
   <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
   <Map>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
+  <FogOfWarRenderer>k__BackingField: {fileID: 5097684940926804426, guid: 86277cb4a39111740856565c80871011, type: 3}
 --- !u!4 &77597338
 Transform:
   m_ObjectHideFlags: 0
@@ -1336,58 +1337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 1975275429}
   CameraBounds: {fileID: 186706987}
---- !u!1 &1471369613
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1471369615}
-  - component: {fileID: 1471369614}
-  m_Layer: 0
-  m_Name: FogOfWar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1471369614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1471369613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4e51f965a45438eb894e98d1ddbf7f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 0}
-  RenderTexture: {fileID: 8400000, guid: 2c10938a4cceca842969a3a187e3735f, type: 2}
-  RenderTexture2: {fileID: 8400000, guid: fe688124b128cd74b8df8e509bbd99e4, type: 2}
-  Material: {fileID: 2100000, guid: 3d4dbb891a9e5794bb941fcc2efff9f5, type: 2}
-  alpah: 0.8
-  Radius: 5
-  delta: 0.03
-  ApplyBlur: 1
---- !u!4 &1471369615
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1471369613}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1475823153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,7 +2354,6 @@ SceneRoots:
   - {fileID: 1786262020}
   - {fileID: 507580127}
   - {fileID: 858260887}
-  - {fileID: 1471369615}
   - {fileID: 2025685716}
   - {fileID: 1627585138}
   - {fileID: 1911415045}

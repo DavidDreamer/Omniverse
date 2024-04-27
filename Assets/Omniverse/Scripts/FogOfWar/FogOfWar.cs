@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.Camera
 {
@@ -13,32 +13,21 @@ namespace Omniverse.Camera
 		public float Value;
 	}
 
-	public class FogOfWar: MonoBehaviour
+	public class FogOfWar: IInitializable, IFixedTickable
 	{
-		private static int Multiplier { get; } = (int)Mathf.Pow(2f, 2f);
+		private static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 		
-		private Vector2Int Resolution { get; set; }
+		public Vector2Int Resolution { get; set; }
 
 		[Inject]
 		private GameSettings GameSettings { get; set; }
 
 		[Inject]
 		private Player Player { get; set; }
-		
-		public Texture2D texture;
 
-		public RenderTexture RenderTexture;
-		public RenderTexture RenderTexture2;
+		public FogOfWarCell[,] Cells { get; set; }
 
-		public Material Material;
-
-		private Material BlurMaterial;
-
-		private FogOfWarCell[,] Cells { get; set; }
-
-		public float alpah;
-		
-		private void Awake()
+		public void Initialize()
 		{
 			Resolution = GameSettings.MapSettings.Size / Multiplier;
 			
@@ -57,26 +46,13 @@ namespace Omniverse.Camera
 					};
 				}
 			}
-
-			texture = new Texture2D(Resolution.x, Resolution.y);
-
-			Material.SetTexture("_BaseMap", RenderTexture2);
-
-			BlurMaterial = new Material(Shader.Find("Hidden/Dreambox/Blur"));
-			BlurMaterial.SetFloat("Factor", 1);
-			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
-			
 		}
 
-		public float Radius;
-
-		public float delta;
+		public float delta = 0.03f;
 		
-		public void Update()
+		public void FixedTick()
 		{
-			BlurMaterial.SetFloat("Radius", Radius);
-			
-			var agents = FindObjectsOfType<FogOfWarAgent>();
+			var agents = UnityEngine.Object.FindObjectsOfType<FogOfWarAgent>();
 
 			foreach (FogOfWarAgent agent in agents)
 			{
@@ -107,10 +83,6 @@ namespace Omniverse.Camera
 
 					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
 					cell.Value = Mathf.Clamp01(cell.Value);
-					
-					Color color = new Color(0, 0, 0, (cell.Value) * alpah);
-					
-					texture.SetPixel(x, y, color);
 				}
 			}
 			
@@ -118,21 +90,8 @@ namespace Omniverse.Camera
 			{
 				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject.SetActive(agent.Cell.Reveled[Player.FactionID]);
 			}
-			
-			texture.Apply();
-
-			if (ApplyBlur)
-			{
-				Graphics.Blit(texture, RenderTexture, BlurMaterial, 0);
-				Graphics.Blit(RenderTexture, RenderTexture2, BlurMaterial, 1);
-			}
-			else
-			{
-				Graphics.Blit(texture, RenderTexture2);
-			}
 		}
 
-		public bool ApplyBlur;
 		private void OnDrawGizmosSelected()
 		{
 			if (!Application.isPlaying)

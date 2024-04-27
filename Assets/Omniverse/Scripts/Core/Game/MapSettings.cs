@@ -6,6 +6,9 @@ namespace Omniverse
 	public class MapSettings: ScriptableObject
 	{
 		[field: SerializeField]
-		public Vector2Int Size { get; set; }
+		public Vector2Int Size { get; private set; }
+		
+		[field: SerializeField]
+		public bool FogOfWar { get; private set; }
 	}
 }
