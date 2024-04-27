@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.Camera
 {
-	public class FogOfWarRenderer: MonoBehaviour, IInitializable
+	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
 	{
 		[Inject]
 		private FogOfWar FogOfWar { get; set; }
@@ -29,11 +31,31 @@ namespace Omniverse.Camera
 		{
 			texture = new Texture2D(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
 
+			RenderTexture = CreateRenderTexture("FogOfWar0");
+			RenderTexture2 = CreateRenderTexture("FogOfWar1");
+			
 			Material.SetTexture("_BaseMap", RenderTexture2);
 
 			BlurMaterial = new Material(Shader.Find("Hidden/Dreambox/Blur"));
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
+
+			RenderTexture CreateRenderTexture(string textureName)
+			{
+				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
+					GraphicsFormat.R16G16B16A16_SFloat,
+					GraphicsFormat.None)
+				{
+					name = textureName,
+					anisoLevel = 0
+				};
+			}
+		}
+
+		public void Dispose()
+		{
+			RenderTexture.Release();
+			RenderTexture2.Release();
 		}
 
 		public void LateUpdate()
