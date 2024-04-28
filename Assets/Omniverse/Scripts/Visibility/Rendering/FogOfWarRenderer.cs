@@ -2,13 +2,16 @@
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Camera
+namespace Omniverse.Visibility.Rendering
 {
 	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
 	{
+		private const string ShaderName = "Hidden/Omniverse/FogOfWar";
+		
 		[Inject]
 		private FogOfWar FogOfWar { get; set; }
 		
@@ -16,8 +19,6 @@ namespace Omniverse.Camera
 
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
-
-		public Material Material;
 
 		private Material BlurMaterial;
 
@@ -27,15 +28,37 @@ namespace Omniverse.Camera
 		
 		public bool ApplyBlur;
 
+		private FogOfWarPass Pass { get; set; }
+		
+		private void OnEnable()
+		{
+			var material = new Material(Shader.Find(ShaderName));
+			
+			Pass = new FogOfWarPass(material)
+			{
+				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
+			};
+		
+			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
+		}
+
+		private void OnDisable()
+		{
+			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
+		}
+
+		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
+		{
+			cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
+		}
+
 		public void Initialize()
 		{
 			texture = new Texture2D(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
 
 			RenderTexture = CreateRenderTexture("FogOfWar0");
 			RenderTexture2 = CreateRenderTexture("FogOfWar1");
-			
-			Material.SetTexture("_BaseMap", RenderTexture2);
-
+	
 			BlurMaterial = new Material(Shader.Find("Hidden/Dreambox/Blur"));
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
@@ -85,6 +108,8 @@ namespace Omniverse.Camera
 			{
 				Graphics.Blit(texture, RenderTexture2);
 			}
+
+			Shader.SetGlobalTexture("FogOfWarTexture", RenderTexture2);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Camera
+namespace Omniverse.Visibility
 {
 	public class FogOfWarCell
 	{

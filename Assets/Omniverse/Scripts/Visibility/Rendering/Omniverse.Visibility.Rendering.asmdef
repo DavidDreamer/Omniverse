@@ -1,13 +1,11 @@
 {
-    "name": "Omniverse.Application",
-    "rootNamespace": "Omniverse.Application",
+    "name": "Omniverse.Visibility.Rendering",
+    "rootNamespace": "Omniverse.Visibility.Rendering",
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:a800ed0346bedf24b83a8334d9d79077",
-        "GUID:fa2939490d7ed97459f5d9c24d51f0fc",
-        "GUID:982fb07580c14034db6e6f7e0a2e08f4",
-        "GUID:6d23840a86944564fbcf80ce47c04045",
-        "GUID:7459b32695f670745a3cb48a35e1dbaf"
+        "GUID:0f87c5ce7d124044197d93f161cf57a2",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

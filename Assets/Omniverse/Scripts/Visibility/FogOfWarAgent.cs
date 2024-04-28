@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Camera
+namespace Omniverse.Visibility
 {
 	public class FogOfWarAgent: MonoBehaviour
 	{

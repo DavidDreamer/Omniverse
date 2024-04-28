@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Omniverse.Camera;
 using Omniverse.Mapping;
+using Omniverse.Visibility;
+using Omniverse.Visibility.Rendering;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

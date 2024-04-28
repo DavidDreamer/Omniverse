@@ -1,12 +1,12 @@
 {
-    "name": "Omniverse.Cameras",
-    "rootNamespace": "Omniverse.Cameras",
+    "name": "Omniverse.Core",
+    "rootNamespace": "Omniverse.Core",
     "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:7900f524ca37ee847a70422f636ab5c5",
-        "GUID:a800ed0346bedf24b83a8334d9d79077",
-        "GUID:6d23840a86944564fbcf80ce47c04045",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:ecc954b2faf3acc4d96892f37428835d"
+        "GUID:27955ab605692424a85f77ff6cf21d7d",
+        "GUID:b582d1c6099b0904a917f0be28dd1018"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
