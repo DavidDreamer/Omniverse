@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12237e68019c48b891b266ae44540e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Properties>k__BackingField:
+    Color: {r: 0, g: 0, b: 0, a: 0.8}
   texture: {fileID: 0}
   RenderTexture: {fileID: 8400000, guid: 2c10938a4cceca842969a3a187e3735f, type: 2}
   RenderTexture2: {fileID: 8400000, guid: fe688124b128cd74b8df8e509bbd99e4, type: 2}
   Radius: 3
-  alpha: 0.8
   ApplyBlur: 1

@@ -1,72 +1,57 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class FogOfWarPass: ScriptableRenderPass
+namespace Omniverse.Visibility.Rendering
 {
-    private Material material;
+	public class FogOfWarPass: ScriptableRenderPass
+	{
+		private Material material;
 
-    private RenderTextureDescriptor textureDescriptor;
-    private RTHandle textureHandle;
+		private RenderTextureDescriptor textureDescriptor;
 
-    public FogOfWarPass(Material material)
-    {
-        this.material = material;
+		private RTHandle textureHandle;
 
-        textureDescriptor = new RenderTextureDescriptor(Screen.width,
-            Screen.height, RenderTextureFormat.Default, 0);
-    }
+		public FogOfWarPass(Material material)
+		{
+			this.material = material;
 
-    public override void Configure(CommandBuffer cmd,
-        RenderTextureDescriptor cameraTextureDescriptor)
-    {
-        // Set the texture size to be the same as the camera target size.
-        textureDescriptor.width = cameraTextureDescriptor.width;
-        textureDescriptor.height = cameraTextureDescriptor.height;
+			textureDescriptor = new RenderTextureDescriptor(Screen.width,
+				Screen.height, RenderTextureFormat.Default, 0);
+		}
 
-        // Check if the descriptor has changed, and reallocate the RTHandle if necessary
-        RenderingUtils.ReAllocateIfNeeded(ref textureHandle, textureDescriptor);
-    }
+		public override void Configure(
+			CommandBuffer cmd,
+			RenderTextureDescriptor cameraTextureDescriptor)
+		{
+			// Set the texture size to be the same as the camera target size.
+			textureDescriptor.width = cameraTextureDescriptor.width;
+			textureDescriptor.height = cameraTextureDescriptor.height;
 
-    public override void Execute(ScriptableRenderContext context,
-        ref RenderingData renderingData)
-    {
-        //Get a CommandBuffer from pool.
-        CommandBuffer cmd = CommandBufferPool.Get();
+			// Check if the descriptor has changed, and reallocate the RTHandle if necessary
+			RenderingUtils.ReAllocateIfNeeded(ref textureHandle, textureDescriptor);
+		}
 
-        RTHandle cameraTargetHandle =
-            renderingData.cameraData.renderer.cameraColorTargetHandle;
+		public override void Execute(
+			ScriptableRenderContext context,
+			ref RenderingData renderingData)
+		{
+			CommandBuffer cmd = CommandBufferPool.Get("FogOfWar");
 
-        // // Blit from the camera target to the temporary render texture,
-        // // using the first shader pass.
-        // Blit(cmd, cameraTargetHandle, textureHandle, material, 0);
-        // // Blit from the temporary render texture to the camera target,
-        // // using the second shader pass.
-        // Blit(cmd, textureHandle, cameraTargetHandle, material, 1);
+			RTHandle cameraTargetHandle =
+				renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-        Blitter.BlitCameraTexture(cmd, cameraTargetHandle, cameraTargetHandle, material, 0);
-        
-        //Execute the command buffer and release it back to the pool.
-        context.ExecuteCommandBuffer(cmd);
-        CommandBufferPool.Release(cmd);
-    }
+			Blitter.BlitCameraTexture(cmd, cameraTargetHandle, cameraTargetHandle, material, 0);
 
-    public void Dispose()
-    {
-    #if UNITY_EDITOR
-        if (EditorApplication.isPlaying)
-        {
-            Object.Destroy(material);
-        }
-        else
-        {
-            Object.DestroyImmediate(material);
-        }
-    #else
-            Object.Destroy(material);
-    #endif
+			context.ExecuteCommandBuffer(cmd);
+			CommandBufferPool.Release(cmd);
+		}
+		
+		public void Dispose()
+		{
+			CoreUtils.Destroy(material);
 
-        if (textureHandle != null) textureHandle.Release();
-    }
+			if (textureHandle != null) textureHandle.Release();
+		}
+	}
 }

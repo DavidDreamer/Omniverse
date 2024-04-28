@@ -10,25 +10,37 @@ namespace Omniverse.Visibility.Rendering
 {
 	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
 	{
+		private static class ShaderVariables
+		{
+			public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
+			public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));
+		}
+		
 		private const string ShaderName = "Hidden/Omniverse/FogOfWar";
 		
-		[Inject]
-		private FogOfWar FogOfWar { get; set; }
+		[field: SerializeField]
+		private FogOfWarProperties Properties { get; set; }
 		
 		public Texture2D texture;
-
+		
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
 
 		private Material BlurMaterial;
 
 		public float Radius;
-		
-		public float alpha;
-		
+
 		public bool ApplyBlur;
 
+		[Inject]
+		private FogOfWar FogOfWar { get; set; }
+
 		private FogOfWarPass Pass { get; set; }
+		
+		private void OnValidate()
+		{
+			UpdateGlobalShaderVariables();
+		}
 		
 		private void OnEnable()
 		{
@@ -46,6 +58,9 @@ namespace Omniverse.Visibility.Rendering
 		{
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
+
+		private void UpdateGlobalShaderVariables() =>
+			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
 
 		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
 		{
@@ -91,7 +106,7 @@ namespace Omniverse.Visibility.Rendering
 				{
 					FogOfWarCell cell = FogOfWar.Cells[x, y];
 					
-					Color color = new Color(0, 0, 0, cell.Value * alpha);
+					Color color = new Color(0, 0, 0, cell.Value);
 					
 					texture.SetPixel(x, y, color);
 				}
@@ -109,7 +124,7 @@ namespace Omniverse.Visibility.Rendering
 				Graphics.Blit(texture, RenderTexture2);
 			}
 
-			Shader.SetGlobalTexture("FogOfWarTexture", RenderTexture2);
+			Shader.SetGlobalTexture(ShaderVariables.FogOfWarTexture, RenderTexture2);
 		}
 	}
 }
