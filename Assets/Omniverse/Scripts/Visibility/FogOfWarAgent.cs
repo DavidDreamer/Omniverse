@@ -9,5 +9,11 @@ namespace Omniverse.Visibility
 		public float Range;
 
 		public FogOfWarCell Cell;
+
+		//TODO
+		private void Start()
+		{
+			FactionID = GetComponent<UnitPresenter>().Unit.FactionID;
+		}
 	}
 }
