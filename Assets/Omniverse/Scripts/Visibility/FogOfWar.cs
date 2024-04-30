@@ -15,7 +15,7 @@ namespace Omniverse.Visibility
 
 	public class FogOfWar: IInitializable, IFixedTickable
 	{
-		private static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
+		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 		
 		public Vector2Int Resolution { get; set; }
 
@@ -23,7 +23,7 @@ namespace Omniverse.Visibility
 		private GameSettings GameSettings { get; set; }
 
 		[Inject]
-		private Player Player { get; set; }
+		public Player Player { get; set; }
 
 		public FogOfWarCell[,] Cells { get; set; }
 
@@ -89,31 +89,6 @@ namespace Omniverse.Visibility
 			foreach (FogOfWarAgent agent in agents)
 			{
 				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject.SetActive(agent.Cell.Reveled[Player.FactionID]);
-			}
-		}
-
-		private void OnDrawGizmosSelected()
-		{
-			if (!Application.isPlaying)
-			{
-				return;
-			}
-
-			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
-
-			for (int x = 0; x < Resolution.x; ++x)
-			{
-				for (int y = 0; y < Resolution.y; ++y)
-				{
-					FogOfWarCell cell = Cells[x, y];
-
-					Vector3 position = cell.Position;
-					Gizmos.DrawWireCube(cell.Position, size);
-
-					Gizmos.color = cell.Reveled[Player.FactionID] ? Color.green : Color.red;
-					Gizmos.DrawCube(position, size);
-					Gizmos.color = Color.white;
-				}
 			}
 		}
 	}

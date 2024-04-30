@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -33,7 +34,7 @@ namespace Omniverse.Visibility.Rendering
 		public bool ApplyBlur;
 
 		[Inject]
-		private FogOfWar FogOfWar { get; set; }
+		public FogOfWar FogOfWar { get; set; }
 
 		private FogOfWarPass Pass { get; set; }
 		
@@ -62,7 +63,7 @@ namespace Omniverse.Visibility.Rendering
 		private void UpdateGlobalShaderVariables() =>
 			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
 
-		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
+		private void OnBeginCameraRendering(ScriptableRenderContext context, UnityEngine.Camera cam)
 		{
 			cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
 		}
@@ -99,13 +100,16 @@ namespace Omniverse.Visibility.Rendering
 		public void LateUpdate()
 		{
 			BlurMaterial.SetFloat("Radius", Radius);
+
+			float xx = FogOfWar.Resolution.x;
+			float yy = FogOfWar.Resolution.y;
 			
-			for (int x = 0; x < FogOfWar.Resolution.x; ++x)
+			for (int x = 0; x < xx; ++x)
 			{
-				for (int y = 0; y < FogOfWar.Resolution.y; ++y)
+				for (int y = 0; y < yy; ++y)
 				{
 					FogOfWarCell cell = FogOfWar.Cells[x, y];
-					
+
 					Color color = new Color(0, 0, 0, cell.Value);
 					
 					texture.SetPixel(x, y, color);

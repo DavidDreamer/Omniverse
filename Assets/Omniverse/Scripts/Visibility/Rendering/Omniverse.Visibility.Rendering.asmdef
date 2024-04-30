@@ -3,6 +3,7 @@
     "rootNamespace": "Omniverse.Visibility.Rendering",
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
         "GUID:0f87c5ce7d124044197d93f161cf57a2",
         "GUID:df380645f10b7bc4b97d4f5eb6303d95",
         "GUID:15fc0a57446b3144c949da3e2b9737a9"
