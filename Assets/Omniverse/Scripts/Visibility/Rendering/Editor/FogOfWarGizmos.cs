@@ -8,6 +8,8 @@ namespace Omniverse.Visibility.Rendering.Editor
 		private static Color Visible { get; } = Color.green;
 
 		private static Color Invisible { get; } = Color.red;
+		
+		private static Color Occluded { get; } = Color.black;
 
 		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarRenderer))]
 		private static void DrawGizmos(FogOfWarRenderer fogOfWarRenderer, GizmoType gizmoType)
@@ -28,9 +30,10 @@ namespace Omniverse.Visibility.Rendering.Editor
 				{
 					FogOfWarCell cell = fogOfWarRenderer.FogOfWar.Cells[x, y];
 					Vector3 position = cell.Position;
-					Color color = cell.Reveled[fogOfWarRenderer.FogOfWar.Player.FactionID] ? Visible : Invisible;
+					Color color = cell.Occluded ? Occluded :
+						cell.Reveled[fogOfWarRenderer.FogOfWar.Player.FactionID] ? Visible : Invisible;
 
-					//Gizmos.DrawWireCube(cell.Position, size);
+					Gizmos.DrawWireCube(cell.Position, size);
 
 					Gizmos.color = color;
 					Gizmos.DrawCube(position, size);
