@@ -11,10 +11,6 @@ namespace Omniverse.Visibility
 
 		public bool Occluded;
 
-		public int[] Vision;
-		
-		public int[] Block;
-		
 		public Vector3 Position;
 
 		public bool[] Reveled;
@@ -52,8 +48,6 @@ namespace Omniverse.Visibility
 					{
 						Position = new Vector3(x, 0, y) * Multiplier + offset,
 						Reveled = new bool[GameSettings.Factions.Length],
-						Vision = new int[GameSettings.Factions.Length],
-						Block = new int[GameSettings.Factions.Length],
 						Neighbours = new()
 					};
 				}
@@ -96,9 +90,9 @@ namespace Omniverse.Visibility
 			public int Steps;
 		}
 		
-		private Queue<Temp> Queue { get; } = new();
+		private Queue<FogOfWarCell> Queue { get; } = new();
 		private HashSet<FogOfWarCell> Set { get; } = new();
-		private HashSet<FogOfWarCell> Set2 { get; } = new();
+		private Dictionary<FogOfWarCell, int> Dictionary { get; } = new();
 
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
@@ -107,18 +101,12 @@ namespace Omniverse.Visibility
 			Queue.Clear();
 			Set.Clear();
 
-			var temp = new Temp
-			{
-				Cell = cell,
-				Steps = 0
-			};
-
-			Queue.Enqueue(temp);
+			Queue.Enqueue(cell);
 			Set.Add(cell);
 
 			while (Queue.Count > 0)
 			{
-				cell = Queue.Dequeue().Cell;
+				cell = Queue.Dequeue();
 
 				Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cell.Position);
 
@@ -136,7 +124,7 @@ namespace Omniverse.Visibility
 					if (!Set.Contains(neighbourCell))
 					{
 						Set.Add(neighbourCell);
-						Queue.Enqueue(new Temp(){Cell = neighbourCell});
+						Queue.Enqueue(neighbourCell);
 					}
 				}
 			}
@@ -170,8 +158,6 @@ namespace Omniverse.Visibility
 					for (var i = 0; i < cell.Reveled.Length; i++)
 					{
 						cell.Reveled[i] = false;
-						cell.Vision[i] = 0;
-						cell.Block[i] = 0;
 					}
 				}
 			}
@@ -182,84 +168,47 @@ namespace Omniverse.Visibility
 
 				Queue.Clear();
 				Set.Clear();
-				Set2.Clear();
+				Dictionary.Clear();
 
-				Set2.Add(agent.Cell);
-				agent.Cell.Vision[agent.FactionID]++;
-				
-				var temp = new Temp
-				{
-					Cell = agent.Cell,
-					Steps = 1
-				};
-
-				//agent.Cell.Vision[agent.FactionID] = 1;
-				
-				Queue.Enqueue(temp);
+				Dictionary.Add(agent.Cell, 1);
+				Queue.Enqueue(agent.Cell);
 
 				while (Queue.Count > 0)
 				{
 					var cell = Queue.Dequeue();
 
-					Set.Add(cell.Cell);
+					Set.Add(cell);
 					
-					float distance = (cell.Cell.Position - agent.Cell.Position).sqrMagnitude;
+					float distance = (cell.Position - agent.Cell.Position).sqrMagnitude;
 					
 					if (distance > range)
 					{
 						continue;
 					}
-					
-					bool occluded = cell.Cell.Occluded ||
-					                cell.Cell.Block[agent.FactionID] > cell.Cell.Vision[agent.FactionID];
-					cell.Cell.Reveled[agent.FactionID] |= !occluded;
 
-					if (cell.Cell.Occluded)
+					if (cell.Occluded)
 					{
-						cell.Cell.Block[agent.FactionID] = cell.Steps;
+						Dictionary[cell] = -1;
 					}
-					
-					if (occluded)
-					{
-						cell.Cell.Block[agent.FactionID]++;
-						cell.Cell.Vision[agent.FactionID] = 0;
-					}
-					else
-					{
-						cell.Cell.Vision[agent.FactionID]++;
-					}
-					
-					// float stepdistance = cell.Steps * cell.Steps * Multiplier;
-					//
-					// if (stepdistance > distance)
-					// {
-					// 	continue;
-					// }
-					
-					//cell.Cell.Reveled[agent.FactionID] = true;
 
-					foreach (FogOfWarCell neighbourCell in cell.Cell.Neighbours)
+					cell.Reveled[agent.FactionID] |= Dictionary[cell] >= 0;
+
+					foreach (FogOfWarCell neighbourCell in cell.Neighbours)
 					{
 						if (Set.Contains(neighbourCell))
 						{
 							continue;
 						}
 						
-						if (!Set2.Contains(neighbourCell))
+						if (!Dictionary.ContainsKey(neighbourCell))
 						{
-							Set2.Add(neighbourCell);
-							
-							temp = new Temp
-							{
-								Cell = neighbourCell,
-								Steps = cell.Steps + 1
-							};
-							
-							Queue.Enqueue(temp);	
+							Dictionary.Add(neighbourCell, Dictionary[cell]);
+							Queue.Enqueue(neighbourCell);	
 						}
-
-						neighbourCell.Block[agent.FactionID] += cell.Cell.Block[agent.FactionID];
-						neighbourCell.Vision[agent.FactionID] += cell.Cell.Vision[agent.FactionID];
+						else
+						{
+							Dictionary[neighbourCell] += Dictionary[cell];
+						}
 					}
 				}
 			}
