@@ -140,15 +140,29 @@ namespace Omniverse.Visibility
 			return Cells[x, y];
 		}
 		
-		public void FixedTick()
+		private FogOfWarAgent[] Agents {get;set;}
+			
+		private void UpdateAgentPositions()
 		{
-			var agents = Object.FindObjectsOfType<FogOfWarAgent>();
+			Agents = Object.FindObjectsOfType<FogOfWarAgent>();
 
-			foreach (FogOfWarAgent agent in agents)
+			foreach (FogOfWarAgent agent in Agents)
 			{
 				agent.Cell = CalculateCell(agent.transform);
 			}
+		}
 
+		private void UpddateAgentsVisibility()
+		{
+			foreach (FogOfWarAgent agent in Agents)
+			{
+				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject
+					.SetActive(agent.Cell.Reveled[Player.FactionID]);
+			}
+		}
+		
+		private void Clear()
+		{
 			for (int x = 0; x < Resolution.x; ++x)
 			{
 				for (int y = 0; y < Resolution.y; ++y)
@@ -161,8 +175,27 @@ namespace Omniverse.Visibility
 					}
 				}
 			}
-			
-			foreach (FogOfWarAgent agent in agents)
+		}
+
+		private void Animate()
+		{
+			for (int x = 0; x < Resolution.x; ++x)
+			{
+				for (int y = 0; y < Resolution.y; ++y)
+				{
+					FogOfWarCell cell = Cells[x, y];
+
+					//cell.Reveled[Player.FactionID] = Set.Contains(cell) && (!cell.Occluded || cell.Block[Player.FactionID] > cell.Vision[Player.FactionID]);
+					
+					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
+					cell.Value = Mathf.Clamp01(cell.Value);
+				}
+			}
+		}
+
+		private void CalculateVisibility()
+		{
+			foreach (FogOfWarAgent agent in Agents)
 			{
 				float range = agent.Range * agent.Range;
 
@@ -212,25 +245,18 @@ namespace Omniverse.Visibility
 					}
 				}
 			}
+		}
+		
+		public void FixedTick()
+		{
+			UpdateAgentPositions();
+			Clear();
+			
+			CalculateVisibility();
 
-			for (int x = 0; x < Resolution.x; ++x)
-			{
-				for (int y = 0; y < Resolution.y; ++y)
-				{
-					FogOfWarCell cell = Cells[x, y];
+			Animate();
 
-					//cell.Reveled[Player.FactionID] = Set.Contains(cell) && (!cell.Occluded || cell.Block[Player.FactionID] > cell.Vision[Player.FactionID]);
-					
-					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
-					cell.Value = Mathf.Clamp01(cell.Value);
-				}
-			}
-
-			foreach (FogOfWarAgent agent in agents)
-			{
-				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject
-					.SetActive(agent.Cell.Reveled[Player.FactionID]);
-			}
+			UpddateAgentsVisibility();
 		}
 	}
 }
