@@ -2,6 +2,6 @@
 {
 	public interface IBresenhamLineHandler
 	{
-		bool Invoke(int x, int y);
+		bool HandlePoint(int x, int y);
 	}
 }

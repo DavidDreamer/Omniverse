@@ -180,82 +180,8 @@ namespace Omniverse.Visibility
 				{
 					FogOfWarCell cell = Cells[x, y];
 
-					//cell.Reveled[Player.FactionID] = Set.Contains(cell) && (!cell.Occluded || cell.Block[Player.FactionID] > cell.Vision[Player.FactionID]);
-
 					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
 					cell.Value = Mathf.Clamp01(cell.Value);
-				}
-			}
-		}
-
-		public struct S: IBresenhamLineHandler
-		{
-			public FogOfWar FogOfWar;
-			
-			public bool Invoke(int x, int y)
-			{
-				FogOfWarCell cell = FogOfWar.Cells[x, y];
-
-				if (cell.Occluded)
-				{
-					return true;
-				}
-
-				cell.Reveled[0] = true;
-
-				return false;
-			}
-		}
-		
-		private void CalculateVisibility(int x0, int y0, int x1, int y1, int faction = 0)
-		{
-			var s = new S
-			{
-				FogOfWar = this
-			};
-
-			Bresenham.Line(x0, y0, x1, y1, s);
-		}
-
-		private void Calc(int x0, int y0, int radius)
-		{
-			int x = radius;
-			int y = 0;
-			int radiusError = 1 - x;
-
-			while (x >= y)
-			{
-				CalculateVisibility(x0, y0, x0 + x, y0 + y);
-				CalculateVisibility(x0, y0, x0 + x, y0 - y);
-				CalculateVisibility(x0, y0, x0 - x, y0 + y);
-				CalculateVisibility(x0, y0, x0 - x, y0 - y);
-				CalculateVisibility(x0, y0, x0 + y, y0 + x);
-				CalculateVisibility(x0, y0, x0 + y, y0 - x);
-				CalculateVisibility(x0, y0, x0 - y, y0 + x);
-				CalculateVisibility(x0, y0, x0 - y, y0 - x);
-
-				if (true)
-				{
-					CalculateVisibility(x0, y0, x0 + x + 1, y0 + y);
-					CalculateVisibility(x0, y0, x0 + x + 1, y0 - y);
-					CalculateVisibility(x0, y0, x0 - x + 1, y0 + y);
-					CalculateVisibility(x0, y0, x0 - x + 1, y0 - y);
-					CalculateVisibility(x0, y0, x0 + y + 1, y0 + x);
-					CalculateVisibility(x0, y0, x0 + y + 1, y0 - x);
-					CalculateVisibility(x0, y0, x0 - y + 1, y0 + x);
-					CalculateVisibility(x0, y0, x0 - y + 1, y0 - x);
-				}
-
-				y++;
-
-				if (radiusError < 0)
-				{
-					radiusError += 2 * y + 1;
-				}
-				else
-				{
-					x--;
-					radiusError += 2 * (y - x + 1);
 				}
 			}
 		}
@@ -268,7 +194,8 @@ namespace Omniverse.Visibility
 				int y0 = (int)agent.transform.position.z / Multiplier;
 				int radius = (int)agent.Range / Multiplier;
 
-				Calc(x0, y0, radius);
+				var circleHandler = new FogOfWarCircleHandler(x0, y0, this);
+				Bresenham.Circle(x0, y0, radius, circleHandler);
 			}
 		}
 
