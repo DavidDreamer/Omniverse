@@ -1,18 +1,12 @@
 ﻿using System.Collections.Generic;
+using Dreambox.Math;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Omniverse.Visibility
 {
-	// public static class Bresenham
-	// {
-	// 	public static IEnumerable<(int, int)> Line(int x0, int x1, int y0, int y1)
-	// 	{
-	// 		
-	// 	}
-	// }
-	
 	public class FogOfWarCell
 	{
 		public List<FogOfWarCell> Neighbours;
@@ -75,7 +69,7 @@ namespace Omniverse.Visibility
 					{
 						cell.Neighbours.Add(Cells[x + 1, y]);
 					}
-					
+
 					if (y > 0)
 					{
 						cell.Neighbours.Add(Cells[x, y - 1]);
@@ -91,21 +85,14 @@ namespace Omniverse.Visibility
 
 		public float delta = 0.03f;
 
-		struct Temp
-		{
-			public FogOfWarCell Cell;
-
-			public int Steps;
-		}
-		
 		private Queue<FogOfWarCell> Queue { get; } = new();
+
 		private HashSet<FogOfWarCell> Set { get; } = new();
-		private Dictionary<FogOfWarCell, int> Dictionary { get; } = new();
 
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
 			FogOfWarCell cell = CalculateCell(obstacle.transform);
-			
+
 			Queue.Clear();
 			Set.Clear();
 
@@ -124,7 +111,7 @@ namespace Omniverse.Visibility
 				{
 					continue;
 				}
-				
+
 				cell.Occluded = true;
 
 				foreach (FogOfWarCell neighbourCell in cell.Neighbours)
@@ -147,9 +134,9 @@ namespace Omniverse.Visibility
 
 			return Cells[x, y];
 		}
-		
-		private FogOfWarAgent[] Agents {get;set;}
-			
+
+		private FogOfWarAgent[] Agents { get; set; }
+
 		private void UpdateAgentPositions()
 		{
 			Agents = Object.FindObjectsOfType<FogOfWarAgent>();
@@ -168,7 +155,7 @@ namespace Omniverse.Visibility
 					.SetActive(agent.Cell.Reveled[Player.FactionID]);
 			}
 		}
-		
+
 		private void Clear()
 		{
 			for (int x = 0; x < Resolution.x; ++x)
@@ -194,141 +181,40 @@ namespace Omniverse.Visibility
 					FogOfWarCell cell = Cells[x, y];
 
 					//cell.Reveled[Player.FactionID] = Set.Contains(cell) && (!cell.Occluded || cell.Block[Player.FactionID] > cell.Vision[Player.FactionID]);
-					
+
 					cell.Value += (cell.Reveled[Player.FactionID] ? -1 : 1) * delta;
 					cell.Value = Mathf.Clamp01(cell.Value);
 				}
 			}
 		}
 
+		public struct S: IBresenhamLineHandler
+		{
+			public FogOfWar FogOfWar;
+			
+			public bool Invoke(int x, int y)
+			{
+				FogOfWarCell cell = FogOfWar.Cells[x, y];
+
+				if (cell.Occluded)
+				{
+					return true;
+				}
+
+				cell.Reveled[0] = true;
+
+				return false;
+			}
+		}
+		
 		private void CalculateVisibility(int x0, int y0, int x1, int y1, int faction = 0)
 		{
-			// Cells[x1, y1].Reveled[faction] = true;
-			// Cells[x1 + 1, y1].Reveled[faction] = true;
-			// return;
-			// float slope = (y1 - y0) / (float)(x1 - x0);
-			//
-			// if (slope > 1 || slope < 0)
-			// {
-			// 	return;
-			// }
-			//
-			// int deltaX = Mathf.Abs(x1 - x0);
-			// int deltaY = Mathf.Abs(y1 - y0);
-			// int signX = x0 < x1 ? 1 : -1;
-			// int signY = y0 < y1 ? 1 : -1;
-			//
-			// int error = deltaX - deltaY;
-			//
-			// Cells[x, y].Reveled[faction] = true;
-			// while(x1 != x2 || y1 != y2) 
-			// {
-			// 	setPixel(x1, y1);
-			// 	int error2 = error * 2;
-			// 	if(error2 > -deltaY) 
-			// 	{
-			// 		error -= deltaY;
-			// 		x1 += signX;
-			// 	}
-			// 	if(error2 < deltaX) 
-			// 	{
-			// 		error += deltaX;
-			// 		y1 += signY;
-			// 	}
-			// }
-			
-			// var steep = Mathf.Abs(y1 - y0) > Mathf.Abs(x1 - x0); // Проверяем рост отрезка по оси икс и по оси игрек
-			// // Отражаем линию по диагонали, если угол наклона слишком большой
-			// if (steep)
-			// {
-			// 	(x0, y0) = (y0, x0); // Перетасовка координат вынесена в отдельную функцию для красоты
-			// 	(x1, y1) = (y1, x1); // Перетасовка координат вынесена в отдельную функцию для красоты
-			// }
-			// // Если линия растёт не слева направо, то меняем начало и конец отрезка местами
-			// if (x0 > x1)
-			// {
-			// 	(x0, x1) = (x1, x0);
-			// 	(y0, y1) = (y1, y0);
-			// }
-			// int dx = x1 - x0;
-			// int dy = Mathf.Abs(y1 - y0);
-			// int error = dx / 2; // Здесь используется оптимизация с умножением на dx, чтобы избавиться от лишних дробей
-			// int ystep = (y0 < y1) ? 1 : -1; // Выбираем направление роста координаты y
-			// int y = y0;
-			// for (int x = x0; x <= x1; x++)
-			// {
-			// 	var cell = Cells[steep ? y : x, steep ? x : y]; // Не забываем вернуть координаты на место
-			//
-			// 	if (cell.Occluded)
-			// 	{
-			// 		return;
-			// 	}
-			// 	
-			// 	cell.Reveled[faction] = true;
-			// 	error -= dy;
-			// 	if (error < 0)
-			// 	{
-			// 		y += ystep;
-			// 		error += dx;
-			// 	}
-			// }
+			var s = new S
+			{
+				FogOfWar = this
+			};
 
-			int dx = x1 - x0;
-			int dy = y1 - y0;
-			
-			int incx = (int)Mathf.Sign(dx);
-			int incy = (int)Mathf.Sign(dy);
-			
-			dx = Mathf.Abs(dx);
-			dy = Mathf.Abs(dy);
-			
-			int pdx, pdy;
-			int es, el;
-			
-			if (dx > dy)
-			{
-				pdx = incx;
-				pdy = 0;
-				es = dy;
-				el = dx;
-			}
-			else
-			{
-				pdx = 0;
-				pdy = incy;
-				es = dx;
-				el = dy;
-			}
-			
-			int x = x0;
-			int y = y0;
-			
-			int error = el / 2;
-			
-			Cells[x, y].Reveled[faction] = true;
-			
-			for (int t = 0; t < el; ++t)
-			{
-				error -= es;
-				if (error < 0)
-				{
-					error += el;
-					x += incx;
-					y += incy;
-				}
-				else
-				{
-					x += pdx;
-					y += pdy;
-				}
-				
-				if (Cells[x, y].Occluded)
-				{
-					return;
-				}
-				
-				Cells[x, y].Reveled[faction] = true;
-			}
+			Bresenham.Line(x0, y0, x1, y1, s);
 		}
 
 		private void Calc(int x0, int y0, int radius)
@@ -336,7 +222,7 @@ namespace Omniverse.Visibility
 			int x = radius;
 			int y = 0;
 			int radiusError = 1 - x;
-			
+
 			while (x >= y)
 			{
 				CalculateVisibility(x0, y0, x0 + x, y0 + y);
@@ -357,9 +243,9 @@ namespace Omniverse.Visibility
 					CalculateVisibility(x0, y0, x0 + y + 1, y0 + x);
 					CalculateVisibility(x0, y0, x0 + y + 1, y0 - x);
 					CalculateVisibility(x0, y0, x0 - y + 1, y0 + x);
-					CalculateVisibility(x0, y0, x0 - y + 1, y0 - x);	
+					CalculateVisibility(x0, y0, x0 - y + 1, y0 - x);
 				}
-				
+
 				y++;
 
 				if (radiusError < 0)
@@ -373,7 +259,7 @@ namespace Omniverse.Visibility
 				}
 			}
 		}
-		
+
 		private void CalculateVisibility()
 		{
 			foreach (FogOfWarAgent agent in Agents)
@@ -381,16 +267,16 @@ namespace Omniverse.Visibility
 				int x0 = (int)agent.transform.position.x / Multiplier;
 				int y0 = (int)agent.transform.position.z / Multiplier;
 				int radius = (int)agent.Range / Multiplier;
-				
+
 				Calc(x0, y0, radius);
 			}
 		}
-		
+
 		public void FixedTick()
 		{
 			UpdateAgentPositions();
 			Clear();
-			
+
 			CalculateVisibility();
 
 			Animate();
