@@ -5,6 +5,14 @@ using VContainer.Unity;
 
 namespace Omniverse.Visibility
 {
+	// public static class Bresenham
+	// {
+	// 	public static IEnumerable<(int, int)> Line(int x0, int x1, int y0, int y1)
+	// 	{
+	// 		
+	// 	}
+	// }
+	
 	public class FogOfWarCell
 	{
 		public List<FogOfWarCell> Neighbours;
@@ -193,57 +201,188 @@ namespace Omniverse.Visibility
 			}
 		}
 
+		private void CalculateVisibility(int x0, int y0, int x1, int y1, int faction = 0)
+		{
+			// Cells[x1, y1].Reveled[faction] = true;
+			// Cells[x1 + 1, y1].Reveled[faction] = true;
+			// return;
+			// float slope = (y1 - y0) / (float)(x1 - x0);
+			//
+			// if (slope > 1 || slope < 0)
+			// {
+			// 	return;
+			// }
+			//
+			// int deltaX = Mathf.Abs(x1 - x0);
+			// int deltaY = Mathf.Abs(y1 - y0);
+			// int signX = x0 < x1 ? 1 : -1;
+			// int signY = y0 < y1 ? 1 : -1;
+			//
+			// int error = deltaX - deltaY;
+			//
+			// Cells[x, y].Reveled[faction] = true;
+			// while(x1 != x2 || y1 != y2) 
+			// {
+			// 	setPixel(x1, y1);
+			// 	int error2 = error * 2;
+			// 	if(error2 > -deltaY) 
+			// 	{
+			// 		error -= deltaY;
+			// 		x1 += signX;
+			// 	}
+			// 	if(error2 < deltaX) 
+			// 	{
+			// 		error += deltaX;
+			// 		y1 += signY;
+			// 	}
+			// }
+			
+			// var steep = Mathf.Abs(y1 - y0) > Mathf.Abs(x1 - x0); // Проверяем рост отрезка по оси икс и по оси игрек
+			// // Отражаем линию по диагонали, если угол наклона слишком большой
+			// if (steep)
+			// {
+			// 	(x0, y0) = (y0, x0); // Перетасовка координат вынесена в отдельную функцию для красоты
+			// 	(x1, y1) = (y1, x1); // Перетасовка координат вынесена в отдельную функцию для красоты
+			// }
+			// // Если линия растёт не слева направо, то меняем начало и конец отрезка местами
+			// if (x0 > x1)
+			// {
+			// 	(x0, x1) = (x1, x0);
+			// 	(y0, y1) = (y1, y0);
+			// }
+			// int dx = x1 - x0;
+			// int dy = Mathf.Abs(y1 - y0);
+			// int error = dx / 2; // Здесь используется оптимизация с умножением на dx, чтобы избавиться от лишних дробей
+			// int ystep = (y0 < y1) ? 1 : -1; // Выбираем направление роста координаты y
+			// int y = y0;
+			// for (int x = x0; x <= x1; x++)
+			// {
+			// 	var cell = Cells[steep ? y : x, steep ? x : y]; // Не забываем вернуть координаты на место
+			//
+			// 	if (cell.Occluded)
+			// 	{
+			// 		return;
+			// 	}
+			// 	
+			// 	cell.Reveled[faction] = true;
+			// 	error -= dy;
+			// 	if (error < 0)
+			// 	{
+			// 		y += ystep;
+			// 		error += dx;
+			// 	}
+			// }
+
+			int dx = x1 - x0;
+			int dy = y1 - y0;
+			
+			int incx = (int)Mathf.Sign(dx);
+			int incy = (int)Mathf.Sign(dy);
+			
+			dx = Mathf.Abs(dx);
+			dy = Mathf.Abs(dy);
+			
+			int pdx, pdy;
+			int es, el;
+			
+			if (dx > dy)
+			{
+				pdx = incx;
+				pdy = 0;
+				es = dy;
+				el = dx;
+			}
+			else
+			{
+				pdx = 0;
+				pdy = incy;
+				es = dx;
+				el = dy;
+			}
+			
+			int x = x0;
+			int y = y0;
+			
+			int error = el / 2;
+			
+			Cells[x, y].Reveled[faction] = true;
+			
+			for (int t = 0; t < el; ++t)
+			{
+				error -= es;
+				if (error < 0)
+				{
+					error += el;
+					x += incx;
+					y += incy;
+				}
+				else
+				{
+					x += pdx;
+					y += pdy;
+				}
+				
+				if (Cells[x, y].Occluded)
+				{
+					return;
+				}
+				
+				Cells[x, y].Reveled[faction] = true;
+			}
+		}
+
+		private void Calc(int x0, int y0, int radius)
+		{
+			int x = radius;
+			int y = 0;
+			int radiusError = 1 - x;
+			
+			while (x >= y)
+			{
+				CalculateVisibility(x0, y0, x0 + x, y0 + y);
+				CalculateVisibility(x0, y0, x0 + x, y0 - y);
+				CalculateVisibility(x0, y0, x0 - x, y0 + y);
+				CalculateVisibility(x0, y0, x0 - x, y0 - y);
+				CalculateVisibility(x0, y0, x0 + y, y0 + x);
+				CalculateVisibility(x0, y0, x0 + y, y0 - x);
+				CalculateVisibility(x0, y0, x0 - y, y0 + x);
+				CalculateVisibility(x0, y0, x0 - y, y0 - x);
+
+				if (true)
+				{
+					CalculateVisibility(x0, y0, x0 + x + 1, y0 + y);
+					CalculateVisibility(x0, y0, x0 + x + 1, y0 - y);
+					CalculateVisibility(x0, y0, x0 - x + 1, y0 + y);
+					CalculateVisibility(x0, y0, x0 - x + 1, y0 - y);
+					CalculateVisibility(x0, y0, x0 + y + 1, y0 + x);
+					CalculateVisibility(x0, y0, x0 + y + 1, y0 - x);
+					CalculateVisibility(x0, y0, x0 - y + 1, y0 + x);
+					CalculateVisibility(x0, y0, x0 - y + 1, y0 - x);	
+				}
+				
+				y++;
+
+				if (radiusError < 0)
+				{
+					radiusError += 2 * y + 1;
+				}
+				else
+				{
+					x--;
+					radiusError += 2 * (y - x + 1);
+				}
+			}
+		}
+		
 		private void CalculateVisibility()
 		{
 			foreach (FogOfWarAgent agent in Agents)
 			{
-				float range = agent.Range * agent.Range;
-
-				Queue.Clear();
-				Set.Clear();
-				Dictionary.Clear();
-
-				Dictionary.Add(agent.Cell, 1);
-				Queue.Enqueue(agent.Cell);
-
-				while (Queue.Count > 0)
-				{
-					var cell = Queue.Dequeue();
-
-					Set.Add(cell);
-					
-					float distance = (cell.Position - agent.Cell.Position).sqrMagnitude;
-					
-					if (distance > range)
-					{
-						continue;
-					}
-
-					if (cell.Occluded)
-					{
-						Dictionary[cell] = -1;
-					}
-
-					cell.Reveled[agent.FactionID] |= Dictionary[cell] >= 0;
-
-					foreach (FogOfWarCell neighbourCell in cell.Neighbours)
-					{
-						if (Set.Contains(neighbourCell))
-						{
-							continue;
-						}
-						
-						if (!Dictionary.ContainsKey(neighbourCell))
-						{
-							Dictionary.Add(neighbourCell, Dictionary[cell]);
-							Queue.Enqueue(neighbourCell);	
-						}
-						else
-						{
-							Dictionary[neighbourCell] += Dictionary[cell];
-						}
-					}
-				}
+				int x0 = (int)agent.transform.position.x / Multiplier;
+				int y0 = (int)agent.transform.position.z / Multiplier;
+				int radius = (int)agent.Range / Multiplier;
+				
+				Calc(x0, y0, radius);
 			}
 		}
 		
