@@ -4,11 +4,11 @@ namespace Omniverse.Visibility
 {
 	internal readonly struct FogOfWarCircleHandler: IBresenhamCircleHandler
 	{
-		public int X { get; }
-			
-		public int Y { get; }
+		private int X { get; }
 
-		public  FogOfWar FogOfWar { get; }
+		private int Y { get; }
+
+		private FogOfWar FogOfWar { get; }
 			
 		public FogOfWarCircleHandler(int x, int y, FogOfWar fogOfWar)
 		{

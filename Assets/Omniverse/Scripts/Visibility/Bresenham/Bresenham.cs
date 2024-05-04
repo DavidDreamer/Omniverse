@@ -72,9 +72,16 @@ namespace Dreambox.Math
 		{
 			int x = radius;
 			int y = 0;
-			int radiusError = 1 - x;
+			int radiusError = -x;
+			
+			handler.HandlePoint(x0 + x, y0);
+			handler.HandlePoint(x0 - x, y0);
+			handler.HandlePoint(x0, y0 + x);
+			handler.HandlePoint(x0, y0 - x);
 
-			while (x >= y)
+			y++;
+			
+			while (y <= x)
 			{
 				handler.HandlePoint(x0 + x, y0 + y);
 				handler.HandlePoint(x0 + x, y0 - y);
@@ -84,30 +91,28 @@ namespace Dreambox.Math
 				handler.HandlePoint(x0 + y, y0 - x);
 				handler.HandlePoint(x0 - y, y0 + x);
 				handler.HandlePoint(x0 - y, y0 - x);
-
-				if (true)
-				{
-					handler.HandlePoint(x0 + x + 1, y0 + y);
-					handler.HandlePoint(x0 + x + 1, y0 - y);
-					handler.HandlePoint(x0 - x + 1, y0 + y);
-					handler.HandlePoint(x0 - x + 1, y0 - y);
-					handler.HandlePoint(x0 + y + 1, y0 + x);
-					handler.HandlePoint(x0 + y + 1, y0 - x);
-					handler.HandlePoint(x0 - y + 1, y0 + x);
-					handler.HandlePoint(x0 - y + 1, y0 - x);
-				}
-
-				y++;
-
+				
 				if (radiusError < 0)
 				{
-					radiusError += 2 * y + 1;
+					radiusError += 2 * y;
 				}
 				else
 				{
 					x--;
-					radiusError += 2 * (y - x + 1);
+					
+					handler.HandlePoint(x0 + x, y0 + y);
+					handler.HandlePoint(x0 + x, y0 - y);
+					handler.HandlePoint(x0 - x, y0 + y);
+					handler.HandlePoint(x0 - x, y0 - y);
+					handler.HandlePoint(x0 + y, y0 + x);
+					handler.HandlePoint(x0 + y, y0 - x);
+					handler.HandlePoint(x0 - y, y0 + x);
+					handler.HandlePoint(x0 - y, y0 - x);
+
+					radiusError += 2 * y - 2 * x + 1;
 				}
+				
+				y++;
 			}
 		}
 	}

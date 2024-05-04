@@ -4,7 +4,7 @@ namespace Omniverse.Visibility
 {
 	internal readonly struct FogOfWarLineHandler: IBresenhamLineHandler
 	{
-		public FogOfWar FogOfWar { get; }
+		private FogOfWar FogOfWar { get; }
 
 		public FogOfWarLineHandler(FogOfWar fogOfWar)
 		{
