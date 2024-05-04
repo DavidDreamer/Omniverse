@@ -42,23 +42,25 @@ namespace Dreambox.Math
 				offsety = sy;
 			}
 
+			int lenght2 = length * 2;
+			int height2 = height * 2;
+			
 			int x = x0;
 			int y = y0;
 
-			int error = length / 2;
+			int error = length - height2;
 
 			for (int step = 0; step < length; ++step)
 			{
-				error -= height;
-				
 				if (error < 0)
 				{
-					error += length;
+					error += lenght2 - height2;
 					x += sx;
 					y += sy;
 				}
 				else
 				{
+					error -= height2;
 					x += offsetx;
 					y += offsety;
 				}
