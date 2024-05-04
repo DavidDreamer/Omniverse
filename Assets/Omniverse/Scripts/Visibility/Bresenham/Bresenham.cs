@@ -16,48 +16,51 @@ namespace Dreambox.Math
 			int dx = x1 - x0;
 			int dy = y1 - y0;
 
-			int incx = System.Math.Sign(dx);
-			int incy = System.Math.Sign(dy);
+			int sx = System.Math.Sign(dx);
+			int sy = System.Math.Sign(dy);
 
 			dx = Mathf.Abs(dx);
 			dy = Mathf.Abs(dy);
 
-			int pdx, pdy;
-			int es, el;
+			int height;
+			int length;
+			int offsetx;
+			int offsety;
 
 			if (dx > dy)
 			{
-				pdx = incx;
-				pdy = 0;
-				es = dy;
-				el = dx;
+				length = dx;
+				height = dy;
+				offsetx = sx;
+				offsety = 0;
 			}
 			else
 			{
-				pdx = 0;
-				pdy = incy;
-				es = dx;
-				el = dy;
+				length = dy;
+				height = dx;
+				offsetx = 0;
+				offsety = sy;
 			}
 
 			int x = x0;
 			int y = y0;
 
-			int error = el / 2;
+			int error = length / 2;
 
-			for (int t = 0; t < el; ++t)
+			for (int step = 0; step < length; ++step)
 			{
-				error -= es;
+				error -= height;
+				
 				if (error < 0)
 				{
-					error += el;
-					x += incx;
-					y += incy;
+					error += length;
+					x += sx;
+					y += sy;
 				}
 				else
 				{
-					x += pdx;
-					y += pdy;
+					x += offsetx;
+					y += offsety;
 				}
 
 				if (handler.HandlePoint(x, y))
