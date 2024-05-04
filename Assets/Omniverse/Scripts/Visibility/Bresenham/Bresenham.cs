@@ -6,7 +6,7 @@ namespace Dreambox.Math
 	public static class Bresenham
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Line<T>(int x0, int y0, int x1, int y1, T handler) where T: struct, IBresenhamLineHandler
+		public static void Line<T>(int x0, int y0, int x1, int y1, T handler) where T : struct, IBresenhamLineHandler
 		{
 			if (handler.HandlePoint(x0, y0))
 			{
@@ -68,19 +68,19 @@ namespace Dreambox.Math
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Circle<T>(int x0, int y0, int radius, T handler) where T: struct, IBresenhamCircleHandler
+		public static void Circle<T>(int x0, int y0, int radius, T handler) where T : struct, IBresenhamCircleHandler
 		{
 			int x = radius;
 			int y = 0;
 			int radiusError = -x;
-			
+
 			handler.HandlePoint(x0 + x, y0);
 			handler.HandlePoint(x0 - x, y0);
 			handler.HandlePoint(x0, y0 + x);
 			handler.HandlePoint(x0, y0 - x);
 
 			y++;
-			
+
 			while (y <= x)
 			{
 				handler.HandlePoint(x0 + x, y0 + y);
@@ -91,7 +91,7 @@ namespace Dreambox.Math
 				handler.HandlePoint(x0 + y, y0 - x);
 				handler.HandlePoint(x0 - y, y0 + x);
 				handler.HandlePoint(x0 - y, y0 - x);
-				
+
 				if (radiusError < 0)
 				{
 					radiusError += 2 * y;
@@ -99,7 +99,7 @@ namespace Dreambox.Math
 				else
 				{
 					x--;
-					
+
 					handler.HandlePoint(x0 + x, y0 + y);
 					handler.HandlePoint(x0 + x, y0 - y);
 					handler.HandlePoint(x0 - x, y0 + y);
@@ -109,9 +109,9 @@ namespace Dreambox.Math
 					handler.HandlePoint(x0 - y, y0 + x);
 					handler.HandlePoint(x0 - y, y0 - x);
 
-					radiusError += 2 * y - 2 * x + 1;
+					radiusError += 2 * (y - x) + 1;
 				}
-				
+
 				y++;
 			}
 		}
