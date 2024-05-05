@@ -4,23 +4,23 @@ namespace Omniverse.Visibility
 {
 	internal readonly struct FogOfWarLineHandler: IBresenhamLineHandler
 	{
-		private FogOfWar FogOfWar { get; }
+		private Cell[,] Cells { get; }
 
-		public FogOfWarLineHandler(FogOfWar fogOfWar)
+		public FogOfWarLineHandler(Cell[,] cells)
 		{
-			FogOfWar = fogOfWar;
+			Cells = cells;
 		}
 			
 		public bool HandlePoint(int x, int y)
 		{
-			FogOfWarCell cell = FogOfWar.Cells[x, y];
+			Cell cell = Cells[x, y];
 
 			if (cell.Occluded)
 			{
 				return true;
 			}
 
-			cell.Reveled[0] = true;
+			cell.VisibilityState = CellVisibilityState.Visible;
 
 			return false;
 		}

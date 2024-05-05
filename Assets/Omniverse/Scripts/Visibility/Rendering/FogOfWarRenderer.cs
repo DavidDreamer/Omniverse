@@ -108,7 +108,7 @@ namespace Omniverse.Visibility.Rendering
 			{
 				for (int y = 0; y < yy; ++y)
 				{
-					FogOfWarCell cell = FogOfWar.Cells[x, y];
+					Cell cell = FogOfWar.Cells[0][x, y];
 
 					Color color = new Color(0, 0, 0, cell.Value);
 					

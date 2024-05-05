@@ -8,7 +8,7 @@ namespace Omniverse.Visibility
 		
 		public float Range;
 
-		public FogOfWarCell Cell;
+		public Vector2Int Cell;
 
 		//TODO
 		private void Start()

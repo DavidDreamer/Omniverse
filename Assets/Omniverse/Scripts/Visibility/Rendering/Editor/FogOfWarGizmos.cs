@@ -22,16 +22,18 @@ namespace Omniverse.Visibility.Rendering.Editor
 			float width = fogOfWarRenderer.FogOfWar.Resolution.x;
 			float height = fogOfWarRenderer.FogOfWar.Resolution.y;
 
+			var cells = fogOfWarRenderer.FogOfWar.Cells[0];
+			
 			Vector3 size = new Vector3(1, 0, 1) * FogOfWar.Multiplier;
 
 			for (int x = 0; x < width; ++x)
 			{
 				for (int y = 0; y < height; ++y)
 				{
-					FogOfWarCell cell = fogOfWarRenderer.FogOfWar.Cells[x, y];
+					Cell cell = cells[x, y];
 					Vector3 position = cell.Position;
 					Color color = cell.Occluded ? Occluded :
-						cell.Reveled[fogOfWarRenderer.FogOfWar.Player.FactionID] ? Visible : Invisible;
+						cell.VisibilityState is CellVisibilityState.Visible ? Visible : Invisible;
 
 					Gizmos.DrawWireCube(cell.Position, size);
 
