@@ -1,4 +1,4 @@
-﻿namespace Omniverse.Visibility
+﻿namespace Omniverse.FogOfWar
 {
 	public enum CellVisibilityState
 	{

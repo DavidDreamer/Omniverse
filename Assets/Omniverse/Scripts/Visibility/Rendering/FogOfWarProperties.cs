@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.Visibility.Rendering
+namespace Omniverse.FogOfWar.Rendering
 {
 	[Serializable]
 	public struct FogOfWarProperties

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Omniverse.Visibility
+namespace Omniverse.FogOfWar
 {
 	public class Cell
 	{

@@ -1,6 +1,6 @@
 ﻿using Dreambox.Math;
 
-namespace Omniverse.Visibility
+namespace Omniverse.FogOfWar
 {
 	internal readonly struct FogOfWarCircleHandler: IBresenhamCircleHandler
 	{

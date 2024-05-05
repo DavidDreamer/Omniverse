@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Omniverse.Visibility.Rendering.Editor
+namespace Omniverse.FogOfWar.Rendering.Editor
 {
 	public static class FogOfWarGizmos
 	{
@@ -24,7 +24,7 @@ namespace Omniverse.Visibility.Rendering.Editor
 
 			var cells = fogOfWarRenderer.FogOfWar.Cells[0];
 			
-			Vector3 size = new Vector3(1, 0, 1) * FogOfWar.Multiplier;
+			Vector3 size = new Vector3(1, 0, 1) * FogOfWarManager.Multiplier;
 
 			for (int x = 0; x < width; ++x)
 			{

@@ -5,9 +5,9 @@ using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
 
-namespace Omniverse.Visibility
+namespace Omniverse.FogOfWar
 {
-	public class FogOfWar: IInitializable, IFixedTickable
+	public class FogOfWarManager: IInitializable, IFixedTickable
 	{
 		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 

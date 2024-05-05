@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Omniverse.Camera;
 using Omniverse.Mapping;
-using Omniverse.Visibility;
-using Omniverse.Visibility.Rendering;
+using Omniverse.FogOfWar;
+using Omniverse.FogOfWar.Rendering;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -32,7 +32,7 @@ namespace Omniverse
 
 			if (GameSettings.MapSettings.FogOfWar)
 			{
-				builder.Register<FogOfWar>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+				builder.Register<FogOfWarManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 				builder.RegisterComponentInNewPrefab(FogOfWarRenderer, Lifetime.Singleton).AsImplementedInterfaces()
 					.AsSelf();
 			}

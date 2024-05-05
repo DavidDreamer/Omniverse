@@ -1,5 +1,5 @@
 using Omniverse.Mapping;
-using Omniverse.Visibility.Rendering;
+using Omniverse.FogOfWar.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -7,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Visibility.Rendering
+namespace Omniverse.FogOfWar.Rendering
 {
 	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
 	{
@@ -34,7 +33,7 @@ namespace Omniverse.Visibility.Rendering
 		public bool ApplyBlur;
 
 		[Inject]
-		public FogOfWar FogOfWar { get; set; }
+		public FogOfWarManager FogOfWar { get; set; }
 
 		private FogOfWarPass Pass { get; set; }
 		
