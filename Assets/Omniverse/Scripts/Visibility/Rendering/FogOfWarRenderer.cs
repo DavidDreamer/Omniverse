@@ -64,7 +64,10 @@ namespace Omniverse.FogOfWar.Rendering
 
 		private void OnBeginCameraRendering(ScriptableRenderContext context, UnityEngine.Camera cam)
 		{
-			cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
+			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
+			{
+				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
+			}
 		}
 
 		public void Initialize()
