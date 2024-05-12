@@ -39,7 +39,10 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		private void OnValidate()
 		{
-			UpdateGlobalShaderVariables();
+			if (Application.isPlaying)
+			{
+				UpdateGlobalShaderVariables();
+			}
 		}
 		
 		private void OnEnable()
