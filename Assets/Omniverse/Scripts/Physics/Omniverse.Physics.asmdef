@@ -1,10 +1,8 @@
 {
-    "name": "Omniverse.FogOfWar",
-    "rootNamespace": "Omniverse.FogOfWar",
+    "name": "Omniverse.Physics",
+    "rootNamespace": "Omniverse.Physics",
     "references": [
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
-        "GUID:6d23840a86944564fbcf80ce47c04045"
+        "GUID:7900f524ca37ee847a70422f636ab5c5"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

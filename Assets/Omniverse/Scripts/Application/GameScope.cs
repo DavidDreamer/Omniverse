@@ -24,6 +24,7 @@ namespace Omniverse
 		{
 			builder.RegisterInstance(GameSettings);
 			builder.RegisterInstance(GameSettings.MapSettings);
+			builder.RegisterInstance(GameSettings.Factions);
 
 			if (Map != null)
 			{

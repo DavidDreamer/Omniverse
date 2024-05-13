@@ -14,8 +14,11 @@ namespace Omniverse.FogOfWar
 		public Vector2Int Resolution { get; set; }
 
 		[Inject]
-		private GameSettings GameSettings { get; set; }
+		private MapSettings MapSettings { get; set; }
 
+		[Inject]
+		private FactionDesc[] Factions { get; set; }
+		
 		[Inject]
 		public Player Player { get; set; }
 
@@ -23,12 +26,12 @@ namespace Omniverse.FogOfWar
 
 		public void Initialize()
 		{
-			Resolution = GameSettings.MapSettings.Size / Multiplier;
+			Resolution = MapSettings.Size / Multiplier;
 
 			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
 			Vector3 offset = size / 2f;
 
-			for (int i = 0; i < GameSettings.Factions.Length; ++i)
+			for (int i = 0; i < Factions.Length; ++i)
 			{
 				Cell[,] cells = new Cell[Resolution.x, Resolution.y];
 				for (int x = 0; x < Resolution.x; ++x)
