@@ -7,8 +7,5 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public Vector2Int Size { get; private set; }
-		
-		[field: SerializeField]
-		public bool FogOfWar { get; private set; }
 	}
 }

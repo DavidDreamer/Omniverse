@@ -13,5 +13,8 @@ namespace Omniverse
 		
 		[field: SerializeField]
 		public MapSettings MapSettings { get; private set; }
+		
+		[field: SerializeField]
+		public FogOfWar.Mode FogOfWarMode { get; private set; }
 	}
 }
