@@ -30,7 +30,7 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 			{
 				for (int y = 0; y < height; ++y)
 				{
-					Cell cell = cells[x, y];
+					Cell cell = cells[x * fogOfWarRenderer.FogOfWar.Resolution.y + y];
 					Vector3 position = Manager.CalculateCellCenter(x, y);
 					Color color = cell.Occluded ? Occluded :
 						cell.VisibilityState is CellVisibilityState.Visible ? Visible : Invisible;

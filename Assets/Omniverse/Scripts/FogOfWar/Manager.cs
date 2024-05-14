@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Dreambox.Math;
 using UnityEngine;
+using UnityEngine.Profiling;
 using VContainer;
 using VContainer.Unity;
 
@@ -21,7 +22,7 @@ namespace Omniverse.FogOfWar
 		[Inject]
 		public IPlayer Player { get; set; }
 
-		public Dictionary<int, Cell[,]> Cells { get; } = new();
+		public Dictionary<int, Cell[]> Cells { get; } = new();
 
 		private HashSet<IAgent> Agents { get; } = new();
 		
@@ -31,12 +32,12 @@ namespace Omniverse.FogOfWar
 
 			for (int i = 0; i < Factions.Length; ++i)
 			{
-				Cell[,] cells = new Cell[Resolution.x, Resolution.y];
+				var cells = new Cell[Resolution.x * Resolution.y];
 				for (int x = 0; x < Resolution.x; ++x)
 				{
 					for (int y = 0; y < Resolution.y; ++y)
 					{
-						cells[x, y] = new Cell
+						cells[x * Resolution.y + y] = new Cell
 						{
 							VisibilityState = CellVisibilityState.Concealed
 						};
@@ -62,7 +63,7 @@ namespace Omniverse.FogOfWar
 				for (var x = 0; x < Resolution.x; x++)
 				for (var y = 0; y < Resolution.y; y++)
 				{
-					Cell cell = pair.Value[x, y];
+					Cell cell = pair.Value[x * Resolution.y + y];
 					Vector3 cellCenter = CalculateCellCenter(x, y);
 					Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cellCenter);
 
@@ -104,7 +105,7 @@ namespace Omniverse.FogOfWar
 			{
 				int factionID = Player.FactionID;
 				Vector2Int cellIndex = agent.Cell;
-				CellVisibilityState cellVisibilityState = Cells[factionID][cellIndex.x, cellIndex.y].VisibilityState;
+				CellVisibilityState cellVisibilityState = Cells[factionID][cellIndex.x * Resolution.y + cellIndex.y].VisibilityState;
 				agent.Visible = cellVisibilityState is CellVisibilityState.Visible;
 			}
 		}
@@ -113,12 +114,9 @@ namespace Omniverse.FogOfWar
 		{
 			foreach (var pair in Cells)
 			{
-				for (int x = 0; x < Resolution.x; ++x)
+				foreach (Cell cell in pair.Value)
 				{
-					for (int y = 0; y < Resolution.y; ++y)
-					{
-						pair.Value[x, y].VisibilityState = CellVisibilityState.Concealed;
-					}
+					cell.VisibilityState = CellVisibilityState.Concealed;
 				}
 			}
 		}
@@ -131,8 +129,8 @@ namespace Omniverse.FogOfWar
 				int y0 = (int)agent.Position.z / Multiplier;
 				int radius = (int)agent.VisionRange / Multiplier;
 				int factionId = agent.FactionID;
-				
-				var circleHandler = new FogOfWarCircleHandler(x0, y0, Cells[factionId]);
+
+				var circleHandler = new BresenhamCircleHandler(x0, y0, Cells[factionId], Resolution);
 				Bresenham.Circle(x0, y0, radius, circleHandler);
 			}
 		}

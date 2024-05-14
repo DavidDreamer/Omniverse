@@ -106,14 +106,14 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			BlurMaterial.SetFloat("Radius", Radius);
 
-			float xx = FogOfWar.Resolution.x;
-			float yy = FogOfWar.Resolution.y;
+			int xx = FogOfWar.Resolution.x;
+			int yy = FogOfWar.Resolution.y;
 			
 			for (int x = 0; x < xx; ++x)
 			{
 				for (int y = 0; y < yy; ++y)
 				{
-					Cell cell = FogOfWar.Cells[0][x, y];
+					Cell cell = FogOfWar.Cells[0][x * yy + y];
 
 					Color color = new Color(0, 0, 0, cell.VisibilityState is CellVisibilityState.Visible ? 0 : 1);
 					
