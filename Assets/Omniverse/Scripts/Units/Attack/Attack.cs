@@ -1,0 +1,47 @@
+using System;
+using System.Linq;
+using Omniverse.Units;
+using UnityEngine;
+
+namespace Omniverse
+{
+	public class Attack
+	{
+		public event Action Started;
+		
+		private AttackDesc Desc { get; }
+		
+		public float Range { get; private set; }
+		
+		public float Speed { get; private set; }
+		
+		public float Damage { get; private set; }
+
+		//TODO
+		public float lastTime;
+		
+		public Attack(AttackDesc desc)
+		{
+			Desc = desc;
+
+			Range = Desc.Range;
+			Speed = Desc.Speed;
+			Damage = Desc.Damage;
+		}
+		
+		public void Perform(Unit target)
+		{
+			lastTime = Time.time;
+			
+			Started?.Invoke();
+			
+			var data = new ChangePropertyData
+			{
+				Amount = -Damage,
+				Tag = target.Properties.Keys.First()
+			};
+			
+			target.ChangeResource(data);
+		}
+	}
+}

@@ -33,7 +33,7 @@ namespace Omniverse.FogOfWar.Rendering
 		public bool ApplyBlur;
 
 		[Inject]
-		public FogOfWarManager FogOfWar { get; set; }
+		public Manager FogOfWar { get; set; }
 
 		private FogOfWarPass Pass { get; set; }
 		

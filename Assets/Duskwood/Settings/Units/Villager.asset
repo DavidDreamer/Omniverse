@@ -24,3 +24,4 @@ MonoBehaviour:
   <Attack>k__BackingField: {fileID: 11400000, guid: e259360f6e18d5e4ead499f29e315ccd, type: 2}
   <Abilities>k__BackingField: []
   <Loot>k__BackingField: []
+  <VisionRange>k__BackingField: 20

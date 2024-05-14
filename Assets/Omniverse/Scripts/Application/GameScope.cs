@@ -4,6 +4,7 @@ using Omniverse.Mapping;
 using Omniverse.FogOfWar;
 using Omniverse.FogOfWar.Rendering;
 using Omniverse.UI;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -40,7 +41,7 @@ namespace Omniverse
 			
 			if (GameSettings.FogOfWarMode is not Mode.None)
 			{
-				builder.Register<FogOfWarManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+				builder.Register<FogOfWar.Manager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 				builder.RegisterComponentInNewPrefab(FogOfWarRenderer, Lifetime.Singleton).AsImplementedInterfaces()
 					.AsSelf();
 			}
@@ -50,7 +51,7 @@ namespace Omniverse
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
 			
 			builder.RegisterEntryPoint<ItemManager>().AsSelf();
-			builder.RegisterEntryPoint<UnitManager>().AsSelf();
+			builder.RegisterEntryPoint<Omniverse.Units.Manager>().AsSelf();
 			
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
 

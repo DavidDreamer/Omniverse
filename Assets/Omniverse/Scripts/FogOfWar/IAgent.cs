@@ -6,12 +6,12 @@ namespace Omniverse.FogOfWar
 	{
 		int FactionID { get; }
 		
-		float Range { get; }
+		float VisionRange { get; }
 
 		Vector3 Position { get; }
 		
-		Vector2Int Cell { get; internal set; }
+		Vector2Int Cell { get; set; }
 		
-		bool Visible { get; internal set; }
+		bool Visible { get; set; }
 	}
 }

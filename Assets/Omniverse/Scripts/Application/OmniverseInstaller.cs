@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Omniverse.Units;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,8 +18,8 @@ namespace Omniverse
 		{
 			builder.RegisterInstance(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
-			
-			builder.Register<Player>(Lifetime.Singleton).AsSelf();
+
+			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 		}
 	}
 }

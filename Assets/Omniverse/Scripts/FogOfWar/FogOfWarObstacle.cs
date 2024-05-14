@@ -9,7 +9,7 @@ namespace Omniverse.FogOfWar
 		public Vector3 Size { get; private set; }
 
 		[Inject]
-		private FogOfWarManager FogOfWar { get; set; }
+		private Manager FogOfWar { get; set; }
 
 		private void OnEnable()
 		{

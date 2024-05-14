@@ -24,14 +24,14 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 
 			var cells = fogOfWarRenderer.FogOfWar.Cells[0];
 			
-			Vector3 size = new Vector3(1, 0, 1) * FogOfWarManager.Multiplier;
+			Vector3 size = new Vector3(1, 0, 1) * Manager.Multiplier;
 
 			for (int x = 0; x < width; ++x)
 			{
 				for (int y = 0; y < height; ++y)
 				{
 					Cell cell = cells[x, y];
-					Vector3 position = FogOfWarManager.CalculateCellCenter(x, y);
+					Vector3 position = Manager.CalculateCellCenter(x, y);
 					Color color = cell.Occluded ? Occluded :
 						cell.VisibilityState is CellVisibilityState.Visible ? Visible : Invisible;
 
