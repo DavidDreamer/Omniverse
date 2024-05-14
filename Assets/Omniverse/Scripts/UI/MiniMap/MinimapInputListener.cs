@@ -19,7 +19,7 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitController UnitController { get; set; }
 
-		[field: SerializeField]
+		[Inject]
 		public CameraController CameraController { get; set; }
 
 		private bool MovingEnabled { get; set; }

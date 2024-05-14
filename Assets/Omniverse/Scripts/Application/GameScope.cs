@@ -1,8 +1,9 @@
 ﻿using System.Linq;
-using Omniverse.Camera;
+using Omniverse.Cameras;
 using Omniverse.Mapping;
 using Omniverse.FogOfWar;
 using Omniverse.FogOfWar.Rendering;
+using Omniverse.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -19,6 +20,12 @@ namespace Omniverse
 
 		[field: SerializeField]
 		private FogOfWarRenderer FogOfWarRenderer { get; set; }
+		
+		[field: SerializeField]
+		private UIInstaller UIInstaller { get; set; }
+		
+		[field: SerializeField]
+		public CameraController CameraController { get; set; }
 		
 		protected override void Configure(IContainerBuilder builder)
 		{
@@ -39,6 +46,10 @@ namespace Omniverse
 			}
 			
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
+
+			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
+			
+			UIInstaller.Install(builder);
 		}
 	}
 }
