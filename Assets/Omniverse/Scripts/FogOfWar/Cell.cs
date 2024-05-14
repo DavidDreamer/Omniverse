@@ -12,7 +12,5 @@ namespace Omniverse.FogOfWar
 		public Vector3 Position;
 
 		public CellVisibilityState VisibilityState;
-
-		public float Value;
 	}
 }

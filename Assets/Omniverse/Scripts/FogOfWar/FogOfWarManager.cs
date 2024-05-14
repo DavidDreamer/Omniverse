@@ -77,9 +77,7 @@ namespace Omniverse.FogOfWar
 				Cells.Add(i, cells);
 			}
 		}
-
-		public float delta = 0.03f;
-
+		
 		private Queue<Cell> Queue { get; } = new();
 
 		private HashSet<Cell> Set { get; } = new();
@@ -172,23 +170,6 @@ namespace Omniverse.FogOfWar
 			}
 		}
 
-		private void Animate()
-		{
-			foreach (var pair in Cells)
-			{
-				for (int x = 0; x < Resolution.x; ++x)
-				{
-					for (int y = 0; y < Resolution.y; ++y)
-					{
-						Cell cell = pair.Value[x, y];
-
-						cell.Value += (cell.VisibilityState == CellVisibilityState.Visible ? -1 : 1) * delta;
-						cell.Value = Mathf.Clamp01(cell.Value);
-					}
-				}
-			}
-		}
-
 		private void CalculateVisibility()
 		{
 			foreach (FogOfWarAgent agent in Agents)
@@ -209,8 +190,6 @@ namespace Omniverse.FogOfWar
 			Clear();
 
 			CalculateVisibility();
-
-			Animate();
 
 			UpddateAgentsVisibility();
 		}

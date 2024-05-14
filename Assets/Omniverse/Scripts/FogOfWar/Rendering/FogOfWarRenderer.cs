@@ -115,7 +115,7 @@ namespace Omniverse.FogOfWar.Rendering
 				{
 					Cell cell = FogOfWar.Cells[0][x, y];
 
-					Color color = new Color(0, 0, 0, cell.Value);
+					Color color = new Color(0, 0, 0, cell.VisibilityState is CellVisibilityState.Visible ? 0 : 1);
 					
 					texture.SetPixel(x, y, color);
 				}
