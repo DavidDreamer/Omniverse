@@ -3,7 +3,6 @@ using Dreambox.Math;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using Object = UnityEngine.Object;
 
 namespace Omniverse.FogOfWar
 {
@@ -71,37 +70,42 @@ namespace Omniverse.FogOfWar
 			}
 		}
 
-		private Vector2Int CalculateCell(Transform transform)
+		private Vector2Int CalculateCell(Vector3 position)
 		{
-			Vector3 position = transform.position;
-
 			int x = (int)position.x / Multiplier;
 			int y = (int)position.z / Multiplier;
 
 			return new Vector2Int(x, y);
 		}
 
-		private FogOfWarAgent[] Agents { get; set; }
+		private HashSet<IAgent> Agents { get; } = new();
 
+		public void Register(IAgent agent)
+		{
+			Agents.Add(agent);
+		}
+		
+		public void Unregister(IAgent agent)
+		{
+			Agents.Remove(agent);
+		}
+		
 		private void UpdateAgentPositions()
 		{
-			Agents = Object.FindObjectsOfType<FogOfWarAgent>();
-
-			foreach (FogOfWarAgent agent in Agents)
+			foreach (IAgent agent in Agents)
 			{
-				agent.Cell = CalculateCell(agent.transform);
+				agent.Cell = CalculateCell(agent.Position);
 			}
 		}
 
 		private void UpddateAgentsVisibility()
 		{
-			foreach (FogOfWarAgent agent in Agents)
+			foreach (IAgent agent in Agents)
 			{
 				int factionID = Player.FactionID;
 				Vector2Int cellIndex = agent.Cell;
 				CellVisibilityState cellVisibilityState = Cells[factionID][cellIndex.x, cellIndex.y].VisibilityState;
-				agent.GetComponentInChildren<UnitRendererBase>(true).gameObject
-					.SetActive(cellVisibilityState is CellVisibilityState.Visible);
+				agent.Visible = cellVisibilityState is CellVisibilityState.Visible;
 			}
 		}
 

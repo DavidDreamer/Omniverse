@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NavMeshAgent>k__BackingField: {fileID: -2109561056999165210}
   <Hitbox>k__BackingField: {fileID: 3021569670787000090}
-  <FogOfWarAgent>k__BackingField: {fileID: 2466127795552035764}
 --- !u!195 &-2109561056999165210
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -105,5 +104,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c67a85047c4403bb34261127fda123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FactionID: 0
-  Range: 20
+  <Range>k__BackingField: 20

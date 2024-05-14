@@ -37,13 +37,20 @@ namespace Omniverse
 			{
 				builder.RegisterComponentInNewPrefab(Map, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			}
-
+			
 			if (GameSettings.FogOfWarMode is not Mode.None)
 			{
 				builder.Register<FogOfWarManager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 				builder.RegisterComponentInNewPrefab(FogOfWarRenderer, Lifetime.Singleton).AsImplementedInterfaces()
 					.AsSelf();
 			}
+			
+			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
+			builder.Register<PrefabPool<UnitRendererBase>>(Lifetime.Singleton);
+			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
+			
+			builder.RegisterEntryPoint<ItemManager>().AsSelf();
+			builder.RegisterEntryPoint<UnitManager>().AsSelf();
 			
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
 
