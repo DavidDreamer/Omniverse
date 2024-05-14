@@ -28,9 +28,6 @@ namespace Omniverse.FogOfWar
 		{
 			Resolution = MapSettings.Size / Multiplier;
 
-			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
-			Vector3 offset = size / 2f;
-
 			for (int i = 0; i < Factions.Length; ++i)
 			{
 				Cell[,] cells = new Cell[Resolution.x, Resolution.y];
@@ -40,84 +37,36 @@ namespace Omniverse.FogOfWar
 					{
 						cells[x, y] = new Cell
 						{
-							Position = new Vector3(x, 0, y) * Multiplier + offset,
-							VisibilityState = CellVisibilityState.Concealed,
-							Neighbours = new()
+							VisibilityState = CellVisibilityState.Concealed
 						};
-					}
-				}
-
-				for (int x = 0; x < Resolution.x; ++x)
-				{
-					for (int y = 0; y < Resolution.y; ++y)
-					{
-						var cell = cells[x, y];
-						if (x > 0)
-						{
-							cell.Neighbours.Add(cells[x - 1, y]);
-						}
-
-						if (x < Resolution.x - 1)
-						{
-							cell.Neighbours.Add(cells[x + 1, y]);
-						}
-
-						if (y > 0)
-						{
-							cell.Neighbours.Add(cells[x, y - 1]);
-						}
-
-						if (y < Resolution.y - 1)
-						{
-							cell.Neighbours.Add(cells[x, y + 1]);
-						}
 					}
 				}
 
 				Cells.Add(i, cells);
 			}
 		}
+
+		public static Vector3 CalculateCellCenter(int x, int y)
+		{
+			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
+			Vector3 offset = size / 2f;
+			
+			return new Vector3(x, 0, y) * Multiplier + offset;
+		}
 		
-		private Queue<Cell> Queue { get; } = new();
-
-		private HashSet<Cell> Set { get; } = new();
-
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
 			foreach (var pair in Cells)
 			{
-				var cellIndex = CalculateCell(obstacle.transform);
-				Cell cell = pair.Value[cellIndex.x, cellIndex.y];
-				
-				Queue.Clear();
-				Set.Clear();
-
-				Queue.Enqueue(cell);
-				Set.Add(cell);
-
-				while (Queue.Count > 0)
+				for (var x = 0; x < Resolution.x; x++)
+				for (var y = 0; y < Resolution.y; y++)
 				{
-					cell = Queue.Dequeue();
+					Cell cell = pair.Value[x, y];
+					Vector3 cellCenter = CalculateCellCenter(x, y);
+					Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cellCenter);
 
-					Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cell.Position);
-
-					bool contains = Mathf.Abs(cellPosition.x) <= obstacle.Size.x / 2f &&
-					                Mathf.Abs(cellPosition.z) <= obstacle.Size.z / 2f;
-					if (!contains)
-					{
-						continue;
-					}
-
-					cell.Occluded = true;
-
-					foreach (Cell neighbourCell in cell.Neighbours)
-					{
-						if (!Set.Contains(neighbourCell))
-						{
-							Set.Add(neighbourCell);
-							Queue.Enqueue(neighbourCell);
-						}
-					}
+					cell.Occluded |= Mathf.Abs(cellPosition.x) <= obstacle.Size.x / 2f &&
+					                 Mathf.Abs(cellPosition.z) <= obstacle.Size.z / 2f;
 				}
 			}
 		}

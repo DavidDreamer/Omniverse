@@ -31,11 +31,11 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 				for (int y = 0; y < height; ++y)
 				{
 					Cell cell = cells[x, y];
-					Vector3 position = cell.Position;
+					Vector3 position = FogOfWarManager.CalculateCellCenter(x, y);
 					Color color = cell.Occluded ? Occluded :
 						cell.VisibilityState is CellVisibilityState.Visible ? Visible : Invisible;
 
-					Gizmos.DrawWireCube(cell.Position, size);
+					Gizmos.DrawWireCube(position, size);
 
 					Gizmos.color = color;
 					Gizmos.DrawCube(position, size);
