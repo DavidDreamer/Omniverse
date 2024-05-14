@@ -287,7 +287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RectTransform>k__BackingField: {fileID: 3201146420822817413}
-  <CameraController>k__BackingField: {fileID: 0}
 --- !u!222 &1155200799830373783
 CanvasRenderer:
   m_ObjectHideFlags: 0

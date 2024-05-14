@@ -8,7 +8,8 @@ Shader "Hidden/Omniverse/FogOfWar"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
     CBUFFER_START(FogOfWarProperties)
-    float4 FogOfWarColor;
+    float4 FogOfWarUnexploredColor;
+    float4 FogOfWarConcealedColor;
     CBUFFER_END
     
     uniform sampler2D FogOfWarTexture;
@@ -31,7 +32,7 @@ Shader "Hidden/Omniverse/FogOfWar"
         
         const float s = tex2D(FogOfWarTexture, uv).a;
         
-        return FogOfWarColor * s;
+        return FogOfWarConcealedColor * s;
     }
 
     float4 SimpleBlit(Varyings input) : SV_Target
@@ -59,6 +60,7 @@ Shader "Hidden/Omniverse/FogOfWar"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment ApplyFogOfWar
+            #pragma multi_compile_fragment MODE_LIGHT MODE_HARD
             ENDHLSL
         }
 

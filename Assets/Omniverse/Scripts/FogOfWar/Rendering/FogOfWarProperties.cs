@@ -6,6 +6,7 @@ namespace Omniverse.FogOfWar.Rendering
 	[Serializable]
 	public struct FogOfWarProperties
 	{
-		public Color Color;
+		public Color UnexploredColor;
+		public Color ConcealedColor;
 	}
 }

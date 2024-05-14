@@ -167,6 +167,7 @@ MonoBehaviour:
   <Map>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
   <FogOfWarRenderer>k__BackingField: {fileID: 5097684940926804426, guid: 86277cb4a39111740856565c80871011, type: 3}
   <UIInstaller>k__BackingField: {fileID: 456758840}
+  <CameraController>k__BackingField: {fileID: 330585548}
 --- !u!4 &77597338
 Transform:
   m_ObjectHideFlags: 0
