@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dreambox.Math;
 using UnityEngine;
-using UnityEngine.Profiling;
 using VContainer;
 using VContainer.Unity;
 
@@ -22,29 +21,24 @@ namespace Omniverse.FogOfWar
 		[Inject]
 		public IPlayer Player { get; set; }
 
-		public Dictionary<int, Cell[]> Cells { get; } = new();
+		public CellVisibilityState[][] CellsVisibilityPerFaction { get; set; }
+
+		public bool[][] CellsObstaclesPerFaction { get; set; }
 
 		private HashSet<IAgent> Agents { get; } = new();
 		
 		public void Initialize()
 		{
 			Resolution = MapSettings.Size / Multiplier;
+			int cellsCount = Resolution.x * Resolution.y;
 
+			CellsVisibilityPerFaction = new CellVisibilityState[Factions.Length][];
+			CellsObstaclesPerFaction = new bool[Factions.Length][];
+			
 			for (int i = 0; i < Factions.Length; ++i)
 			{
-				var cells = new Cell[Resolution.x * Resolution.y];
-				for (int x = 0; x < Resolution.x; ++x)
-				{
-					for (int y = 0; y < Resolution.y; ++y)
-					{
-						cells[x * Resolution.y + y] = new Cell
-						{
-							VisibilityState = CellVisibilityState.Concealed
-						};
-					}
-				}
-
-				Cells.Add(i, cells);
+				CellsVisibilityPerFaction[i] = new CellVisibilityState[cellsCount];
+				CellsObstaclesPerFaction[i] = new bool[cellsCount];
 			}
 		}
 
@@ -58,17 +52,17 @@ namespace Omniverse.FogOfWar
 		
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
-			foreach (var pair in Cells)
+			foreach (bool[] cells in CellsObstaclesPerFaction)
 			{
 				for (var x = 0; x < Resolution.x; x++)
 				for (var y = 0; y < Resolution.y; y++)
 				{
-					Cell cell = pair.Value[x * Resolution.y + y];
+					int index = x * Resolution.y + y;
 					Vector3 cellCenter = CalculateCellCenter(x, y);
 					Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cellCenter);
 
-					cell.Occluded |= Mathf.Abs(cellPosition.x) <= obstacle.Size.x / 2f &&
-					                 Mathf.Abs(cellPosition.z) <= obstacle.Size.z / 2f;
+					cells[index] |= Mathf.Abs(cellPosition.x) <= obstacle.Size.x / 2f &&
+					                Mathf.Abs(cellPosition.z) <= obstacle.Size.z / 2f;
 				}
 			}
 		}
@@ -105,18 +99,19 @@ namespace Omniverse.FogOfWar
 			{
 				int factionID = Player.FactionID;
 				Vector2Int cellIndex = agent.Cell;
-				CellVisibilityState cellVisibilityState = Cells[factionID][cellIndex.x * Resolution.y + cellIndex.y].VisibilityState;
+				CellVisibilityState cellVisibilityState =
+					CellsVisibilityPerFaction[factionID][cellIndex.x * Resolution.y + cellIndex.y];
 				agent.Visible = cellVisibilityState is CellVisibilityState.Visible;
 			}
 		}
 
 		private void Clear()
 		{
-			foreach (var pair in Cells)
+			foreach (var cells in CellsVisibilityPerFaction)
 			{
-				foreach (Cell cell in pair.Value)
+				for (var index = 0; index < cells.Length; index++)
 				{
-					cell.VisibilityState = CellVisibilityState.Concealed;
+					cells[index] = CellVisibilityState.Concealed;
 				}
 			}
 		}
@@ -130,7 +125,8 @@ namespace Omniverse.FogOfWar
 				int radius = (int)agent.VisionRange / Multiplier;
 				int factionId = agent.FactionID;
 
-				var circleHandler = new BresenhamCircleHandler(x0, y0, Cells[factionId], Resolution);
+				var circleHandler = new BresenhamCircleHandler(x0, y0, CellsVisibilityPerFaction[factionId],
+					CellsObstaclesPerFaction[factionId], Resolution);
 				Bresenham.Circle(x0, y0, radius, circleHandler);
 			}
 		}

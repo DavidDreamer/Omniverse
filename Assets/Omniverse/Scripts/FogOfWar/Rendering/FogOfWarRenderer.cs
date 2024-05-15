@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -25,9 +26,11 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
-
+		
 		private Material BlurMaterial;
 
+		private ComputeBuffer CellsBuffer { get; set; }
+		
 		public float Radius;
 
 		public bool ApplyBlur;
@@ -84,6 +87,8 @@ namespace Omniverse.FogOfWar.Rendering
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
 
+			CellsBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
+			
 			RenderTexture CreateRenderTexture(string textureName)
 			{
 				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
@@ -113,9 +118,9 @@ namespace Omniverse.FogOfWar.Rendering
 			{
 				for (int y = 0; y < yy; ++y)
 				{
-					Cell cell = FogOfWar.Cells[0][x * yy + y];
+					CellVisibilityState cellVisibilityState = FogOfWar.CellsVisibilityPerFaction[0][x * yy + y];
 
-					Color color = new Color(0, 0, 0, cell.VisibilityState is CellVisibilityState.Visible ? 0 : 1);
+					Color color = new Color(0, 0, 0, cellVisibilityState is CellVisibilityState.Visible ? 0 : 1);
 					
 					texture.SetPixel(x, y, color);
 				}

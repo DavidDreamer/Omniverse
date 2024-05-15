@@ -22,7 +22,8 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 			float width = fogOfWarRenderer.FogOfWar.Resolution.x;
 			float height = fogOfWarRenderer.FogOfWar.Resolution.y;
 
-			var cells = fogOfWarRenderer.FogOfWar.Cells[0];
+			var cellVisibilityStates = fogOfWarRenderer.FogOfWar.CellsVisibilityPerFaction[0];
+			var cellsObstacles = fogOfWarRenderer.FogOfWar.CellsObstaclesPerFaction[0];
 			
 			Vector3 size = new Vector3(1, 0, 1) * Manager.Multiplier;
 
@@ -30,10 +31,10 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 			{
 				for (int y = 0; y < height; ++y)
 				{
-					Cell cell = cells[x * fogOfWarRenderer.FogOfWar.Resolution.y + y];
+					int index = x * fogOfWarRenderer.FogOfWar.Resolution.y + y;
 					Vector3 position = Manager.CalculateCellCenter(x, y);
-					Color color = cell.Occluded ? Occluded :
-						cell.VisibilityState is CellVisibilityState.Visible ? Visible : Invisible;
+					Color color = cellsObstacles[index] ? Occluded :
+						cellVisibilityStates[index] is CellVisibilityState.Visible ? Visible : Invisible;
 
 					Gizmos.DrawWireCube(position, size);
 

@@ -5,26 +5,32 @@ namespace Omniverse.FogOfWar
 {
 	internal readonly struct BresenhamLineHandler: IBresenhamLineHandler
 	{
-		private Cell[] Cells { get; }
+		private CellVisibilityState[] CellVisibilityStates { get; }
+
+		private bool[] CellObstacles { get; }
 
 		private Vector2Int Resolution { get; }
-		
-		public BresenhamLineHandler(Cell[] cells, Vector2Int resoution)
+
+		public BresenhamLineHandler(
+			CellVisibilityState[] cellVisibilityStates,
+			bool[] cellObstacles,
+			Vector2Int resoution)
 		{
-			Cells = cells;
+			CellVisibilityStates = cellVisibilityStates;
+			CellObstacles = cellObstacles;
 			Resolution = resoution;
 		}
-			
+
 		public bool HandlePoint(int x, int y)
 		{
-			Cell cell = Cells[x * Resolution.y + y];
+			int index = x * Resolution.y + y;
 
-			if (cell.Occluded)
+			if (CellObstacles[index])
 			{
 				return true;
 			}
 
-			cell.VisibilityState = CellVisibilityState.Visible;
+			CellVisibilityStates[index] = CellVisibilityState.Visible;
 
 			return false;
 		}
