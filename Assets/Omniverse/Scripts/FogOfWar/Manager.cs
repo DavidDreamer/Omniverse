@@ -67,12 +67,12 @@ namespace Omniverse.FogOfWar
 			}
 		}
 
-		private Vector2Int CalculateCell(Vector3 position)
+		private int CalculateCell(Vector3 position)
 		{
 			int x = (int)position.x / Multiplier;
 			int y = (int)position.z / Multiplier;
 
-			return new Vector2Int(x, y);
+			return x * Resolution.y + y;
 		}
 
 		public void Register(IAgent agent)
@@ -89,19 +89,7 @@ namespace Omniverse.FogOfWar
 		{
 			foreach (IAgent agent in Agents)
 			{
-				agent.Cell = CalculateCell(agent.Position);
-			}
-		}
-
-		private void UpddateAgentsVisibility()
-		{
-			foreach (IAgent agent in Agents)
-			{
-				int factionID = Player.FactionID;
-				Vector2Int cellIndex = agent.Cell;
-				CellVisibilityState cellVisibilityState =
-					CellsVisibilityPerFaction[factionID][cellIndex.x * Resolution.y + cellIndex.y];
-				agent.Visible = cellVisibilityState is CellVisibilityState.Visible;
+				agent.CellIndex = CalculateCell(agent.Position);
 			}
 		}
 
@@ -135,10 +123,7 @@ namespace Omniverse.FogOfWar
 		{
 			UpdateAgentPositions();
 			Clear();
-
 			CalculateVisibility();
-
-			UpddateAgentsVisibility();
 		}
 	}
 }

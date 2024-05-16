@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Omniverse.FogOfWar;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,9 +15,10 @@ namespace Omniverse.Units
 	public abstract class UnitRendererBase: MonoBehaviour, IPoolObject
 	{
 		public abstract void Initialize(Unit unit);
+
 		public abstract void Cleanup();
 	}
-	
+
 	[UnityEngine.Scripting.Preserve]
 	public class Manager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
@@ -31,7 +33,7 @@ namespace Omniverse.Units
 
 		[Inject]
 		private UnitManagerConfig Config { get; set; }
-		
+
 		[Inject]
 		private FogOfWar.Manager FogOfWarManager { get; set; }
 
@@ -45,13 +47,13 @@ namespace Omniverse.Units
 		{
 			CancellationTokenSource.Dispose();
 		}
-		
+
 		public Unit Spawn(UnitSpawnData data) => Spawn(data.UnitDesc, data.FactionID);
 
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
 			UnitPresenter unitPresenter = PresenterPool.Take(Config.UnitPresenter);
-			
+
 			var unit = new Unit(desc, factionID)
 			{
 				Presenter = unitPresenter
@@ -62,13 +64,13 @@ namespace Omniverse.Units
 			UnitRendererBase unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
 			unitRenderer.transform.SetParent(unitPresenter.transform, false);
 			unitRenderer.Initialize(unit);
-	
+
 			Units.Add(unit);
 
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
-			FogOfWarAgents.Add(unit, new UnitFogOfWarAgent(unit));
+			FogOfWarAgents.Add(unit, unitFogOfWarAgent);
 			FogOfWarManager.Register(unitFogOfWarAgent);
-			
+
 			return unit;
 		}
 
@@ -76,7 +78,7 @@ namespace Omniverse.Units
 		{
 			FogOfWarManager.Unregister(FogOfWarAgents[unit]);
 			FogOfWarAgents.Remove(unit);
-			
+
 			PresenterPool.Return(unit.Presenter);
 			Units.Remove(unit);
 		}
@@ -85,6 +87,16 @@ namespace Omniverse.Units
 		{
 			for (var i = 0; i < Units.Count; i++)
 			{
+				Unit unit = Units[i];
+				UnitFogOfWarAgent fogOfWarAgent = FogOfWarAgents[unit];
+
+				//TODO
+				CellVisibilityState cellVisibilityState =
+					FogOfWarManager.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
+				
+				unit.Presenter.GetComponentInChildren<UnitRendererBase>(true).gameObject
+					.SetActive(cellVisibilityState is CellVisibilityState.Visible);
+
 				Units[i].FixedTick();
 			}
 		}
@@ -109,7 +121,7 @@ namespace Omniverse.Units
 				{
 					return false;
 				}
-				
+
 				return unit.Properties.Values.Any(resource => resource.Vital && resource.OutOf);
 			}
 		}
@@ -127,7 +139,7 @@ namespace Omniverse.Units
 			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
 			PresenterPool.Return(unit.Presenter);
 		}
-		
+
 		private void DropLoot(Unit unit)
 		{
 			foreach (LootDesc loot in unit.Desc.Loot)

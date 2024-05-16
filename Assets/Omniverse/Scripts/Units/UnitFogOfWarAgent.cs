@@ -12,9 +12,7 @@ namespace Omniverse.Units
 
 		public Vector3 Position => Unit.Presenter.transform.position;
 
-		public Vector2Int Cell { get; set; }
-
-		public bool Visible { get; set; }
+		public int CellIndex { get; set; }
 		
 		public UnitFogOfWarAgent(Unit unit)
 		{

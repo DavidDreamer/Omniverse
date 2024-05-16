@@ -10,8 +10,6 @@ namespace Omniverse.FogOfWar
 
 		Vector3 Position { get; }
 		
-		Vector2Int Cell { get; set; }
-		
-		bool Visible { get; set; }
+		int CellIndex { get; set; }
 	}
 }
