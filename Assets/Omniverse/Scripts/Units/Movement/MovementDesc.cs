@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Omniverse.Units
 {
-	[CreateAssetMenu(menuName = "Omniverse/Desc/Movement")]
-	public class MovementDesc: ScriptableObject
+	[Serializable]
+	public class MovementDesc
 	{
 		[field: SerializeField]
 		public float Speed { get; private set; }

@@ -1,9 +1,8 @@
 using System;
 using System.Linq;
-using Omniverse.Units;
 using UnityEngine;
 
-namespace Omniverse
+namespace Omniverse.Units
 {
 	public class Attack
 	{

@@ -20,8 +20,13 @@ MonoBehaviour:
     <Capacity>k__BackingField: 100
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
-  <Movement>k__BackingField: {fileID: 11400000, guid: e23fe4f94682998499e409fcbcc7fce9, type: 2}
-  <Attack>k__BackingField: {fileID: 11400000, guid: e259360f6e18d5e4ead499f29e315ccd, type: 2}
+  <Movement>k__BackingField:
+    <Speed>k__BackingField: 5
+    <RotationSpeed>k__BackingField: 500
+  <Attack>k__BackingField:
+    <Range>k__BackingField: 1
+    <Speed>k__BackingField: 1
+    <Damage>k__BackingField: 10
   <Abilities>k__BackingField: []
   <Loot>k__BackingField: []
   <VisionRange>k__BackingField: 20

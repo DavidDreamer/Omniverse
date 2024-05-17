@@ -1,16 +1,17 @@
+using System;
 using UnityEngine;
 
-namespace Omniverse
+namespace Omniverse.Units
 {
-	[CreateAssetMenu(menuName = "Omniverse/Desc/Attack")]
-	public class AttackDesc: ScriptableObject
+	[Serializable]
+	public class AttackDesc
 	{
 		[field: SerializeField]
 		public float Range { get; private set; }
-		
+
 		[field: SerializeField]
 		public float Speed { get; private set; }
-		
+
 		[field: SerializeField]
 		public float Damage { get; private set; }
 	}
