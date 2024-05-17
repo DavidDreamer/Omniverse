@@ -11,6 +11,9 @@ namespace Omniverse.Units
 		public Presentation Presentation { get; private set; }
 
 		[field: SerializeField]
+		public ExperienceDesc Experience { get; private set; }
+		
+		[field: SerializeField]
 		public List<PropertyDesc> Properties { get; private set; }
 		
 		[field: SerializeField]

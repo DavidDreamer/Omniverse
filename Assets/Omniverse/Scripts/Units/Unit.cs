@@ -35,6 +35,8 @@ namespace Omniverse.Units
 
 		public Unit Target { get; set; }
 		
+		public Experience Experience { get; private set; }
+		
 		public Movement Movement { get; private set; }
 		
 		public Attack Attack { get; private set; }
@@ -43,6 +45,8 @@ namespace Omniverse.Units
 		{
 			Desc = desc;
 			FactionID = factionID;
+
+			Experience = new Experience(desc.Experience);
 			
 			Properties = new Dictionary<PropertyTag, Property>();
 			foreach (PropertyDesc resourceDesc in Desc.Properties)

@@ -10,6 +10,9 @@ namespace Omniverse.UI
 	//TEMP
 	public class UnitAvatarWidget: MonoBehaviour
 	{
+		[field: SerializeField]
+		private ExperienceWidget Experience { get; set; }
+		
 		public PropertyTag HealthTag;
 		
 		public PropertyBarWidget Health;
@@ -31,6 +34,8 @@ namespace Omniverse.UI
 				{
 					Health.Bind(property);
 				}
+
+				Experience.Bind(unit.Experience);
 			}
 			else
 			{
