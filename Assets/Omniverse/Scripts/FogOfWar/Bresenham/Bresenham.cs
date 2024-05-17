@@ -5,7 +5,6 @@ namespace Dreambox.Math
 {
 	public static class Bresenham
 	{
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Line<T>(int x0, int y0, int x1, int y1, T handler) where T : struct, IBresenhamLineHandler
 		{
 			if (handler.HandlePoint(x0, y0))
@@ -44,7 +43,7 @@ namespace Dreambox.Math
 
 			int lenght2 = length * 2;
 			int height2 = height * 2;
-			
+
 			int x = x0;
 			int y = y0;
 
@@ -71,54 +70,44 @@ namespace Dreambox.Math
 				}
 			}
 		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		
 		public static void Circle<T>(int x0, int y0, int radius, T handler) where T : struct, IBresenhamCircleHandler
 		{
-			int x = radius;
-			int y = 0;
-			int radiusError = -x;
-
-			handler.HandlePoint(x0 + x, y0);
-			handler.HandlePoint(x0 - x, y0);
-			handler.HandlePoint(x0, y0 + x);
-			handler.HandlePoint(x0, y0 - x);
-
-			y++;
-
-			while (y <= x)
+			int x = 0;
+			int y = radius;
+			int delta = 3 - 2 * y;
+			
+			while (x <= y)
 			{
-				handler.HandlePoint(x0 + x, y0 + y);
-				handler.HandlePoint(x0 + x, y0 - y);
-				handler.HandlePoint(x0 - x, y0 + y);
-				handler.HandlePoint(x0 - x, y0 - y);
-				handler.HandlePoint(x0 + y, y0 + x);
-				handler.HandlePoint(x0 + y, y0 - x);
-				handler.HandlePoint(x0 - y, y0 + x);
-				handler.HandlePoint(x0 - y, y0 - x);
-
-				if (radiusError < 0)
+				HandleAllOctants(x0, y0, x, y, handler);
+				
+				if (delta < 0)
 				{
-					radiusError += 2 * y;
+					delta += 4 * x + 6;
 				}
 				else
 				{
-					x--;
-
-					handler.HandlePoint(x0 + x, y0 + y);
-					handler.HandlePoint(x0 + x, y0 - y);
-					handler.HandlePoint(x0 - x, y0 + y);
-					handler.HandlePoint(x0 - x, y0 - y);
-					handler.HandlePoint(x0 + y, y0 + x);
-					handler.HandlePoint(x0 + y, y0 - x);
-					handler.HandlePoint(x0 - y, y0 + x);
-					handler.HandlePoint(x0 - y, y0 - x);
-
-					radiusError += 2 * (y - x) + 1;
+					delta += 4 * (x - y) + 10;
+					y--;
+					HandleAllOctants(x0, y0, x, y, handler);
 				}
 
-				y++;
+				++x;
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static void HandleAllOctants<T>(int x0, int y0, int x, int y, T handler)
+			where T : struct, IBresenhamCircleHandler
+		{
+			handler.HandlePoint(x0 + x, y0 + y);
+			handler.HandlePoint(x0 + x, y0 - y);
+			handler.HandlePoint(x0 - x, y0 + y);
+			handler.HandlePoint(x0 - x, y0 - y);
+			handler.HandlePoint(x0 + y, y0 + x);
+			handler.HandlePoint(x0 + y, y0 - x);
+			handler.HandlePoint(x0 - y, y0 + x);
+			handler.HandlePoint(x0 - y, y0 - x);
 		}
 	}
 }
