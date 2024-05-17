@@ -13,6 +13,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
 		
+		[field: SerializeField]
+		private StatsWidget Stats { get; set; }
+		
 		public PropertyTag HealthTag;
 		
 		public PropertyBarWidget Health;
@@ -36,6 +39,7 @@ namespace Omniverse.UI
 				}
 
 				Experience.Bind(unit.Experience);
+				Stats.Bind(unit);
 			}
 			else
 			{
