@@ -20,6 +20,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private StatWidget RotationSpeed { get; set; }
 		
+		[field: SerializeField]
+		private StatWidget VisionRange { get; set; }
+		
 		private Unit Unit { get; set; }
 		
 		public void Bind(Unit unit)
@@ -39,6 +42,7 @@ namespace Omniverse.UI
 			AttackRange.Value.text = Unit.Attack.Range.ToString();
 			MovementSpeed.Value.text = Unit.Movement.Speed.ToString();
 			RotationSpeed.Value.text = Unit.Movement.RotationSpeed.ToString();
+			VisionRange.Value.text = Unit.Desc.VisionRange.ToString();
 		}
 	}
 }
