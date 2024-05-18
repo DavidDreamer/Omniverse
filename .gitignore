@@ -61,3 +61,5 @@ crashlytics-build.properties
 ProjectSettings/RiderScriptEditorPersistedState.asset
 Assets/TEST
 Assets/TEST.meta
+Assets/Local
+Assets/Local.meta
