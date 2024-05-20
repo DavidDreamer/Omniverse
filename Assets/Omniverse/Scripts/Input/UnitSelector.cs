@@ -6,6 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Input
 {
+	//TODO add limit
 	public class UnitSelector: ITickable
 	{
 		public List<UnitRenderer> FocusedUnits { get; } = new();
