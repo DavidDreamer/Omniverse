@@ -1,9 +1,7 @@
-﻿using System;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {

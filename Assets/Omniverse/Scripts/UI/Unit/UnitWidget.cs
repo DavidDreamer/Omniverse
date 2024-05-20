@@ -4,11 +4,11 @@ using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	//TEMP
-	public class UnitAvatarWidget: MonoBehaviour
+	public class UnitWidget: MonoBehaviour, ILateTickable
 	{
 		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
@@ -25,7 +25,7 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
-		public void LateUpdate()
+		public void LateTick()
 		{
 			if (UnitSelector.SelectedUnits.Count > 0)
 			{

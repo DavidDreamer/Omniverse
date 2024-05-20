@@ -12,13 +12,20 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private UnitSelectorWidget UnitSelectorWidget { get; set; }
 		
+		[field: SerializeField]
+		private UnitWidget UnitWidget { get; set; }
+		
 		public void Install(IContainerBuilder builder)
 		{
-			builder.RegisterComponentInNewPrefab(MiniMapWidget, Lifetime.Singleton).UnderTransform(transform)
-				.AsImplementedInterfaces().AsSelf();
-			
-			builder.RegisterComponentInNewPrefab(UnitSelectorWidget, Lifetime.Singleton).UnderTransform(transform)
-				.AsImplementedInterfaces().AsSelf();
+			RegisterWidget(MiniMapWidget);
+			RegisterWidget(UnitSelectorWidget);
+			RegisterWidget(UnitWidget);
+
+			void RegisterWidget<T>(T component) where T : Component
+			{
+				builder.RegisterComponentInNewPrefab(component, Lifetime.Singleton).UnderTransform(transform)
+					.AsImplementedInterfaces().AsSelf();
+			}
 		}
 	}
 }
