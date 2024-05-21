@@ -1,4 +1,3 @@
-using System.Linq;
 using Omniverse.Input;
 using Omniverse.Units;
 using UnityEngine;
@@ -10,6 +9,9 @@ namespace Omniverse.UI
 {
 	public class UnitWidget: MonoBehaviour, ILateTickable
 	{
+		[field: SerializeField]
+		private Canvas Canvas { get; set; }
+		
 		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
 		
@@ -27,24 +29,26 @@ namespace Omniverse.UI
 
 		public void LateTick()
 		{
-			if (UnitSelector.SelectedUnits.Count > 0)
-			{
-				Unit unit = UnitSelector.SelectedUnits.First().Unit;
+			bool hasSelection = UnitSelector.SelectedUnits.Count > 0;
 
-				Icon.sprite = unit.Desc.Presentation.Icon;
+			Canvas.enabled = hasSelection;
+
+			if (hasSelection is false)
+			{
+				return;
+			}
+			
+			Unit unit = UnitSelector.SelectedUnit.Unit;
+
+			Icon.sprite = unit.Desc.Presentation.Icon;
 				
-				if (unit.Properties.TryGetValue(HealthTag, out Property property))
-				{
-					Health.Bind(property);
-				}
-
-				Experience.Bind(unit.Experience);
-				Stats.Bind(unit);
-			}
-			else
+			if (unit.Properties.TryGetValue(HealthTag, out Property property))
 			{
-				Health.Unbind();
+				Health.Bind(property);
 			}
+
+			Experience.Bind(unit.Experience);
+			Stats.Bind(unit);
 		}
 	}
 }

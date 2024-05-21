@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 8405635411201522638}
   - component: {fileID: 5749565609869953937}
   - component: {fileID: 8819036613135877577}
+  - component: {fileID: 8090218044316354622}
   m_Layer: 5
   m_Name: UnitWidget
   m_TagString: Untagged
@@ -347,11 +348,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a4a1637a174113871457aa42a8bdec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Canvas>k__BackingField: {fileID: 8090218044316354622}
   <Experience>k__BackingField: {fileID: 4166482618742498652}
   <Stats>k__BackingField: {fileID: 7197480308339411039}
   HealthTag: {fileID: 11400000, guid: 078464ef9808b7440ad089f85f9d4b75, type: 2}
   Health: {fileID: 2541210725947931885}
   Icon: {fileID: 2300012328843084672}
+--- !u!223 &8090218044316354622
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858016347165870002}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1354370294055128479
 GameObject:
   m_ObjectHideFlags: 0

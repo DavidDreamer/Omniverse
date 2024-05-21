@@ -13,6 +13,10 @@ namespace Omniverse.Input
 
 		public List<UnitRenderer> SelectedUnits { get; } = new();
 
+		public UnitRenderer SelectedUnit => SelectedUnits[SelectionIndex];
+		
+		public int SelectionIndex { get; private set; }
+		
 		private UnitSelectorConfig Config { get; }
 
 		public UnitSelector(UnitSelectorConfig config)
@@ -70,6 +74,20 @@ namespace Omniverse.Input
 					}
 				}
 			}
+
+			UpdateSelectionIndex();
+			
+			void UpdateSelectionIndex()
+			{
+				if (Keyboard.current.tabKey.wasReleasedThisFrame)
+				{
+					SelectionIndex++;
+					if (SelectionIndex >= SelectedUnits.Count)
+					{
+						SelectionIndex = 0;
+					}
+				}
+			}
 		}
 
 		private void AddToSelection(UnitRenderer unitRenderer)
@@ -92,6 +110,7 @@ namespace Omniverse.Input
 			}
 
 			SelectedUnits.Clear();
+			SelectionIndex = 0;
 		}
 		
 		private void AddFocus(UnitRenderer unitRenderer)
