@@ -161,8 +161,8 @@ MonoBehaviour:
   - {fileID: 1786262018}
   - {fileID: 507580125}
   - {fileID: 858260885}
-  - {fileID: 1087207811}
   - {fileID: 456758839}
+  - {fileID: 1087207811}
   <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
   <Map>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
   <FogOfWarRenderer>k__BackingField: {fileID: 5097684940926804426, guid: 86277cb4a39111740856565c80871011, type: 3}
@@ -903,7 +903,7 @@ Terrain:
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 11295c2f521463c44848a05f05f431bd, type: 2}
   m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
+  m_TreeBillboardDistance: 1000
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
   m_DetailObjectDistance: 80
@@ -919,8 +919,8 @@ Terrain:
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
   m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
+  m_BakeLightProbesForTrees: 0
+  m_PreserveTreePrototypeLayers: 1
   m_DeringLightProbesForTrees: 1
   m_ReceiveGI: 1
   m_ScaleInLightmap: 0.0256
@@ -928,7 +928,7 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
-  m_EnableHeightmapRayTracing: 1
+  m_EnableHeightmapRayTracing: 0
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
 --- !u!4 &717917623
