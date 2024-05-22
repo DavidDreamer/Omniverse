@@ -50,20 +50,16 @@ namespace Omniverse.FogOfWar
 			return new Vector3(x, 0, y) * Multiplier + offset;
 		}
 		
+		//TODO
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
+			int x = (int)obstacle.transform.position.x / Multiplier;
+			int y = (int)obstacle.transform.position.z / Multiplier;
+			
+			int index = x * Resolution.y + y;
 			foreach (bool[] cells in CellsObstaclesPerFaction)
 			{
-				for (var x = 0; x < Resolution.x; x++)
-				for (var y = 0; y < Resolution.y; y++)
-				{
-					int index = x * Resolution.y + y;
-					Vector3 cellCenter = CalculateCellCenter(x, y);
-					Vector3 cellPosition = obstacle.transform.InverseTransformPoint(cellCenter);
-
-					cells[index] |= Mathf.Abs(cellPosition.x) <= obstacle.Size.x / 2f &&
-					                Mathf.Abs(cellPosition.z) <= obstacle.Size.z / 2f;
-				}
+				cells[index] = true;
 			}
 		}
 
