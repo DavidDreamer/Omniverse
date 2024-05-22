@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Omniverse
@@ -8,13 +9,15 @@ namespace Omniverse
 		[MenuItem("Dreambox/Terrain/Export Trees")]
 		public static void ExportTrees()
 		{
-			var terrain = Selection.activeObject as Terrain;
+			var terrain = Selection.activeGameObject.GetComponent<Terrain>();
 
 			if (terrain == null)
 			{
 				return;
 			}
 
+			TerrainData terrainData = terrain.terrainData;
+			
 			Transform treesHolder = terrain.transform.Find("Trees");
 			if (treesHolder == null)
 			{
@@ -22,10 +25,23 @@ namespace Omniverse
 				treesHolder.SetParent(terrain.transform, false);
 			}
 
-			foreach (var VARIABLE in terrain.terrainData.treeInstances)
+			foreach (TreeInstance treeInstance in terrain.terrainData.treeInstances)
 			{
-				
+				TreePrototype treePrototype = terrain.terrainData.treePrototypes[treeInstance.prototypeIndex];
+
+				Vector3 position = new Vector3(treeInstance.position.x * terrainData.size.x,
+					                   treeInstance.position.y * terrainData.size.y,
+					                   treeInstance.position.z * terrainData.size.z) +
+				                   terrain.transform.position;
+
+				Quaternion rotation = Quaternion.Euler(0, treeInstance.rotation * Mathf.Rad2Deg, 0);
+
+				var prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(treePrototype.prefab, treesHolder);
+				prefabInstance.transform.position = position;
+				prefabInstance.transform.rotation = rotation;
 			}
+
+			terrain.terrainData.treeInstances = Array.Empty<TreeInstance>();
 		}
 	}
 }
