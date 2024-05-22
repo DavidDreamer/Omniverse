@@ -11,6 +11,12 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 		
 		private static Color Occluded { get; } = Color.black;
 
+		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacle))]
+		private static void DrawObstacle(FogOfWarObstacle obstacle, GizmoType gizmoType)
+		{
+			Gizmos.DrawWireCube(obstacle.transform.position, obstacle.Size);
+		}
+		
 		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarRenderer))]
 		private static void DrawGizmos(FogOfWarRenderer fogOfWarRenderer, GizmoType gizmoType)
 		{
