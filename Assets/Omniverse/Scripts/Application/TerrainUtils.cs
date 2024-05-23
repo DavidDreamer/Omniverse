@@ -17,13 +17,8 @@ namespace Omniverse
 			}
 
 			TerrainData terrainData = terrain.terrainData;
-			
-			Transform treesHolder = terrain.transform.Find("Trees");
-			if (treesHolder == null)
-			{
-				treesHolder = new GameObject("Trees").transform;
-				treesHolder.SetParent(terrain.transform, false);
-			}
+
+			Transform treesHolder = FindTreesHolder(terrain);
 
 			foreach (TreeInstance treeInstance in terrain.terrainData.treeInstances)
 			{
@@ -34,7 +29,9 @@ namespace Omniverse
 					                   treeInstance.position.z * terrainData.size.z) +
 				                   terrain.transform.position;
 
-				Quaternion rotation = Quaternion.Euler(0, treeInstance.rotation * Mathf.Rad2Deg, 0);
+				Debug.Log(treeInstance.rotation);
+				
+				Quaternion rotation = Quaternion.Euler(0, 0, 0);
 
 				var prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(treePrototype.prefab, treesHolder);
 				prefabInstance.transform.position = position;
@@ -42,6 +39,43 @@ namespace Omniverse
 			}
 
 			terrain.terrainData.treeInstances = Array.Empty<TreeInstance>();
+
+			EditorUtility.SetDirty(terrain);
+		}
+		
+		[MenuItem("Dreambox/Terrain/Import Trees")]
+		public static void ImportTrees()
+		{
+			var terrain = Selection.activeGameObject.GetComponent<Terrain>();
+
+			if (terrain == null)
+			{
+				return;
+			}
+
+			TerrainData terrainData = terrain.terrainData;
+			
+			Transform treesHolder = FindTreesHolder(terrain);
+
+			var treeInstances = new TreeInstance[treesHolder.transform.childCount];
+
+			terrain.terrainData.treeInstances = treeInstances;
+
+			EditorUtility.SetDirty(terrain);
+		}
+
+		private static Transform FindTreesHolder(Terrain terrain)
+		{
+			const string name = "Trees";
+			
+			Transform holder = terrain.transform.Find(name);
+			if (holder == null)
+			{
+				holder = new GameObject(name).transform;
+				holder.SetParent(terrain.transform, false);
+			}
+
+			return holder;
 		}
 	}
 }
