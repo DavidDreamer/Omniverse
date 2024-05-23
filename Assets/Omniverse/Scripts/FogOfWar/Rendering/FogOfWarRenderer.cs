@@ -15,6 +15,7 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
 			public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));
+			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
 		}
 		
 		private const string ShaderName = "Hidden/Omniverse/FogOfWar";
@@ -29,7 +30,7 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		private Material BlurMaterial;
 
-		private ComputeBuffer CellsBuffer { get; set; }
+		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 		
 		public float Radius;
 
@@ -79,7 +80,7 @@ namespace Omniverse.FogOfWar.Rendering
 		public void Initialize()
 		{
 			texture = new Texture2D(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
-
+			
 			RenderTexture = CreateRenderTexture("FogOfWar0");
 			RenderTexture2 = CreateRenderTexture("FogOfWar1");
 	
@@ -87,7 +88,7 @@ namespace Omniverse.FogOfWar.Rendering
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
 
-			CellsBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
+			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
 			
 			RenderTexture CreateRenderTexture(string textureName)
 			{
@@ -103,6 +104,8 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public void Dispose()
 		{
+			CellsVisibilityBuffer.Release();
+			
 			RenderTexture.Release();
 			RenderTexture2.Release();
 		}
@@ -128,6 +131,9 @@ namespace Omniverse.FogOfWar.Rendering
 			
 			texture.Apply();
 
+			CellsVisibilityBuffer.SetData(FogOfWar.CellsVisibilityPerFaction[0]);
+			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
+			
 			if (ApplyBlur)
 			{
 				Graphics.Blit(texture, RenderTexture, BlurMaterial, 0);
