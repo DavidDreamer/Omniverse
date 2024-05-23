@@ -24,8 +24,6 @@ namespace Omniverse.FogOfWar.Rendering
 		[field: SerializeField]
 		private FogOfWarProperties Properties { get; set; }
 		
-		public Texture2D texture;
-		
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
 
@@ -81,8 +79,6 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public void Initialize()
 		{
-			texture = new Texture2D(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
-			
 			RenderTexture = CreateRenderTexture("FogOfWar0");
 			RenderTexture2 = CreateRenderTexture("FogOfWar1");
 	
@@ -117,34 +113,15 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			BlurMaterial.SetFloat("Radius", Radius);
 
-			int xx = FogOfWar.Resolution.x;
-			int yy = FogOfWar.Resolution.y;
-			
-			for (int x = 0; x < xx; ++x)
-			{
-				for (int y = 0; y < yy; ++y)
-				{
-					CellVisibilityState cellVisibilityState = FogOfWar.CellsVisibilityPerFaction[0][x * yy + y];
-
-					Color color = new Color(0, 0, 0, cellVisibilityState is CellVisibilityState.Visible ? 0 : 1);
-					
-					texture.SetPixel(x, y, color);
-				}
-			}
-			
-			texture.Apply();
-
 			CellsVisibilityBuffer.SetData(FogOfWar.CellsVisibilityPerFaction[0]);
 			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
-			
+
+			Graphics.Blit(RenderTexture, RenderTexture2, CalcualteMaterial);
+
 			if (ApplyBlur)
 			{
-				Graphics.Blit(texture, RenderTexture, BlurMaterial, 0);
+				Graphics.Blit(RenderTexture2, RenderTexture, BlurMaterial, 0);
 				Graphics.Blit(RenderTexture, RenderTexture2, BlurMaterial, 1);
-			}
-			else
-			{
-				Graphics.Blit(texture, RenderTexture2);
 			}
 
 			Shader.SetGlobalTexture(ShaderVariables.FogOfWarTexture, RenderTexture2);
