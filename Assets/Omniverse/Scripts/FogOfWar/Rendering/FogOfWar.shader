@@ -6,7 +6,8 @@ Shader "Hidden/Omniverse/FogOfWar"
     // the input structure (Attributes), and the output structure (Varyings)
     #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
-
+    #include "Assets/Omniverse/Scripts/Mapping/Map.hlsl"
+    
     CBUFFER_START(FogOfWarProperties)
     float4 FogOfWarUnexploredColor;
     float4 FogOfWarConcealedColor;
@@ -28,7 +29,7 @@ Shader "Hidden/Omniverse/FogOfWar"
         
         const float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
 
-        const float2 uv = worldPos.xz / 256;
+        const float2 uv = worldPos.xz / MapSize.xy;
         
         const float s = tex2D(FogOfWarTexture, uv).a;
         

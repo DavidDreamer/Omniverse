@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 using VContainer;
 using VContainer.Unity;
 
@@ -8,6 +9,11 @@ namespace Omniverse.Mapping
 {
 	public class Map: MonoBehaviour, IInitializable, IDisposable
 	{
+		private static class ShaderVariables
+		{
+			public static int MapProperties { get; } = Shader.PropertyToID(nameof(MapProperties));
+		}
+		
 		[field: SerializeField]
 		private UnityEngine.Camera Camera { get; set; }
 
@@ -30,9 +36,16 @@ namespace Omniverse.Mapping
 			Camera.targetTexture = RenderTexture;
 
 			Camera.orthographicSize = MapSettings.Size.x / 2f;
-			
+
 			Camera.transform.position = new Vector3(MapSettings.Size.x / 2f, Camera.transform.position.y,
 				MapSettings.Size.y / 2f);
+
+			var mapShaderProperties = new MapShaderProperties
+			{
+				MapSize = new Vector4(MapSettings.Size.x, MapSettings.Size.y, 0, 0)
+			};
+
+			ConstantBuffer.PushGlobal(mapShaderProperties, ShaderVariables.MapProperties);
 		}
 
 		public void Dispose()
