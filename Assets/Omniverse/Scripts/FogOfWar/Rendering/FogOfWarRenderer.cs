@@ -18,7 +18,8 @@ namespace Omniverse.FogOfWar.Rendering
 			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
 		}
 		
-		private const string ShaderName = "Hidden/Omniverse/FogOfWar";
+		[field: SerializeField]
+		private Shaders Shaders { get; set; }
 		
 		[field: SerializeField]
 		private FogOfWarProperties Properties { get; set; }
@@ -27,7 +28,8 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
-		
+
+		private Material CalcualteMaterial;
 		private Material BlurMaterial;
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
@@ -39,7 +41,7 @@ namespace Omniverse.FogOfWar.Rendering
 		[Inject]
 		public Manager FogOfWar { get; set; }
 
-		private FogOfWarPass Pass { get; set; }
+		private RenderPass RenderPass { get; set; }
 		
 		private void OnValidate()
 		{
@@ -51,9 +53,7 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		private void OnEnable()
 		{
-			var material = new Material(Shader.Find(ShaderName));
-			
-			Pass = new FogOfWarPass(material)
+			RenderPass = new RenderPass(Shaders)
 			{
 				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
 			};
@@ -63,6 +63,8 @@ namespace Omniverse.FogOfWar.Rendering
 
 		private void OnDisable()
 		{
+			RenderPass.Dispose();
+			
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
 
@@ -73,7 +75,7 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
 			{
-				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
+				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(RenderPass);
 			}
 		}
 
@@ -84,10 +86,11 @@ namespace Omniverse.FogOfWar.Rendering
 			RenderTexture = CreateRenderTexture("FogOfWar0");
 			RenderTexture2 = CreateRenderTexture("FogOfWar1");
 	
-			BlurMaterial = new Material(Shader.Find("Hidden/Dreambox/Blur"));
+			BlurMaterial = new Material(Shaders.Blur);
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
 
+			CalcualteMaterial = new Material(Shaders.Calculate);
 			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
 			
 			RenderTexture CreateRenderTexture(string textureName)

@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12237e68019c48b891b266ae44540e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Shaders>k__BackingField:
+    <Calculate>k__BackingField: {fileID: 4800000, guid: 94e506d0b5edbfd47a4801d0b625f362, type: 3}
+    <Blur>k__BackingField: {fileID: 4800000, guid: 54060db8c13c6594e8d1a1e51fd4fa9c, type: 3}
+    <Apply>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
     ConcealedColor: {r: 0, g: 0, b: 0, a: 0.8}

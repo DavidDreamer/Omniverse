@@ -4,17 +4,21 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.FogOfWar.Rendering
 {
-	public class FogOfWarPass: ScriptableRenderPass
+	public class RenderPass: ScriptableRenderPass
 	{
-		private Material material;
+		private Shaders Shaders { get; }
+		
+		private Material ApplyMaterial;
 
 		private RenderTextureDescriptor textureDescriptor;
 
 		private RTHandle textureHandle;
 
-		public FogOfWarPass(Material material)
+		public RenderPass(Shaders shaders)
 		{
-			this.material = material;
+			Shaders = shaders;
+			
+			ApplyMaterial = new Material(Shaders.Apply);
 
 			textureDescriptor = new RenderTextureDescriptor(Screen.width,
 				Screen.height, RenderTextureFormat.Default, 0);
@@ -41,7 +45,7 @@ namespace Omniverse.FogOfWar.Rendering
 			RTHandle cameraTargetHandle =
 				renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-			Blitter.BlitCameraTexture(cmd, cameraTargetHandle, cameraTargetHandle, material, 0);
+			Blitter.BlitCameraTexture(cmd, cameraTargetHandle, cameraTargetHandle, ApplyMaterial, 0);
 
 			context.ExecuteCommandBuffer(cmd);
 			CommandBufferPool.Release(cmd);
@@ -49,7 +53,7 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		public void Dispose()
 		{
-			CoreUtils.Destroy(material);
+			CoreUtils.Destroy(ApplyMaterial);
 
 			if (textureHandle != null) textureHandle.Release();
 		}
