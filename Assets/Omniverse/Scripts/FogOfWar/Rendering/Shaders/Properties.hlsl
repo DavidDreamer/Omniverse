@@ -4,6 +4,7 @@
 CBUFFER_START(FogOfWarProperties)
 float4 FogOfWarUnexploredColor;
 float4 FogOfWarConcealedColor;
+float FogOfWarAnimationSpeed;
 CBUFFER_END
 
 uniform sampler2D FogOfWarTexture;

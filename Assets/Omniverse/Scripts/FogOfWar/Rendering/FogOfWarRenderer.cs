@@ -23,7 +23,7 @@ namespace Omniverse.FogOfWar.Rendering
 		private Shaders Shaders { get; set; }
 		
 		[field: SerializeField]
-		private FogOfWarProperties Properties { get; set; }
+		private Properties Properties { get; set; }
 		
 		public RenderTexture AnimationTexture1;
 		public RenderTexture AnimationTexture2;

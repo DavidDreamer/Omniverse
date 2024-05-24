@@ -23,7 +23,7 @@ Shader "Hidden/Omniverse/FogOfWar/Animate"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Assets/Omniverse/Scripts/Mapping/Map.hlsl"
-            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Common.hlsl"
+            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Properties.hlsl"
 
             sampler2D _MainTex;
             
@@ -33,7 +33,7 @@ Shader "Hidden/Omniverse/FogOfWar/Animate"
                 const float previousValue = tex2D(_MainTex, input.texcoord).a;
                 const int cellIndex = input.positionCS.x * 128 - (64 - input.positionCS.y);
                 const int currentCellState = CellsVisibilityBuffer[cellIndex];
-                const float delta = (currentCellState == CELL_VISIBILITY_CONCEALED ? 1 : -1) * 0.625 * unity_DeltaTime;
+                const float delta = (currentCellState == CELL_VISIBILITY_CONCEALED ? 1 : -1) * FogOfWarAnimationSpeed * unity_DeltaTime;
                 const float newValue = saturate(previousValue + delta);
                 return float4(0,0,0, newValue);
             }

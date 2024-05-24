@@ -22,7 +22,7 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Assets/Omniverse/Scripts/Mapping/Map.hlsl"
-            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Common.hlsl"
+            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Properties.hlsl"
             
             float4 ApplyFogOfWar(Varyings input) : SV_Target
             {
