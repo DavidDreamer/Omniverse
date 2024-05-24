@@ -51,7 +51,8 @@ MonoBehaviour:
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
     ConcealedColor: {r: 0, g: 0, b: 0, a: 0.8}
-  texture: {fileID: 0}
+  AnimationTexture1: {fileID: 0}
+  AnimationTexture2: {fileID: 0}
   RenderTexture: {fileID: 8400000, guid: 2c10938a4cceca842969a3a187e3735f, type: 2}
   RenderTexture2: {fileID: 8400000, guid: fe688124b128cd74b8df8e509bbd99e4, type: 2}
   Radius: 3

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -23,6 +24,9 @@ namespace Omniverse.FogOfWar.Rendering
 		
 		[field: SerializeField]
 		private FogOfWarProperties Properties { get; set; }
+		
+		public RenderTexture AnimationTexture1;
+		public RenderTexture AnimationTexture2;
 		
 		public RenderTexture RenderTexture;
 		public RenderTexture RenderTexture2;
@@ -79,6 +83,9 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public void Initialize()
 		{
+			AnimationTexture1 = CreateAnimationRenderTexture("FogOfWar.Animation.1");
+			AnimationTexture2 = CreateAnimationRenderTexture("FogOfWar.Animation.2");
+			
 			RenderTexture = CreateRenderTexture("FogOfWar0");
 			RenderTexture2 = CreateRenderTexture("FogOfWar1");
 	
@@ -88,6 +95,18 @@ namespace Omniverse.FogOfWar.Rendering
 
 			CalcualteMaterial = new Material(Shaders.Calculate);
 			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
+			
+			RenderTexture CreateAnimationRenderTexture(string textureName)
+			{
+				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
+					GraphicsFormat.R16G16B16A16_SFloat,
+					GraphicsFormat.None)
+				{
+					name = textureName,
+					filterMode = FilterMode.Point,
+					anisoLevel = 0
+				};
+			}
 			
 			RenderTexture CreateRenderTexture(string textureName)
 			{
@@ -109,6 +128,8 @@ namespace Omniverse.FogOfWar.Rendering
 			RenderTexture2.Release();
 		}
 
+		private int abbi = 0;
+		
 		public void LateUpdate()
 		{
 			BlurMaterial.SetFloat("Radius", Radius);
@@ -116,11 +137,20 @@ namespace Omniverse.FogOfWar.Rendering
 			CellsVisibilityBuffer.SetData(FogOfWar.CellsVisibilityPerFaction[0]);
 			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			Graphics.Blit(RenderTexture, RenderTexture2, CalcualteMaterial);
+			bool it = abbi % 2 == 0;
 
+			RenderTexture source = it ? AnimationTexture1 : AnimationTexture2;
+			RenderTexture target = it ? AnimationTexture2 : AnimationTexture1;
+
+			CalcualteMaterial.SetTexture("_MainTex", source);
+			CalcualteMaterial.SetVector("_BlitScaleBias", new Vector4(1,1,0,0));
+			Graphics.Blit(source, target, CalcualteMaterial);
+
+			abbi++;
+			
 			if (ApplyBlur)
 			{
-				Graphics.Blit(RenderTexture2, RenderTexture, BlurMaterial, 0);
+				Graphics.Blit(target, RenderTexture, BlurMaterial, 0);
 				Graphics.Blit(RenderTexture, RenderTexture2, BlurMaterial, 1);
 			}
 
