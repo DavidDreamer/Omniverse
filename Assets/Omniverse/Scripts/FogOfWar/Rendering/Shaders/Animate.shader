@@ -34,8 +34,9 @@ Shader "Hidden/Omniverse/FogOfWar/Animate"
                 const int cellIndex = input.positionCS.x * 128 - (64 - input.positionCS.y);
                 const int currentCellState = CellsVisibilityBuffer[cellIndex];
                 const float delta = (currentCellState == CELL_VISIBILITY_VISIBLE ? 1 : -1) * FogOfWarAnimationSpeed * unity_DeltaTime;
+                const float unexplored = currentCellState == CELL_VISIBILITY_UNEXPLORED;
                 const float newValue = saturate(previousValue + delta);
-                return float4(newValue, 0, 0, 0);
+                return float4(newValue, unexplored, 0, 0);
             }
             ENDHLSL
         }

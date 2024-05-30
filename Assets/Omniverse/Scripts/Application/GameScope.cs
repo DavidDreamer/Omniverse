@@ -39,8 +39,9 @@ namespace Omniverse
 				builder.RegisterComponentInNewPrefab(Map, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			}
 			
-			if (GameSettings.FogOfWarMode is not Mode.None)
+			if (GameSettings.FogOfWarSettings.Enabled)
 			{
+				builder.RegisterInstance(GameSettings.FogOfWarSettings);
 				builder.Register<FogOfWar.Manager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 				builder.RegisterComponentInNewPrefab(FogOfWarRenderer, Lifetime.Singleton).AsImplementedInterfaces()
 					.AsSelf();

@@ -3,7 +3,7 @@
 	public enum CellVisibilityState
 	{
 		Unexplored,
-		Concealed,
+		Explored,
 		Visible
 	}
 }

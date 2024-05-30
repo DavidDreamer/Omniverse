@@ -66,6 +66,16 @@ namespace Omniverse.FogOfWar.Rendering
 				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
 			};
 
+			if (Manager.Settings.Explored)
+			{
+				Shader.EnableKeyword(ShaderVariables.ExploredKeyword);
+			}
+			else
+			{
+				Shader.DisableKeyword(ShaderVariables.ExploredKeyword);
+			}
+			
+				
 			RenderTexture CreateAnimationRT(string textureName)
 			{
 				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,

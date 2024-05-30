@@ -16,8 +16,8 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment ApplyFogOfWar
-            #pragma multi_compile_fragment MODE_LIGHT MODE_HARD
-
+            #pragma multi_compile_fragment _ FOG_OF_WAR_EXPLORED
+            
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
@@ -37,12 +37,15 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
                 #endif
                 
                 const float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
-
                 const float2 uv = worldPos.xz / MapSize.xy;
+                const float4 fowData = tex2D(FogOfWarTexture, uv);
+                const float animationValue = 1 - fowData.r;
                 
-                const float s = 1 - tex2D(FogOfWarTexture, uv).r;
-                
-                return FogOfWarConcealedColor * s;
+                #ifdef FOG_OF_WAR_EXPLORED
+                return FogOfWarExploredColor * animationValue;
+                #else
+                return lerp(FogOfWarExploredColor, FogOfWarUnexploredColor, fowData.g) * animationValue;
+                #endif
             }
             ENDHLSL
         }

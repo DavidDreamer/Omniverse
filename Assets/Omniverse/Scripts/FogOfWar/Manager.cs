@@ -13,6 +13,9 @@ namespace Omniverse.FogOfWar
 		public Vector2Int Resolution { get; set; }
 
 		[Inject]
+		public Settings Settings { get; set; }
+		
+		[Inject]
 		private MapSettings MapSettings { get; set; }
 
 		[Inject]
@@ -34,11 +37,19 @@ namespace Omniverse.FogOfWar
 
 			CellsVisibilityPerFaction = new CellVisibilityState[Factions.Length][];
 			CellsObstaclesPerFaction = new bool[Factions.Length][];
+
+			CellVisibilityState initialState =
+				Settings.Explored ? CellVisibilityState.Explored : CellVisibilityState.Unexplored;
 			
 			for (int i = 0; i < Factions.Length; ++i)
 			{
 				CellsVisibilityPerFaction[i] = new CellVisibilityState[cellsCount];
 				CellsObstaclesPerFaction[i] = new bool[cellsCount];
+
+				for (int j = 0; j < cellsCount; ++j)
+				{
+					CellsVisibilityPerFaction[i][j] = initialState;
+				}
 			}
 		}
 
@@ -91,11 +102,27 @@ namespace Omniverse.FogOfWar
 
 		private void Clear()
 		{
-			foreach (var cells in CellsVisibilityPerFaction)
+			if (Settings.Explored)
 			{
-				for (var index = 0; index < cells.Length; index++)
+				foreach (var cells in CellsVisibilityPerFaction)
 				{
-					cells[index] = CellVisibilityState.Concealed;
+					for (var index = 0; index < cells.Length; index++)
+					{
+						cells[index] = CellVisibilityState.Explored;
+					}
+				}
+			}
+			else
+			{
+				foreach (var cells in CellsVisibilityPerFaction)
+				{
+					for (var index = 0; index < cells.Length; index++)
+					{
+						if (cells[index] is CellVisibilityState.Visible)
+						{
+							cells[index] = CellVisibilityState.Explored;
+						}
+					}
 				}
 			}
 		}
