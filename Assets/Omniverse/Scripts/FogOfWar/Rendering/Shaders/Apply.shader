@@ -40,7 +40,7 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
 
                 const float2 uv = worldPos.xz / MapSize.xy;
                 
-                const float s = tex2D(FogOfWarTexture, uv).a;
+                const float s = 1 - tex2D(FogOfWarTexture, uv).r;
                 
                 return FogOfWarConcealedColor * s;
             }

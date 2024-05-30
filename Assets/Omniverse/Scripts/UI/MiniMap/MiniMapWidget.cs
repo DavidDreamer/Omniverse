@@ -23,7 +23,7 @@ namespace Omniverse.UI
         public void Initialize()
         {
             Image.texture = Map.RenderTexture;
-            FogOfWar.texture = FogOfWarRenderer.RenderTexture2;
+            FogOfWar.texture = FogOfWarRenderer.BlurRT2;
         }
     }
 }

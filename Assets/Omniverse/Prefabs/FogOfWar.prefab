@@ -45,16 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Shaders>k__BackingField:
-    <Calculate>k__BackingField: {fileID: 4800000, guid: 94e506d0b5edbfd47a4801d0b625f362, type: 3}
+    <Animate>k__BackingField: {fileID: 4800000, guid: 94e506d0b5edbfd47a4801d0b625f362, type: 3}
     <Blur>k__BackingField: {fileID: 4800000, guid: 54060db8c13c6594e8d1a1e51fd4fa9c, type: 3}
     <Apply>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
     ConcealedColor: {r: 0, g: 0, b: 0, a: 0.8}
     AnimationSpeed: 1.25
-  AnimationTexture1: {fileID: 0}
-  AnimationTexture2: {fileID: 0}
-  RenderTexture: {fileID: 8400000, guid: 2c10938a4cceca842969a3a187e3735f, type: 2}
-  RenderTexture2: {fileID: 8400000, guid: fe688124b128cd74b8df8e509bbd99e4, type: 2}
   Radius: 3
-  ApplyBlur: 1

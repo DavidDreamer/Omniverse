@@ -25,11 +25,11 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 				return;
 			}
 
-			float width = fogOfWarRenderer.FogOfWar.Resolution.x;
-			float height = fogOfWarRenderer.FogOfWar.Resolution.y;
+			float width = fogOfWarRenderer.Manager.Resolution.x;
+			float height = fogOfWarRenderer.Manager.Resolution.y;
 
-			var cellVisibilityStates = fogOfWarRenderer.FogOfWar.CellsVisibilityPerFaction[0];
-			var cellsObstacles = fogOfWarRenderer.FogOfWar.CellsObstaclesPerFaction[0];
+			var cellVisibilityStates = fogOfWarRenderer.Manager.CellsVisibilityPerFaction[0];
+			var cellsObstacles = fogOfWarRenderer.Manager.CellsObstaclesPerFaction[0];
 			
 			Vector3 size = new Vector3(1, 0, 1) * Manager.Multiplier;
 
@@ -37,7 +37,7 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 			{
 				for (int y = 0; y < height; ++y)
 				{
-					int index = x * fogOfWarRenderer.FogOfWar.Resolution.y + y;
+					int index = x * fogOfWarRenderer.Manager.Resolution.y + y;
 					Vector3 position = Manager.CalculateCellCenter(x, y);
 					Color color = cellsObstacles[index] ? Occluded :
 						cellVisibilityStates[index] is CellVisibilityState.Visible ? Visible : Invisible;

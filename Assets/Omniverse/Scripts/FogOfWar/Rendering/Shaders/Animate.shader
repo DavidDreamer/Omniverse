@@ -30,12 +30,12 @@ Shader "Hidden/Omniverse/FogOfWar/Animate"
             float4 Init(Varyings input) : SV_Target
             {
                 //const float previousValue = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, input.texcoord).a;
-                const float previousValue = tex2D(_MainTex, input.texcoord).a;
+                const float previousValue = tex2D(_MainTex, input.texcoord).r;
                 const int cellIndex = input.positionCS.x * 128 - (64 - input.positionCS.y);
                 const int currentCellState = CellsVisibilityBuffer[cellIndex];
-                const float delta = (currentCellState == CELL_VISIBILITY_CONCEALED ? 1 : -1) * FogOfWarAnimationSpeed * unity_DeltaTime;
+                const float delta = (currentCellState == CELL_VISIBILITY_VISIBLE ? 1 : -1) * FogOfWarAnimationSpeed * unity_DeltaTime;
                 const float newValue = saturate(previousValue + delta);
-                return float4(0,0,0, newValue);
+                return float4(newValue, 0, 0, 0);
             }
             ENDHLSL
         }

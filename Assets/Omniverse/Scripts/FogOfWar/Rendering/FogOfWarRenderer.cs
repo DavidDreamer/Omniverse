@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -12,39 +10,35 @@ namespace Omniverse.FogOfWar.Rendering
 {
 	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
 	{
-		private static class ShaderVariables
-		{
-			public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
-			public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));
-			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
-		}
-		
 		[field: SerializeField]
 		private Shaders Shaders { get; set; }
-		
+
 		[field: SerializeField]
 		private Properties Properties { get; set; }
-		
-		public RenderTexture AnimationTexture1;
-		public RenderTexture AnimationTexture2;
-		
-		public RenderTexture RenderTexture;
-		public RenderTexture RenderTexture2;
 
-		private Material CalcualteMaterial;
-		private Material BlurMaterial;
-
-		private ComputeBuffer CellsVisibilityBuffer { get; set; }
-		
 		public float Radius;
 
-		public bool ApplyBlur;
-
 		[Inject]
-		public Manager FogOfWar { get; set; }
+		public Manager Manager { get; set; }
 
-		private RenderPass RenderPass { get; set; }
-		
+		private Material AnimationMaterial { get; set; }
+
+		private Material BlurMaterial { get; set; }
+
+		private RenderTexture AnimationRT1 { get; set; }
+
+		private RenderTexture AnimationRT2 { get; set; }
+
+		public RenderTexture BlurRT1 { get; set; }
+
+		public RenderTexture BlurRT2 { get; set; }
+
+		private ComputeBuffer CellsVisibilityBuffer { get; set; }
+
+		private bool SwapAnimationBuffers { get; set; }
+
+		private ApplyPass ApplyPass { get; set; }
+
 		private void OnValidate()
 		{
 			if (Application.isPlaying)
@@ -52,53 +46,29 @@ namespace Omniverse.FogOfWar.Rendering
 				UpdateGlobalShaderVariables();
 			}
 		}
-		
-		private void OnEnable()
-		{
-			RenderPass = new RenderPass(Shaders)
-			{
-				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
-			};
-		
-			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
-		}
-
-		private void OnDisable()
-		{
-			RenderPass.Dispose();
-			
-			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
-		}
-
-		private void UpdateGlobalShaderVariables() =>
-			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
-
-		private void OnBeginCameraRendering(ScriptableRenderContext context, UnityEngine.Camera cam)
-		{
-			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
-			{
-				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(RenderPass);
-			}
-		}
 
 		public void Initialize()
 		{
-			AnimationTexture1 = CreateAnimationRenderTexture("FogOfWar.Animation.1");
-			AnimationTexture2 = CreateAnimationRenderTexture("FogOfWar.Animation.2");
-			
-			RenderTexture = CreateRenderTexture("FogOfWar0");
-			RenderTexture2 = CreateRenderTexture("FogOfWar1");
-	
+			AnimationMaterial = new Material(Shaders.Animate);
 			BlurMaterial = new Material(Shaders.Blur);
-			BlurMaterial.SetFloat("Factor", 1);
-			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
 
-			CalcualteMaterial = new Material(Shaders.Calculate);
-			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
-			
-			RenderTexture CreateAnimationRenderTexture(string textureName)
+			AnimationRT1 = CreateAnimationRT("FogOfWar.Animation.1");
+			AnimationRT2 = CreateAnimationRT("FogOfWar.Animation.2");
+
+			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
+			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
+
+			CellsVisibilityBuffer =
+				new ComputeBuffer(Manager.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
+
+			ApplyPass = new ApplyPass(Manager, Shaders.Apply)
 			{
-				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
+				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
+			};
+
+			RenderTexture CreateAnimationRT(string textureName)
+			{
+				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
 					GraphicsFormat.R16G16B16A16_SFloat,
 					GraphicsFormat.None)
 				{
@@ -107,10 +77,10 @@ namespace Omniverse.FogOfWar.Rendering
 					anisoLevel = 0
 				};
 			}
-			
-			RenderTexture CreateRenderTexture(string textureName)
+
+			RenderTexture CreateBlurRT(string textureName)
 			{
-				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
+				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
 					GraphicsFormat.R16G16B16A16_SFloat,
 					GraphicsFormat.None)
 				{
@@ -122,39 +92,67 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public void Dispose()
 		{
+			CoreUtils.Destroy(AnimationMaterial);
+			CoreUtils.Destroy(BlurMaterial);
+
+			AnimationRT1.Release();
+			AnimationRT2.Release();
+
+			BlurRT1.Release();
+			BlurRT2.Release();
+
 			CellsVisibilityBuffer.Release();
-			
-			RenderTexture.Release();
-			RenderTexture2.Release();
+
+			ApplyPass.Dispose();
 		}
 
-		private int abbi = 0;
-		
-		public void LateUpdate()
+		private void OnEnable()
 		{
-			BlurMaterial.SetFloat("Radius", Radius);
+			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
+		}
 
-			CellsVisibilityBuffer.SetData(FogOfWar.CellsVisibilityPerFaction[0]);
+		private void OnDisable()
+		{
+			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
+		}
+
+		private void UpdateGlobalShaderVariables() =>
+			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
+
+		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
+		{
+			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
+			{
+				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(ApplyPass);
+			}
+		}
+
+		private void LateUpdate()
+		{
+			CommandBuffer cmd = CommandBufferPool.Get("FogOfWar.PreProcess");
+
+			CellsVisibilityBuffer.SetData(Manager.CellsVisibilityPerFaction[0]);
 			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			bool it = abbi % 2 == 0;
+			RenderTexture source = SwapAnimationBuffers ? AnimationRT2 : AnimationRT1;
+			RenderTexture target = SwapAnimationBuffers ? AnimationRT1 : AnimationRT2;
 
-			RenderTexture source = it ? AnimationTexture1 : AnimationTexture2;
-			RenderTexture target = it ? AnimationTexture2 : AnimationTexture1;
+			AnimationMaterial.SetTexture("_MainTex", source);
+			AnimationMaterial.SetVector("_BlitScaleBias", new Vector4(1, 1, 0, 0));
+			cmd.Blit(source, target, AnimationMaterial);
 
-			CalcualteMaterial.SetTexture("_MainTex", source);
-			CalcualteMaterial.SetVector("_BlitScaleBias", new Vector4(1,1,0,0));
-			Graphics.Blit(source, target, CalcualteMaterial);
+			SwapAnimationBuffers = !SwapAnimationBuffers;
 
-			abbi++;
-			
-			if (ApplyBlur)
-			{
-				Graphics.Blit(target, RenderTexture, BlurMaterial, 0);
-				Graphics.Blit(RenderTexture, RenderTexture2, BlurMaterial, 1);
-			}
+			BlurMaterial.SetFloat("Factor", 1);
+			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
+			BlurMaterial.SetFloat("Radius", Radius);
+			cmd.Blit(target, BlurRT1, BlurMaterial, 0);
+			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
-			Shader.SetGlobalTexture(ShaderVariables.FogOfWarTexture, RenderTexture2);
+			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
+
+			Graphics.ExecuteCommandBuffer(cmd);
+			CommandBufferPool.Release(cmd);
 		}
 	}
 }
