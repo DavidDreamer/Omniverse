@@ -49,7 +49,7 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public void Initialize()
 		{
-			AnimationMaterial = new Material(Shaders.Animate);
+			AnimationMaterial = new Material(Shaders.PreProcess);
 			BlurMaterial = new Material(Shaders.Blur);
 
 			AnimationRT1 = CreateAnimationRT("FogOfWar.Animation.1");

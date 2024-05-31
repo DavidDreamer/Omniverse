@@ -7,7 +7,7 @@ namespace Omniverse.FogOfWar.Rendering
 	public class Shaders
 	{
 		[field: SerializeField]
-		public Shader Animate { get; private set; }
+		public Shader PreProcess { get; private set; }
 		
 		[field: SerializeField]
 		public Shader Blur { get; private set; }

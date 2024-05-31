@@ -1,4 +1,4 @@
-Shader "Hidden/Omniverse/FogOfWar/Animate"
+Shader "Hidden/Omniverse/FogOfWar/PreProcess"
 {
     SubShader
     {
