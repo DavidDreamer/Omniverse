@@ -38,8 +38,12 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
                 
                 const float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
                 const float2 uv = worldPos.xz / MapSize.xy;
+
                 const float4 fowData = tex2D(FogOfWarTexture, uv);
-                const float animationValue = 1 - fowData.r;
+
+                const bool outOfBounds = uv.x < 0 || uv.x > 1 || uv.y < 0 || uv.y > 1;
+                
+                const float animationValue = outOfBounds ? 1 :  1 - fowData.r;
                 
                 #ifdef FOG_OF_WAR_EXPLORED
                 return FogOfWarExploredColor * animationValue;
