@@ -75,7 +75,7 @@ namespace Omniverse.FogOfWar.Rendering
 			RenderTexture CreateAnimationRT(string textureName)
 			{
 				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
-					GraphicsFormat.R16G16B16A16_SNorm,
+					GraphicsFormat.R16G16_SNorm,
 					GraphicsFormat.None)
 				{
 					name = textureName,
@@ -87,7 +87,7 @@ namespace Omniverse.FogOfWar.Rendering
 			RenderTexture CreateBlurRT(string textureName)
 			{
 				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
-					GraphicsFormat.R16G16B16A16_SFloat,
+					GraphicsFormat.R16G16_SFloat,
 					GraphicsFormat.None)
 				{
 					name = textureName,
