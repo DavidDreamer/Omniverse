@@ -21,4 +21,4 @@ MonoBehaviour:
   <MapSettings>k__BackingField: {fileID: 11400000, guid: ddc732f160381bb40ac14ba20f5ed8c6, type: 2}
   <FogOfWarSettings>k__BackingField:
     <Enabled>k__BackingField: 1
-    <Explored>k__BackingField: 0
+    <Explored>k__BackingField: 1

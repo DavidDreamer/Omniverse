@@ -50,6 +50,6 @@ MonoBehaviour:
     <Apply>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
-    ConcealedColor: {r: 0, g: 0, b: 0, a: 0.6}
+    ConcealedColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     AnimationSpeed: 1.25
   Radius: 3
