@@ -32,13 +32,12 @@ namespace Omniverse.UI
 			
 			Rect parentRect = ParentRectTransform.rect;
 			
-			float mapRelativePositionX = Mathf.InverseLerp(0, Map.MapSettings.Size.x, viewPoint.x);
-			float mapRelativePositionY = Mathf.InverseLerp(0, Map.MapSettings.Size.y, viewPoint.z);
-
+			Vector2 mapRelativePosition = ConverCoordinateFromWorldToRectSpace(viewPoint);
+			
 			float width = parentRect.width / 2f;
-			float rectRelativePositionX = Mathf.Lerp(-width, width, mapRelativePositionX);
+			float rectRelativePositionX = Mathf.Lerp(-width, width, mapRelativePosition.x);
 			float height = parentRect.height / 2f;
-			float rectRelativePositionY = Mathf.Lerp(-height, height, mapRelativePositionY);
+			float rectRelativePositionY = Mathf.Lerp(-height, height, mapRelativePosition.y);
 			
 			RectTransform.anchoredPosition = new Vector2(rectRelativePositionX, rectRelativePositionY);
 
