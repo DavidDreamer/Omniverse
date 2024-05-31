@@ -1,4 +1,5 @@
-﻿using Dreambox.Math;
+﻿using System;
+using Dreambox.Math;
 using UnityEngine;
 
 namespace Omniverse.FogOfWar
@@ -27,6 +28,9 @@ namespace Omniverse.FogOfWar
 
 		public void HandlePoint(int x, int y)
 		{
+			x = Math.Clamp(x, 0, Resolution.x - 1);
+			y = Math.Clamp(y, 0, Resolution.y - 1);
+			
 			var lineHandler = new BresenhamLineHandler(CellVisibilityStates, CellObstacles, Resolution);
 			Bresenham.Line(X, Y, x, y, lineHandler);
 		}

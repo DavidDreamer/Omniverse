@@ -25,11 +25,6 @@ namespace Omniverse.FogOfWar
 		{
 			int index = x * Resolution.y + y;
 
-			if (index < 0 || index >= CellVisibilityStates.Length)
-			{
-				return true;
-			}
-			
 			CellVisibilityStates[index] = CellVisibilityState.Visible;
 
 			return CellObstacles[index];
