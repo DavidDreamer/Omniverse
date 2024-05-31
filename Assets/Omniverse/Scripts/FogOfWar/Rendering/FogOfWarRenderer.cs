@@ -1,4 +1,5 @@
 ﻿using System;
+using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -139,8 +140,10 @@ namespace Omniverse.FogOfWar.Rendering
 
 		private void LateUpdate()
 		{
-			CommandBuffer cmd = CommandBufferPool.Get("FogOfWar.PreProcess");
-
+			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
+			
+			CommandBuffer cmd = scope.CommandBuffer;
+				
 			CellsVisibilityBuffer.SetData(Manager.CellsVisibilityPerFaction[0]);
 			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
@@ -160,9 +163,6 @@ namespace Omniverse.FogOfWar.Rendering
 			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
 			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
-
-			Graphics.ExecuteCommandBuffer(cmd);
-			CommandBufferPool.Release(cmd);
 		}
 	}
 }
