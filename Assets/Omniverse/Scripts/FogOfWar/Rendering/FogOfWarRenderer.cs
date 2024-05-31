@@ -149,7 +149,7 @@ namespace Omniverse.FogOfWar.Rendering
 			cmd.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
 			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
-			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, AnimationRT);
+			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
 		}
 	}
 }
