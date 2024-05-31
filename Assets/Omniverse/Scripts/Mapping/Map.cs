@@ -13,7 +13,7 @@ namespace Omniverse.Mapping
 		{
 			public static int MapProperties { get; } = Shader.PropertyToID(nameof(MapProperties));
 		}
-		
+
 		[field: SerializeField]
 		private UnityEngine.Camera Camera { get; set; }
 

@@ -42,7 +42,7 @@
         "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
         "com.unity.render-pipelines.core": "14.0.10"
       },
-      "hash": "e4c3bef1df02c2c5b5647f4cdd2cf1ba237a8304"
+      "hash": "9b67094b909ef9b286af405ceb98bee4f299287f"
     },
     "com.david-dreamer.dreambox.rendering.urp": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/URP",
@@ -51,7 +51,7 @@
       "dependencies": {
         "com.unity.render-pipelines.universal": "14.0.10"
       },
-      "hash": "446f4361ecb1ba5d65a1cc3f95b771867bc38676"
+      "hash": "9b67094b909ef9b286af405ceb98bee4f299287f"
     },
     "com.david-dreamer.dreambox.ui": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",

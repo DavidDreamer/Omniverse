@@ -8,7 +8,7 @@ namespace Omniverse.FogOfWar.Rendering
 	{
 		public Color UnexploredColor;
 
-		public Color ConcealedColor;
+		public Color ExploredColor;
 
 		public float AnimationSpeed;
 	}

@@ -1,13 +1,15 @@
 ﻿#pragma once
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 
+uniform float4 FogOfWarResolution;
+
+uniform sampler2D FogOfWarTexture;
+
 CBUFFER_START(FogOfWarProperties)
 float4 FogOfWarUnexploredColor;
 float4 FogOfWarExploredColor;
 float FogOfWarAnimationSpeed;
 CBUFFER_END
-
-uniform sampler2D FogOfWarTexture;
 
 uniform StructuredBuffer<int> CellsVisibilityBuffer;
 

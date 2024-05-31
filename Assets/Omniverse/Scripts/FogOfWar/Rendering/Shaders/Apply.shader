@@ -15,16 +15,16 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
         {
             HLSLPROGRAM
             #pragma vertex Vert
-            #pragma fragment ApplyFogOfWar
+            #pragma fragment Frag
             #pragma multi_compile_fragment _ FOG_OF_WAR_EXPLORED
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Assets/Omniverse/Scripts/Mapping/Map.hlsl"
-            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Properties.hlsl"
+            #include "Assets/Omniverse/Scripts/FogOfWar/Rendering/Shaders/Data.hlsl"
             
-            float4 ApplyFogOfWar(Varyings input) : SV_Target
+            float4 Frag(Varyings input) : SV_Target
             {
                 const float2 UV = input.positionCS.xy / _ScaledScreenParams.xy;
 

@@ -17,8 +17,9 @@ namespace Omniverse.FogOfWar.Rendering
 		[field: SerializeField]
 		private Properties Properties { get; set; }
 
-		public float Radius;
-
+		[field: SerializeField]
+		private BlurSettings BlurSettings { get; set; }
+		
 		[Inject]
 		public Manager Manager { get; set; }
 
@@ -33,24 +34,38 @@ namespace Omniverse.FogOfWar.Rendering
 		public RenderTexture BlurRT2 { get; set; }
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
-		
+
 		private ApplyPass ApplyPass { get; set; }
 
 		private void OnValidate()
 		{
 			if (Application.isPlaying)
 			{
-				UpdateGlobalShaderVariables();
+				UpdateShaderVariables();
 			}
 		}
 
+		private void UpdateShaderVariables()
+		{
+			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
+			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
+			
+			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
+			
+			if (BlurMaterial != null)
+			{
+				BlurSettings.ApplyTo(BlurMaterial);
+			}
+		}
+		
 		public void Initialize()
 		{
 			AnimationMaterial = new Material(Shaders.PreProcess);
 			BlurMaterial = new Material(Shaders.Blur);
 			
-			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
+			UpdateShaderVariables();
 
+			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
 
@@ -70,8 +85,7 @@ namespace Omniverse.FogOfWar.Rendering
 			{
 				Shader.DisableKeyword(ShaderVariables.ExploredKeyword);
 			}
-			
-				
+
 			RenderTexture CreateAnimationRT(string textureName)
 			{
 				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
@@ -100,9 +114,8 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);
-			
-			AnimationRT.Release();
 
+			AnimationRT.Release();
 			BlurRT1.Release();
 			BlurRT2.Release();
 
@@ -120,10 +133,7 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
-
-		private void UpdateGlobalShaderVariables() =>
-			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
-
+		
 		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
 		{
 			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
@@ -135,17 +145,12 @@ namespace Omniverse.FogOfWar.Rendering
 		private void LateUpdate()
 		{
 			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
-			
 			CommandBuffer cmd = scope.CommandBuffer;
-				
-			CellsVisibilityBuffer.SetData(Manager.CellsVisibilityPerFaction[0]);
-			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
+
+			cmd.SetBufferData(CellsVisibilityBuffer, Manager.CellsVisibilityPerFaction[0]);
+			cmd.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
 			cmd.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
-			
-			BlurMaterial.SetFloat("Factor", 1);
-			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
-			BlurMaterial.SetFloat("Radius", Radius);
 			cmd.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
 			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
