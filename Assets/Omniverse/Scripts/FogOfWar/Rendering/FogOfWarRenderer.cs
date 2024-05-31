@@ -26,18 +26,14 @@ namespace Omniverse.FogOfWar.Rendering
 
 		private Material BlurMaterial { get; set; }
 
-		private RenderTexture AnimationRT1 { get; set; }
-
-		private RenderTexture AnimationRT2 { get; set; }
+		private RenderTexture AnimationRT { get; set; }
 
 		public RenderTexture BlurRT1 { get; set; }
 
 		public RenderTexture BlurRT2 { get; set; }
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
-
-		private bool SwapAnimationBuffers { get; set; }
-
+		
 		private ApplyPass ApplyPass { get; set; }
 
 		private void OnValidate()
@@ -52,9 +48,8 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			AnimationMaterial = new Material(Shaders.PreProcess);
 			BlurMaterial = new Material(Shaders.Blur);
-
-			AnimationRT1 = CreateAnimationRT("FogOfWar.Animation.1");
-			AnimationRT2 = CreateAnimationRT("FogOfWar.Animation.2");
+			
+			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
 
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
@@ -80,7 +75,7 @@ namespace Omniverse.FogOfWar.Rendering
 			RenderTexture CreateAnimationRT(string textureName)
 			{
 				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
-					GraphicsFormat.R16G16B16A16_SFloat,
+					GraphicsFormat.R16G16B16A16_SNorm,
 					GraphicsFormat.None)
 				{
 					name = textureName,
@@ -105,9 +100,8 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);
-
-			AnimationRT1.Release();
-			AnimationRT2.Release();
+			
+			AnimationRT.Release();
 
 			BlurRT1.Release();
 			BlurRT2.Release();
@@ -147,22 +141,15 @@ namespace Omniverse.FogOfWar.Rendering
 			CellsVisibilityBuffer.SetData(Manager.CellsVisibilityPerFaction[0]);
 			Shader.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			RenderTexture source = SwapAnimationBuffers ? AnimationRT2 : AnimationRT1;
-			RenderTexture target = SwapAnimationBuffers ? AnimationRT1 : AnimationRT2;
-
-			AnimationMaterial.SetTexture("_MainTex", source);
-			AnimationMaterial.SetVector("_BlitScaleBias", new Vector4(1, 1, 0, 0));
-			cmd.Blit(source, target, AnimationMaterial);
-
-			SwapAnimationBuffers = !SwapAnimationBuffers;
-
+			cmd.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
+			
 			BlurMaterial.SetFloat("Factor", 1);
 			BlurMaterial.SetKeyword(new LocalKeyword(BlurMaterial.shader, "ALGORITHM_GAUSSIAN"), true);
 			BlurMaterial.SetFloat("Radius", Radius);
-			cmd.Blit(target, BlurRT1, BlurMaterial, 0);
+			cmd.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
 			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
-			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
+			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, AnimationRT);
 		}
 	}
 }

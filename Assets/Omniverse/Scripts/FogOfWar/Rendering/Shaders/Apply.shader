@@ -42,8 +42,10 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
                 const float4 fowData = tex2D(FogOfWarTexture, uv);
 
                 const bool outOfBounds = uv.x < 0 || uv.x > 1 || uv.y < 0 || uv.y > 1;
+
+                const float v = (fowData.r + 1.0) * 0.5;
                 
-                const float animationValue = outOfBounds ? 1 :  1 - fowData.r;
+                const float animationValue = outOfBounds ? 1 :  1 - v;
                 
                 #ifdef FOG_OF_WAR_EXPLORED
                 return FogOfWarExploredColor * animationValue;
