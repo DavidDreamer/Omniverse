@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <HLSLSupport.cginc>
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 
 CBUFFER_START(MapProperties)
 float4 MapSize;
