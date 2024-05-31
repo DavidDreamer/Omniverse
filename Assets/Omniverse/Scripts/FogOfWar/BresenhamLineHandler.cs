@@ -30,14 +30,9 @@ namespace Omniverse.FogOfWar
 				return true;
 			}
 			
-			if (CellObstacles[index])
-			{
-				return true;
-			}
-
 			CellVisibilityStates[index] = CellVisibilityState.Visible;
 
-			return false;
+			return CellObstacles[index];
 		}
 	}
 }
