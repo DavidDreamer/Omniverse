@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Dreambox.Rendering.Core;
+using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -25,15 +26,10 @@ namespace Omniverse.FogOfWar.Rendering
 			ScriptableRenderContext context,
 			ref RenderingData renderingData)
 		{
-			CommandBuffer cmd = CommandBufferPool.Get("FogOfWar.Apply");
-
-			RTHandle cameraTargetHandle =
-				renderingData.cameraData.renderer.cameraColorTargetHandle;
-
-			Blitter.BlitCameraTexture(cmd, cameraTargetHandle, cameraTargetHandle, Material, 0);
-
-			context.ExecuteCommandBuffer(cmd);
-			CommandBufferPool.Release(cmd);
+			using var scope = new CommandBufferContextScope(context, "FogOfWar.Apply");
+			CommandBuffer cmd = scope.CommandBuffer;
+			
+			CoreUtils.DrawFullScreen(cmd, Material, shaderPassId: 0);
 		}
 	}
 }
