@@ -54,6 +54,7 @@ MonoBehaviour:
     AnimationSpeed: 2.5
   <BlurSettings>k__BackingField:
     <Algorithm>k__BackingField: 1
+    <WrapMode>k__BackingField: 0
     <Downsample>k__BackingField: 1
     <Radius>k__BackingField: 3
     <Factor>k__BackingField: 1
