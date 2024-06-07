@@ -11,7 +11,7 @@ namespace Omniverse.UI
 		private Image Icon { get; set; }
 
 		[field: SerializeField]
-		private Image Awaitor { get; set; }
+		private Image Activator { get; set; }
 
 		[field: SerializeField]
 		private CooldownWidget Cooldown { get; set; }
@@ -47,7 +47,7 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-			Awaitor.enabled = Ability.AwaitsTarget;
+			Activator.enabled = Ability.AwaitsTarget;
 			
 			if (Ability.Cooldown is not null)
 			{
