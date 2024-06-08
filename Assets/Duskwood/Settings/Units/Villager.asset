@@ -19,30 +19,58 @@ MonoBehaviour:
     <PointsForLevel>k__BackingField: e8030000
   <Properties>k__BackingField:
   - <ID>k__BackingField: 3
+    <Default>k__BackingField: 100
+    <Range>k__BackingField:
+      <Min>k__BackingField: 0
+      <Max>k__BackingField: 100
     <Capacity>k__BackingField: 100
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
   - <ID>k__BackingField: 5
+    <Default>k__BackingField: 5
+    <Range>k__BackingField:
+      <Min>k__BackingField: 0
+      <Max>k__BackingField: 500
     <Capacity>k__BackingField: 5
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 6
+    <Default>k__BackingField: 500
+    <Range>k__BackingField:
+      <Min>k__BackingField: 500
+      <Max>k__BackingField: 500
     <Capacity>k__BackingField: 500
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 7
+    <Default>k__BackingField: 20
+    <Range>k__BackingField:
+      <Min>k__BackingField: 0
+      <Max>k__BackingField: 100
     <Capacity>k__BackingField: 20
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 0
+    <Default>k__BackingField: 10
+    <Range>k__BackingField:
+      <Min>k__BackingField: 0
+      <Max>k__BackingField: 1000
     <Capacity>k__BackingField: 10
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 1
+    <Default>k__BackingField: 1
+    <Range>k__BackingField:
+      <Min>k__BackingField: 0
+      <Max>k__BackingField: 1
     <Capacity>k__BackingField: 1
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 2
+    <Default>k__BackingField: 1
+    <Range>k__BackingField:
+      <Min>k__BackingField: 1
+      <Max>k__BackingField: 1
     <Capacity>k__BackingField: 1
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0

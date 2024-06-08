@@ -19,27 +19,6 @@ namespace Omniverse.Units
 		public void Bind(Unit unit)
 		{
 			Unit = unit;
-
-			if (NavMeshAgent != null)
-			{
-				if (Unit.Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
-				{
-					NavMeshAgent.speed = property.Amount;
-				}
-				else
-				{
-					NavMeshAgent.speed = 0;
-				}
-				
-				if (Unit.Properties.TryGetValue(PropertyID.RotationSpeed, out property))
-				{
-					NavMeshAgent.angularSpeed = property.Amount;
-				}
-				else
-				{
-					NavMeshAgent.angularSpeed = 0;
-				}
-			}
 		}
 
 		public void Cleanup()
@@ -63,6 +42,24 @@ namespace Omniverse.Units
 		{
 			if (NavMeshAgent != null)
 			{
+				if (Unit.Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
+				{
+					NavMeshAgent.speed = property.Amount;
+				}
+				else
+				{
+					NavMeshAgent.speed = 0;
+				}
+				
+				if (Unit.Properties.TryGetValue(PropertyID.RotationSpeed, out property))
+				{
+					NavMeshAgent.angularSpeed = property.Amount;
+				}
+				else
+				{
+					NavMeshAgent.angularSpeed = 0;
+				}
+				
 				NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Omniverse.Units
 {
@@ -16,5 +17,8 @@ namespace Omniverse.Units
 		
 		[field: SerializeField]
 		public UnitStatus UnitStatus { get; private set; }
+		
+		[field: SerializeField]
+		public List<PropertyModifierDesc> PropertyModifiers { get; private set; }
 	}
 }

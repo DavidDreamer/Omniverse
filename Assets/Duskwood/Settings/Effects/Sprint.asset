@@ -16,3 +16,8 @@ MonoBehaviour:
   <IsPositive>k__BackingField: 1
   <Time>k__BackingField: 3
   <UnitStatus>k__BackingField: 0
+  <PropertyModifiers>k__BackingField:
+  - <ID>k__BackingField: 5
+    <Modifier>k__BackingField:
+      Mode: 0
+      Value: 5

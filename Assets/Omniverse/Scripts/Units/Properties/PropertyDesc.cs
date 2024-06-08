@@ -1,4 +1,5 @@
 ﻿using System;
+using Dreambox.Core;
 using UnityEngine;
 
 namespace Omniverse.Units
@@ -9,6 +10,12 @@ namespace Omniverse.Units
 		[field: SerializeField]
 		public PropertyID ID { get; private set; }
 
+		[field: SerializeField]
+		public float Default { get; private set; }
+		
+		[field: SerializeField]
+		public FloatRange Range { get; private set; }
+		
 		[field: SerializeField]
 		public float Capacity { get; private set; }
 

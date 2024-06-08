@@ -63,16 +63,16 @@ namespace Omniverse.Units
 
 		public void FixedTick()
 		{
-			foreach (var resource in Properties)
-			{
-				resource.Value.FixedTick();
-			}
-
-			UpdateEffects(Time.fixedDeltaTime);
-			
 			if (IsDead)
 			{
 				return;
+			}
+			
+			UpdateEffects(Time.fixedDeltaTime);
+			
+			foreach (var property in Properties)
+			{
+				property.Value.FixedTick();
 			}
 
 			if (Locked)
@@ -114,6 +114,10 @@ namespace Omniverse.Units
 
 				if (effect.OutOfTime)
 				{
+					foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
+					{
+						Properties[desc.ID].RemoveModifier(desc.Modifier);
+					}
 					Effects.RemoveAt(i);
 					i--;
 				}
@@ -134,6 +138,11 @@ namespace Omniverse.Units
 		public void ApplyEffect(Effect effect)
 		{
 			Effects.Add(effect);
+
+			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
+			{
+				Properties[desc.ID].AddModifier(desc.Modifier);
+			}
 		}
 
 		internal void Die()

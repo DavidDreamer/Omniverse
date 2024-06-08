@@ -1,10 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Omniverse.Units
 {
 	public class Property
 	{
+		private PropertyDesc Desc { get; }
+		
 		public AsyncReactiveProperty<float> Capacity { get; }
 		
 		public AsyncReactiveProperty<float> Amount { get; }
@@ -17,20 +20,43 @@ namespace Omniverse.Units
 
 		public bool OutOf => Amount.Value == 0;
 		
+		public List<PropertyModifier> Modifiers { get;  }
+		
 		public Property(PropertyDesc desc)
 		{
+			Desc = desc;
+			
 			Capacity = new AsyncReactiveProperty<float>(desc.Capacity);
-			Amount = new AsyncReactiveProperty<float>(desc.Capacity);
+			Amount = new AsyncReactiveProperty<float>(desc.Default);
 			Regeneration = new AsyncReactiveProperty<float>(desc.Regeneration);
 
+			Modifiers = new List<PropertyModifier>();
+			
 			Vital = desc.Vital;
 		}
 		
 		public void FixedTick()
 		{
+			Amount.Value = Desc.Default;
+
+			foreach (PropertyModifier propertyModifier in Modifiers)
+			{
+				Amount.Value += propertyModifier.Value;
+			}
+			
 			Change(Regeneration.Value * Time.fixedDeltaTime);
 		}
 
+		public void AddModifier(PropertyModifier modifier)
+		{
+			Modifiers.Add(modifier);
+		}
+		
+		public void RemoveModifier(PropertyModifier modifier)
+		{
+			Modifiers.Remove(modifier);
+		}
+		
 		public void Restore()
 		{
 			Amount.Value = Capacity.Value;
@@ -40,7 +66,7 @@ namespace Omniverse.Units
 		{
 			Debug.Assert(!Invulnerable);
 
-			Amount.Value = Mathf.Clamp(Amount.Value + delta, 0, Capacity.Value);
+			Amount.Value = Mathf.Clamp(Amount.Value + delta, 0, Desc.Range.Max);
 		}
 	}
 }
