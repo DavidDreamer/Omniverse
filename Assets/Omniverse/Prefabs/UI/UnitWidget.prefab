@@ -426,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Canvas>k__BackingField: {fileID: 8090218044316354622}
   <Experience>k__BackingField: {fileID: 4166482618742498652}
-  <Stats>k__BackingField: {fileID: 7197480308339411039}
+  <Properties>k__BackingField: {fileID: 7197480308339411039}
   <Ability>k__BackingField: {fileID: 6478170443719848595}
   <EffectsBar>k__BackingField: {fileID: 1764905911212816885}
   HealthTag: 0
@@ -2589,7 +2589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257542348987227333, guid: a2f1aacd89f5ff04c95890011fb11020, type: 3}
       propertyPath: m_Name
-      value: StatsWidget
+      value: PropertiesWidget
       objectReference: {fileID: 0}
     - target: {fileID: 7356809814882650569, guid: a2f1aacd89f5ff04c95890011fb11020, type: 3}
       propertyPath: m_SizeDelta.x

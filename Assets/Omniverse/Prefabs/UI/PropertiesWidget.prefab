@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1920174863551365689}
   - component: {fileID: 8693215919618473189}
   m_Layer: 5
-  m_Name: StatsWidget
+  m_Name: PropertiesWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

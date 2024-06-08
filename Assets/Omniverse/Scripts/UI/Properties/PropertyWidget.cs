@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class StatWidget: MonoBehaviour
+	public class PropertyWidget: MonoBehaviour
 	{
 		[field: SerializeField]
 		public TextMeshProUGUI Value { get; private set; }

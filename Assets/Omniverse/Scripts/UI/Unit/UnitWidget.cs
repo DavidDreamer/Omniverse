@@ -17,7 +17,7 @@ namespace Omniverse.UI
 		private ExperienceWidget Experience { get; set; }
 		
 		[field: SerializeField]
-		private StatsWidget Stats { get; set; }
+		private PropertiesWidget Properties { get; set; }
 		
 		[field: SerializeField]
 		private AbilityWidget Ability { get; set; }
@@ -64,7 +64,7 @@ namespace Omniverse.UI
 			EffectsBar.Tick();
 			
 			Experience.Bind(unit.Experience);
-			Stats.Bind(unit);
+			Properties.Bind(unit);
 		}
 	}
 }

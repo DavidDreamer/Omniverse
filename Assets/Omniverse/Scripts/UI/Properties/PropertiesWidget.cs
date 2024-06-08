@@ -3,25 +3,25 @@ using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class StatsWidget: MonoBehaviour
+	public class PropertiesWidget: MonoBehaviour
 	{
 		[field: SerializeField]
-		private StatWidget AttackDamage { get; set; }
+		private PropertyWidget AttackDamage { get; set; }
 		
 		[field: SerializeField]
-		private StatWidget AttackSpeed { get; set; }
+		private PropertyWidget AttackSpeed { get; set; }
 		
 		[field: SerializeField]
-		private StatWidget AttackRange { get; set; }
+		private PropertyWidget AttackRange { get; set; }
 		
 		[field: SerializeField]
-		private StatWidget MovementSpeed { get; set; }
+		private PropertyWidget MovementSpeed { get; set; }
 		
 		[field: SerializeField]
-		private StatWidget RotationSpeed { get; set; }
+		private PropertyWidget RotationSpeed { get; set; }
 		
 		[field: SerializeField]
-		private StatWidget VisionRange { get; set; }
+		private PropertyWidget VisionRange { get; set; }
 		
 		private Unit Unit { get; set; }
 		
