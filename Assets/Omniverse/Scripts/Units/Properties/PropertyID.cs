@@ -4,6 +4,7 @@
 	{
 		Health,
 		Mana,
-		MovementSpeed
+		MovementSpeed,
+		RotationSpeed
 	}
 }

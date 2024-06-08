@@ -37,8 +37,6 @@ namespace Omniverse.Units
 		
 		public Experience Experience { get; private set; }
 		
-		public Movement Movement { get; private set; }
-		
 		public Attack Attack { get; private set; }
 		
 		public Unit(UnitDesc desc, int factionID)
@@ -60,11 +58,6 @@ namespace Omniverse.Units
 				Abilities.Add(ability);
 			}
 
-			if (desc.Movement != null)
-			{
-				Movement = new Movement(desc.Movement);
-			}
-			
 			Attack = new Attack(desc.Attack);
 		}
 

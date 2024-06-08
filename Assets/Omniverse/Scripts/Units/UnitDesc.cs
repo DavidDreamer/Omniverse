@@ -17,9 +17,6 @@ namespace Omniverse.Units
 		public List<PropertyDesc> Properties { get; private set; }
 		
 		[field: SerializeField]
-		public MovementDesc Movement { get; private set; }
-		
-		[field: SerializeField]
 		public AttackDesc Attack { get; private set; }
 		
 		[field: SerializeField]

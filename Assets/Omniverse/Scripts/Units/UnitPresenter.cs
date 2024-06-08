@@ -22,15 +22,22 @@ namespace Omniverse.Units
 
 			if (NavMeshAgent != null)
 			{
-				if (Unit.Movement == null)
+				if (Unit.Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
 				{
-					NavMeshAgent.speed = 0;
-					NavMeshAgent.angularSpeed = 0;
+					NavMeshAgent.speed = property.Amount;
 				}
 				else
 				{
-					NavMeshAgent.speed = Unit.Movement.Speed;
-					NavMeshAgent.angularSpeed = Unit.Movement.RotationSpeed;
+					NavMeshAgent.speed = 0;
+				}
+				
+				if (Unit.Properties.TryGetValue(PropertyID.RotationSpeed, out property))
+				{
+					NavMeshAgent.angularSpeed = property.Amount;
+				}
+				else
+				{
+					NavMeshAgent.angularSpeed = 0;
 				}
 			}
 		}

@@ -40,8 +40,8 @@ namespace Omniverse.UI
 			AttackDamage.Value.text = Unit.Attack.Damage.ToString();
 			AttackSpeed.Value.text = Unit.Attack.Speed.ToString();
 			AttackRange.Value.text = Unit.Attack.Range.ToString();
-			MovementSpeed.Value.text = Unit.Movement.Speed.ToString();
-			RotationSpeed.Value.text = Unit.Movement.RotationSpeed.ToString();
+			MovementSpeed.Value.text = Unit.Properties[PropertyID.MovementSpeed].Amount.ToString();
+			RotationSpeed.Value.text = Unit.Properties[PropertyID.RotationSpeed].Amount.ToString();
 			VisionRange.Value.text = Unit.Desc.VisionRange.ToString();
 		}
 	}

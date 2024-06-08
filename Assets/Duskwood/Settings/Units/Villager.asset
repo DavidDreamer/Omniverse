@@ -18,13 +18,18 @@ MonoBehaviour:
   <Experience>k__BackingField:
     <PointsForLevel>k__BackingField: e8030000
   <Properties>k__BackingField:
-  - <Tag>k__BackingField: {fileID: 11400000, guid: 078464ef9808b7440ad089f85f9d4b75, type: 2}
+  - <ID>k__BackingField: 0
     <Capacity>k__BackingField: 100
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
-  <Movement>k__BackingField:
-    <Speed>k__BackingField: 5
-    <RotationSpeed>k__BackingField: 500
+  - <ID>k__BackingField: 2
+    <Capacity>k__BackingField: 5
+    <Regeneration>k__BackingField: 0
+    <Vital>k__BackingField: 0
+  - <ID>k__BackingField: 3
+    <Capacity>k__BackingField: 500
+    <Regeneration>k__BackingField: 0
+    <Vital>k__BackingField: 0
   <Attack>k__BackingField:
     <Range>k__BackingField: 1
     <Speed>k__BackingField: 1
