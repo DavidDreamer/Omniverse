@@ -24,6 +24,34 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     ""name"": ""InputActions"",
     ""maps"": [
         {
+            ""name"": ""Common"",
+            ""id"": ""5eb4973a-d0cc-4085-bd6f-1371f942d52c"",
+            ""actions"": [
+                {
+                    ""name"": ""Apply"",
+                    ""type"": ""Button"",
+                    ""id"": ""11b74588-3463-45ae-a81b-20c28636d17f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""50324727-b24b-4daa-a3dc-6bb0f61a8502"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Apply"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Abilities"",
             ""id"": ""d5de80d9-5389-4d25-97cf-601de1e434b5"",
             ""actions"": [
@@ -58,6 +86,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""4"",
                     ""type"": ""Button"",
                     ""id"": ""47842aa0-1e61-462b-917c-13a7de7d672d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Apply"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc9a2f86-2592-485b-97a3-28287d4952da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -108,6 +145,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abf00d43-9e43-43f0-a875-383b54008544"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Apply"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -131,12 +179,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     ]
 }");
+        // Common
+        m_Common = asset.FindActionMap("Common", throwIfNotFound: true);
+        m_Common_Apply = m_Common.FindAction("Apply", throwIfNotFound: true);
         // Abilities
         m_Abilities = asset.FindActionMap("Abilities", throwIfNotFound: true);
         m_Abilities__1 = m_Abilities.FindAction("1", throwIfNotFound: true);
         m_Abilities__2 = m_Abilities.FindAction("2", throwIfNotFound: true);
         m_Abilities__3 = m_Abilities.FindAction("3", throwIfNotFound: true);
         m_Abilities__4 = m_Abilities.FindAction("4", throwIfNotFound: true);
+        m_Abilities_Apply = m_Abilities.FindAction("Apply", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -195,6 +247,52 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
+    // Common
+    private readonly InputActionMap m_Common;
+    private List<ICommonActions> m_CommonActionsCallbackInterfaces = new List<ICommonActions>();
+    private readonly InputAction m_Common_Apply;
+    public struct CommonActions
+    {
+        private @InputActions m_Wrapper;
+        public CommonActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Apply => m_Wrapper.m_Common_Apply;
+        public InputActionMap Get() { return m_Wrapper.m_Common; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CommonActions set) { return set.Get(); }
+        public void AddCallbacks(ICommonActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CommonActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CommonActionsCallbackInterfaces.Add(instance);
+            @Apply.started += instance.OnApply;
+            @Apply.performed += instance.OnApply;
+            @Apply.canceled += instance.OnApply;
+        }
+
+        private void UnregisterCallbacks(ICommonActions instance)
+        {
+            @Apply.started -= instance.OnApply;
+            @Apply.performed -= instance.OnApply;
+            @Apply.canceled -= instance.OnApply;
+        }
+
+        public void RemoveCallbacks(ICommonActions instance)
+        {
+            if (m_Wrapper.m_CommonActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICommonActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CommonActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CommonActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CommonActions @Common => new CommonActions(this);
+
     // Abilities
     private readonly InputActionMap m_Abilities;
     private List<IAbilitiesActions> m_AbilitiesActionsCallbackInterfaces = new List<IAbilitiesActions>();
@@ -202,6 +300,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Abilities__2;
     private readonly InputAction m_Abilities__3;
     private readonly InputAction m_Abilities__4;
+    private readonly InputAction m_Abilities_Apply;
     public struct AbilitiesActions
     {
         private @InputActions m_Wrapper;
@@ -210,6 +309,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @_2 => m_Wrapper.m_Abilities__2;
         public InputAction @_3 => m_Wrapper.m_Abilities__3;
         public InputAction @_4 => m_Wrapper.m_Abilities__4;
+        public InputAction @Apply => m_Wrapper.m_Abilities_Apply;
         public InputActionMap Get() { return m_Wrapper.m_Abilities; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -231,6 +331,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @_4.started += instance.On_4;
             @_4.performed += instance.On_4;
             @_4.canceled += instance.On_4;
+            @Apply.started += instance.OnApply;
+            @Apply.performed += instance.OnApply;
+            @Apply.canceled += instance.OnApply;
         }
 
         private void UnregisterCallbacks(IAbilitiesActions instance)
@@ -247,6 +350,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @_4.started -= instance.On_4;
             @_4.performed -= instance.On_4;
             @_4.canceled -= instance.On_4;
+            @Apply.started -= instance.OnApply;
+            @Apply.performed -= instance.OnApply;
+            @Apply.canceled -= instance.OnApply;
         }
 
         public void RemoveCallbacks(IAbilitiesActions instance)
@@ -273,11 +379,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
+    public interface ICommonActions
+    {
+        void OnApply(InputAction.CallbackContext context);
+    }
     public interface IAbilitiesActions
     {
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);
         void On_4(InputAction.CallbackContext context);
+        void OnApply(InputAction.CallbackContext context);
     }
 }

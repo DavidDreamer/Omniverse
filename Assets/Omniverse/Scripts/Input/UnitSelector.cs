@@ -13,6 +13,8 @@ namespace Omniverse.Input
 
 		public List<UnitRenderer> SelectedUnits { get; } = new();
 
+		public bool HasSelection => SelectedUnits.Count > 0;
+		
 		public UnitRenderer SelectedUnit => SelectedUnits[SelectionIndex];
 		
 		public int SelectionIndex { get; private set; }

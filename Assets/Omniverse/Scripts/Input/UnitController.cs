@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Omniverse.Input
 {

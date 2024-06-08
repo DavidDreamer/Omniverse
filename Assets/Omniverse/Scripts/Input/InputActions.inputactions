@@ -2,6 +2,34 @@
     "name": "InputActions",
     "maps": [
         {
+            "name": "Common",
+            "id": "5eb4973a-d0cc-4085-bd6f-1371f942d52c",
+            "actions": [
+                {
+                    "name": "Apply",
+                    "type": "Button",
+                    "id": "11b74588-3463-45ae-a81b-20c28636d17f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50324727-b24b-4daa-a3dc-6bb0f61a8502",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Apply",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Abilities",
             "id": "d5de80d9-5389-4d25-97cf-601de1e434b5",
             "actions": [
@@ -36,6 +64,15 @@
                     "name": "4",
                     "type": "Button",
                     "id": "47842aa0-1e61-462b-917c-13a7de7d672d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Apply",
+                    "type": "Button",
+                    "id": "cc9a2f86-2592-485b-97a3-28287d4952da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -84,6 +121,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abf00d43-9e43-43f0-a875-383b54008544",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Apply",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

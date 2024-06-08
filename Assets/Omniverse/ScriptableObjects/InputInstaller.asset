@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50da16260662457db1b63af528499b63, type: 3}
   m_Name: InputInstaller
   m_EditorClassIdentifier: 
+  <AbilityTargetRenderer>k__BackingField: {fileID: 5558822419149552007, guid: 962d6bc95d1aae049b8f2b5d8b0f5605, type: 3}
+  <AbilityRangeRenderer>k__BackingField: {fileID: 6405163963653004453, guid: 03bc3b3243a4fba4ab1cb4834f5859dc, type: 3}
+  <TrajectoryRenderer>k__BackingField: {fileID: 8960782224881177277, guid: faf795aedcc35994c88ce99f2d5f502d, type: 3}
