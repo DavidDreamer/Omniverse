@@ -104,7 +104,7 @@ Material:
     - GradientMode: 0
     - GradientStart: 0
     - Rounding: 1
-    - RoundingRadius: 0.05
+    - RoundingRadius: 1
     - Saturation: 0
     - SaturationFactor: 1
     - _AlphaClip: 0
