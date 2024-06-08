@@ -6,7 +6,7 @@ namespace Omniverse.Units
 {
 	public class Property
 	{
-		private PropertyDesc Desc { get; }
+		public PropertyDesc Desc { get; }
 		
 		public AsyncReactiveProperty<float> Capacity { get; }
 		
@@ -66,7 +66,7 @@ namespace Omniverse.Units
 		{
 			Debug.Assert(!Invulnerable);
 
-			Amount.Value = Mathf.Clamp(Amount.Value + delta, 0, Desc.Range.Max);
+			Amount.Value = Mathf.Clamp(Amount.Value + delta, Desc.Range.Min, Desc.Range.Max);
 		}
 	}
 }

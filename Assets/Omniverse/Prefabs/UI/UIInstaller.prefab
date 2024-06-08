@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e444c37d9e35420b80409c70aeb2232b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Style>k__BackingField: {fileID: 11400000, guid: c4f009b8df5fca5409d7d289f23d9747, type: 2}
   <MiniMapWidget>k__BackingField: {fileID: 7207820913308063500, guid: 332627fc966330b478115e272ae5ae48, type: 3}
   <UnitSelectorWidget>k__BackingField: {fileID: 563803387361933230, guid: c31575e8e9d88aa4e8229ff171f7f43d, type: 3}
   <UnitWidget>k__BackingField: {fileID: 8819036613135877577, guid: e6fed1271e9ffa043a83b94eec531f2e, type: 3}
+  <EffectWidget>k__BackingField: {fileID: 6239313575951298742, guid: dcc7e6b81f2da574882ee2b8dd8b0668, type: 3}

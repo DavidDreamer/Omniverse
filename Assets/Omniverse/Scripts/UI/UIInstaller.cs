@@ -7,6 +7,9 @@ namespace Omniverse.UI
 	public class UIInstaller: MonoBehaviour, IInstaller
 	{
 		[field: SerializeField]
+		private UIStyle Style { get; set; }
+		
+		[field: SerializeField]
 		private MiniMapWidget MiniMapWidget { get; set; }
 		
 		[field: SerializeField]
@@ -20,6 +23,8 @@ namespace Omniverse.UI
 		
 		public void Install(IContainerBuilder builder)
 		{
+			builder.RegisterInstance(Style);
+			
 			RegisterWidget(MiniMapWidget);
 			RegisterWidget(UnitSelectorWidget);
 			RegisterWidget(UnitWidget);

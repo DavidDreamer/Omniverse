@@ -28,21 +28,13 @@ namespace Omniverse.UI
 		public void Bind(Unit unit)
 		{
 			Unit = unit;
-		}
-
-		public void LateUpdate()
-		{
-			if (Unit is null)
-			{
-				return;
-			}
 			
-			AttackDamage.Value.text = Unit.Properties[PropertyID.AttackDamage].Amount.ToString();
-			AttackSpeed.Value.text = Unit.Properties[PropertyID.AttackSpeed].Amount.ToString();
-			AttackRange.Value.text = Unit.Properties[PropertyID.AttackRange].Amount.ToString();
-			MovementSpeed.Value.text = Unit.Properties[PropertyID.MovementSpeed].Amount.ToString();
-			RotationSpeed.Value.text = Unit.Properties[PropertyID.RotationSpeed].Amount.ToString();
-			VisionRange.Value.text = Unit.Properties[PropertyID.VisionRange].Amount.ToString();
+			AttackDamage.Bind(Unit.Properties[PropertyID.AttackDamage]);
+			AttackSpeed.Bind(Unit.Properties[PropertyID.AttackSpeed]);
+			AttackRange.Bind(Unit.Properties[PropertyID.AttackRange]);
+			MovementSpeed.Bind(Unit.Properties[PropertyID.MovementSpeed]);
+			RotationSpeed.Bind(Unit.Properties[PropertyID.RotationSpeed]);
+			VisionRange.Bind(Unit.Properties[PropertyID.VisionRange]);
 		}
 	}
 }
