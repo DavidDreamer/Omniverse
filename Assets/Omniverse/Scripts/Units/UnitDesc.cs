@@ -17,15 +17,9 @@ namespace Omniverse.Units
 		public List<PropertyDesc> Properties { get; private set; }
 		
 		[field: SerializeField]
-		public AttackDesc Attack { get; private set; }
-		
-		[field: SerializeField]
 		public List<AbilityDesc> Abilities { get; private set; }
 		
 		[field: SerializeField]
 		public List<LootDesc> Loot { get; private set; }
-		
-		[field: SerializeField]
-		public float VisionRange { get; set; }
 	}
 }

@@ -8,24 +8,14 @@ namespace Omniverse.Units
 	{
 		public event Action Started;
 		
-		private AttackDesc Desc { get; }
+		private Unit Unit { get; }
 		
-		public float Range { get; private set; }
-		
-		public float Speed { get; private set; }
-		
-		public float Damage { get; private set; }
-
 		//TODO
 		public float lastTime;
 		
-		public Attack(AttackDesc desc)
+		public Attack(Unit unit)
 		{
-			Desc = desc;
-
-			Range = Desc.Range;
-			Speed = Desc.Speed;
-			Damage = Desc.Damage;
+			Unit = unit;
 		}
 		
 		public void Perform(Unit target)
@@ -36,7 +26,7 @@ namespace Omniverse.Units
 			
 			var data = new ChangePropertyData
 			{
-				Amount = -Damage,
+				Amount = -Unit.Properties[PropertyID.AttackDamage].Amount,
 				ID = target.Properties.Keys.First()
 			};
 			

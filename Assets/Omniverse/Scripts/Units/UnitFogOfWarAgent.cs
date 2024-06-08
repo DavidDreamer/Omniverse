@@ -8,7 +8,9 @@ namespace Omniverse.Units
 		
 		public int FactionID => Unit.FactionID;
 
-		public float VisionRange => Unit.Desc.VisionRange;
+		public float VisionRange => Unit.Properties.TryGetValue(PropertyID.VisionRange, out Property property)
+			? property.Amount
+			: 0;
 
 		public Vector3 Position => Unit.Presenter.transform.position;
 

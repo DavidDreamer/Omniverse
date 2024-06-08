@@ -37,12 +37,12 @@ namespace Omniverse.UI
 				return;
 			}
 			
-			AttackDamage.Value.text = Unit.Attack.Damage.ToString();
-			AttackSpeed.Value.text = Unit.Attack.Speed.ToString();
-			AttackRange.Value.text = Unit.Attack.Range.ToString();
+			AttackDamage.Value.text = Unit.Properties[PropertyID.AttackDamage].Amount.ToString();
+			AttackSpeed.Value.text = Unit.Properties[PropertyID.AttackSpeed].Amount.ToString();
+			AttackRange.Value.text = Unit.Properties[PropertyID.AttackRange].Amount.ToString();
 			MovementSpeed.Value.text = Unit.Properties[PropertyID.MovementSpeed].Amount.ToString();
 			RotationSpeed.Value.text = Unit.Properties[PropertyID.RotationSpeed].Amount.ToString();
-			VisionRange.Value.text = Unit.Desc.VisionRange.ToString();
+			VisionRange.Value.text = Unit.Properties[PropertyID.VisionRange].Amount.ToString();
 		}
 	}
 }

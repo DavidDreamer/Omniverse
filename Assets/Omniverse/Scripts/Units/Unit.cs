@@ -58,7 +58,7 @@ namespace Omniverse.Units
 				Abilities.Add(ability);
 			}
 
-			Attack = new Attack(desc.Attack);
+			Attack = new Attack(this);
 		}
 
 		public void FixedTick()
@@ -88,9 +88,9 @@ namespace Omniverse.Units
 
 					if (Target.IsEnemyFor(this))
 					{
-						if (Presenter.NavMeshAgent.remainingDistance <= Attack.Range)
+						if (Presenter.NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 						{
-							if (Time.time - Attack.lastTime > Attack.Speed)
+							if (Time.time - Attack.lastTime > Properties[PropertyID.AttackSpeed].Amount)
 							{
 								Presenter.NavMeshAgent.isStopped = true;
 								Attack.Perform(Target);
