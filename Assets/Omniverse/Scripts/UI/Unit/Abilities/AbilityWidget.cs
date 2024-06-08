@@ -8,6 +8,9 @@ namespace Omniverse.UI
 	public class AbilityWidget: MonoBehaviour
 	{
 		[field: SerializeField]
+		private Image Background { get; set; }
+		
+		[field: SerializeField]
 		private Image Icon { get; set; }
 
 		[field: SerializeField]
@@ -31,6 +34,9 @@ namespace Omniverse.UI
 		{
 			Ability = ability;
 
+			Background.gameObject.SetActive(false);
+			Icon.gameObject.SetActive(true);
+			
 			Icon.sprite = ability.Desc.Presentation.Icon;
 			Hotkey.Set(inputAction);
 
@@ -42,6 +48,7 @@ namespace Omniverse.UI
 
 		public void Unbind()
 		{
+			Background.gameObject.SetActive(true);
 			Ability = default;
 		}
 

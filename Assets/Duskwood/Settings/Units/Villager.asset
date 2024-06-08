@@ -29,6 +29,7 @@ MonoBehaviour:
     <Range>k__BackingField: 1
     <Speed>k__BackingField: 1
     <Damage>k__BackingField: 10
-  <Abilities>k__BackingField: []
+  <Abilities>k__BackingField:
+  - {fileID: 11400000, guid: 5c403545036cd514b9cc1deb7038bdf9, type: 2}
   <Loot>k__BackingField: []
   <VisionRange>k__BackingField: 20

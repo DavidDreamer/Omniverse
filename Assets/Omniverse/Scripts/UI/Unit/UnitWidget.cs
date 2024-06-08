@@ -1,3 +1,4 @@
+using System.Linq;
 using Omniverse.Input;
 using Omniverse.Units;
 using UnityEngine;
@@ -18,6 +19,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private StatsWidget Stats { get; set; }
 		
+		[field: SerializeField]
+		private AbilityWidget Ability { get; set; }
+		
 		public PropertyTag HealthTag;
 		
 		public PropertyBarWidget Health;
@@ -27,6 +31,9 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
+		[Inject]
+		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
+		
 		public void LateTick()
 		{
 			bool hasSelection = UnitSelector.SelectedUnits.Count > 0;
@@ -47,6 +54,9 @@ namespace Omniverse.UI
 				Health.Bind(property);
 			}
 
+			Ability.Bind(unit.Abilities.First(), AbilitiesActions._1);
+			Ability.Tick();
+			
 			Experience.Bind(unit.Experience);
 			Stats.Bind(unit);
 		}
