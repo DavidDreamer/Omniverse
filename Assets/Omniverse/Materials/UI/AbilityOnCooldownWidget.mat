@@ -20,14 +20,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AblityWidget
+  m_Name: AbilityOnCooldownWidget
   m_Shader: {fileID: 4800000, guid: 68b2676bcefa6b14e91740c4e77f2a4c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - GRADIENT_OFF
   - ROUNDING_ON
-  - SATURATION_OFF
+  - SATURATION_ON
   m_InvalidKeywords:
   - GRADIENTDIRECTION_HORIZONTAL
   - GRADIENTMODE_SIMPLE
@@ -105,8 +105,8 @@ Material:
     - GradientStart: 0
     - Rounding: 1
     - RoundingRadius: 0.05
-    - Saturation: 0
-    - SaturationFactor: 1
+    - Saturation: 1
+    - SaturationFactor: 0.25
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0

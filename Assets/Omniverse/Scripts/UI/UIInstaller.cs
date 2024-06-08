@@ -15,12 +15,17 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private UnitWidget UnitWidget { get; set; }
 		
+		[field: SerializeField]
+		private EffectWidget EffectWidget { get; set; }
+		
 		public void Install(IContainerBuilder builder)
 		{
 			RegisterWidget(MiniMapWidget);
 			RegisterWidget(UnitSelectorWidget);
 			RegisterWidget(UnitWidget);
 
+			builder.RegisterComponentInNewPrefab(EffectWidget, Lifetime.Transient);
+			
 			void RegisterWidget<T>(T component) where T : Component
 			{
 				builder.RegisterComponentInNewPrefab(component, Lifetime.Singleton).UnderTransform(transform)

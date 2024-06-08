@@ -22,6 +22,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private AbilityWidget Ability { get; set; }
 		
+		[field: SerializeField]
+		private EffectsBarWidget EffectsBar { get; set; }
+		
 		public PropertyTag HealthTag;
 		
 		public PropertyBarWidget Health;
@@ -56,6 +59,9 @@ namespace Omniverse.UI
 
 			Ability.Bind(unit.Abilities.First(), AbilitiesActions._1);
 			Ability.Tick();
+
+			EffectsBar.Bind(unit);
+			EffectsBar.Tick();
 			
 			Experience.Bind(unit.Experience);
 			Stats.Bind(unit);
