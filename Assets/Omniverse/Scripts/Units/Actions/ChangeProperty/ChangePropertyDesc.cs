@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 	public class ChangePropertyDesc: IActionDesc
 	{
 		[field: SerializeField]
-		public PropertyTag PropertyTag { get; private set; }
+		public PropertyID PropertyID { get; private set; }
 
 		[field: SerializeField]
 		public int Amount { get; private set; }

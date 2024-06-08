@@ -18,7 +18,7 @@ namespace Omniverse.Actions
 			{
 				var data = new ChangePropertyData
 				{
-					Tag = Desc.PropertyTag,
+					ID = Desc.PropertyID,
 					Source = context.Caster,
 					Amount = Desc.Amount
 				};

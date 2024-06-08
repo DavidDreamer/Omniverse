@@ -429,7 +429,7 @@ MonoBehaviour:
   <Stats>k__BackingField: {fileID: 7197480308339411039}
   <Ability>k__BackingField: {fileID: 6478170443719848595}
   <EffectsBar>k__BackingField: {fileID: 1764905911212816885}
-  HealthTag: {fileID: 11400000, guid: 078464ef9808b7440ad089f85f9d4b75, type: 2}
+  HealthTag: 0
   Health: {fileID: 2541210725947931885}
   Icon: {fileID: 2300012328843084672}
 --- !u!223 &8090218044316354622

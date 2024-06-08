@@ -44,12 +44,12 @@ namespace Omniverse.Abilities
 
 			foreach (CostDesc costDesc in Desc.Cost)
 			{
-				if (!Unit.Properties.ContainsKey(costDesc.PropertyTag))
+				if (!Unit.Properties.ContainsKey(costDesc.PropertyID))
 				{
 					return AbilityCastError.NotEnoughResources;
 				}
 
-				if (Unit.Properties[costDesc.PropertyTag].Amount.Value < costDesc.Amount)
+				if (Unit.Properties[costDesc.PropertyID].Amount.Value < costDesc.Amount)
 				{
 					return AbilityCastError.NotEnoughResources;
 				}
@@ -74,7 +74,7 @@ namespace Omniverse.Abilities
 			{
 				var data = new ChangePropertyData
 				{
-					Tag = cost.PropertyTag,
+					ID = cost.PropertyID,
 					Amount = -cost.Amount
 				};
 

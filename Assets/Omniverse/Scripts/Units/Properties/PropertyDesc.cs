@@ -7,7 +7,7 @@ namespace Omniverse.Units
 	public class PropertyDesc
 	{
 		[field: SerializeField]
-		public PropertyTag Tag { get; private set; }
+		public PropertyID ID { get; private set; }
 
 		[field: SerializeField]
 		public float Capacity { get; private set; }

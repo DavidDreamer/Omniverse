@@ -15,7 +15,7 @@ namespace Omniverse.Units
 
 		public int FactionID { get; set; }
 
-		public Dictionary<PropertyTag, Property> Properties { get; }
+		public Dictionary<PropertyID, Property> Properties { get; }
 
 		public List<Ability> Abilities { get; } = new();
 
@@ -48,10 +48,10 @@ namespace Omniverse.Units
 
 			Experience = new Experience(desc.Experience);
 			
-			Properties = new Dictionary<PropertyTag, Property>();
+			Properties = new Dictionary<PropertyID, Property>();
 			foreach (PropertyDesc resourceDesc in Desc.Properties)
 			{
-				Properties.Add(resourceDesc.Tag, new Property(resourceDesc));
+				Properties.Add(resourceDesc.ID, new Property(resourceDesc));
 			}
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
@@ -133,7 +133,7 @@ namespace Omniverse.Units
 
 		public void ChangeResource(ChangePropertyData data)
 		{
-			Property resource = Properties[data.Tag];
+			Property resource = Properties[data.ID];
 
 			resource.Change(data.Amount);
 		}

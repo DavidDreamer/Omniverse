@@ -37,7 +37,7 @@ namespace Omniverse.Units
 			var data = new ChangePropertyData
 			{
 				Amount = -Damage,
-				Tag = target.Properties.Keys.First()
+				ID = target.Properties.Keys.First()
 			};
 			
 			target.ChangeResource(data);

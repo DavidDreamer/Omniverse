@@ -25,7 +25,7 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
 		
-		public PropertyTag HealthTag;
+		public PropertyID HealthTag;
 		
 		public PropertyBarWidget Health;
 

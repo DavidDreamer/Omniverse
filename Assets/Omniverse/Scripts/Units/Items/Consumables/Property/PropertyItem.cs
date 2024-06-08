@@ -10,7 +10,7 @@ namespace Omniverse
 
 		public bool CanBeConsumed(Unit unit)
 		{
-			if (unit.Properties.TryGetValue(Desc.PropertyTag, out Property property) is false)
+			if (unit.Properties.TryGetValue(Desc.PropertyID, out Property property) is false)
 			{
 				return false;
 			}
@@ -25,7 +25,7 @@ namespace Omniverse
 
 		public void OnConsumed(Unit unit)
 		{
-			Property property = unit.Properties[Desc.PropertyTag];
+			Property property = unit.Properties[Desc.PropertyID];
 			property.Change(Desc.Amount);
 		}
 	}

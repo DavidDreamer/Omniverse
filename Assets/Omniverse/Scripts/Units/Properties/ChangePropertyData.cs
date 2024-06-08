@@ -2,7 +2,7 @@
 {
 	public struct ChangePropertyData
 	{
-		public PropertyTag Tag { get; set; }
+		public PropertyID ID { get; set; }
 
 		public Unit Source { get; set; }
 

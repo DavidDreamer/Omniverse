@@ -8,7 +8,7 @@ namespace Omniverse.Abilities
 	public class CostDesc
 	{
 		[field: SerializeField]
-		public PropertyTag PropertyTag { get; private set; }
+		public PropertyID PropertyID { get; private set; }
 		
 		[field: SerializeField]
 		public float Amount { get; set; }
