@@ -8,6 +8,9 @@ namespace Omniverse.UI
 	public class PropertyBarWidget: MonoBehaviour
 	{
 		[field: SerializeField]
+		public PropertyID PropertyID { get; private set; }
+		
+		[field: SerializeField]
 		private Slider Slider { get; set; }
 
 		[field: SerializeField]
@@ -15,12 +18,12 @@ namespace Omniverse.UI
 		
 		private Property Property { get; set; }
 
-		public void Bind(Property property)
+		public void Bind(Unit unit)
 		{
-			Property = property;
+			Property = unit.Properties[PropertyID];
 
-			Slider.maxValue = property.Desc.Range.Max;
-			Slider.value = property.Amount.Value;
+			Slider.maxValue = Property.Desc.Range.Max;
+			Slider.value = Property.Amount.Value;
 		}
 
 		public void Unbind()

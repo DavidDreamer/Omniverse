@@ -25,8 +25,6 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
 		
-		public PropertyID HealthTag;
-		
 		public PropertyBarWidget Health;
 
 		public Image Icon;
@@ -52,11 +50,8 @@ namespace Omniverse.UI
 
 			Icon.sprite = unit.Desc.Presentation.Icon;
 				
-			if (unit.Properties.TryGetValue(HealthTag, out Property property))
-			{
-				Health.Bind(property);
-			}
-
+			Health.Bind(unit);
+	
 			Ability.Bind(unit.Abilities.First(), AbilitiesActions._1);
 			Ability.Tick();
 

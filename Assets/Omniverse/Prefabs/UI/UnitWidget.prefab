@@ -429,7 +429,6 @@ MonoBehaviour:
   <Properties>k__BackingField: {fileID: 7197480308339411039}
   <Ability>k__BackingField: {fileID: 6478170443719848595}
   <EffectsBar>k__BackingField: {fileID: 1764905911212816885}
-  HealthTag: 3
   Health: {fileID: 2541210725947931885}
   Icon: {fileID: 2300012328843084672}
 --- !u!223 &8090218044316354622
@@ -790,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ce364e9f325ba478c86512728d0e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PropertyID>k__BackingField: 0
   <Slider>k__BackingField: {fileID: 2580230593292485252}
   <Label>k__BackingField: {fileID: 0}
 --- !u!1 &2374183403592021822
@@ -1044,6 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ce364e9f325ba478c86512728d0e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PropertyID>k__BackingField: 3
   <Slider>k__BackingField: {fileID: 6706326061796897288}
   <Label>k__BackingField: {fileID: 0}
 --- !u!1 &3942404822705565403
