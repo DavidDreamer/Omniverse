@@ -17,9 +17,6 @@ namespace Omniverse.Units
 		public FloatRange Range { get; private set; }
 		
 		[field: SerializeField]
-		public float Capacity { get; private set; }
-
-		[field: SerializeField]
 		public float Regeneration { get; private set; }
 
 		[field: SerializeField]

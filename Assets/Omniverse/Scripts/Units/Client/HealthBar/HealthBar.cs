@@ -51,7 +51,7 @@ namespace Omniverse.Units.Rendering
 
 		public void LateUpdate()
 		{
-			MaterialPropertyBlock.SetFloat(ShaderVariables.Amount, Property.Amount.Value / Property.Capacity.Value);
+			MaterialPropertyBlock.SetFloat(ShaderVariables.Amount, Property.Amount.Value / Property.Desc.Range.Max);
 			MeshRenderer.SetPropertyBlock(MaterialPropertyBlock);
 		}
 	}

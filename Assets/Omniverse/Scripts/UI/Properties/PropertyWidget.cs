@@ -33,14 +33,15 @@ namespace Omniverse.UI
 
 		private Color GetColor()
 		{
-			float value = Property.Amount.Value;
+			float rawAmount = Property.RawAmount.Value;
+			float amount = Property.Amount.Value;
 			
-			if (value > Property.Desc.Default)
+			if (amount > rawAmount)
 			{
 				return Style.Text.PositiveColor;
 			}
 
-			if (value < Property.Desc.Default)
+			if (amount < rawAmount)
 			{
 				return Style.Text.NegativeColor;
 			}

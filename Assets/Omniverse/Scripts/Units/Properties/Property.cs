@@ -8,7 +8,7 @@ namespace Omniverse.Units
 	{
 		public PropertyDesc Desc { get; }
 		
-		public AsyncReactiveProperty<float> Capacity { get; }
+		public AsyncReactiveProperty<float> RawAmount { get; }
 		
 		public AsyncReactiveProperty<float> Amount { get; }
 		
@@ -26,7 +26,7 @@ namespace Omniverse.Units
 		{
 			Desc = desc;
 			
-			Capacity = new AsyncReactiveProperty<float>(desc.Capacity);
+			RawAmount = new AsyncReactiveProperty<float>(desc.Default);
 			Amount = new AsyncReactiveProperty<float>(desc.Default);
 			Regeneration = new AsyncReactiveProperty<float>(desc.Regeneration);
 
@@ -37,7 +37,7 @@ namespace Omniverse.Units
 		
 		public void FixedTick()
 		{
-			Amount.Value = Desc.Default;
+			Amount.Value = RawAmount.Value;
 
 			foreach (PropertyModifier propertyModifier in Modifiers)
 			{
@@ -59,14 +59,14 @@ namespace Omniverse.Units
 		
 		public void Restore()
 		{
-			Amount.Value = Capacity.Value;
+			Amount.Value = Desc.Default;
 		}
 
 		public void Change(float delta)
 		{
 			Debug.Assert(!Invulnerable);
 
-			Amount.Value = Mathf.Clamp(Amount.Value + delta, Desc.Range.Min, Desc.Range.Max);
+			RawAmount.Value = Mathf.Clamp(RawAmount.Value + delta, Desc.Range.Min, Desc.Range.Max);
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Omniverse.UI
 		{
 			Property = property;
 
-			Slider.maxValue = property.Capacity.Value;
+			Slider.maxValue = property.Desc.Range.Max;
 			Slider.value = property.Amount.Value;
 		}
 
