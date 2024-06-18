@@ -1,12 +1,10 @@
-﻿using Omniverse.Units;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
-namespace Omniverse
+namespace Omniverse.Items
 {
 	[UnityEngine.Scripting.Preserve]
-	public class ItemManager
+	public class Manager
 	{
 		[Inject]
 		private PrefabPool<ItemPresenter> PrefabPool { get; set; }
@@ -27,10 +25,10 @@ namespace Omniverse
 			item.Presenter = presenter;
 		}
 
-		public void Consume(IConsumableItem item, Unit unit)
-		{
-			item.OnConsumed(unit);
-			PrefabPool.Return(item.Presenter);
-		}
+		// public void Consume(IConsumableItem item, CanvasScaler.Unit unit)
+		// {
+		// 	item.OnConsumed(unit);
+		// 	PrefabPool.Return(item.Presenter);
+		// }
 	}
 }

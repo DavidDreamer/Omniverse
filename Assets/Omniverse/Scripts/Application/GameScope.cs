@@ -3,6 +3,7 @@ using Omniverse.Cameras;
 using Omniverse.Mapping;
 using Omniverse.FogOfWar;
 using Omniverse.FogOfWar.Rendering;
+using Omniverse.Items;
 using Omniverse.UI;
 using Omniverse.Units;
 using UnityEngine;
@@ -51,8 +52,8 @@ namespace Omniverse
 			builder.Register<PrefabPool<UnitRendererBase>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
 			
-			builder.RegisterEntryPoint<ItemManager>().AsSelf();
-			builder.RegisterEntryPoint<Omniverse.Units.Manager>().AsSelf();
+			builder.RegisterEntryPoint<Items.Manager>().AsSelf();
+			builder.RegisterEntryPoint<Units.Manager>().AsSelf();
 			
 			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
 

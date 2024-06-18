@@ -1,4 +1,5 @@
-﻿using Omniverse.Units;
+﻿using Omniverse.Items;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,7 +12,7 @@ namespace Omniverse
 		private Player Player { get; set; }
 
 		[Inject]
-		private ItemManager ItemManager { get; set; }
+		private Items.Manager ItemManager { get; set; }
 
 		private CollectorSettings Settings { get; }
 
@@ -51,7 +52,7 @@ namespace Omniverse
 					continue;
 				}
 
-				ItemManager.Consume(currencyItem, unit);
+				//ItemManager.Consume(currencyItem, unit);
 			}
 		}
 	}

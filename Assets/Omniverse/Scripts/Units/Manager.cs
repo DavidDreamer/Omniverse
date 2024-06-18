@@ -29,7 +29,7 @@ namespace Omniverse.Units
 		private PrefabPool<UnitRendererBase> RendererPool { get; set; }
 
 		[Inject]
-		private ItemManager ItemManager { get; set; }
+		private Items.Manager ItemManager { get; set; }
 
 		[Inject]
 		private UnitManagerConfig Config { get; set; }

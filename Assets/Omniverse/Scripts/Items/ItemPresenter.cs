@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Omniverse
+namespace Omniverse.Items
 {
 	public class ItemPresenter: MonoBehaviour, IPoolObject
 	{
