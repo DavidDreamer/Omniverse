@@ -1,11 +1,7 @@
-﻿using UnityEngine;
-
-namespace Omniverse.Items
+﻿namespace Omniverse.Items
 {
-	public class ItemPresenter: MonoBehaviour, IPoolObject
+	public class ItemPresenter: EntityPresenter<Item, ItemDesc>, IPoolObject
 	{
-		public IItem Item { get; set; }
-
 		public virtual void Cleanup()
 		{
 		}

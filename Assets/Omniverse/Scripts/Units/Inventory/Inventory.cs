@@ -5,6 +5,6 @@ namespace Omniverse.Units
 {
 	public class Inventory
 	{
-		public List<IItem> Items { get; set; }
+		public List<Item> Items { get; set; }
 	}
 }

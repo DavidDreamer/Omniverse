@@ -5,7 +5,7 @@ namespace Omniverse
 {
 	public class PropertyItem: Item<PropertyItemDesc>, IConsumableItem
 	{
-		public PropertyItem(PropertyItemDesc desc): base(desc)
+		public PropertyItem(PropertyItemDesc desc, int factionID): base(desc, factionID)
 		{
 		}
 

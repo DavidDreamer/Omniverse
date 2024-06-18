@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Omniverse.Units
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Unit", fileName = nameof(UnitDesc))]
-	public class UnitDesc: ScriptableObject
+	public class UnitDesc: EntityDesc
 	{
 		[field: SerializeField]
 		public Presentation Presentation { get; private set; }

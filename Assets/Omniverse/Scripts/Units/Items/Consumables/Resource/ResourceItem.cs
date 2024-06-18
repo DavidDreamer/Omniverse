@@ -9,7 +9,7 @@ namespace Omniverse
 		[Inject]
 		private FactionManager FactionManager { get; set; }
 
-		public ResourceItem(ResourceItemDesc desc): base(desc)
+		public ResourceItem(ResourceItemDesc desc, int factionID): base(desc, factionID)
 		{
 		}
 		

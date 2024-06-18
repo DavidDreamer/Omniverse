@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Omniverse.Units
 {
-	public class UnitPresenter: MonoBehaviour, IPoolObject
+	public class UnitPresenter: EntityPresenter<Unit, UnitDesc>, IPoolObject
 	{
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }

@@ -3,7 +3,7 @@ using Omniverse.Units;
 
 namespace Omniverse
 {
-	public interface IConsumableItem: IItem
+	public interface IConsumableItem
 	{
 		bool CanBeConsumed(Unit unit);
 

@@ -7,14 +7,10 @@ using UnityEngine;
 namespace Omniverse.Units
 {
 	[Serializable]
-	public class Unit: IUnit
+	public class Unit: Entity<UnitDesc>
 	{
 		public event Action Died;
 		
-		public UnitDesc Desc { get; }
-
-		public int FactionID { get; set; }
-
 		public Dictionary<PropertyID, Property> Properties { get; }
 
 		public List<Ability> Abilities { get; } = new();
@@ -39,11 +35,8 @@ namespace Omniverse.Units
 		
 		public Attack Attack { get; private set; }
 		
-		public Unit(UnitDesc desc, int factionID)
+		public Unit(UnitDesc desc, int factionID): base(desc, factionID)
 		{
-			Desc = desc;
-			FactionID = factionID;
-
 			Experience = new Experience(desc.Experience);
 			
 			Properties = new Dictionary<PropertyID, Property>();

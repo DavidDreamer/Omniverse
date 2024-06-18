@@ -1,28 +1,19 @@
 ﻿namespace Omniverse.Items
 {
-	public interface IItem
-	{
-		ItemPresenter Presenter { get; set; }
-	}
-
-
 	public class Item: Item<ItemDesc>
 	{
-		public Item(ItemDesc desc): base(desc)
+		public Item(ItemDesc desc, int factionID): base(desc, factionID)
 		{
 		}
 	}
 	
-	public abstract class Item<TDesc>: IItem
+	public abstract class Item<TDesc>: Entity<TDesc>
 		where TDesc: ItemDesc
 	{
-		public TDesc Desc { get;  }
-		
 		public ItemPresenter Presenter { get; set; }
 
-		protected Item(TDesc desc)
+		protected Item(TDesc desc, int factionID): base(desc, factionID)
 		{
-			Desc = desc;
 		}
 	}
 }

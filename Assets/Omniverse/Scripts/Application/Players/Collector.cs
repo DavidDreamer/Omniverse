@@ -42,7 +42,7 @@ namespace Omniverse
 					continue;
 				}
 
-				if (itemPresenter.Item is not IConsumableItem currencyItem)
+				if (itemPresenter.Entity is not IConsumableItem currencyItem)
 				{
 					continue;
 				}

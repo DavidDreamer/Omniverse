@@ -14,14 +14,14 @@ namespace Omniverse.Items
 
 		public void Spawn(ItemDesc desc, Vector3 position, Quaternion rotation)
 		{
-			IItem item = desc.Build();
+			Item item = desc.Build();
 			ObjectResolver.Inject(item);
 
 			ItemPresenter presenter = PrefabPool.Take(desc.Prefab);
 			Transform transform = presenter.transform;
 			transform.SetPositionAndRotation(position, rotation);
 			
-			presenter.Item = item;
+			presenter.Entity = item;
 			item.Presenter = presenter;
 		}
 

@@ -5,11 +5,11 @@ namespace Omniverse.Items
 {
 	public static class ItemDescUtils
 	{
-		public static IItem Build(this ItemDesc itemDesc)
+		public static Item Build(this ItemDesc itemDesc)
 		{
 			return itemDesc switch
 			{
-				ItemDesc desc => new Item(desc),
+				ItemDesc desc => new Item(desc, -1),
 				// ResourceItemDesc desc => new ResourceItem(desc),
 				// PropertyItemDesc desc => new PropertyItem(desc),
 				_ => throw new ArgumentOutOfRangeException(nameof(itemDesc))
@@ -18,7 +18,7 @@ namespace Omniverse.Items
 	}
 
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Item")]
-	public class ItemDesc: ScriptableObject
+	public class ItemDesc: EntityDesc
 	{
 		[field: SerializeField]
 		public Sprite Icon { get; private set; }
