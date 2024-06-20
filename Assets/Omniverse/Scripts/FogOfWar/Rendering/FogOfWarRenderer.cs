@@ -145,16 +145,16 @@ namespace Omniverse.FogOfWar.Rendering
 		private void LateUpdate()
 		{
 			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
-			CommandBuffer cmd = scope.CommandBuffer;
+			CommandBuffer commandBuffer = scope.CommandBuffer;
 
-			cmd.SetBufferData(CellsVisibilityBuffer, Manager.CellsVisibilityPerFaction[0]);
-			cmd.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
+			commandBuffer.SetBufferData(CellsVisibilityBuffer, Manager.CellsVisibilityPerFaction[0]);
+			commandBuffer.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			cmd.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
-			cmd.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
-			cmd.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
+			commandBuffer.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
+			commandBuffer.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
+			commandBuffer.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
-			cmd.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
+			commandBuffer.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
 		}
 	}
 }

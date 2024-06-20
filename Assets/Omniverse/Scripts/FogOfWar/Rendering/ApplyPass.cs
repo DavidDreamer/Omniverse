@@ -27,9 +27,9 @@ namespace Omniverse.FogOfWar.Rendering
 			ref RenderingData renderingData)
 		{
 			using var scope = new CommandBufferContextScope(context, "FogOfWar.Apply");
-			CommandBuffer cmd = scope.CommandBuffer;
+			CommandBuffer commandBuffer = scope.CommandBuffer;
 			
-			CoreUtils.DrawFullScreen(cmd, Material, shaderPassId: 0);
+			CoreUtils.DrawFullScreen(commandBuffer, Material, shaderPassId: 0);
 		}
 	}
 }
