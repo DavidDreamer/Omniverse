@@ -23,8 +23,8 @@ namespace Omniverse
 			builder.RegisterInstance(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 
-			InputInstaller.Install(builder);
 			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+			InputInstaller.Install(builder);
 		}
 	}
 }

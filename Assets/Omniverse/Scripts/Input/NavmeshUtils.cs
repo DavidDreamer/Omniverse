@@ -25,7 +25,7 @@ namespace Omniverse.Input
 		{
 			position = Vector3.zero;
 
-			UnityEngine.Camera mainCamera = UnityEngine.Camera.main;
+			Camera mainCamera = Camera.main;
 
 			if (mainCamera == null)
 			{
