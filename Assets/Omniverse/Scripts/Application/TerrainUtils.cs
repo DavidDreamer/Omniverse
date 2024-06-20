@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Omniverse
 {
@@ -29,8 +30,6 @@ namespace Omniverse
 					                   treeInstance.position.z * terrainData.size.z) +
 				                   terrain.transform.position;
 
-				Debug.Log(treeInstance.rotation);
-				
 				Quaternion rotation = Quaternion.Euler(0, 0, 0);
 
 				var prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(treePrototype.prefab, treesHolder);
@@ -56,14 +55,48 @@ namespace Omniverse
 			TerrainData terrainData = terrain.terrainData;
 			
 			Transform treesHolder = FindTreesHolder(terrain);
+			var treeInstances = new TreeInstance[treesHolder.childCount];
 
-			var treeInstances = new TreeInstance[treesHolder.transform.childCount];
+			for (int i = 0; i < treesHolder.childCount; ++i)
+			{
+				Transform tree = treesHolder.GetChild(i);
+				GameObject treePrefab = PrefabUtility.GetCorrespondingObjectFromSource(tree).gameObject;
+				int treePrototypeIndex = terrainData.GetTreePrototypeIndex(treePrefab);
+				var position = new Vector3(tree.position.x / terrainData.size.x,
+					tree.position.y / terrainData.size.y, tree.position.z / terrainData.size.z);
 
-			terrain.terrainData.treeInstances = treeInstances;
+				var treeInstance = new TreeInstance
+				{
+					position = position,
+					widthScale = 1,
+					heightScale = 1,
+					prototypeIndex = treePrototypeIndex
+				};
+				
+				treeInstances[i] = treeInstance;
+			}
+			
+			terrainData.treeInstances = treeInstances;
 
+			Object.DestroyImmediate(treesHolder.gameObject);
+			
 			EditorUtility.SetDirty(terrain);
 		}
 
+		private static int GetTreePrototypeIndex(this TerrainData terrainData, GameObject prefab)
+		{
+			for (var i = 0; i < terrainData.treePrototypes.Length; ++i)
+			{
+				TreePrototype treePrototype = terrainData.treePrototypes[i];
+				if (treePrototype.prefab == prefab)
+				{
+					return i;
+				}
+			}
+
+			return -1;
+		}
+		
 		private static Transform FindTreesHolder(Terrain terrain)
 		{
 			const string name = "Trees";
