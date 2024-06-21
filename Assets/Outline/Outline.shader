@@ -15,7 +15,7 @@ Shader "Hidden/Dreambox/Outline"
 
     #include "UnityCG.cginc"
 
-    struct ConfigData
+    struct OutlineVariant
     {
         float4 OutlineColor;
         float4 FillColor;
@@ -28,7 +28,7 @@ Shader "Hidden/Dreambox/Outline"
         float CutOffWidth;
     };
 
-    StructuredBuffer<ConfigData> ConfigBuffer;
+    StructuredBuffer<OutlineVariant> VariantsBuffer;
 
     uint PackToR14G14B4(const uint3 rgb)
     {
@@ -167,7 +167,7 @@ Shader "Hidden/Dreambox/Outline"
 
         Pass
         {
-            Name "Jumpflood"
+            Name "JumpFlood"
 
             HLSLPROGRAM
             #pragma vertex vert
@@ -216,7 +216,7 @@ Shader "Hidden/Dreambox/Outline"
 
                         const float2 disp = position - targetPosition;
                         const uint configIndex = calculatedSample.b - 1;
-                        const float cutOffWidth = ConfigBuffer[configIndex].CutOffWidth * _MainTex_TexelSize.w;
+                        const float cutOffWidth = VariantsBuffer[configIndex].CutOffWidth * _MainTex_TexelSize.w;
                         const float distanceSqr = dot(disp, disp) - cutOffWidth * cutOffWidth;
 
                         if (calculatedSample.b != 0 && distanceSqr < minDistance)
@@ -279,12 +279,12 @@ Shader "Hidden/Dreambox/Outline"
                     return 0;
 
                 const uint config_index = calculatedSample.b - 1;
-                const ConfigData configData = ConfigBuffer[config_index];
-                const float distance = length(calculatedSample.rg - position) - configData.PixelOffset;
+                const OutlineVariant variant = VariantsBuffer[config_index];
+                const float distance = length(calculatedSample.rg - position) - variant.PixelOffset;
 
-                const float width = configData.Width * _MainTex_TexelSize.w;
+                const float width = variant.Width * _MainTex_TexelSize.w;
 
-                const float4 adjusted_outline_color = configData.OutlineColor * saturate(width);
+                const float4 adjusted_outline_color = variant.OutlineColor * saturate(width);
 
                 // Calculate outline mask
                 // +1.0 is because encoded nearest position is float a pixel inset
@@ -295,15 +295,15 @@ Shader "Hidden/Dreambox/Outline"
                 // Inner filling edge need +1.5 inset for good anti-aliasing
                 const float fill_weight = saturate(1.5 - distance);
 
-                const float outline_fade = 1 - saturate((distance - 1.0 - width * (1 - configData.Softness)) / width);
+                const float outline_fade = 1 - saturate((distance - 1.0 - width * (1 - variant.Softness)) / width);
 
                 // Adjust outline alfa to proper anti-aliasing and softness
                 const float4 outline_color = adjusted_outline_color * float4(
-                    1, 1, 1, outline_weight * pow(outline_fade, configData.SoftnessPower));
+                    1, 1, 1, outline_weight * pow(outline_fade, variant.SoftnessPower));
 
                 // Blend fill with flickering
-                const float4 fill_color = lerp(configData.FillColor, configData.FillFlickColor,
-                                               (cos(UnscaledTime * configData.FillFlickRate - UNITY_PI) + 1) / 2);
+                const float4 fill_color = lerp(variant.FillColor, variant.FillFlickColor,
+                                               (cos(UnscaledTime * variant.FillFlickRate - UNITY_PI) + 1) / 2);
 
                 // Blend between outline and fill
                 float4 final_color = lerp(outline_color, fill_color, fill_weight);

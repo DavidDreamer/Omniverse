@@ -13,6 +13,9 @@ namespace Omniverse
 		private PhysicsSettings PhysicsSettings { get; set; }
 		
 		[field: SerializeField]
+		private RenderingInstaller RenderingInstaller { get; set; }
+		
+		[field: SerializeField]
 		private UnitManagerConfig UnitManagerConfig { get; set; }
 		
 		[field: SerializeField]
@@ -20,6 +23,8 @@ namespace Omniverse
 		
 		public void Install(IContainerBuilder builder)
 		{
+			RenderingInstaller.Install(builder);
+			
 			builder.RegisterInstance(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 

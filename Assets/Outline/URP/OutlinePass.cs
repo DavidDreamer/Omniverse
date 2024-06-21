@@ -21,7 +21,7 @@ namespace Dreambox.Rendering.URP
 			public static int StepWidth { get; } = Shader.PropertyToID(nameof(StepWidth));
 			public static int UnscaledTime { get; } = Shader.PropertyToID(nameof(UnscaledTime));
 			public static int ConfigIndex { get; } = Shader.PropertyToID(nameof(ConfigIndex));
-			public static int ConfigBuffer { get; } = Shader.PropertyToID(nameof(ConfigBuffer));
+			public static int VariantsBuffer { get; } = Shader.PropertyToID(nameof(VariantsBuffer));
 		}
 
 		private static class ShaderPasses
@@ -31,20 +31,7 @@ namespace Dreambox.Rendering.URP
 			public const int JumpFlood = 2;
 			public const int Decode = 3;
 		}
-		
-		public struct ConfigData
-		{
-			public Color OutlineColor;
-			public Color FillColor;
-			public float Width;
-			public float Softness;
-			public float SoftnessPower;
-			public float PixelOffset;
-			public Color FillFlickColor;
-			public float FillFlickRate;
-			public float CutOffWidth;
-		}
-		
+
 		private Material Material { get; set; }
 
 		private RTHandle Mask;
@@ -53,13 +40,24 @@ namespace Dreambox.Rendering.URP
 
 		private RTHandle JumpBuffer2;
 
-		private ComputeBuffer ConfigBuffer { get; set; }
+		private ComputeBuffer VariantsBuffer { get; set; }
 		private float MaxOffsetWidthOfAllConfigs { get; set; }
 
 		private HashSet<Renderer> Renderers { get; } = new();
 		
-		private OutlineConfig[] OutlineConfigs { get; set; }
-		
+		private OutlineConfig Config { get; set; }
+
+		public OutlinePass(OutlineConfig config)
+		{
+			Config = config;
+			
+			Material = CoreUtils.CreateEngineMaterial(config.Shader);
+
+			VariantsBuffer = new ComputeBuffer(Config.Variants.Length, Marshal.SizeOf<OutlineVariant>());
+
+			Material.SetBuffer(ShaderVariables.VariantsBuffer, VariantsBuffer);
+		}
+
 		public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
 		{
 			base.Configure(cmd, cameraTextureDescriptor);
@@ -75,30 +73,14 @@ namespace Dreambox.Rendering.URP
 			RenderingUtils.ReAllocateIfNeeded(ref JumpBuffer1, renderTextureDescriptor);
 			RenderingUtils.ReAllocateIfNeeded(ref JumpBuffer2, renderTextureDescriptor);
 		}
-
-		public OutlinePass(Shader shader, OutlineConfig[] outlineConfigs)
-		{
-			Material = CoreUtils.CreateEngineMaterial(shader);
-
-			OutlineConfigs = outlineConfigs;
-			
-#if UNITY_EDITOR
-			ConfigBuffer = new ComputeBuffer(OutlineConfigs.Length, Marshal.SizeOf<ConfigData>(), ComputeBufferType.Default, ComputeBufferMode.Dynamic);
-#else
-			ConfigBuffer = new ComputeBuffer(OutlineConfigs.Length, Marshal.SizeOf<ConfigData>(), ComputeBufferType.Default, ComputeBufferMode.Immutable);
-			UpdateConfigs();
-#endif
-			
-			Material.SetBuffer(ShaderVariables.ConfigBuffer, ConfigBuffer);
-		}
-
+		
 		public void Dispose()
 		{
 			CoreUtils.Destroy(Material);
 			Mask.Release();
 			JumpBuffer1.Release();
 			JumpBuffer2.Release();
-			ConfigBuffer.Release();
+			VariantsBuffer.Release();
 		}
 
 		public void AddRenderer(Renderer renderer)
@@ -131,11 +113,7 @@ namespace Dreambox.Rendering.URP
 			void UpdateData()
 			{
 				commandBuffer.SetGlobalFloat(ShaderVariables.UnscaledTime, Time.unscaledTime);
-
-#if UNITY_EDITOR
 				UpdateConfigs();
-				Material.SetBuffer(ShaderVariables.ConfigBuffer, ConfigBuffer);
-#endif
 			}
 			
 			void PerformMasking()
@@ -157,7 +135,6 @@ namespace Dreambox.Rendering.URP
 				int jumps = Mathf.CeilToInt(Mathf.Log(maxPixelWidth + 1f, 2f));
 				int iterations = jumps - 1;
 				
-				// Initialize
 				var startBuffer = iterations % 2 == 0 ? JumpBuffer2 : JumpBuffer1;
 				commandBuffer.Blit(Mask, startBuffer, Material, ShaderPasses.Init);
 				
@@ -168,7 +145,6 @@ namespace Dreambox.Rendering.URP
 					float stepWidth = Mathf.Pow(2, i) + 0.5f;
 					commandBuffer.SetGlobalFloat(ShaderVariables.StepWidth, stepWidth);
 
-					// Ping pong between buffers
 					if (i % 2 == 1)
 					{
 						commandBuffer.Blit(JumpBuffer1, JumpBuffer2, Material, ShaderPasses.JumpFlood);
@@ -185,21 +161,8 @@ namespace Dreambox.Rendering.URP
 
 		private void UpdateConfigs()
 		{
-			MaxOffsetWidthOfAllConfigs = OutlineConfigs.Max(config => config.Width);
-			ConfigBuffer.SetData(
-				OutlineConfigs.Select(
-					config => new ConfigData
-					{
-						OutlineColor = config.OutlineColor.linear,
-						FillColor = config.FillColor.linear,
-						Width = config.Width,
-						Softness = config.Softness,
-						SoftnessPower = config.SoftnessPower,
-						PixelOffset = config.PixelOffset,
-						FillFlickColor = config.FillFlickColor.linear,
-						FillFlickRate = config.FillFlickRate,
-						CutOffWidth = config.CutOffWidth
-					}).ToArray());
+			MaxOffsetWidthOfAllConfigs = Config.Variants.Max(config => config.Width);
+			VariantsBuffer.SetData(Config.Variants);
 		}
 
 		public void Clear() => Renderers?.Clear();

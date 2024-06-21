@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac1024938c34f0da931d27992e0670c, type: 3}
   m_Name: OutlineConfig
   m_EditorClassIdentifier: 
-  <OutlineColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
-  <FillColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <Width>k__BackingField: 0.0044
-  <Softness>k__BackingField: 0.4
-  <SoftnessPower>k__BackingField: 2
-  <PixelOffset>k__BackingField: 0
-  <FillFlickColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <FillFlickRate>k__BackingField: 6
-  <CutOffWidth>k__BackingField: 0
+  <Shader>k__BackingField: {fileID: 4800000, guid: 62aeba9a50974035a3dd879297cde487, type: 3}
+  <Variants>k__BackingField:
+  - OutlineColor: {r: 0.48235294, g: 0.8509804, b: 0.37254903, a: 1}
+    FillColor: {r: 0, g: 0, b: 0, a: 0}
+    Width: 0.03
+    Softness: 1
+    SoftnessPower: 5
+    PixelOffset: 0
+    FillFlickColor: {r: 0, g: 0, b: 0, a: 0}
+    FillFlickRate: 0
+    CutOffWidth: 0
