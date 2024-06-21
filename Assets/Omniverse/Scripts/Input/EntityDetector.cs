@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dreambox.Rendering.URP;
-using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -16,10 +14,9 @@ namespace Omniverse.Input
 		[Inject]
 		public OutlineRendererFeature Outline { get; private set; }
 		
-		// [Inject]
-		// private Player Player { get; set; }
-		//
-		
+		[Inject]
+		private IPlayer Player { get; set; }
+
 		public void LateTick()
 		{
 			Clear();
@@ -50,15 +47,20 @@ namespace Omniverse.Input
 			var renderers = entityPresenter.GetComponentsInChildren<Renderer>();
 			foreach (Renderer renderer in renderers)
 			{
-				int variant = entityPresenter.FactionID;
-				//TEMP
-				if (variant == -1)
-				{
-					variant = 2;
-				}
+				int variant = GetOutlineVariantByFactionID(entityPresenter.FactionID);
 				var outlineRenderer = new OutlineRenderer(renderer, variant);
 				Outline.Pass.AddRenderer(outlineRenderer);
 			}
+		}
+
+		private int GetOutlineVariantByFactionID(int factionID)
+		{
+			if (factionID == -1)
+			{
+				return 2;
+			}
+
+			return factionID == Player.FactionID ? 0 : 1;
 		}
 		
 		private void Clear()
