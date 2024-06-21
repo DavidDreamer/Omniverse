@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using Omniverse.Units.Rendering;
+﻿using System;
+using System.Collections.Generic;
+using Dreambox.Rendering.URP;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.Input
@@ -10,6 +12,13 @@ namespace Omniverse.Input
 	{
 		public List<EntityPresenter> Entities { get; } = new();
 
+		[Inject]
+		public OutlineRendererFeature Outline { get; private set; }
+		
+		// [Inject]
+		// private Player Player { get; set; }
+		//
+		
 		public void LateTick()
 		{
 			Clear();
@@ -36,11 +45,18 @@ namespace Omniverse.Input
 		private void AddFocus(EntityPresenter entityPresenter)
 		{
 			Entities.Add(entityPresenter);
+
+			var renderers = entityPresenter.GetComponentsInChildren<Renderer>();
+			foreach (Renderer renderer in renderers)
+			{
+				Outline.Pass.AddRenderer(renderer);
+			}
 		}
 		
 		private void Clear()
 		{
 			Entities.Clear();
+			Outline.Pass.Clear();
 		}
 	}
 }
