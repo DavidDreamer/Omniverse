@@ -23,7 +23,7 @@ namespace Omniverse.Units
 					continue;
 				}
 
-				yield return unitPresenter.Unit;
+				yield return unitPresenter.Entity;
 			}
 		}
 		

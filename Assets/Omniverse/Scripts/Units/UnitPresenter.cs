@@ -11,22 +11,13 @@ namespace Omniverse.Units
 
 		[field: SerializeField]
 		public Collider Hitbox { get; private set; }
-
-		public Unit Unit { get; private set; }
-
+		
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
-
-		public void Bind(Unit unit)
-		{
-			Unit = unit;
-		}
 
 		public void Cleanup()
 		{
 			UniTaskCompletionSource = new UniTaskCompletionSource();
-
-			Unit = null;
-
+			
 			if (Hitbox != null)
 			{
 				Hitbox.enabled = true;
@@ -42,7 +33,7 @@ namespace Omniverse.Units
 		{
 			if (NavMeshAgent != null)
 			{
-				if (Unit.Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
+				if (Entity.Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
 				{
 					NavMeshAgent.speed = property.Amount;
 				}
@@ -51,7 +42,7 @@ namespace Omniverse.Units
 					NavMeshAgent.speed = 0;
 				}
 				
-				if (Unit.Properties.TryGetValue(PropertyID.RotationSpeed, out property))
+				if (Entity.Properties.TryGetValue(PropertyID.RotationSpeed, out property))
 				{
 					NavMeshAgent.angularSpeed = property.Amount;
 				}
@@ -60,7 +51,7 @@ namespace Omniverse.Units
 					NavMeshAgent.angularSpeed = 0;
 				}
 				
-				NavMeshAgent.isStopped = Unit.Status.HasFlag(UnitStatus.Stunned);
+				NavMeshAgent.isStopped = Entity.Status.HasFlag(UnitStatus.Stunned);
 			}
 		}
 

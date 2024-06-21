@@ -59,7 +59,7 @@ namespace Omniverse.Units
 				Presenter = unitPresenter
 			};
 
-			unit.Presenter.Bind(unit);
+			unitPresenter.Entity = unit;
 
 			UnitRendererBase unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
 			unitRenderer.transform.SetParent(unitPresenter.transform, false);

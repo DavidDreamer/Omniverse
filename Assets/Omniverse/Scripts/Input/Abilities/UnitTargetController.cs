@@ -28,7 +28,7 @@ public class UnitTargetController: TargetAbilityController
 					if (CommonActions.Apply.WasPressedThisFrame())
 					{
 						Ability.Context.Units.Clear();
-						Ability.Context.Units.Add(unitPresenter.Unit);
+						Ability.Context.Units.Add(unitPresenter.Entity);
 						return;
 					}
 				}

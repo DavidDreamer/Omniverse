@@ -51,7 +51,7 @@
       "dependencies": {
         "com.unity.render-pipelines.universal": "14.0.10"
       },
-      "hash": "bf154ae935ed901ab2695727ae3b26044a966499"
+      "hash": "c24f73485f77b5c2b22b0963e2d77ee80f72b7e6"
     },
     "com.david-dreamer.dreambox.ui": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",

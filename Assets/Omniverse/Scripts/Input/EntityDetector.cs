@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dreambox.Rendering.URP;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -49,7 +50,14 @@ namespace Omniverse.Input
 			var renderers = entityPresenter.GetComponentsInChildren<Renderer>();
 			foreach (Renderer renderer in renderers)
 			{
-				Outline.Pass.AddRenderer(renderer);
+				int variant = entityPresenter.FactionID;
+				//TEMP
+				if (variant == -1)
+				{
+					variant = 2;
+				}
+				var outlineRenderer = new OutlineRenderer(renderer, variant);
+				Outline.Pass.AddRenderer(outlineRenderer);
 			}
 		}
 		
