@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Shader>k__BackingField: {fileID: 4800000, guid: 62aeba9a50974035a3dd879297cde487, type: 3}
   <Variants>k__BackingField:
-  - OutlineColor: {r: 0.425, g: 0.85, b: 0.425, a: 1}
+  - OutlineColor: {r: 0.3986928, g: 1, b: 0.3986928, a: 1}
     FillColor: {r: 0, g: 0, b: 0, a: 0}
     Width: 0.015
     Softness: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
     FillFlickColor: {r: 0, g: 0, b: 0, a: 0}
     FillFlickRate: 0
     CutOffWidth: 0
-  - OutlineColor: {r: 0.85, g: 0.425, b: 0.425, a: 1}
+  - OutlineColor: {r: 1, g: 0.39999998, b: 0.39999998, a: 1}
     FillColor: {r: 0, g: 0, b: 0, a: 0}
     Width: 0.015
     Softness: 1
