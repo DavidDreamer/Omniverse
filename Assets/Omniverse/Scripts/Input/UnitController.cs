@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Units.Rendering;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace Omniverse.Input
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
+		[Inject]
+		private EntityDetector EntityDetector { get; set; }
+		
 		private UnitControllerConfig Config { get; }
 
 		public UnitController(UnitControllerConfig config)
@@ -24,37 +28,29 @@ namespace Omniverse.Input
 
 		public void Tick()
 		{
-			if (!Mouse.current.rightButton.wasReleasedThisFrame)
-			{
-				return;
-			}
-			
 			if (UnitSelector.SelectedUnits.Count == 0)
 			{
 				return;
 			}
-
-			Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Mouse.current.position.value);
-
-			if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity))
+			
+			if (Mouse.current.rightButton.wasReleasedThisFrame)
 			{
-				var unitRenderer = hit.transform.GetComponentInChildren<UnitRenderer>();
-
-				if (unitRenderer != null)
+				if (EntityDetector.Entities.Count > 0)
 				{
+					IEntityPresenter target = EntityDetector.Entities.First();
 					foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
 					{
-						if (selectedUnit.Unit != unitRenderer.Unit)
+						if (selectedUnit.Unit != target.Entity)
 						{
-							selectedUnit.Unit.Target = unitRenderer.Unit;
+							selectedUnit.Unit.Target = target.Entity;
 						}
 					}
-
-					return;
+				}
+				else
+				{
+					ProcessNavigationPoint();
 				}
 			}
-			
-			ProcessNavigationPoint();
 		}
 
 		public void ProcessNavigationPoint(Vector3 position)

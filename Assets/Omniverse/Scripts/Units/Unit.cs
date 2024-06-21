@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using Omniverse.Abilities;
+using Omniverse.Items;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Omniverse.Units
 {
@@ -29,7 +31,7 @@ namespace Omniverse.Units
 
 		public UnitStatus Status { get; private set; }
 
-		public Unit Target { get; set; }
+		public IEntity Target { get; set; }
 		
 		public Experience Experience { get; private set; }
 		
@@ -75,9 +77,21 @@ namespace Omniverse.Units
 
 			if (Presenter.NavMeshAgent != null)
 			{
-				if (Target != null)
+				ProcessTarget();
+			}
+
+			Presenter.FixedTick();
+		}
+
+		private void ProcessTarget()
+		{
+			switch (Target)
+			{
+				case null:
+					return;
+				case Unit unit:
 				{
-					Presenter.NavMeshAgent.destination = Target.Presenter.transform.position;
+					Presenter.NavMeshAgent.destination = unit.Presenter.transform.position;
 
 					if (Target.IsEnemyFor(this))
 					{
@@ -86,16 +100,27 @@ namespace Omniverse.Units
 							if (Time.time - Attack.lastTime > Properties[PropertyID.AttackSpeed].Amount)
 							{
 								Presenter.NavMeshAgent.isStopped = true;
-								Attack.Perform(Target);
+								Attack.Perform(unit);
 							}
 						}
 					}
+
+					break;
+				}
+				case Item item:
+				{
+					Presenter.NavMeshAgent.destination = item.Presenter.transform.position;
+					if (Presenter.NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
+					{
+						Object.Destroy(item.Presenter.gameObject);
+						Target = null;
+					}
+
+					break;
 				}
 			}
-
-			Presenter.FixedTick();
 		}
-
+		
 		private void UpdateEffects(float deltaTime)
 		{
 			Status = UnitStatus.None;

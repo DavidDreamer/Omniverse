@@ -9,7 +9,7 @@ namespace Omniverse.Input
 {
 	public class EntityDetector: ILateTickable
 	{
-		public List<EntityPresenter> Entities { get; } = new();
+		public List<IEntityPresenter> Entities { get; } = new();
 
 		[Inject]
 		public OutlineRendererFeature Outline { get; private set; }
@@ -32,7 +32,7 @@ namespace Omniverse.Input
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var entityPresenter = hitInfo.collider.GetComponent<EntityPresenter>();
+				var entityPresenter = hitInfo.collider.GetComponent<IEntityPresenter>();
 				if (entityPresenter != null)
 				{
 					AddFocus(entityPresenter);
@@ -40,14 +40,14 @@ namespace Omniverse.Input
 			}
 		}
 		
-		private void AddFocus(EntityPresenter entityPresenter)
+		private void AddFocus(IEntityPresenter entityPresenter)
 		{
 			Entities.Add(entityPresenter);
 
-			var renderers = entityPresenter.GetComponentsInChildren<Renderer>();
+			var renderers = entityPresenter.GameObject.GetComponentsInChildren<Renderer>();
 			foreach (Renderer renderer in renderers)
 			{
-				int variant = GetOutlineVariantByFactionID(entityPresenter.FactionID);
+				int variant = GetOutlineVariantByFactionID(entityPresenter.Entity.FactionID);
 				var outlineRenderer = new OutlineRenderer(renderer, variant);
 				Outline.Pass.AddRenderer(outlineRenderer);
 			}

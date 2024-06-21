@@ -36,7 +36,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var unitRenderer = EntityDetector.Entities.First().GetComponentInChildren<UnitRenderer>();
+			var unitRenderer = EntityDetector.Entities.First().GameObject.GetComponentInChildren<UnitRenderer>();
 			if (unitRenderer == null)
 			{
 				return;

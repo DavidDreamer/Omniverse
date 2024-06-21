@@ -2,20 +2,29 @@
 
 namespace Omniverse
 {
-	public abstract class EntityPresenter: MonoBehaviour
+	public interface IEntityPresenter
+	{
+		IEntity Entity { get; }
+		
+		GameObject GameObject { get; }
+	}
+	
+	public abstract class EntityPresenter<TEntity, TDesc>: MonoBehaviour, IEntityPresenter
+		where TEntity: Entity<TDesc>
+		where TDesc: EntityDesc
 	{
 		[field: SerializeField]
 		public Collider HitBox { get; private set; }
 		
-		public abstract int FactionID { get; }
-	}
-	
-	public abstract class EntityPresenter<TEntity, TDesc>: EntityPresenter
-		where TEntity: Entity<TDesc>
-		where TDesc: EntityDesc
-	{
-		public TEntity Entity { get; set; }
+		public TEntity Entity { get; private set; }
 
-		public override int FactionID => Entity.FactionID;
+		public GameObject GameObject => gameObject;
+
+		IEntity IEntityPresenter.Entity => Entity;
+
+		public void Bind(TEntity entity)
+		{
+			Entity = entity;
+		}
 	}
 }

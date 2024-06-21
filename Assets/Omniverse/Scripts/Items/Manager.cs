@@ -21,7 +21,7 @@ namespace Omniverse.Items
 			Transform transform = presenter.transform;
 			transform.SetPositionAndRotation(position, rotation);
 			
-			presenter.Entity = item;
+			presenter.Bind(item);
 			item.Presenter = presenter;
 		}
 
