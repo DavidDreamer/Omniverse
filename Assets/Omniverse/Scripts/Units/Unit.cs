@@ -36,6 +36,8 @@ namespace Omniverse.Units
 		public Experience Experience { get; private set; }
 		
 		public Attack Attack { get; private set; }
+
+		public Inventory Inventory { get; private set; }
 		
 		public Unit(UnitDesc desc, int factionID): base(desc, factionID)
 		{
@@ -54,6 +56,7 @@ namespace Omniverse.Units
 			}
 
 			Attack = new Attack(this);
+			Inventory = new Inventory(desc.Inventory);
 		}
 
 		public void FixedTick()
@@ -113,6 +116,7 @@ namespace Omniverse.Units
 					if (Presenter.NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 					{
 						Object.Destroy(item.Presenter.gameObject);
+						Inventory.Add(item);
 						Target = null;
 					}
 

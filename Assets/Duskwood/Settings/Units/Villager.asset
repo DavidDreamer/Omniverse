@@ -23,7 +23,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 0
       <Max>k__BackingField: 100
-    <Capacity>k__BackingField: 100
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 1
   - <ID>k__BackingField: 5
@@ -31,7 +30,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 0
       <Max>k__BackingField: 500
-    <Capacity>k__BackingField: 5
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 6
@@ -39,7 +37,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 500
       <Max>k__BackingField: 500
-    <Capacity>k__BackingField: 500
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 7
@@ -47,7 +44,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 0
       <Max>k__BackingField: 100
-    <Capacity>k__BackingField: 20
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 0
@@ -55,7 +51,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 0
       <Max>k__BackingField: 1000
-    <Capacity>k__BackingField: 10
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 1
@@ -63,7 +58,6 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 0
       <Max>k__BackingField: 1
-    <Capacity>k__BackingField: 1
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   - <ID>k__BackingField: 2
@@ -71,9 +65,10 @@ MonoBehaviour:
     <Range>k__BackingField:
       <Min>k__BackingField: 1
       <Max>k__BackingField: 1
-    <Capacity>k__BackingField: 1
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   <Abilities>k__BackingField:
   - {fileID: 11400000, guid: 5c403545036cd514b9cc1deb7038bdf9, type: 2}
   <Loot>k__BackingField: []
+  <Inventory>k__BackingField:
+    <Capacity>k__BackingField: 10

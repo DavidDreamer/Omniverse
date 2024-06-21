@@ -19,6 +19,9 @@ namespace Omniverse.UI
 		private UnitWidget UnitWidget { get; set; }
 		
 		[field: SerializeField]
+		private InventoryWidget InventoryWidget { get; set; }
+		
+		[field: SerializeField]
 		private EffectWidget EffectWidget { get; set; }
 		
 		public void Install(IContainerBuilder builder)
@@ -28,6 +31,7 @@ namespace Omniverse.UI
 			RegisterWidget(MiniMapWidget);
 			RegisterWidget(UnitSelectorWidget);
 			RegisterWidget(UnitWidget);
+			RegisterWidget(InventoryWidget);
 
 			builder.RegisterComponentInNewPrefab(EffectWidget, Lifetime.Transient);
 			

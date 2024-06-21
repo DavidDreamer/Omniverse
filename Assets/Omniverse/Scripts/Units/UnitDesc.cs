@@ -21,5 +21,8 @@ namespace Omniverse.Units
 		
 		[field: SerializeField]
 		public List<LootDesc> Loot { get; private set; }
+		
+		[field: SerializeField]
+		public InventoryDesc Inventory { get; private set; }
 	}
 }
