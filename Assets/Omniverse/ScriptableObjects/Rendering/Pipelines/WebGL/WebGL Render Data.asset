@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: Outline
   m_EditorClassIdentifier: 
   m_Active: 1
-  <RenderPassEvent>k__BackingField: 550
+  <RenderPassEvent>k__BackingField: 450
   <Config>k__BackingField: {fileID: 11400000, guid: 259e20946e982f74fb9b91eb44999e91, type: 2}
 --- !u!114 &-620289116012903196
 MonoBehaviour:
