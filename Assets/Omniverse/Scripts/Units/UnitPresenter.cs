@@ -8,9 +8,6 @@ namespace Omniverse.Units
 	{
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
-
-		[field: SerializeField]
-		public Collider Hitbox { get; private set; }
 		
 		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
 
@@ -18,9 +15,9 @@ namespace Omniverse.Units
 		{
 			UniTaskCompletionSource = new UniTaskCompletionSource();
 			
-			if (Hitbox != null)
+			if (HitBox != null)
 			{
-				Hitbox.enabled = true;
+				HitBox.enabled = true;
 			}
 
 			if (NavMeshAgent != null)
@@ -62,7 +59,7 @@ namespace Omniverse.Units
 
 		public virtual void OnDeath()
 		{
-			Hitbox.enabled = false;
+			HitBox.enabled = false;
 
 			if (NavMeshAgent != null)
 			{

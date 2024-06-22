@@ -27,7 +27,7 @@ namespace Omniverse
 		public void FixedTick()
 		{
 			Unit unit = Player.Unit;
-			Transform playerUnitTransform = unit.Presenter.Hitbox.transform;
+			Transform playerUnitTransform = unit.Presenter.HitBox.transform;
 
 			int count = Physics.OverlapSphereNonAlloc(playerUnitTransform.position, Settings.Radius, Colliders,
 				Settings.LayerMask,

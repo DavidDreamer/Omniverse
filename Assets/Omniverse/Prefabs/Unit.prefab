@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640780f180c9458b829b8785353b40fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <HitBox>k__BackingField: {fileID: 3021569670787000090}
   <NavMeshAgent>k__BackingField: {fileID: -2109561056999165210}
-  <Hitbox>k__BackingField: {fileID: 3021569670787000090}
 --- !u!195 &-2109561056999165210
 NavMeshAgent:
   m_ObjectHideFlags: 0
