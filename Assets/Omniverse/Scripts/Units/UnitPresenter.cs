@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Omniverse.Units
@@ -8,13 +7,9 @@ namespace Omniverse.Units
 	{
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
-		
-		public UniTaskCompletionSource UniTaskCompletionSource { get; set; } = new();
 
 		public void Cleanup()
 		{
-			UniTaskCompletionSource = new UniTaskCompletionSource();
-			
 			if (HitBox != null)
 			{
 				HitBox.enabled = true;
@@ -52,11 +47,6 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void Despawn()
-		{
-			UniTaskCompletionSource.TrySetResult();
-		}
-
 		public virtual void OnDeath()
 		{
 			HitBox.enabled = false;
@@ -65,8 +55,6 @@ namespace Omniverse.Units
 			{
 				NavMeshAgent.enabled = false;
 			}
-
-			UniTaskCompletionSource.TrySetResult();
 		}
 	}
 }

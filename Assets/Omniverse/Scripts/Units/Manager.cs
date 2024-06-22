@@ -47,9 +47,7 @@ namespace Omniverse.Units
 		{
 			CancellationTokenSource.Dispose();
 		}
-
-		public Unit Spawn(UnitSpawnData data) => Spawn(data.UnitDesc, data.FactionID);
-
+		
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
 			UnitPresenter unitPresenter = PresenterPool.Take(Config.UnitPresenter);
