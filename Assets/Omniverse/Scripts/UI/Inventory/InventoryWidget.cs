@@ -7,38 +7,33 @@ using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class InventoryWidget: MonoBehaviour, IInitializable, ILateTickable
+	public class InventoryWidget: MonoBehaviour
 	{
 		[field: SerializeField]
 		public Canvas Canvas { get; private set; }
-		
+
 		[field: SerializeField]
 		private InventorySlotWidget InventorySlotPrefab { get; set; }
 
 		[field: SerializeField]
 		private Transform SlotsHolder { get; set; }
-		
+
 		public List<InventorySlotWidget> Slots { get; } = new();
 
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
-		
-		public void Initialize()
-		{
-			Canvas.enabled = false;
-		}
 
-		public void LateTick()
+		public void LateUpdate()
 		{
 			if (UnitSelector.HasSelection is false)
 			{
 				return;
 			}
-			
+
 			Unit unit = UnitSelector.SelectedUnit.Unit;
 
 			UpdateSlotsCount(unit.Inventory.Slots.Count);
-			
+
 			for (var i = 0; i < unit.Inventory.Slots.Count; i++)
 			{
 				InventorySlot inventorySlot = unit.Inventory.Slots[i];
@@ -49,7 +44,7 @@ namespace Omniverse.UI
 		private void UpdateSlotsCount(int count)
 		{
 			int slotsDelta = count - Slots.Count;
-			
+
 			if (slotsDelta > 0)
 			{
 				while (slotsDelta != 0)

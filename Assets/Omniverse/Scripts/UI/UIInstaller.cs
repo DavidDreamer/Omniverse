@@ -17,10 +17,7 @@ namespace Omniverse.UI
 		
 		[field: SerializeField]
 		private UnitWidget UnitWidget { get; set; }
-		
-		[field: SerializeField]
-		private InventoryWidget InventoryWidget { get; set; }
-		
+
 		[field: SerializeField]
 		private EffectWidget EffectWidget { get; set; }
 		
@@ -31,7 +28,6 @@ namespace Omniverse.UI
 			RegisterWidget(MiniMapWidget);
 			RegisterWidget(UnitSelectorWidget);
 			RegisterWidget(UnitWidget);
-			RegisterWidget(InventoryWidget);
 
 			builder.RegisterComponentInNewPrefab(EffectWidget, Lifetime.Transient);
 			
