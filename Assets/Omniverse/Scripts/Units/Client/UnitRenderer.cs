@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Units.Rendering
 {
-	public class UnitRenderer: UnitRendererBase, IPoolObject
+	public class UnitRenderer: MonoBehaviour
 	{
 		private static class AnimatorVariables
 		{
@@ -46,9 +46,10 @@ namespace Omniverse.Units.Rendering
 			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
 		}
 		
-		public override void Initialize(Unit unit)
+		public void Start()
 		{
-			Unit = unit;
+			//TODO: TEMP
+			Unit = GetComponentInParent<UnitPresenter>().Entity;
 			Unit.Died += OnDied;
 			Unit.Attack.Started += OnAttackStarted;
 
@@ -95,10 +96,6 @@ namespace Omniverse.Units.Rendering
 		private void OnAttackStarted()
 		{
 			Animator.SetTrigger(AnimatorVariables.Attack);
-		}
-
-		public override void Cleanup()
-		{
 		}
 	}
 }

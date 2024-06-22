@@ -11,23 +11,12 @@ using Random = UnityEngine.Random;
 
 namespace Omniverse.Units
 {
-	//TODO:
-	public abstract class UnitRendererBase: MonoBehaviour, IPoolObject
-	{
-		public abstract void Initialize(Unit unit);
-
-		public abstract void Cleanup();
-	}
-
 	[UnityEngine.Scripting.Preserve]
 	public class Manager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
 		private PrefabPool<UnitPresenter> PresenterPool { get; set; }
-
-		[Inject]
-		private PrefabPool<UnitRendererBase> RendererPool { get; set; }
-
+		
 		[Inject]
 		private Items.Manager ItemManager { get; set; }
 
@@ -50,7 +39,7 @@ namespace Omniverse.Units
 		
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
-			UnitPresenter unitPresenter = PresenterPool.Take(Config.UnitPresenter);
+			UnitPresenter unitPresenter = PresenterPool.Take(desc.Presentation.Prefab);
 
 			var unit = new Unit(desc, factionID)
 			{
@@ -58,11 +47,6 @@ namespace Omniverse.Units
 			};
 
 			unitPresenter.Bind(unit);
-
-			UnitRendererBase unitRenderer = RendererPool.Take(desc.Presentation.Prefab);
-			unitRenderer.transform.SetParent(unitPresenter.transform, false);
-			unitRenderer.Initialize(unit);
-
 			Units.Add(unit);
 
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
@@ -92,8 +76,7 @@ namespace Omniverse.Units
 				CellVisibilityState cellVisibilityState =
 					FogOfWarManager.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
 				
-				unit.Presenter.GetComponentInChildren<UnitRendererBase>(true).gameObject
-					.SetActive(cellVisibilityState is CellVisibilityState.Visible);
+				unit.Presenter.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
 
 				Units[i].FixedTick();
 			}

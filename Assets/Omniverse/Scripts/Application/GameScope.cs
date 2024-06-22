@@ -49,7 +49,6 @@ namespace Omniverse
 			}
 			
 			builder.Register<PrefabPool<UnitPresenter>>(Lifetime.Singleton);
-			builder.Register<PrefabPool<UnitRendererBase>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<ItemPresenter>>(Lifetime.Singleton);
 			
 			builder.RegisterEntryPoint<Items.Manager>().AsSelf();
