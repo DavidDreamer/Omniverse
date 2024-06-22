@@ -44,8 +44,7 @@ namespace Omniverse.Input
 		{
 			Entities.Add(entityPresenter);
 
-			var renderers = entityPresenter.GameObject.GetComponentsInChildren<Renderer>();
-			foreach (Renderer renderer in renderers)
+			foreach (Renderer renderer in entityPresenter.Renderers)
 			{
 				int variant = GetOutlineVariantByFactionID(entityPresenter.Entity.FactionID);
 				var outlineRenderer = new OutlineRenderer(renderer, variant);

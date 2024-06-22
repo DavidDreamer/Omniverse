@@ -6409,6 +6409,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Villager
       objectReference: {fileID: 0}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 3688933885029965621}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 6183907811156154220}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 7325841823373367655}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[3]
+      value: 
+      objectReference: {fileID: 4620153856246640423}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[4]
+      value: 
+      objectReference: {fileID: 2815179552728531289}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[5]
+      value: 
+      objectReference: {fileID: 2872800484835528654}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[6]
+      value: 
+      objectReference: {fileID: 6960534981707916188}
+    - target: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      propertyPath: <Renderers>k__BackingField.Array.data[7]
+      value: 
+      objectReference: {fileID: 5533626497889953616}
     - target: {fileID: 5742149645102701673, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

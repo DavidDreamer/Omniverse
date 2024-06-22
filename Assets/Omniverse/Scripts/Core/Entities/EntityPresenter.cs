@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -7,6 +8,8 @@ namespace Omniverse
 		IEntity Entity { get; }
 		
 		GameObject GameObject { get; }
+		
+		List<Renderer> Renderers { get; }
 	}
 	
 	public abstract class EntityPresenter<TEntity, TDesc>: MonoBehaviour, IEntityPresenter
@@ -15,6 +18,9 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public Collider HitBox { get; private set; }
+		
+		[field: SerializeField]
+		public List<Renderer> Renderers { get; private set; }
 		
 		public TEntity Entity { get; private set; }
 
