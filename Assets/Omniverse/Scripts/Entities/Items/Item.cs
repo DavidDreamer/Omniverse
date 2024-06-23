@@ -1,19 +1,19 @@
-﻿namespace Omniverse.Entities.Items
+﻿using Omniverse.Abilities;
+
+namespace Omniverse.Entities.Items
 {
-	public class Item: Item<ItemDesc>
-	{
-		public Item(ItemDesc desc, int factionID): base(desc, factionID)
-		{
-		}
-	}
-	
-	public abstract class Item<TDesc>: Entity<TDesc>
-		where TDesc: ItemDesc
+	public class Item: Entity<ItemDesc>
 	{
 		public ItemPresenter Presenter { get; set; }
 
-		protected Item(TDesc desc, int factionID): base(desc, factionID)
+		public Ability Ability { get; }
+
+		public Item(ItemDesc desc, int factionID): base(desc, factionID)
 		{
+			if (desc.Ability is not null)
+			{
+				Ability = new Ability(desc.Ability);
+			}
 		}
 	}
 }

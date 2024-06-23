@@ -1,6 +1,4 @@
-﻿using Omniverse.Entities.Items;
-using Omniverse.Entities.Units;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -26,34 +24,34 @@ namespace Omniverse
 
 		public void FixedTick()
 		{
-			Unit unit = Player.Unit;
-			Transform playerUnitTransform = unit.Presenter.HitBox.transform;
-
-			int count = Physics.OverlapSphereNonAlloc(playerUnitTransform.position, Settings.Radius, Colliders,
-				Settings.LayerMask,
-				QueryTriggerInteraction.Collide);
-
-			for (int i = 0; i < count; ++i)
-			{
-				var itemPresenter = Colliders[i].GetComponent<ItemPresenter>();
-
-				if (itemPresenter == null)
-				{
-					continue;
-				}
-
-				if (itemPresenter.Entity is not IConsumableItem currencyItem)
-				{
-					continue;
-				}
-
-				if (currencyItem.CanBeConsumed(unit) is false)
-				{
-					continue;
-				}
-
-				//ItemManager.Consume(currencyItem, unit);
-			}
+			// Unit unit = Player.Unit;
+			// Transform playerUnitTransform = unit.Presenter.HitBox.transform;
+			//
+			// int count = Physics.OverlapSphereNonAlloc(playerUnitTransform.position, Settings.Radius, Colliders,
+			// 	Settings.LayerMask,
+			// 	QueryTriggerInteraction.Collide);
+			//
+			// for (int i = 0; i < count; ++i)
+			// {
+			// 	var itemPresenter = Colliders[i].GetComponent<ItemPresenter>();
+			//
+			// 	if (itemPresenter == null)
+			// 	{
+			// 		continue;
+			// 	}
+			//
+			// 	if (itemPresenter.Entity is not IConsumableItem currencyItem)
+			// 	{
+			// 		continue;
+			// 	}
+			//
+			// 	if (currencyItem.CanBeConsumed(unit) is false)
+			// 	{
+			// 		continue;
+			// 	}
+			//
+			// 	ItemManager.Consume(currencyItem, unit);
+			//}
 		}
 	}
 }

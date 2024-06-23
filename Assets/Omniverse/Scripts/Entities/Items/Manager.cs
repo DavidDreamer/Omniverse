@@ -14,7 +14,7 @@ namespace Omniverse.Entities.Items
 
 		public void Spawn(ItemDesc desc, Vector3 position, Quaternion rotation)
 		{
-			Item item = desc.Build();
+			Item item = desc.Construct();
 			ObjectResolver.Inject(item);
 
 			ItemPresenter presenter = PrefabPool.Take(desc.Prefab);

@@ -40,6 +40,7 @@ namespace Omniverse.Input
 			builder.RegisterEntryPoint<UnitTargetController>().AsSelf();
 			builder.RegisterEntryPoint<PointAbilityController>().AsSelf();
 			builder.RegisterEntryPoint<TrajectoryAbilityController>().AsSelf();
+			builder.RegisterEntryPoint<AbilityHandlerResolver>().AsSelf();
 
 			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();
 			

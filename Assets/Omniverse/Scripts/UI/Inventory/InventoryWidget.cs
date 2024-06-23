@@ -23,6 +23,9 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
+		[Inject]
+		private IObjectResolver ObjectResolver { get; set; }
+		
 		public void LateUpdate()
 		{
 			if (UnitSelector.HasSelection is false)
@@ -49,7 +52,7 @@ namespace Omniverse.UI
 			{
 				while (slotsDelta != 0)
 				{
-					InventorySlotWidget slot = Instantiate(InventorySlotPrefab, SlotsHolder);
+					InventorySlotWidget slot = ObjectResolver.Instantiate(InventorySlotPrefab, SlotsHolder);
 					Slots.Add(slot);
 					slotsDelta--;
 				}
