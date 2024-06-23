@@ -1,15 +1,21 @@
 ﻿using Omniverse.Abilities;
+using Omniverse.Input;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Omniverse.UI
 {
-	public class AbilityWidget: MonoBehaviour
+	public class AbilityWidget: MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		[field: SerializeField]
 		private Image Background { get; set; }
-		
+
+		[field: SerializeField]
+		private Image Highlight { get; set; }
+
 		[field: SerializeField]
 		private Image Icon { get; set; }
 
@@ -27,6 +33,12 @@ namespace Omniverse.UI
 		
 		[field: SerializeField]
 		private Material OnCooldownMaterial { get; set; }
+		
+		[Inject]
+		private AbilityHandlerResolver AbilityHandlerResolver { get; set; }
+		
+		[Inject]
+		private UnitSelector UnitSelector { get; set; }
 		
 		private Ability Ability { get; set; }
 
@@ -61,6 +73,21 @@ namespace Omniverse.UI
 				Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
 				Cooldown.Tick();
 			}
+		}
+		
+		public void OnPointerClick(PointerEventData eventData)
+		{
+			AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit.Unit, Ability);
+		}
+		
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			Highlight.enabled = true;
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			Highlight.enabled = false;
 		}
 	}
 }

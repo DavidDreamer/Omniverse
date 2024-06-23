@@ -1,5 +1,4 @@
-﻿using System;
-using Omniverse.Entities.Units;
+﻿using Omniverse.Entities.Units;
 using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
