@@ -1,17 +1,16 @@
 {
-    "name": "Omniverse.Entities.Units",
-    "rootNamespace": "Omniverse.Entities.Units",
+    "name": "Omniverse.Actions.Units",
+    "rootNamespace": "Omniverse.Actions.Units",
     "references": [
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:7900f524ca37ee847a70422f636ab5c5",
         "GUID:27955ab605692424a85f77ff6cf21d7d",
         "GUID:b582d1c6099b0904a917f0be28dd1018",
-        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
+        "GUID:92834fa6ca079154cb6589e4e3706982",
         "GUID:551f86e6dcb2e2d4aa1c1fc83c34e79b",
-        "GUID:0f87c5ce7d124044197d93f161cf57a2",
-        "GUID:01d151be60dde854c9e5865b4910cb0c",
-        "GUID:92834fa6ca079154cb6589e4e3706982"
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
+        "GUID:0eb4d9d5a8ebac0488598f6793b914ac"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

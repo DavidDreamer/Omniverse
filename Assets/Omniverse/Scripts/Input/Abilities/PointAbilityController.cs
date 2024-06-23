@@ -70,8 +70,9 @@ public class PointAbilityController: TargetAbilityController
 			bool abilityCasted = navMeshPositionIsValid && CommonActions.Apply.WasPerformedThisFrame();
 			if (abilityCasted)
 			{
-				Ability.Context.Points.Clear();
-				Ability.Context.Points.Add(point);
+				//TODO
+				//Ability.Context.Points.Clear();
+				//Ability.Context.Points.Add(point);
 				return;
 			}
 

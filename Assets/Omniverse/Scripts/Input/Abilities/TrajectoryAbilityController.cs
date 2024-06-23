@@ -87,8 +87,9 @@ public class TrajectoryAbilityController: TargetAbilityController
 			bool abilityCasted = navMeshPositionIsValid && CommonActions.Apply.WasPerformedThisFrame();
 			if (abilityCasted)
 			{
-				Ability.Context.Trajectories.Clear();
-				Ability.Context.Trajectories.Add(trajectory);
+				//TODO
+				//Ability.Context.Trajectories.Clear();
+				//Ability.Context.Trajectories.Add(trajectory);
 				return;
 			}
 
