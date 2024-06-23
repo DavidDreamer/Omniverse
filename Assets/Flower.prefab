@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43220a5724549ac99693faa1115bce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <HitBox>k__BackingField: {fileID: 0}
+  <Renderers>k__BackingField:
+  - {fileID: 2402620564240572495}
 --- !u!135 &4053650636045658972
 SphereCollider:
   m_ObjectHideFlags: 0
