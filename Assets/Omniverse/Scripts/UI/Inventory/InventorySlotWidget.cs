@@ -8,11 +8,14 @@ using VContainer;
 
 namespace Omniverse.UI
 {
-	public class InventorySlotWidget: MonoBehaviour, IPointerClickHandler
+	public class InventorySlotWidget: MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		[field: SerializeField]
 		private Image Icon { get; set; }
 
+		[field: SerializeField]
+		private Image Highlight { get; set; }
+		
 		[Inject]
 		private AbilityController AbilityController { get; set; }
 		
@@ -24,7 +27,7 @@ namespace Omniverse.UI
 		public void Bind(InventorySlot slot)
 		{
 			Slot = slot;
-			bool hasItem = slot.Item != null;
+			bool hasItem = !slot.IsEmpty();
 			Icon.gameObject.SetActive(hasItem);
 			if (hasItem)
 			{
@@ -40,6 +43,26 @@ namespace Omniverse.UI
 			}
 			
 			AbilityController.TryCastAbility(UnitSelector.SelectedUnit.Unit, Slot.Item.Ability);
+		}
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			if (Slot.IsEmpty())
+			{
+				return;
+			}
+			
+			Highlight.enabled = true;
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			if (Slot.IsEmpty())
+			{
+				return;
+			}
+			
+			Highlight.enabled = false;
 		}
 	}
 }
