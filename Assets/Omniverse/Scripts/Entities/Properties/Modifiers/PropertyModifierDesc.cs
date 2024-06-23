@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	[Serializable]
 	public class PropertyModifierDesc

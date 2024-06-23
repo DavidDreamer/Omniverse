@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	public class Property
 	{

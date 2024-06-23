@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	[Serializable]
 	public class PropertyModifier

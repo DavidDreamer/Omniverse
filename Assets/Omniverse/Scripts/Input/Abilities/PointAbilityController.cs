@@ -35,9 +35,8 @@ public class PointAbilityController: TargetAbilityController
 		AbilityRangeRenderer.DecalProjector.enabled = false;
 	}
 
-	protected override async UniTask GetTarget(CancellationToken token)
+	protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 	{
-		Unit caster = Ability.Unit;
 		var pointTarget = (PointTarget)Ability.Desc.Target;
 		AbilityRangeRenderer.SetRange(pointTarget.Range);
 

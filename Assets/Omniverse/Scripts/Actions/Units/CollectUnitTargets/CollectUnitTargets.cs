@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Omniverse.Entities;
 using Omniverse.Entities.Units;
 
 namespace Omniverse.Actions
@@ -17,9 +18,9 @@ namespace Omniverse.Actions
 
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
-			bool selfCastAllowed = Desc.UnitTargetTypeFlags.HasFlag(UnitTargetTypeFlags.Self);
-			bool allyCastAllowed = Desc.UnitTargetTypeFlags.HasFlag(UnitTargetTypeFlags.Ally);
-			bool enemyCastAllowed = Desc.UnitTargetTypeFlags.HasFlag(UnitTargetTypeFlags.Enemy);
+			bool selfCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Self);
+			bool allyCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Ally);
+			bool enemyCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Enemy);
 
 			foreach (Unit unit in GetUnits(context))
 			{

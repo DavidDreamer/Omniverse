@@ -1,4 +1,4 @@
-﻿using Omniverse.Entities.Units;
+﻿using Omniverse.Entities;
 using TMPro;
 using UnityEngine;
 using VContainer;

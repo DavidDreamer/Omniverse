@@ -1,4 +1,4 @@
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	public static class PropertyUtils
 	{

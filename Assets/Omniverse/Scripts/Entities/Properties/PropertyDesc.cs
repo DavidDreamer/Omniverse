@@ -2,7 +2,7 @@
 using Dreambox.Core;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	[Serializable]
 	public class PropertyDesc

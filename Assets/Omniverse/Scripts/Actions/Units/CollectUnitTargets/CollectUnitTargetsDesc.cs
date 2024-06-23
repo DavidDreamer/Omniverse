@@ -1,5 +1,5 @@
 ﻿using System;
-using Omniverse.Entities.Units;
+using Omniverse.Entities;
 using UnityEngine;
 
 namespace Omniverse.Actions
@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 	public abstract class CollectUnitTargetsDesc: IActionDesc
 	{
 		[field: SerializeField]
-		public UnitTargetTypeFlags UnitTargetTypeFlags { get; private set; }
+		public EntityTargetType EntityTargetType { get; private set; }
 
 		public abstract IAction Build();
 	}

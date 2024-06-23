@@ -1,4 +1,5 @@
-﻿using Omniverse.Entities.Units;
+﻿using Omniverse.Entities;
+using Omniverse.Entities.Units;
 using UnityEngine;
 
 namespace Omniverse.UI

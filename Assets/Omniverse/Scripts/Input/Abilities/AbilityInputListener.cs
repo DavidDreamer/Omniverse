@@ -60,15 +60,15 @@ namespace Omniverse.Input
 			}
 			
 			Ability ability = unit.Abilities[abilityIndex];
-			TryCastAbility(ability);
+			TryCastAbility(unit, ability);
 		}
 		
-		private void TryCastAbility(Ability ability)
+		private void TryCastAbility(Unit unit, Ability ability)
 		{
 			switch (ability.Desc.Target)
 			{
 				case NonTarget:
-					AbilityController.TryCastAbility(ability);
+					AbilityController.TryCastAbility(unit, ability);
 					break;
 				case PointTarget:
 				{
@@ -78,7 +78,7 @@ namespace Omniverse.Input
 					}
 					else
 					{
-						PointAbilityController.GetTargetAndCast(ability).SuppressCancellationThrow();
+						PointAbilityController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
 					}
 					break;
 				}
@@ -90,7 +90,7 @@ namespace Omniverse.Input
 					}
 					else
 					{
-						TrajectoryAbilityController.GetTargetAndCast(ability).SuppressCancellationThrow();
+						TrajectoryAbilityController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
 					}
 					break;
 				}
@@ -102,7 +102,7 @@ namespace Omniverse.Input
 					}
 					else
 					{
-						UnitTargetController.GetTargetAndCast(ability).SuppressCancellationThrow();
+						UnitTargetController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
 					}
 					break;
 				}

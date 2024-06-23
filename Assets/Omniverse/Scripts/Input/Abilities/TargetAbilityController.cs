@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
+using Omniverse.Entities.Units;
 using UnityEngine.Scripting;
 
 [Preserve]
@@ -36,9 +37,9 @@ public abstract class TargetAbilityController: AbilityController, IDisposable
 		CancellationTokenSource?.Dispose();
 	}
 	
-	public async UniTask GetTargetAndCast(Ability ability)
+	public async UniTask GetTargetAndCast(Unit caster, Ability ability)
 	{
-		AbilityCastError error = ability.CanBeCasted();
+		AbilityCastError error = ability.CanBeCasted(caster);
 
 		if (error is not AbilityCastError.None)
 		{
@@ -48,14 +49,14 @@ public abstract class TargetAbilityController: AbilityController, IDisposable
 		
 		Setup(ability);
 
-		await GetTarget(CancellationTokenSource.Token);
+		await GetTarget(caster, CancellationTokenSource.Token);
 
 		Cleanup();
 		
-		TryCastAbility(ability);
+		TryCastAbility(caster, ability);
 	}
 	
 	public void Cancell() => CancellationTokenSource.Cancel();
 
-	protected abstract UniTask GetTarget(CancellationToken token);
+	protected abstract UniTask GetTarget(Unit caster, CancellationToken token);
 }

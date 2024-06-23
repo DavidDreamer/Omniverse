@@ -11,7 +11,7 @@ public class UnitTargetController: TargetAbilityController
 	[Inject]
 	private InputActions.CommonActions CommonActions { get; set; }
 
-	protected override async UniTask GetTarget(CancellationToken token)
+	protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 	{
 		while (true)
 		{

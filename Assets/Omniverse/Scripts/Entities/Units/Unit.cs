@@ -13,8 +13,6 @@ namespace Omniverse.Entities.Units
 	{
 		public event Action Died;
 		
-		public Dictionary<PropertyID, Property> Properties { get; }
-
 		public List<Ability> Abilities { get; } = new();
 
 		public List<Effect> Effects { get; } = new();
@@ -43,7 +41,6 @@ namespace Omniverse.Entities.Units
 		{
 			Experience = new Experience(desc.Experience);
 			
-			Properties = new Dictionary<PropertyID, Property>();
 			foreach (PropertyDesc resourceDesc in Desc.Properties)
 			{
 				Properties.Add(resourceDesc.ID, new Property(resourceDesc));
@@ -51,7 +48,7 @@ namespace Omniverse.Entities.Units
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(abilityDesc, this);
+				var ability = new Ability(abilityDesc);
 				Abilities.Add(ability);
 			}
 

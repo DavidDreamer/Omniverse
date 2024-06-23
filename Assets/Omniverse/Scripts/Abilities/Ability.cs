@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.Entities.Units;
 using ExecutionContext = Omniverse.Actions.ExecutionContext;
 
 namespace Omniverse.Abilities
@@ -10,23 +9,20 @@ namespace Omniverse.Abilities
 	{
 		public AbilityDesc Desc { get; }
 
-		public Unit Unit { get; }
-		
 		public Cooldown Cooldown { get; }
 		
 		public bool AwaitsTarget { get; set; }
 
 		public bool InProcess { get; private set; }
 		
-		public Ability(AbilityDesc desc, Unit unit)
+		public Ability(AbilityDesc desc)
 		{
 			Desc = desc;
-			Unit = unit;
-			
+		
 			Cooldown = new Cooldown(Desc.Cooldown);
 		}
 
-		public AbilityCastError CanBeCasted()
+		public AbilityCastError CanBeCasted(IEntity caster)
 		{
 			if (Cooldown is not null && Cooldown.IsActive)
 			{
@@ -40,12 +36,12 @@ namespace Omniverse.Abilities
 
 			foreach (CostDesc costDesc in Desc.Cost)
 			{
-				if (!Unit.Properties.ContainsKey(costDesc.PropertyID))
+				if (!caster.Properties.ContainsKey(costDesc.PropertyID))
 				{
 					return AbilityCastError.NotEnoughResources;
 				}
 
-				if (Unit.Properties[costDesc.PropertyID].Amount.Value < costDesc.Amount)
+				if (caster.Properties[costDesc.PropertyID].Amount.Value < costDesc.Amount)
 				{
 					return AbilityCastError.NotEnoughResources;
 				}
@@ -54,7 +50,7 @@ namespace Omniverse.Abilities
 			return AbilityCastError.None;
 		}
 		
-		public async UniTask Cast(CancellationToken token)
+		public async UniTask Cast(IEntity caster, CancellationToken token)
 		{
 			InProcess = true;
 
@@ -68,20 +64,14 @@ namespace Omniverse.Abilities
 			
 			foreach (CostDesc cost in Desc.Cost)
 			{
-				var data = new ChangePropertyData
-				{
-					ID = cost.PropertyID,
-					Amount = -cost.Amount
-				};
-
-				Unit.ChangeResource(data);
+				caster.Properties[cost.PropertyID].Change(-cost.Amount);
 			}
 			
 			Cooldown?.ActivateAsync(token);
 
 			InProcess = false;
 
-			var contex = new ExecutionContext(Unit, Desc.Actions);
+			var contex = new ExecutionContext(caster, Desc.Actions);
 			await contex.PerformAsync(token);
 		}
 	}

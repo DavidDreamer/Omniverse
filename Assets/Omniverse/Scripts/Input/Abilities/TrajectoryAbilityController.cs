@@ -41,12 +41,10 @@ public class TrajectoryAbilityController: TargetAbilityController
 		TrajectoryRenderer.gameObject.SetActive(false);
 	}
 
-	protected override async UniTask GetTarget(CancellationToken token)
+	protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 	{
 		var trajectoryTarget = (TrajectoryTarget)Ability.Desc.Target;
 		AbilityRangeRenderer.SetRange(trajectoryTarget.Range);
-
-		Unit caster = Ability.Unit;
 		
 		while (true)
 		{

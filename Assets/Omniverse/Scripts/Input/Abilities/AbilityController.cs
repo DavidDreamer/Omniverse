@@ -1,13 +1,14 @@
 ﻿using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
+using Omniverse.Entities.Units;
 using VContainer;
 
 [Preserve]
 public class AbilityController
 {
-	public void TryCastAbility(Ability ability)
+	public void TryCastAbility(Unit unit, Ability ability)
 	{
-		AbilityCastError error = ability.CanBeCasted();
+		AbilityCastError error = ability.CanBeCasted(unit);
 
 		if (error is not AbilityCastError.None)
 		{
@@ -15,6 +16,6 @@ public class AbilityController
 			return;
 		}
 
-		ability.Cast(default).SuppressCancellationThrow().Forget();
+		ability.Cast(unit, default).SuppressCancellationThrow().Forget();
 	}
 }

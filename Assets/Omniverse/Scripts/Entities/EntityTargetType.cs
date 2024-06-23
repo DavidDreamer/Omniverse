@@ -1,9 +1,9 @@
 using System;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Entities
 {
 	[Flags]
-	public enum UnitTargetTypeFlags
+	public enum EntityTargetType
 	{
 		Self = 0x1,
 		Ally = 0x2,

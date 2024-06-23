@@ -1,3 +1,4 @@
+using Omniverse.Entities;
 using Omniverse.Entities.Units;
 using TMPro;
 using UnityEngine;

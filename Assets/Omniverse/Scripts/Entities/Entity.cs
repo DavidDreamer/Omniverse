@@ -1,8 +1,13 @@
-﻿namespace Omniverse
+﻿using System.Collections.Generic;
+using Omniverse.Entities;
+
+namespace Omniverse
 {
 	public interface IEntity
 	{
 		int FactionID { get; }
+		
+		Dictionary<PropertyID, Property> Properties { get; }
 	}
 
 	public interface IEntity<out TDesc>: IEntity
@@ -16,10 +21,14 @@
 
 		public int FactionID { get; }
 		
+		public Dictionary<PropertyID, Property> Properties { get; }
+
 		protected Entity(TDesc desc, int factionID)
 		{
 			Desc = desc;
 			FactionID = factionID;
+
+			Properties = new Dictionary<PropertyID, Property>();
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using Omniverse.Entities;
 using Omniverse.Entities.Items;
 using Omniverse.Entities.Units;
 
