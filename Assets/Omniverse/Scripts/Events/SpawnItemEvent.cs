@@ -1,8 +1,8 @@
-﻿using Omniverse.Items;
+﻿using Omniverse.Entities.Items;
 using UnityEngine;
 using VContainer;
 
-namespace Omniverse.Units
+namespace Omniverse.Entities.Units
 {
 	public class SpawnItemEvent: MonoBehaviour
 	{

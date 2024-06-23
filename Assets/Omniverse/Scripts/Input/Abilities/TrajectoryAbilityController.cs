@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using Dreambox.Math;
 using Omniverse.Abilities;
 using Omniverse.Input;
-using Omniverse.Units;
+using Omniverse.Entities.Units;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;

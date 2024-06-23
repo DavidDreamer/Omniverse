@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Omniverse.Units;
+using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

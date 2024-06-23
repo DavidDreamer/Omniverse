@@ -29,12 +29,12 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 8872748953215172609
-      type: {class: NonTarget, ns: Omniverse.Abilities, asm: Omniverse.Units}
+      type: {class: NonTarget, ns: Omniverse.Abilities, asm: Omniverse.Entities.Units}
       data: 
     - rid: 8872748953215172611
-      type: {class: ApplyEffectDesc, ns: Omniverse.Actions, asm: Omniverse.Units}
+      type: {class: ApplyEffectDesc, ns: Omniverse.Actions, asm: Omniverse.Entities.Units}
       data:
         <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}
     - rid: 8872748953215172614
-      type: {class: AddTargetSelfDesc, ns: Omniverse.Actions, asm: Omniverse.Units}
+      type: {class: AddTargetSelfDesc, ns: Omniverse.Actions, asm: Omniverse.Entities.Units}
       data: 

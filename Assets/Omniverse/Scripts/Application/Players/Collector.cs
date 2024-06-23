@@ -1,5 +1,5 @@
-﻿using Omniverse.Items;
-using Omniverse.Units;
+﻿using Omniverse.Entities.Items;
+using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,7 +12,7 @@ namespace Omniverse
 		private Player Player { get; set; }
 
 		[Inject]
-		private Items.Manager ItemManager { get; set; }
+		private Entities.Items.Manager ItemManager { get; set; }
 
 		private CollectorSettings Settings { get; }
 

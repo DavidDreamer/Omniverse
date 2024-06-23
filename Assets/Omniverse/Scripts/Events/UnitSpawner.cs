@@ -1,7 +1,7 @@
 using UnityEngine;
 using VContainer;
 
-namespace Omniverse.Units
+namespace Omniverse.Entities.Units
 {
 	public class UnitSpawner: MonoBehaviour
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 using Omniverse.Abilities;
-using Omniverse.Units;
+using Omniverse.Entities.Units;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
