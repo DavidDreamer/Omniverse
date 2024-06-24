@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Omniverse.Entities.Items;
 
 namespace Omniverse.Entities.Units
@@ -22,6 +24,18 @@ namespace Omniverse.Entities.Units
 		{
 			InventorySlot slot = Slots.First(slot => slot.IsEmpty());
 			slot.Item = item;
+
+			if (item.Desc.Consumable && item.Ability is not null)
+			{
+				WaitForConsumeAsync(slot, item, default).Forget();
+			}
+		}
+
+		private async UniTaskVoid WaitForConsumeAsync(InventorySlot slot, Item item, CancellationToken token)
+		{
+			await item.Ability.Used.Task;
+
+			slot.Item = null;
 		}
 	}
 }

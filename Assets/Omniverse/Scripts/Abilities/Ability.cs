@@ -15,13 +15,16 @@ namespace Omniverse.Abilities
 
 		public bool InProcess { get; private set; }
 		
+		public AutoResetUniTaskCompletionSource Used { get; }
+
 		public Ability(AbilityDesc desc)
 		{
 			Desc = desc;
 		
 			Cooldown = new Cooldown(Desc.Cooldown);
+			Used = AutoResetUniTaskCompletionSource.Create();
 		}
-
+		
 		public AbilityCastError CanBeCasted(IEntity caster)
 		{
 			if (Cooldown is not null && Cooldown.IsActive)
@@ -73,6 +76,8 @@ namespace Omniverse.Abilities
 
 			var contex = new ExecutionContext(caster, Desc.Actions);
 			await contex.PerformAsync(token);
+
+			Used.TrySetResult();
 		}
 	}
 }
