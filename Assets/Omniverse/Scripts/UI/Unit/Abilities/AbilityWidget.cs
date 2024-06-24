@@ -49,7 +49,12 @@ namespace Omniverse.UI
 		
 		public void OnPointerClick(PointerEventData eventData)
 		{
-			AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit.Unit, Ability);
+			switch (eventData.button)
+			{
+				case PointerEventData.InputButton.Left:
+					AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit.Unit, Ability);
+					break;
+			}
 		}
 		
 		public void OnPointerEnter(PointerEventData eventData)
