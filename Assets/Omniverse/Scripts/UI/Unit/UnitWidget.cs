@@ -20,7 +20,7 @@ namespace Omniverse.UI
 		private PropertiesWidget Properties { get; set; }
 		
 		[field: SerializeField]
-		private AbilityWidget Ability { get; set; }
+		private AbilitySlotWidget Ability { get; set; }
 		
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
