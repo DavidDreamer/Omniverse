@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2247314932311208630}
   - component: {fileID: 2216872027575356420}
   - component: {fileID: 3288214872313971665}
+  - component: {fileID: 5287390072159367267}
+  - component: {fileID: 8065679109670902791}
   m_Layer: 0
   m_Name: Tree_Pine_1
   m_TagString: Untagged
@@ -97,3 +99,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Size>k__BackingField: {x: 1, y: 2, z: 1}
+--- !u!114 &5287390072159367267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088653225545430688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69fced27b5494ec4ace8136d16338e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Renderers>k__BackingField:
+  - {fileID: 2216872027575356420}
+  <HitBox>k__BackingField: {fileID: 8065679109670902791}
+--- !u!136 &8065679109670902791
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088653225545430688}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.430414
+  m_Height: 7.545759
+  m_Direction: 1
+  m_Center: {x: 0.018485546, y: 3.690929, z: -0.11983621}
