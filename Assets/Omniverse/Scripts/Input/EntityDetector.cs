@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dreambox.Rendering.URP;
+using Omniverse.Entities.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -9,7 +10,7 @@ namespace Omniverse.Input
 {
 	public class EntityDetector: ILateTickable
 	{
-		public List<IEntityPresenter> Entities { get; } = new();
+		public List<EntityPresenter> Entities { get; } = new();
 
 		[Inject]
 		public OutlineRendererFeature Outline { get; private set; }
@@ -32,7 +33,7 @@ namespace Omniverse.Input
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var entityPresenter = hitInfo.collider.GetComponent<IEntityPresenter>();
+				var entityPresenter = hitInfo.collider.GetComponent<EntityPresenter>();
 				if (entityPresenter != null)
 				{
 					AddFocus(entityPresenter);
@@ -40,26 +41,27 @@ namespace Omniverse.Input
 			}
 		}
 		
-		private void AddFocus(IEntityPresenter entityPresenter)
+		private void AddFocus(EntityPresenter entityPresenter)
 		{
 			Entities.Add(entityPresenter);
 
 			foreach (Renderer renderer in entityPresenter.Renderers)
 			{
-				int variant = GetOutlineVariantByFactionID(entityPresenter.Entity.FactionID);
+				int variant = GetOutlineVariantByFactionID(entityPresenter);
 				var outlineRenderer = new OutlineRenderer(renderer, variant);
 				Outline.Pass.AddRenderer(outlineRenderer);
 			}
 		}
 
-		private int GetOutlineVariantByFactionID(int factionID)
+		private int GetOutlineVariantByFactionID(EntityPresenter entityPresenter)
 		{
-			if (factionID == -1)
+			switch (entityPresenter)
 			{
-				return 2;
+				case UnitPresenter unitPresenter:
+					return unitPresenter.Entity.FactionID == Player.FactionID ? 0 : 1;
+				default:
+					return 2;
 			}
-
-			return factionID == Player.FactionID ? 0 : 1;
 		}
 		
 		private void Clear()

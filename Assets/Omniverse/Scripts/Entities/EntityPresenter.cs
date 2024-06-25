@@ -3,30 +3,20 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public interface IEntityPresenter
+	public abstract class EntityPresenter: MonoBehaviour
 	{
-		IEntity Entity { get; }
-		
-		GameObject GameObject { get; }
-		
-		List<Renderer> Renderers { get; }
+		[field: SerializeField]
+		public List<Renderer> Renderers { get; private set; }
+
+		[field: SerializeField]
+		public Collider HitBox { get; private set; }
 	}
-	
-	public abstract class EntityPresenter<TEntity, TDesc>: MonoBehaviour, IEntityPresenter
+
+	public abstract class EntityPresenter<TEntity, TDesc>: EntityPresenter
 		where TEntity: Entity<TDesc>
 		where TDesc: EntityDesc
 	{
-		[field: SerializeField]
-		public Collider HitBox { get; private set; }
-		
-		[field: SerializeField]
-		public List<Renderer> Renderers { get; private set; }
-		
 		public TEntity Entity { get; private set; }
-
-		public GameObject GameObject => gameObject;
-
-		IEntity IEntityPresenter.Entity => Entity;
 
 		public void Bind(TEntity entity)
 		{

@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Omniverse.Entities.Items;
+using Omniverse.Entities.Units;
 using Omniverse.Entities.Units.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,13 +40,26 @@ namespace Omniverse.Input
 			{
 				if (EntityDetector.Entities.Count > 0)
 				{
-					IEntityPresenter target = EntityDetector.Entities.First();
-					foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
+					EntityPresenter target = EntityDetector.Entities.First();
+					switch (target)
 					{
-						if (selectedUnit.Unit != target.Entity)
-						{
-							selectedUnit.Unit.Target = target.Entity;
-						}
+						case UnitPresenter unitPresenter:
+							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
+							{
+								if (selectedUnit.Unit != unitPresenter.Entity)
+								{
+									selectedUnit.Unit.Target = unitPresenter.Entity;
+								}
+							}
+
+							break;
+						case ItemPresenter itemPresenter:
+							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
+							{
+								selectedUnit.Unit.Target = itemPresenter.Entity;
+							}
+
+							break;
 					}
 				}
 				else
