@@ -20,7 +20,7 @@ namespace Omniverse.UI
 		private PropertiesWidget Properties { get; set; }
 		
 		[field: SerializeField]
-		private AbilitySlotWidget Ability { get; set; }
+		private AbilityBarWidget AbilityBar { get; set; }
 		
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
@@ -31,9 +31,6 @@ namespace Omniverse.UI
 		
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
-
-		[Inject]
-		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 		
 		public void LateTick()
 		{
@@ -51,9 +48,9 @@ namespace Omniverse.UI
 			Icon.sprite = unit.Desc.Presentation.Icon;
 				
 			Health.Bind(unit);
-	
-			Ability.Bind(unit.Abilities.First(), AbilitiesActions._1);
-			Ability.Tick();
+
+			AbilityBar.Bind(unit);
+			AbilityBar.Tick();
 
 			EffectsBar.Bind(unit);
 			EffectsBar.Tick();

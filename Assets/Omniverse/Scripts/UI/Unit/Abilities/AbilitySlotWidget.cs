@@ -16,7 +16,12 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private HotkeyWidget Hotkey { get; set; }
 
-		public void Bind(Ability ability, InputAction inputAction)
+		public void Initialize(InputAction inputAction)
+		{
+			Hotkey.Set(inputAction);
+		}
+
+		public void Bind(Ability ability)
 		{
 			bool hasAbility = ability is not null;
 			AbilityWidget.gameObject.SetActive(hasAbility);
@@ -26,7 +31,6 @@ namespace Omniverse.UI
 			if (hasAbility)
 			{
 				AbilityWidget.Bind(ability);
-				Hotkey.Set(inputAction);
 			}
 		}
 
