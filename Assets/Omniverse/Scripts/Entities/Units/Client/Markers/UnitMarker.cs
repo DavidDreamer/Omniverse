@@ -13,7 +13,7 @@ namespace Omniverse.Entities.Units.Rendering
 		private DecalProjector DecalProjector { get; set; }
 
 		[Inject]
-		private IPlayer Player { get; set; }
+		private Player Player { get; set; }
 
 		public void Initialize(Unit unit)
 		{

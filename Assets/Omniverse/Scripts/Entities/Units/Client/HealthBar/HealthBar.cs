@@ -24,7 +24,7 @@ namespace Omniverse.Entities.Units.Rendering
 		private Property Property { get; set; }
 
 		[Inject]
-		private IPlayer Player { get; set; }
+		private Player Player { get; set; }
 
 		private Unit Unit { get; set; }
 

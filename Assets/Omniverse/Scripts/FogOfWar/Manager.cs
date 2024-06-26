@@ -22,7 +22,7 @@ namespace Omniverse.FogOfWar
 		private FactionDesc[] Factions { get; set; }
 		
 		[Inject]
-		public IPlayer Player { get; set; }
+		public Player Player { get; set; }
 
 		public CellVisibilityState[][] CellsVisibilityPerFaction { get; set; }
 

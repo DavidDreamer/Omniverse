@@ -16,7 +16,7 @@ namespace Omniverse.Input
 		public OutlineRendererFeature Outline { get; private set; }
 		
 		[Inject]
-		private IPlayer Player { get; set; }
+		private Player Player { get; set; }
 
 		public void LateTick()
 		{
