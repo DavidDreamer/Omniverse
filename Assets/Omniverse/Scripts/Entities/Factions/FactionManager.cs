@@ -1,20 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Scripting;
+using VContainer;
 
 namespace Omniverse
 {
-	[Preserve]
+	[UnityEngine.Scripting.Preserve]
 	public class FactionManager
 	{
 		public Dictionary<int, Faction> Factions { get; } = new();
-
-		public FactionManager(List<FactionDesc> factionDescs)
+		
+		[Inject]
+		private FactionDesc[] FactionDescs { get; set; }
+		[Inject]
+		private ResourceDesc[] ResourceDescs { get; set; }
+		
+		public FactionManager()
 		{
-			for (var i = 0; i < factionDescs.Count; i++)
+			for (var i = 0; i < FactionDescs.Length; i++)
 			{
-				FactionDesc desc = factionDescs[i];
-				Factions.Add(i, new Faction(i, desc));
+				FactionDesc desc = FactionDescs[i];
+				Factions.Add(i, new Faction(i, desc, ResourceDescs));
 			}
 		}
 	}

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5d7385c5b946e89405f2d0e7408290, type: 3}
   m_Name: Duskwood
   m_EditorClassIdentifier: 
-  <Resources>k__BackingField: []
+  <Resources>k__BackingField:
+  - {fileID: 11400000, guid: f02e271383beedf4cb6ae87f31095902, type: 2}
+  - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
   <Factions>k__BackingField:
   - <Name>k__BackingField: 
     <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}

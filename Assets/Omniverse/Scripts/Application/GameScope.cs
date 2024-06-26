@@ -34,6 +34,7 @@ namespace Omniverse
 			builder.RegisterInstance(GameSettings);
 			builder.RegisterInstance(GameSettings.MapSettings);
 			builder.RegisterInstance(GameSettings.Factions);
+			builder.RegisterInstance(GameSettings.Resources);
 
 			if (Map != null)
 			{
@@ -53,8 +54,8 @@ namespace Omniverse
 			
 			builder.RegisterEntryPoint<Entities.Items.Manager>().AsSelf();
 			builder.RegisterEntryPoint<Entities.Units.Manager>().AsSelf();
-			
-			builder.RegisterEntryPoint<FactionManager>().AsSelf().WithParameter(GameSettings.Factions.ToList());
+
+			builder.RegisterEntryPoint<FactionManager>().AsSelf();
 
 			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
 			

@@ -10,6 +10,9 @@ namespace Omniverse.UI
 		private UIStyle Style { get; set; }
 		
 		[field: SerializeField]
+		private ResourceBarWidget ResourceBarWidget { get; set; }
+		
+		[field: SerializeField]
 		private MiniMapWidget MiniMapWidget { get; set; }
 		
 		[field: SerializeField]
@@ -24,7 +27,8 @@ namespace Omniverse.UI
 		public void Install(IContainerBuilder builder)
 		{
 			builder.RegisterInstance(Style);
-			
+
+			RegisterWidget(ResourceBarWidget);
 			RegisterWidget(MiniMapWidget);
 			RegisterWidget(UnitSelectorWidget);
 			RegisterWidget(UnitWidget);

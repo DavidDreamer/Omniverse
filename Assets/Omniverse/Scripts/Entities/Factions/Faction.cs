@@ -9,22 +9,23 @@ namespace Omniverse
 		
 		private FactionDesc Desc { get; }
 		
-		public Dictionary<ResourceDesc, AsyncReactiveProperty<int>> Resources { get; } = new();
+		public Dictionary<ResourceDesc, Resource> Resources { get; } = new();
 
-		public Faction(int id, FactionDesc desc)
+		public Faction(int id, FactionDesc desc, ResourceDesc[] resourceDescs)
 		{
 			ID = id;
 			Desc = desc;
+
+			foreach (ResourceDesc resourceDesc in resourceDescs)
+			{
+				var resource = new Resource(resourceDesc);
+				Resources.Add(resourceDesc, resource);
+			}
 		}
 
-		public void ChangeCurrency(ResourceDesc resource, int amount)
+		public void ChangeResource(ResourceDesc desc, int amount)
 		{
-			if (Resources.ContainsKey(resource) is false)
-			{
-				Resources.Add(resource, new AsyncReactiveProperty<int>(0));
-			}
-
-			Resources[resource].Value += amount;
+			Resources[desc].Amount.Value += amount;
 		}
 	}
 }
