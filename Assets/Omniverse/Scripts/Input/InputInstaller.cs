@@ -36,10 +36,11 @@ namespace Omniverse.Input
 			builder.RegisterComponentInNewPrefab(AbilityRangeRenderer, Lifetime.Singleton);
 			builder.RegisterComponentInNewPrefab(TrajectoryRenderer, Lifetime.Singleton);
 
-			builder.RegisterEntryPoint<AbilityController>().AsSelf();
-			builder.RegisterEntryPoint<UnitTargetController>().AsSelf();
-			builder.RegisterEntryPoint<PointAbilityController>().AsSelf();
-			builder.RegisterEntryPoint<TrajectoryAbilityController>().AsSelf();
+			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
+			builder.RegisterEntryPoint<AbilityHandler>().AsSelf();
+			builder.RegisterEntryPoint<UnitTargetHandler>().AsSelf();
+			builder.RegisterEntryPoint<PointAbilityHandler>().AsSelf();
+			builder.RegisterEntryPoint<TrajectoryAbilityHandler>().AsSelf();
 			builder.RegisterEntryPoint<AbilityHandlerResolver>().AsSelf();
 
 			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();

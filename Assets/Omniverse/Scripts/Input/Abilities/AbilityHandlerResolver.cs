@@ -1,69 +1,71 @@
 ﻿using Omniverse.Abilities;
 using Omniverse.Entities.Units;
-using UnityEngine;
 using VContainer;
 
-public class AbilityHandlerResolver
+namespace Omniverse.Input
 {
-	[Inject]
-	private AbilityController AbilityController { get; set; }
-	
-	[Inject]
-	private PointAbilityController PointAbilityController { get; set; }
-
-	[Inject]
-	private UnitTargetController UnitTargetController { get; set; }
-
-	[Inject]
-	private TrajectoryAbilityController TrajectoryAbilityController { get; set; }
-
-	public void TryCastAbility(Unit unit, Ability ability)
+	public class AbilityHandlerResolver
 	{
-		switch (ability.Desc.Target)
+		[Inject]
+		private AbilityHandler AbilityHandler { get; set; }
+
+		[Inject]
+		private PointAbilityHandler PointAbilityHandler { get; set; }
+
+		[Inject]
+		private UnitTargetHandler UnitTargetHandler { get; set; }
+
+		[Inject]
+		private TrajectoryAbilityHandler TrajectoryAbilityHandler { get; set; }
+
+		public void TryCastAbility(Unit unit, Ability ability)
 		{
-			case NonTarget:
+			switch (ability.Desc.Target)
 			{
-				AbilityController.TryCastAbility(unit, ability);
-				break;
-			}
-			case PointTarget:
-			{
-				if (PointAbilityController.InProcess)
+				case NonTarget:
 				{
-					PointAbilityController.Cancell();
+					AbilityHandler.TryCastAbility(unit, ability);
+					break;
 				}
-				else
+				case PointTarget:
 				{
-					PointAbilityController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-				}
+					if (PointAbilityHandler.InProcess)
+					{
+						PointAbilityHandler.Cancell();
+					}
+					else
+					{
+						PointAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+					}
 
-				break;
-			}
-			case TrajectoryTarget:
-			{
-				if (TrajectoryAbilityController.InProcess)
-				{
-					TrajectoryAbilityController.Cancell();
+					break;
 				}
-				else
+				case TrajectoryTarget:
 				{
-					TrajectoryAbilityController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-				}
+					if (TrajectoryAbilityHandler.InProcess)
+					{
+						TrajectoryAbilityHandler.Cancell();
+					}
+					else
+					{
+						TrajectoryAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+					}
 
-				break;
-			}
-			case EntityTarget:
-			{
-				if (UnitTargetController.InProcess)
-				{
-					UnitTargetController.Cancell();
+					break;
 				}
-				else
+				case EntityTarget:
 				{
-					UnitTargetController.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-				}
+					if (UnitTargetHandler.InProcess)
+					{
+						UnitTargetHandler.Cancell();
+					}
+					else
+					{
+						UnitTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+					}
 
-				break;
+					break;
+				}
 			}
 		}
 	}
