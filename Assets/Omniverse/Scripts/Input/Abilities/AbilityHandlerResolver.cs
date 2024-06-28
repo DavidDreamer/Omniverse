@@ -22,7 +22,7 @@ namespace Omniverse.Input
 		{
 			switch (ability.Desc.Target)
 			{
-				case NonTarget:
+				case null:
 				{
 					AbilityHandler.TryCastAbility(unit, ability);
 					break;

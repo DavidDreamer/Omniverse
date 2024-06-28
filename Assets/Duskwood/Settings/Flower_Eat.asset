@@ -18,7 +18,7 @@ MonoBehaviour:
     <Time>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
-    rid: 8872749308137177098
+    rid: -2
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
@@ -28,9 +28,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8872749308137177098
-      type: {class: NonTarget, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
-      data: 
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 8872749308137177100
       type: {class: AddTargetSelfDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
       data: 
