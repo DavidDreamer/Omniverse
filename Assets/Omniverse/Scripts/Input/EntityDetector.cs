@@ -22,20 +22,22 @@ namespace Omniverse.Input
 			SetDefaultDetectableType();
 		}
 
-		public void SetDefaultDetectableType() => SetDetectableType<UnitPresenter>();
+		public void SetDefaultDetectableType() => SetFiler<UnitPresenter>();
 
-		public void SetDetectableType<TEntityType>() where TEntityType: EntityPresenter
+		public void ClearFilter() => DetectableTypes.Clear();
+		
+		public void SetFiler<TEntityType>() where TEntityType: EntityPresenter
 		{
-			DetectableTypes.Clear();
+			ClearFilter();
+			AddToFilter<TEntityType>();
+		}
+
+		public void AddToFilter<TEntityType>() where TEntityType: EntityPresenter
+		{
 			DetectableTypes.Add(typeof(TEntityType));
 		}
 
-		public void AddDetectableType<TEntityType>() where TEntityType: EntityPresenter
-		{
-			DetectableTypes.Add(typeof(TEntityType));
-		}
-
-		public void RemoveDetectableType<TEntityType>() where TEntityType: EntityPresenter
+		public void RemoveFromFilter<TEntityType>() where TEntityType: EntityPresenter
 		{
 			DetectableTypes.Remove(typeof(TEntityType));
 		}

@@ -38,7 +38,7 @@ namespace Omniverse.Input
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
 			builder.RegisterEntryPoint<AbilityHandler>().AsSelf();
-			builder.RegisterEntryPoint<UnitTargetHandler>().AsSelf();
+			builder.RegisterEntryPoint<EntityTargetHandler>().AsSelf();
 			builder.RegisterEntryPoint<PointAbilityHandler>().AsSelf();
 			builder.RegisterEntryPoint<TrajectoryAbilityHandler>().AsSelf();
 			builder.RegisterEntryPoint<AbilityHandlerResolver>().AsSelf();

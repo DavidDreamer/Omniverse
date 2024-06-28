@@ -13,7 +13,7 @@ namespace Omniverse.Input
 		private PointAbilityHandler PointAbilityHandler { get; set; }
 
 		[Inject]
-		private UnitTargetHandler UnitTargetHandler { get; set; }
+		private EntityTargetHandler EntityTargetHandler { get; set; }
 
 		[Inject]
 		private TrajectoryAbilityHandler TrajectoryAbilityHandler { get; set; }
@@ -55,13 +55,13 @@ namespace Omniverse.Input
 				}
 				case EntityTarget:
 				{
-					if (UnitTargetHandler.InProcess)
+					if (EntityTargetHandler.InProcess)
 					{
-						UnitTargetHandler.Cancell();
+						EntityTargetHandler.Cancell();
 					}
 					else
 					{
-						UnitTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+						EntityTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
 					}
 
 					break;
