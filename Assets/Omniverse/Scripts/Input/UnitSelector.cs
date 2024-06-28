@@ -31,12 +31,12 @@ namespace Omniverse.Input
 		
 		public void LateTick()
 		{
-			if (EntityDetector.Entities.Count == 0)
+			if (EntityDetector.Target == null)
 			{
 				return;
 			}
 
-			var unitRenderer = EntityDetector.Entities.First().GetComponentInChildren<UnitRenderer>();
+			var unitRenderer = EntityDetector.Target.GetComponentInChildren<UnitRenderer>();
 			if (unitRenderer == null)
 			{
 				return;

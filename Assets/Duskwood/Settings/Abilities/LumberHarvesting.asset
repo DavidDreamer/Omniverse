@@ -18,7 +18,7 @@ MonoBehaviour:
     <Time>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
-    rid: 8872749373637525505
+    rid: 8872749373637525506
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
@@ -26,6 +26,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8872749373637525505
-      type: {class: NonTarget, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
-      data: 
+    - rid: 8872749373637525506
+      type: {class: ResourceSourceTarget, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
+      data:
+        <Resources>k__BackingField:
+        - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}

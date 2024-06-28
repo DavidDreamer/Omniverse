@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Dreambox.Rendering.URP;
+﻿using System;
+using System.Collections.Generic;
 using Omniverse.Entities.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,64 +10,57 @@ namespace Omniverse.Input
 {
 	public class EntityDetector: ILateTickable
 	{
-		public List<EntityPresenter> Entities { get; } = new();
+		public EntityPresenter Target { get; private set; }
 
-		[Inject]
-		public OutlineRendererFeature Outline { get; private set; }
-		
 		[Inject]
 		private Player Player { get; set; }
 
+		private HashSet<Type> DetectableTypes { get; } = new();
+
+		public EntityDetector()
+		{
+			SetDefaultDetectableType();
+		}
+
+		public void SetDefaultDetectableType() => SetDetectableType<UnitPresenter>();
+
+		public void SetDetectableType<TEntityType>() where TEntityType: EntityPresenter
+		{
+			DetectableTypes.Clear();
+			DetectableTypes.Add(typeof(TEntityType));
+		}
+
+		public void AddDetectableType<TEntityType>() where TEntityType: EntityPresenter
+		{
+			DetectableTypes.Add(typeof(TEntityType));
+		}
+
+		public void RemoveDetectableType<TEntityType>() where TEntityType: EntityPresenter
+		{
+			DetectableTypes.Remove(typeof(TEntityType));
+		}
+
 		public void LateTick()
 		{
-			Clear();
-			
+			Target = null;
+
 			Camera camera = Camera.main;
 
 			if (camera == null)
 			{
 				return;
 			}
-			
+
 			Vector2 mousePosition = Mouse.current.position.value;
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
 				var entityPresenter = hitInfo.collider.GetComponent<EntityPresenter>();
-				if (entityPresenter != null)
+				if (entityPresenter != null && DetectableTypes.Contains(entityPresenter.GetType()))
 				{
-					AddFocus(entityPresenter);
+					Target = entityPresenter;
 				}
 			}
-		}
-		
-		private void AddFocus(EntityPresenter entityPresenter)
-		{
-			Entities.Add(entityPresenter);
-
-			foreach (Renderer renderer in entityPresenter.Renderers)
-			{
-				int variant = GetOutlineVariantByFactionID(entityPresenter);
-				var outlineRenderer = new OutlineRenderer(renderer, variant);
-				Outline.Pass.AddRenderer(outlineRenderer);
-			}
-		}
-
-		private int GetOutlineVariantByFactionID(EntityPresenter entityPresenter)
-		{
-			switch (entityPresenter)
-			{
-				case UnitPresenter unitPresenter:
-					return unitPresenter.Entity.FactionID == Player.FactionID ? 0 : 1;
-				default:
-					return 2;
-			}
-		}
-		
-		private void Clear()
-		{
-			Entities.Clear();
-			Outline.Pass.Clear();
 		}
 	}
 }

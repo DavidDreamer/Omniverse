@@ -38,9 +38,9 @@ namespace Omniverse.Input
 			
 			if (Mouse.current.rightButton.wasReleasedThisFrame)
 			{
-				if (EntityDetector.Entities.Count > 0)
+				if (EntityDetector.Target != null)
 				{
-					EntityPresenter target = EntityDetector.Entities.First();
+					EntityPresenter target = EntityDetector.Target;
 					switch (target)
 					{
 						case UnitPresenter unitPresenter:

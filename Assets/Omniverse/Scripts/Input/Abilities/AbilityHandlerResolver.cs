@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using Omniverse.Entities.Units;
+using UnityEngine;
 using VContainer;
 
 public class AbilityHandlerResolver
@@ -51,7 +52,7 @@ public class AbilityHandlerResolver
 
 				break;
 			}
-			case UnitTarget:
+			case EntityTarget:
 			{
 				if (UnitTargetController.InProcess)
 				{
