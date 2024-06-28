@@ -34,7 +34,6 @@ namespace Omniverse.Input
 			}
 		}
 
-
 		private int GetOutlineVariantByFactionID(EntityPresenter entityPresenter)
 		{
 			switch (entityPresenter)

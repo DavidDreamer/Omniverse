@@ -19,12 +19,16 @@ namespace Omniverse.Input
 			var entityTarget = (EntityTarget)Ability.Desc.Target;
 
 			EntityDetector.ClearFilter();
-			if (entityTarget.Resources.Length > 0)
+			
+			if (entityTarget.ResourceSources != null)
 			{
 				EntityDetector.AddToFilter<ResourceSource>();
 			}
 
-			EntityDetector.AddToFilter<UnitPresenter>();
+			if (entityTarget.Units != null)
+			{
+				EntityDetector.AddToFilter<UnitPresenter>();
+			}
 
 			bool inputProcessed;
 			bool hasTarget;
