@@ -15,8 +15,8 @@ namespace Omniverse.Input
 		[Inject]
 		private EntityTargetHandler EntityTargetHandler { get; set; }
 
-		[Inject]
-		private TrajectoryAbilityHandler TrajectoryAbilityHandler { get; set; }
+		// [Inject]
+		// private TrajectoryAbilityHandler TrajectoryAbilityHandler { get; set; }
 
 		public void TryCastAbility(Unit unit, Ability ability)
 		{
@@ -40,19 +40,19 @@ namespace Omniverse.Input
 
 					break;
 				}
-				case TrajectoryTarget:
-				{
-					if (TrajectoryAbilityHandler.InProcess)
-					{
-						TrajectoryAbilityHandler.Cancell();
-					}
-					else
-					{
-						TrajectoryAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-					}
-
-					break;
-				}
+				// case TrajectoryTarget:
+				// {
+				// 	if (TrajectoryAbilityHandler.InProcess)
+				// 	{
+				// 		TrajectoryAbilityHandler.Cancell();
+				// 	}
+				// 	else
+				// 	{
+				// 		TrajectoryAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+				// 	}
+				//
+				// 	break;
+				// }
 				case EntityTarget:
 				{
 					if (EntityTargetHandler.InProcess)
