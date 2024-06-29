@@ -56,6 +56,7 @@ namespace Omniverse
 			builder.RegisterEntryPoint<Entities.Units.Manager>().AsSelf();
 
 			builder.RegisterEntryPoint<FactionManager>().AsSelf();
+			builder.RegisterEntryPoint<ResourceExtractionHadler>().AsSelf();
 
 			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
 			
