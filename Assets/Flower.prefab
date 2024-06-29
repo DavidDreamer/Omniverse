@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4993255458773212847}
   - component: {fileID: 8362197959279824462}
   - component: {fileID: 2402620564240572495}
-  - component: {fileID: 8860202071469019001}
   - component: {fileID: 4053650636045658972}
+  - component: {fileID: 3869445306913255791}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Untagged
@@ -85,21 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8860202071469019001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180833080654438466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43220a5724549ac99693faa1115bce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <HitBox>k__BackingField: {fileID: 0}
-  <Renderers>k__BackingField:
-  - {fileID: 2402620564240572495}
 --- !u!135 &4053650636045658972
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -121,3 +106,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.33721107
   m_Center: {x: 0.0005080998, y: 0.33721107, z: -0.027784884}
+--- !u!114 &3869445306913255791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180833080654438466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f27250aa37442a99c46c5f8ec817284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Renderers>k__BackingField:
+  - {fileID: 2402620564240572495}
+  <HitBox>k__BackingField: {fileID: 4053650636045658972}

@@ -12,7 +12,7 @@ namespace Omniverse.Entities.Units
 			? property.Amount
 			: 0;
 
-		public Vector3 Position => Unit.Presenter.transform.position;
+		public Vector3 Position => Unit.transform.position;
 
 		public int CellIndex { get; set; }
 		

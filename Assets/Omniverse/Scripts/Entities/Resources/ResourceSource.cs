@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class ResourceSource: EntityPresenter
+	public class ResourceSource: Entity
 	{
 		[field: SerializeField]
 		public ResourceSourceDesc Desc { get; private set; }

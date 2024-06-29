@@ -1,14 +1,8 @@
-using System;
 using Omniverse.Abilities;
 using UnityEngine;
 
 namespace Omniverse.Entities.Items
 {
-	public static class ItemDescUtils
-	{
-		public static Item Construct(this ItemDesc desc) => new(desc, -1);
-	}
-
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Item")]
 	public class ItemDesc: EntityDesc
 	{
@@ -16,7 +10,7 @@ namespace Omniverse.Entities.Items
 		public Sprite Icon { get; private set; }
 		
 		[field: SerializeField]
-		public ItemPresenter Prefab { get; private set; }
+		public Item Prefab { get; private set; }
 		
 		[field: SerializeField]
 		public AbilityDesc Ability { get; private set; }

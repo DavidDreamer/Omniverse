@@ -4,14 +4,17 @@ using System.Threading;
 using Omniverse.Abilities;
 using Omniverse.Entities.Items;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = UnityEngine.Object;
 
 namespace Omniverse.Entities.Units
 {
-	[Serializable]
-	public class Unit: Entity<UnitDesc>
+	public class Unit: Entity<UnitDesc>, IPoolObject
 	{
 		public event Action Died;
+		
+		[field: SerializeField]
+		public NavMeshAgent NavMeshAgent { get; private set; }
 		
 		public List<Ability> Abilities { get; } = new();
 
@@ -20,9 +23,7 @@ namespace Omniverse.Entities.Units
 		public bool IsDead { get; private set; }
 
 		public bool Locked { get; set; }
-
-		public UnitPresenter Presenter { get; set; }
-
+		
 		private CancellationTokenSource DeathCancellationTokenSource { get; set; } = new();
 
 		public CancellationToken DeathCancellationToken => DeathCancellationTokenSource.Token;
@@ -36,9 +37,11 @@ namespace Omniverse.Entities.Units
 		public Attack Attack { get; private set; }
 
 		public Inventory Inventory { get; private set; }
-		
-		public Unit(UnitDesc desc, int factionID): base(desc, factionID)
+
+		public override void Initialize(UnitDesc desc, int factionID)
 		{
+			base.Initialize(desc, factionID);
+			
 			Experience = new Experience(desc.Experience);
 			
 			foreach (PropertyDesc resourceDesc in Desc.Properties)
@@ -56,6 +59,19 @@ namespace Omniverse.Entities.Units
 			Inventory = new Inventory(desc.Inventory);
 		}
 
+		public void Cleanup()
+		{
+			if (HitBox != null)
+			{
+				HitBox.enabled = true;
+			}
+
+			if (NavMeshAgent != null)
+			{
+				NavMeshAgent.enabled = true;
+			}
+		}
+		
 		public void FixedTick()
 		{
 			if (IsDead)
@@ -74,13 +90,31 @@ namespace Omniverse.Entities.Units
 			{
 				return;
 			}
-
-			if (Presenter.NavMeshAgent != null)
+			
+			if (NavMeshAgent != null)
 			{
 				ProcessTarget();
+				
+				if (Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
+				{
+					NavMeshAgent.speed = property.Amount;
+				}
+				else
+				{
+					NavMeshAgent.speed = 0;
+				}
+				
+				if (Properties.TryGetValue(PropertyID.RotationSpeed, out property))
+				{
+					NavMeshAgent.angularSpeed = property.Amount;
+				}
+				else
+				{
+					NavMeshAgent.angularSpeed = 0;
+				}
+				
+				NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
 			}
-
-			Presenter.FixedTick();
 		}
 
 		private void ProcessTarget()
@@ -91,15 +125,15 @@ namespace Omniverse.Entities.Units
 					return;
 				case Unit unit:
 				{
-					Presenter.NavMeshAgent.destination = unit.Presenter.transform.position;
+					NavMeshAgent.destination = unit.transform.position;
 
 					if (Target.IsEnemyFor(this))
 					{
-						if (Presenter.NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
+						if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 						{
 							if (Time.time - Attack.lastTime > Properties[PropertyID.AttackSpeed].Amount)
 							{
-								Presenter.NavMeshAgent.isStopped = true;
+								NavMeshAgent.isStopped = true;
 								Attack.Perform(unit);
 							}
 						}
@@ -109,10 +143,10 @@ namespace Omniverse.Entities.Units
 				}
 				case Item item:
 				{
-					Presenter.NavMeshAgent.destination = item.Presenter.transform.position;
-					if (Presenter.NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
+					NavMeshAgent.destination = item.transform.position;
+					if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 					{
-						Object.Destroy(item.Presenter.gameObject);
+						Object.Destroy(item.gameObject);
 						Inventory.Add(item);
 						Target = null;
 					}
@@ -172,7 +206,12 @@ namespace Omniverse.Entities.Units
 			DeathCancellationTokenSource.Dispose();
 			DeathCancellationTokenSource = null;
 
-			Presenter.OnDeath();
+			HitBox.enabled = false;
+
+			if (NavMeshAgent != null)
+			{
+				NavMeshAgent.enabled = false;
+			}
 			
 			Died?.Invoke();
 		}

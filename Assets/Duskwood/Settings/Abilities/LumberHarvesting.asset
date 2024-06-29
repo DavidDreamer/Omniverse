@@ -18,7 +18,7 @@ MonoBehaviour:
     <Time>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
-    rid: 8872749373637525620
+    rid: 8872749453277659146
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
@@ -28,15 +28,15 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 8872749373637525620
-      type: {class: EntityTarget, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
+    - rid: 8872749453277659146
+      type: {class: EntityTargetDesc, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
       data:
         <Range>k__BackingField: 0
         <ResourceSources>k__BackingField:
-          rid: 8872749373637525695
+          rid: 8872749453277659147
         <Units>k__BackingField:
           rid: -2
-    - rid: 8872749373637525695
+    - rid: 8872749453277659147
       type: {class: ResourceSourceTargetDesc, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
       data:
         <Resources>k__BackingField:

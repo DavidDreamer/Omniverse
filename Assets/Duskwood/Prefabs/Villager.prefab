@@ -6485,16 +6485,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5742149645102701673, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1903971333155341910}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1720283820493895142, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 5286719685113092711}
   m_SourcePrefab: {fileID: 100100000, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
 --- !u!4 &663150480988032472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5742149645102701673, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+  m_PrefabInstance: {fileID: 5081130704860910001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &2610566136101708631 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: -2109561056999165210, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+  m_PrefabInstance: {fileID: 5081130704860910001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5862666856362632279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1720283820493895142, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
+  m_PrefabInstance: {fileID: 5081130704860910001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5286719685113092711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862666856362632279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe6b39d3b6847efaf404beb95418dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Renderers>k__BackingField:
+  - {fileID: 3688933885029965621}
+  - {fileID: 6183907811156154220}
+  - {fileID: 7325841823373367655}
+  - {fileID: 4620153856246640423}
+  - {fileID: 2815179552728531289}
+  - {fileID: 2872800484835528654}
+  - {fileID: 6960534981707916188}
+  - {fileID: 5533626497889953616}
+  <HitBox>k__BackingField: {fileID: 8029083536680744619}
+  <NavMeshAgent>k__BackingField: {fileID: 2610566136101708631}
+--- !u!65 &8029083536680744619 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3021569670787000090, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
   m_PrefabInstance: {fileID: 5081130704860910001}
   m_PrefabAsset: {fileID: 0}

@@ -2,18 +2,22 @@
 
 namespace Omniverse.Entities.Items
 {
-	public class Item: Entity<ItemDesc>
+	public class Item: Entity<ItemDesc>, IPoolObject
 	{
-		public ItemPresenter Presenter { get; set; }
+		public Ability Ability { get; set; }
 
-		public Ability Ability { get; }
-
-		public Item(ItemDesc desc, int factionID): base(desc, factionID)
+		public override void Initialize(ItemDesc desc, int factionID)
 		{
+			base.Initialize(desc, factionID);
+			
 			if (desc.Ability is not null)
 			{
 				Ability = new Ability(desc.Ability);
 			}
+		}
+
+		public void Cleanup()
+		{
 		}
 	}
 }

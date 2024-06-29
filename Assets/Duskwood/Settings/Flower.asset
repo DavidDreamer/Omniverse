@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Flower
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 21300000, guid: c6a37abdf836c514d8b2358a163ebdc6, type: 3}
-  <Prefab>k__BackingField: {fileID: 8860202071469019001, guid: 969d28f7f127c1842b406d09b99464a0, type: 3}
+  <Prefab>k__BackingField: {fileID: 3869445306913255791, guid: 969d28f7f127c1842b406d09b99464a0, type: 3}
   <Ability>k__BackingField: {fileID: 11400000, guid: bf1b98db502231e4a88dc69f7016a6e7, type: 2}
   <Consumable>k__BackingField: 1

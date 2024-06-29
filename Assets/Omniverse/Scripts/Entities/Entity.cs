@@ -7,7 +7,7 @@ namespace Omniverse
 	public interface IEntity
 	{
 		int FactionID { get; }
-		
+
 		Dictionary<PropertyID, Property> Properties { get; }
 	}
 
@@ -15,21 +15,28 @@ namespace Omniverse
 	{
 		TDesc Desc { get; }
 	}
-	
-	public abstract class Entity<TDesc>: IEntity<TDesc> where TDesc: EntityDesc
+
+	public abstract class Entity: MonoBehaviour, IEntity
 	{
-		public TDesc Desc { get; }
+		[field: SerializeField]
+		public List<Renderer> Renderers { get; private set; }
 
-		public int FactionID { get; }
+		[field: SerializeField]
+		public Collider HitBox { get; private set; }
+
+		public int FactionID { get; set; }
+
+		public Dictionary<PropertyID, Property> Properties { get; } = new();
+	}
+	
+	public abstract class Entity<TDesc>: Entity, IEntity<TDesc> where TDesc: EntityDesc
+	{
+		public TDesc Desc { get; set; }
 		
-		public Dictionary<PropertyID, Property> Properties { get; }
-
-		protected Entity(TDesc desc, int factionID)
+		public virtual void Initialize(TDesc desc, int factionID)
 		{
 			Desc = desc;
 			FactionID = factionID;
-
-			Properties = new Dictionary<PropertyID, Property>();
 		}
 	}
 }

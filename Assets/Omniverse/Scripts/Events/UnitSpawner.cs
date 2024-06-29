@@ -15,7 +15,7 @@ namespace Omniverse.Entities.Units
 		public void Start()
 		{
 			Unit unit = UnitManager.Spawn(UnitDesc, FactionID);
-			unit.Presenter.NavMeshAgent.Warp(transform.position);
+			unit.NavMeshAgent.Warp(transform.position);
 		}
 	}
 }

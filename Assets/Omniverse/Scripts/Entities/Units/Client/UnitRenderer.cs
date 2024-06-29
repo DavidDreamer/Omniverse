@@ -49,7 +49,7 @@ namespace Omniverse.Entities.Units.Rendering
 		public void Start()
 		{
 			//TODO: TEMP
-			Unit = GetComponentInParent<UnitPresenter>().Entity;
+			Unit = GetComponentInParent<Unit>();
 			Unit.Died += OnDied;
 			Unit.Attack.Started += OnAttackStarted;
 
@@ -71,7 +71,7 @@ namespace Omniverse.Entities.Units.Rendering
 
 		private void Update()
 		{
-			Animator.SetBool(AnimatorVariables.IsMoving, Unit.Presenter.NavMeshAgent.velocity.sqrMagnitude > 0);
+			Animator.SetBool(AnimatorVariables.IsMoving, Unit.NavMeshAgent.velocity.sqrMagnitude > 0);
 			//TODO
 			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
 		}

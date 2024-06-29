@@ -16,14 +16,14 @@ namespace Omniverse.Entities.Units
 			
 			for (int i = 0; i < count; ++i)
 			{
-				var unitPresenter = Colliders[i].GetComponentInParent<UnitPresenter>();
+				var unit = Colliders[i].GetComponentInParent<Unit>();
 
-				if (unitPresenter == null)
+				if (unit == null)
 				{
 					continue;
 				}
 
-				yield return unitPresenter.Entity;
+				yield return unit;
 			}
 		}
 		
@@ -31,7 +31,7 @@ namespace Omniverse.Entities.Units
 		{
 			foreach (Unit unit in GetUnitsInSphere(position, radius, layerMask))
 			{
-				Vector3 direction = (unit.Presenter.transform.position - position).normalized;
+				Vector3 direction = (unit.transform.position - position).normalized;
 
 				float currentAngle = Vector3.Angle(direction, forward);
 

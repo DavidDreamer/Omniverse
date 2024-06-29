@@ -15,7 +15,7 @@ namespace Omniverse.Entities.Units
 	public class Manager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
-		private PrefabPool<UnitPresenter> PresenterPool { get; set; }
+		private PrefabPool<Unit> PresenterPool { get; set; }
 		
 		[Inject]
 		private Items.Manager ItemManager { get; set; }
@@ -39,14 +39,8 @@ namespace Omniverse.Entities.Units
 		
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
-			UnitPresenter unitPresenter = PresenterPool.Take(desc.Presentation.Prefab);
-
-			var unit = new Unit(desc, factionID)
-			{
-				Presenter = unitPresenter
-			};
-
-			unitPresenter.Bind(unit);
+			Unit unit = PresenterPool.Take(desc.Presentation.Prefab);
+			unit.Initialize(desc, factionID);
 			Units.Add(unit);
 
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
@@ -61,7 +55,7 @@ namespace Omniverse.Entities.Units
 			FogOfWarManager.Unregister(FogOfWarAgents[unit]);
 			FogOfWarAgents.Remove(unit);
 
-			PresenterPool.Return(unit.Presenter);
+			PresenterPool.Return(unit);
 			Units.Remove(unit);
 		}
 
@@ -76,7 +70,7 @@ namespace Omniverse.Entities.Units
 				CellVisibilityState cellVisibilityState =
 					FogOfWarManager.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
 				
-				unit.Presenter.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
+				unit.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
 
 				Units[i].FixedTick();
 			}
@@ -118,7 +112,7 @@ namespace Omniverse.Entities.Units
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
 			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
-			PresenterPool.Return(unit.Presenter);
+			PresenterPool.Return(unit);
 		}
 
 		private void DropLoot(Unit unit)
@@ -132,7 +126,7 @@ namespace Omniverse.Entities.Units
 					continue;
 				}
 
-				ItemManager.Spawn(loot.Item, unit.Presenter.transform.position, Quaternion.identity);
+				ItemManager.Spawn(loot.Item, unit.transform.position, Quaternion.identity);
 			}
 		}
 
