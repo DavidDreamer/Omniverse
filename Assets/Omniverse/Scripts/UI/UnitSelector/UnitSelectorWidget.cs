@@ -40,7 +40,7 @@ namespace Omniverse.UI
 			{
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);
-				item.Icon.sprite = selectedUnits[i].Unit.Desc.Presentation.Icon;
+				item.Icon.sprite = selectedUnits[i].Unit.Desc.Icon;
 				i++;
 			}
 

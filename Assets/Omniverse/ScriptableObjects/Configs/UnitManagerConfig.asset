@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350d9b8e6c4d4484a06c4aa418614a64, type: 3}
   m_Name: UnitManagerConfig
   m_EditorClassIdentifier: 
+  <UnitPrefab>k__BackingField: {fileID: 4154135827708144273, guid: 4febeb0e4c9b4a349b141f3487a9899c, type: 3}
   <DespawnDelay>k__BackingField: 10

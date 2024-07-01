@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2109561056999165210}
   - component: {fileID: 3021569670787000090}
   m_Layer: 0
-  m_Name: UnitPresenter
+  m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,9 +43,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1720283820493895142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640780f180c9458b829b8785353b40fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fe6b39d3b6847efaf404beb95418dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Renderers>k__BackingField: []
   <HitBox>k__BackingField: {fileID: 3021569670787000090}
   <NavMeshAgent>k__BackingField: {fileID: -2109561056999165210}
 --- !u!195 &-2109561056999165210

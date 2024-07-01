@@ -15,7 +15,7 @@ namespace Omniverse.Entities.Units
 	public class Manager: IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
-		private PrefabPool<Unit> PresenterPool { get; set; }
+		private PrefabPool<Unit> Pool { get; set; }
 		
 		[Inject]
 		private Items.Manager ItemManager { get; set; }
@@ -26,6 +26,9 @@ namespace Omniverse.Entities.Units
 		[Inject]
 		private FogOfWar.Manager FogOfWarManager { get; set; }
 
+		[Inject]
+		private IObjectResolver ObjectResolver { get; set; }
+		
 		private List<Unit> Units { get; } = new();
 
 		private CancellationTokenSource CancellationTokenSource { get; } = new();
@@ -39,10 +42,13 @@ namespace Omniverse.Entities.Units
 		
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
-			Unit unit = PresenterPool.Take(desc.Presentation.Prefab);
+			Unit unit = Pool.Take(Config.UnitPrefab);
 			unit.Initialize(desc, factionID);
 			Units.Add(unit);
 
+			GameObject model = UnityEngine.Object.Instantiate(desc.Model, unit.transform, false);
+			ObjectResolver.InjectGameObject(model);
+			
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
 			FogOfWarAgents.Add(unit, unitFogOfWarAgent);
 			FogOfWarManager.Register(unitFogOfWarAgent);
@@ -55,7 +61,7 @@ namespace Omniverse.Entities.Units
 			FogOfWarManager.Unregister(FogOfWarAgents[unit]);
 			FogOfWarAgents.Remove(unit);
 
-			PresenterPool.Return(unit);
+			Pool.Return(unit);
 			Units.Remove(unit);
 		}
 
@@ -112,7 +118,7 @@ namespace Omniverse.Entities.Units
 		private async void WaitForDespawn(Unit unit, CancellationToken token)
 		{
 			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
-			PresenterPool.Return(unit);
+			Pool.Return(unit);
 		}
 
 		private void DropLoot(Unit unit)

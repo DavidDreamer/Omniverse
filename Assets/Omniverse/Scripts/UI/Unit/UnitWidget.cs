@@ -45,7 +45,7 @@ namespace Omniverse.UI
 			
 			Unit unit = UnitSelector.SelectedUnit.Unit;
 
-			Icon.sprite = unit.Desc.Presentation.Icon;
+			Icon.sprite = unit.Desc.Icon;
 				
 			Health.Bind(unit);
 

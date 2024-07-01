@@ -8,9 +8,6 @@ namespace Omniverse.Entities.Units
 	public class UnitDesc: EntityDesc
 	{
 		[field: SerializeField]
-		public Presentation Presentation { get; private set; }
-
-		[field: SerializeField]
 		public ExperienceDesc Experience { get; private set; }
 		
 		[field: SerializeField]

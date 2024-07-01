@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a441797ce7b4f648344e4ae4ac99761, type: 3}
   m_Name: Villager
   m_EditorClassIdentifier: 
-  <Presentation>k__BackingField:
-    <Prefab>k__BackingField: {fileID: 5286719685113092711, guid: 1fea8bef43d6b14459bae11d21fcf271, type: 3}
-    <Icon>k__BackingField: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
+  <Name>k__BackingField: Villager
+  <Icon>k__BackingField: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
+  <Model>k__BackingField: {fileID: 4949059538394060341, guid: e10ac33b971d73845ac8949e0305343a, type: 3}
   <Experience>k__BackingField:
     <PointsForLevel>k__BackingField: e8030000
   <Properties>k__BackingField:

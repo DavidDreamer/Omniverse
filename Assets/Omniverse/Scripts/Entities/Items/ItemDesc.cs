@@ -7,9 +7,6 @@ namespace Omniverse.Entities.Items
 	public class ItemDesc: EntityDesc
 	{
 		[field: SerializeField]
-		public Sprite Icon { get; private set; }
-		
-		[field: SerializeField]
 		public Item Prefab { get; private set; }
 		
 		[field: SerializeField]

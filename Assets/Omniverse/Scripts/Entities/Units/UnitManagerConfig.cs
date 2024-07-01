@@ -6,6 +6,9 @@ namespace Omniverse.Entities.Units
 	public class UnitManagerConfig: ScriptableObject
 	{
 		[field: SerializeField]
+		public Unit UnitPrefab { get; private set; }
+		
+		[field: SerializeField]
 		public float DespawnDelay { get; private set; }
 	}
 }
