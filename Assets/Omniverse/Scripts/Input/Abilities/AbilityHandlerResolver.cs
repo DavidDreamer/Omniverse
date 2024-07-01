@@ -20,7 +20,7 @@ namespace Omniverse.Input
 
 		public void TryCastAbility(Unit unit, Ability ability)
 		{
-			switch (ability.Desc.Target)
+			switch (ability.Target)
 			{
 				case null:
 				{

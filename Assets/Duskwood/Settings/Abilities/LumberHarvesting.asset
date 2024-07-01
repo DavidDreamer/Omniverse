@@ -22,7 +22,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Actions>k__BackingField: []
+  <Actions>k__BackingField:
+  - rid: 8872749453277659149
   references:
     version: 2
     RefIds:
@@ -41,3 +42,7 @@ MonoBehaviour:
       data:
         <Resources>k__BackingField:
         - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
+    - rid: 8872749453277659149
+      type: {class: ExtractResourceDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
+      data:
+        <Amount>k__BackingField: 10

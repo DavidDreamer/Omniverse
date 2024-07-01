@@ -21,7 +21,7 @@ namespace Omniverse.Input
 		{
 			Outline.Pass.Clear();
 
-			EntityPresenter entityPresenter = EntityDetector.Target;
+			Entity entityPresenter = EntityDetector.Target;
 
 			if (entityPresenter != null)
 			{
@@ -34,12 +34,12 @@ namespace Omniverse.Input
 			}
 		}
 
-		private int GetOutlineVariantByFactionID(EntityPresenter entityPresenter)
+		private int GetOutlineVariantByFactionID(Entity entityPresenter)
 		{
 			switch (entityPresenter)
 			{
-				case UnitPresenter unitPresenter:
-					return unitPresenter.Entity.FactionID == Player.FactionID ? 0 : 1;
+				case Unit unit:
+					return unit.FactionID == Player.FactionID ? 0 : 1;
 				default:
 					return 2;
 			}

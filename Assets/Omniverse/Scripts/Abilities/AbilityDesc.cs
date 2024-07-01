@@ -15,8 +15,8 @@ namespace Omniverse.Abilities
 		public Cast Cast { get; private set; }
 
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(ITarget))]
-		public ITarget Target { get; private set; }
+		[field: VersatileOptional(typeof(ITargetDesc))]
+		public ITargetDesc Target { get; private set; }
 
 		[field: SerializeField]
 		public CooldownDesc Cooldown { get; private set; }

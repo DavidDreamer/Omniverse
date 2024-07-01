@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Dreambox.Math;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Actions
 {
@@ -11,22 +11,30 @@ namespace Omniverse.Actions
 	{
 		private IAction[] Actions { get; }
 
-		public IEntity Caster { get; }
+		public IEntity Caster { get; set; }
 
 		public List<IEntity> Entities { get; } = new();
 
 		public List<Vector3> Points { get; } = new();
 
 		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
-
-		public ExecutionContext(IEntity caster, IActionDesc[] actionDescs)
+		
+		public ExecutionContext(IObjectResolver objectResolver, IActionDesc[] actionDescs)
 		{
-			Caster = caster;
-			Actions = actionDescs.Select(desc => desc.Build()).ToArray();
+			Actions = new IAction[actionDescs.Length];
+
+			for (int i = 0; i < actionDescs.Length; ++i)
+			{
+				IAction action = actionDescs[i].Build();
+				objectResolver.Inject(action);
+				Actions[i] = action;
+			}
 		}
 
-		public async UniTask PerformAsync(CancellationToken token)
+		public async UniTask PerformAsync(IEntity caster, CancellationToken token)
 		{
+			Caster = caster;
+			
 			foreach (IAction action in Actions)
 			{
 				await action.Perform(this, token);
@@ -37,6 +45,7 @@ namespace Omniverse.Actions
 
 		private void Clear()
 		{
+			Caster = null;
 			Entities.Clear();
 			Points.Clear();
 			Trajectories.Clear();

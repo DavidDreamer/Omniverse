@@ -16,18 +16,18 @@ namespace Omniverse.Input
 
 		protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 		{
-			var entityTarget = (EntityTarget)Ability.Desc.Target;
+			var entityTarget = (EntityTarget)Ability.Target;
 
 			EntityDetector.ClearFilter();
 			
-			if (entityTarget.ResourceSources != null)
+			if (entityTarget.Desc.ResourceSources != null)
 			{
 				EntityDetector.AddToFilter<ResourceSource>();
 			}
 
-			if (entityTarget.Units != null)
+			if (entityTarget.Desc.Units != null)
 			{
-				EntityDetector.AddToFilter<UnitPresenter>();
+				EntityDetector.AddToFilter<Unit>();
 			}
 
 			bool inputProcessed;
@@ -42,6 +42,8 @@ namespace Omniverse.Input
 			}
 			while (!inputProcessed || !hasTarget);
 
+			entityTarget.Value = EntityDetector.Target;
+			
 			EntityDetector.SetDefaultDetectableType();
 		}
 	}

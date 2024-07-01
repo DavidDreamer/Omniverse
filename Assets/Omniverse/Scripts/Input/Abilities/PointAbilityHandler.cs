@@ -37,7 +37,7 @@ namespace Omniverse.Input
 
 		protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 		{
-			var pointTarget = (PointTarget)Ability.Desc.Target;
+			var pointTarget = (PointTargetDesc)Ability.Desc.Target;
 			AbilityRangeRenderer.SetRange(pointTarget.Range);
 
 			while (true)
@@ -45,7 +45,7 @@ namespace Omniverse.Input
 				bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
 				var targetPositionXZ = new Vector3(point.x, 0, point.z);
 
-				Vector3 characterPosition = caster.Presenter.transform.position;
+				Vector3 characterPosition = caster.transform.position;
 				var characterPositionXZ = new Vector3(characterPosition.x, 0, characterPosition.z);
 
 				Vector3 characterToTarget = targetPositionXZ - characterPositionXZ;
@@ -62,7 +62,7 @@ namespace Omniverse.Input
 					point = navMeshHit.position;
 				}
 
-				AbilityRangeRenderer.transform.position = caster.Presenter.transform.position;
+				AbilityRangeRenderer.transform.position = caster.transform.position;
 				AbilityTargetRenderer.DecalProjector.enabled = navMeshPositionIsValid;
 				AbilityTargetRenderer.transform.position = point;
 

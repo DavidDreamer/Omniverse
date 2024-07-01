@@ -20,6 +20,15 @@ MonoBehaviour:
     <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   - <Name>k__BackingField: 
     <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <FactionsDesc>k__BackingField:
+    <Resources>k__BackingField:
+    - {fileID: 11400000, guid: f02e271383beedf4cb6ae87f31095902, type: 2}
+    - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
+    <Factions>k__BackingField:
+    - <Name>k__BackingField: 
+      <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    - <Name>k__BackingField: 
+      <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <MapSettings>k__BackingField: {fileID: 11400000, guid: ddc732f160381bb40ac14ba20f5ed8c6, type: 2}
   <FogOfWarSettings>k__BackingField:
     <Enabled>k__BackingField: 1

@@ -40,23 +40,23 @@ namespace Omniverse.Input
 			{
 				if (EntityDetector.Target != null)
 				{
-					EntityPresenter target = EntityDetector.Target;
+					Entity target = EntityDetector.Target;
 					switch (target)
 					{
-						case UnitPresenter unitPresenter:
+						case Unit unit:
 							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
 							{
-								if (selectedUnit.Unit != unitPresenter.Entity)
+								if (selectedUnit.Unit != unit)
 								{
-									selectedUnit.Unit.Target = unitPresenter.Entity;
+									selectedUnit.Unit.Target = unit;
 								}
 							}
 
 							break;
-						case ItemPresenter itemPresenter:
+						case Item item:
 							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
 							{
-								selectedUnit.Unit.Target = itemPresenter.Entity;
+								selectedUnit.Unit.Target = item;
 							}
 
 							break;
@@ -95,7 +95,7 @@ namespace Omniverse.Input
 			foreach (UnitRenderer unitRenderer in UnitSelector.SelectedUnits)
 			{
 				unitRenderer.Unit.Target = null;
-				unitRenderer.Unit.Presenter.NavMeshAgent.destination = position;
+				unitRenderer.Unit.NavMeshAgent.destination = position;
 			}
 		}
 

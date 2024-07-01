@@ -10,7 +10,7 @@ namespace Omniverse.Input
 {
 	public class EntityDetector: ILateTickable
 	{
-		public EntityPresenter Target { get; private set; }
+		public Entity Target { get; private set; }
 
 		[Inject]
 		private Player Player { get; set; }
@@ -22,22 +22,22 @@ namespace Omniverse.Input
 			SetDefaultDetectableType();
 		}
 
-		public void SetDefaultDetectableType() => SetFiler<UnitPresenter>();
+		public void SetDefaultDetectableType() => SetFiler<Unit>();
 
 		public void ClearFilter() => DetectableTypes.Clear();
 		
-		public void SetFiler<TEntityType>() where TEntityType: EntityPresenter
+		public void SetFiler<TEntityType>() where TEntityType: Entity
 		{
 			ClearFilter();
 			AddToFilter<TEntityType>();
 		}
 
-		public void AddToFilter<TEntityType>() where TEntityType: EntityPresenter
+		public void AddToFilter<TEntityType>() where TEntityType: Entity
 		{
 			DetectableTypes.Add(typeof(TEntityType));
 		}
 
-		public void RemoveFromFilter<TEntityType>() where TEntityType: EntityPresenter
+		public void RemoveFromFilter<TEntityType>() where TEntityType: Entity
 		{
 			DetectableTypes.Remove(typeof(TEntityType));
 		}
@@ -57,7 +57,7 @@ namespace Omniverse.Input
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var entityPresenter = hitInfo.collider.GetComponent<EntityPresenter>();
+				var entityPresenter = hitInfo.collider.GetComponent<Entity>();
 				if (entityPresenter != null && DetectableTypes.Contains(entityPresenter.GetType()))
 				{
 					Target = entityPresenter;

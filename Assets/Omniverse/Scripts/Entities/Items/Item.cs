@@ -1,4 +1,6 @@
 ﻿using Omniverse.Abilities;
+using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Entities.Items
 {
@@ -6,13 +8,16 @@ namespace Omniverse.Entities.Items
 	{
 		public Ability Ability { get; set; }
 
+		[field: SerializeField]
+		private IObjectResolver ObjectResolver { get; set; }
+		
 		public override void Initialize(ItemDesc desc, int factionID)
 		{
 			base.Initialize(desc, factionID);
 			
 			if (desc.Ability is not null)
 			{
-				Ability = new Ability(desc.Ability);
+				Ability = new Ability(ObjectResolver, desc.Ability);
 			}
 		}
 

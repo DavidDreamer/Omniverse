@@ -5,6 +5,7 @@ using Omniverse.Abilities;
 using Omniverse.Entities.Items;
 using UnityEngine;
 using UnityEngine.AI;
+using VContainer;
 using Object = UnityEngine.Object;
 
 namespace Omniverse.Entities.Units
@@ -38,6 +39,9 @@ namespace Omniverse.Entities.Units
 
 		public Inventory Inventory { get; private set; }
 
+		[Inject]
+		private IObjectResolver ObjectResolver { get; set; }
+		
 		public override void Initialize(UnitDesc desc, int factionID)
 		{
 			base.Initialize(desc, factionID);
@@ -51,7 +55,7 @@ namespace Omniverse.Entities.Units
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(abilityDesc);
+				var ability = new Ability(ObjectResolver, abilityDesc);
 				Abilities.Add(ability);
 			}
 
