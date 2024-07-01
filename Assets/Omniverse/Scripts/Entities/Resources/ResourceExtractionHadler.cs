@@ -1,4 +1,3 @@
-using UnityEngine;
 using VContainer;
 
 namespace Omniverse
@@ -7,13 +6,13 @@ namespace Omniverse
 	{
 		[Inject]
 		private FactionManager FactionManager { get; set; }
-		
+
 		public void Extract(IEntity entity, ResourceSource resourceSource, int amount)
 		{
-			amount = Mathf.Min(resourceSource.Amount, amount);
-			resourceSource.ChangeAmount(-amount);
+			resourceSource.Extract(ref amount);
 			int factionID = entity.FactionID;
-			FactionManager.Factions[factionID].ChangeResource(resourceSource.Desc.Resource, amount);
+			Faction faction = FactionManager.Factions[factionID];
+			faction.ChangeResource(resourceSource.Desc.Resource, amount);
 		}
 	}
 }

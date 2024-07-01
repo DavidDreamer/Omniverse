@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
@@ -15,9 +14,15 @@ namespace Omniverse
 			Amount = Desc.Amount;
 		}
 
-		public void ChangeAmount(int delta)
+		public void Extract(ref int amount)
 		{
-			Amount += delta;
+			amount = Mathf.Min(Amount, amount);
+			Amount -= amount;
+
+			if (Amount == 0)
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 }
