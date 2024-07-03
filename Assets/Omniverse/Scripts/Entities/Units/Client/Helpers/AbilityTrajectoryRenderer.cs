@@ -1,7 +1,7 @@
 ﻿using Dreambox.Math;
 using UnityEngine;
 
-namespace Bonecrusher.Abilities
+namespace Omniverse.Entities.Units.Client
 {
 	public class AbilityTrajectoryRenderer: MonoBehaviour
 	{

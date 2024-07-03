@@ -11,9 +11,9 @@ namespace Omniverse.Entities.Items
 		[field: SerializeField]
 		private IObjectResolver ObjectResolver { get; set; }
 		
-		public override void Initialize(ItemDesc desc, int factionID)
+		public override void Initialize(ItemDesc desc)
 		{
-			base.Initialize(desc, factionID);
+			base.Initialize(desc);
 			
 			if (desc.Ability is not null)
 			{

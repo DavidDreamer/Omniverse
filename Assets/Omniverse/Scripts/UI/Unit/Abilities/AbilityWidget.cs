@@ -52,7 +52,7 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit.Unit, Ability);
+					AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit, Ability);
 					break;
 			}
 		}

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
-using Bonecrusher.Abilities;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
 using Omniverse.Entities.Units;
+using Omniverse.Entities.Units.Client;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;

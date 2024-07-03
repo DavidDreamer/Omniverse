@@ -1,5 +1,4 @@
 ﻿using Dreambox.Rendering.URP;
-using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -21,28 +20,31 @@ namespace Omniverse.Input
 		{
 			Outline.Pass.Clear();
 
-			Entity entityPresenter = EntityDetector.Target;
+			Entity entity = EntityDetector.Target;
 
-			if (entityPresenter != null)
+			if (entity == null)
 			{
-				foreach (Renderer renderer in entityPresenter.Renderers)
+				return;
+			}
+			
+			//TODO
+			var entityRenderer = entity.GetComponentInChildren<IRendererComponent>();
+			if (entityRenderer != null)
+			{
+				foreach (Renderer renderer in entityRenderer.Renderers)
 				{
-					int variant = GetOutlineVariantByFactionID(entityPresenter);
+					int variant = GetOutlineVariant(entity);
 					var outlineRenderer = new OutlineRenderer(renderer, variant);
 					Outline.Pass.AddRenderer(outlineRenderer);
 				}
 			}
 		}
 
-		private int GetOutlineVariantByFactionID(Entity entityPresenter)
-		{
-			switch (entityPresenter)
+		private int GetOutlineVariant(Entity entity) =>
+			entity switch
 			{
-				case Unit unit:
-					return unit.FactionID == Player.FactionID ? 0 : 1;
-				default:
-					return 2;
-			}
-		}
+				IFactious factious => factious.FactionID == Player.FactionID ? 0 : 1,
+				_ => 2
+			};
 	}
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2402620564240572495}
   - component: {fileID: 4053650636045658972}
   - component: {fileID: 3869445306913255791}
+  - component: {fileID: 7575359988327099561}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Untagged
@@ -118,6 +119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f27250aa37442a99c46c5f8ec817284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <HitBox>k__BackingField: {fileID: 4053650636045658972}
+--- !u!114 &7575359988327099561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180833080654438466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69338b27fb614cd4b5d868e995ce7614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   <Renderers>k__BackingField:
   - {fileID: 2402620564240572495}
-  <HitBox>k__BackingField: {fileID: 4053650636045658972}

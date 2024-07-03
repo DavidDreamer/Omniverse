@@ -36,7 +36,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 					if (Item.Ability is not null)
 					{
-						AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit.Unit, Item.Ability);
+						AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit, Item.Ability);
 					}
 					break;
 			}

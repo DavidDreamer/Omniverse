@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Omniverse.Entities.Units.Rendering;
-using UnityEngine;
+using Omniverse.Entities.Items;
+using Omniverse.Entities.Units;
+using Omniverse.Entities.Units.Client;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
@@ -11,11 +11,11 @@ namespace Omniverse.Input
 	//TODO add limit
 	public class UnitSelector: ILateTickable
 	{
-		public List<UnitRenderer> SelectedUnits { get; } = new();
+		public List<Unit> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
 		
-		public UnitRenderer SelectedUnit => SelectedUnits[SelectionIndex];
+		public Unit SelectedUnit => SelectedUnits[SelectionIndex];
 		
 		public int SelectionIndex { get; private set; }
 		
@@ -36,13 +36,13 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var unitRenderer = EntityDetector.Target.GetComponentInChildren<UnitRenderer>();
-			if (unitRenderer == null)
+			var unit = EntityDetector.Target as Unit;
+			if (unit == null)
 			{
 				return;
 			}
 			
-			bool isSelected = SelectedUnits.Contains(unitRenderer);
+			bool isSelected = SelectedUnits.Contains(unit);
 
 			bool additiveMode = Keyboard.current.shiftKey.isPressed;
 			bool wasClicked = Mouse.current.leftButton.wasReleasedThisFrame;
@@ -58,16 +58,29 @@ namespace Omniverse.Input
 				{
 					if (additiveMode)
 					{
-						RemoveFromSelection(unitRenderer);
+						RemoveFromSelection(unit);
 					}
 				}
 				else
 				{
-					AddToSelection(unitRenderer);
+					AddToSelection(unit);
 				}
 			}
-			
+
+			UpdateDetectionFilter();
 			UpdateSelectionIndex();
+
+			void UpdateDetectionFilter()
+			{
+				if (HasSelection)
+				{
+					EntityDetector.AddToFilter<Item>();
+				}
+				else
+				{
+					EntityDetector.RemoveFromFilter<Item>();
+				}
+			}
 			
 			void UpdateSelectionIndex()
 			{
@@ -82,23 +95,26 @@ namespace Omniverse.Input
 			}
 		}
 
-		private void AddToSelection(UnitRenderer unitRenderer)
+		private void AddToSelection(Unit unit)
 		{
-			unitRenderer.Selection.gameObject.SetActive(true);
-			SelectedUnits.Add(unitRenderer);
+			//TODO
+			unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(true);
+			SelectedUnits.Add(unit);
 		}
 
-		private void RemoveFromSelection(UnitRenderer unitRenderer)
+		private void RemoveFromSelection(Unit unit)
 		{
-			unitRenderer.Selection.gameObject.SetActive(false);
-			SelectedUnits.Remove(unitRenderer);
+			//TODO
+			unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(false);
+			SelectedUnits.Remove(unit);
 		}
 
 		private void ClearSelection()
 		{
-			foreach (UnitRenderer unitRenderer in SelectedUnits)
+			//TODO
+			foreach (Unit unit in SelectedUnits)
 			{
-				unitRenderer.Selection.gameObject.SetActive(false);
+				unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(false);
 			}
 
 			SelectedUnits.Clear();

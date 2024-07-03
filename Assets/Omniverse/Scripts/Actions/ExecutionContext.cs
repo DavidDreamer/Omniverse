@@ -11,9 +11,9 @@ namespace Omniverse.Actions
 	{
 		private IAction[] Actions { get; }
 
-		public IEntity Caster { get; set; }
+		public Entity Caster { get; set; }
 
-		public List<IEntity> Entities { get; } = new();
+		public List<Entity> Entities { get; } = new();
 
 		public List<Vector3> Points { get; } = new();
 
@@ -31,7 +31,7 @@ namespace Omniverse.Actions
 			}
 		}
 
-		public async UniTask PerformAsync(IEntity caster, CancellationToken token)
+		public async UniTask PerformAsync(Entity caster, CancellationToken token)
 		{
 			Caster = caster;
 			

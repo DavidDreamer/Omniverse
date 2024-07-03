@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Omniverse.Entities.Units;
 using VContainer;
 
@@ -20,7 +19,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			ability.Cast(unit, default).SuppressCancellationThrow().Forget();
+			unit.Cast(ability, default).Forget();
 		}
 	}
 }

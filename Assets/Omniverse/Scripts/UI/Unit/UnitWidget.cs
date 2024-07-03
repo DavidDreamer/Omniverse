@@ -43,7 +43,7 @@ namespace Omniverse.UI
 				return;
 			}
 			
-			Unit unit = UnitSelector.SelectedUnit.Unit;
+			Unit unit = UnitSelector.SelectedUnit;
 
 			Icon.sprite = unit.Desc.Icon;
 				

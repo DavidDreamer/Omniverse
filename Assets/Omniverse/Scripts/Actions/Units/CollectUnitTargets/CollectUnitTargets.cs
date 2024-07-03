@@ -31,7 +31,8 @@ namespace Omniverse.Actions
 						continue;
 					}
 
-					bool hasSameFaction = unit.FactionID == context.Caster.FactionID;
+					//TODO
+					bool hasSameFaction = unit.FactionID == ((Unit)context.Caster).FactionID;
 					switch (hasSameFaction)
 					{
 						case true when !allyCastAllowed:

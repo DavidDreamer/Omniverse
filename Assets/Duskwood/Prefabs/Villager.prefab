@@ -3354,6 +3354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1900518398091808807}
   - component: {fileID: 799520857074642917}
+  - component: {fileID: 5334351857256759043}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -3392,40 +3393,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86bd1e815594963bb7d5b510247739e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Animator>k__BackingField: {fileID: 8275522674573946455}
   <HealthBar>k__BackingField: {fileID: 5998634054266159542}
-  <Ragdoll>k__BackingField: {fileID: 4074927518922109611}
   <Selection>k__BackingField: {fileID: 8837485615914964900}
   <Focus>k__BackingField: {fileID: 2048342167885987510}
   <Renderers>k__BackingField:
-  - {fileID: 2696375182209524468}
-  - {fileID: 6224976243701101491}
-  - {fileID: 8036201492586267319}
-  - {fileID: 7287581058631414559}
   - {fileID: 3675506214835833156}
-  - {fileID: 674310952185527638}
   - {fileID: 6188539473687658781}
-  - {fileID: 6831986534559801195}
-  - {fileID: 4873027262019852550}
-  - {fileID: 3082102577615751568}
-  - {fileID: 6831165438855719702}
   - {fileID: 7320921066590015254}
-  - {fileID: 8297220645798745964}
-  - {fileID: 2479873243651327779}
   - {fileID: 4624539082681252182}
   - {fileID: 2819880485030254376}
   - {fileID: 2877096950672005567}
   - {fileID: 6965789964256310765}
-  - {fileID: 831623852481670602}
-  - {fileID: 1639218810412151362}
-  - {fileID: 4716011875782116269}
-  - {fileID: 8916912180998647729}
-  - {fileID: 5620988324470775292}
   - {fileID: 5546428424902439201}
-  - {fileID: 6866130734051577588}
-  <MeshFilters>k__BackingField:
-  - {fileID: 2536259628681936739}
+  <MeshFilters>k__BackingField: []
   <AudioSource>k__BackingField: {fileID: 0}
+--- !u!114 &5334351857256759043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949059538394060341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f067ec27d84b9dbd7eea052d1e647b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Animator>k__BackingField: {fileID: 8275522674573946455}
+  <Ragdoll>k__BackingField: {fileID: 4074927518922109611}
 --- !u!1 &4997022736151867381
 GameObject:
   m_ObjectHideFlags: 0

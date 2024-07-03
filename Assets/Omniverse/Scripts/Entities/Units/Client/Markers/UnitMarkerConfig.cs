@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
 	[CreateAssetMenu(menuName = "Omniverse/Client/Unit Marker", fileName = nameof(UnitMarkerConfig))]
 	public class UnitMarkerConfig: ScriptableObject

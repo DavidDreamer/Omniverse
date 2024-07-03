@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
 using Omniverse.Entities.Items;
 using UnityEngine;
@@ -10,12 +11,14 @@ using Object = UnityEngine.Object;
 
 namespace Omniverse.Entities.Units
 {
-	public class Unit: Entity<UnitDesc>, IPoolObject
+	public class Unit: FactiousEntity<UnitDesc>, IPoolObject
 	{
 		public event Action Died;
 		
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
+		
+		public Dictionary<PropertyID, Property> Properties { get; } = new();
 		
 		public List<Ability> Abilities { get; } = new();
 
@@ -31,7 +34,7 @@ namespace Omniverse.Entities.Units
 
 		public UnitStatus Status { get; private set; }
 
-		public IEntity Target { get; set; }
+		public Entity Target { get; set; }
 		
 		public Experience Experience { get; private set; }
 		
@@ -42,9 +45,9 @@ namespace Omniverse.Entities.Units
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 		
-		public override void Initialize(UnitDesc desc, int factionID)
+		public override void Initialize(UnitDesc desc)
 		{
-			base.Initialize(desc, factionID);
+			base.Initialize(desc);
 			
 			Experience = new Experience(desc.Experience);
 			
@@ -131,7 +134,7 @@ namespace Omniverse.Entities.Units
 				{
 					NavMeshAgent.destination = unit.transform.position;
 
-					if (Target.IsEnemyFor(this))
+					if (unit.IsEnemyFor(this))
 					{
 						if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 						{
@@ -202,6 +205,28 @@ namespace Omniverse.Entities.Units
 			}
 		}
 
+		public async UniTaskVoid Cast(Ability ability, CancellationToken token)
+		{
+			ability.InProcess = true;
+
+			//TODO
+			// if (!string.IsNullOrEmpty(Desc.Cast.AnimationTrigger))
+			// {
+			// 	Unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Cast.AnimationTrigger));
+			// }
+
+			await UniTask.Delay(TimeSpan.FromSeconds(ability.Desc.Cast.Time), cancellationToken: token);
+			
+			ability.InProcess = false;
+			
+			foreach (CostDesc cost in ability.Desc.Cost)
+			{
+				Properties[cost.PropertyID].Change(-cost.Amount);
+			}
+
+			await ability.Cast(this, token);
+		}
+		
 		internal void Die()
 		{
 			IsDead = true;

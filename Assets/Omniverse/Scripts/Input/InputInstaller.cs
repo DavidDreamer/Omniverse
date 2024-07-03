@@ -1,4 +1,4 @@
-﻿using Bonecrusher.Abilities;
+﻿using Omniverse.Entities.Units.Client;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8065679109670902791}
   - component: {fileID: -6583641512448765275}
   - component: {fileID: 3288214872313971665}
+  - component: {fileID: 643246325075944404}
   m_Layer: 0
   m_Name: Tree_Pine_1
   m_TagString: Untagged
@@ -121,8 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cc5b56a9f74345b2aa269381147cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Renderers>k__BackingField:
-  - {fileID: 2216872027575356420}
   <HitBox>k__BackingField: {fileID: 8065679109670902791}
   <Desc>k__BackingField: {fileID: 11400000, guid: 194c7d5886791ef41bf3091cf8bb4dbb, type: 2}
 --- !u!114 &3288214872313971665
@@ -138,3 +137,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Size>k__BackingField: {x: 1, y: 2, z: 1}
+--- !u!114 &643246325075944404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088653225545430688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ce25b749dc40a8b4057ce3f3494182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Renderers>k__BackingField:
+  - {fileID: 2216872027575356420}

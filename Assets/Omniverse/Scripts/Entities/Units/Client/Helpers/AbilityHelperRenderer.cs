@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace Bonecrusher.Abilities
+namespace Omniverse.Entities.Units.Client
 {
 	public class AbilityHelperRenderer: MonoBehaviour
 	{

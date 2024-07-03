@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 
@@ -26,7 +27,9 @@ namespace Omniverse.Actions
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			var resourceSource = (ResourceSource)context.Entities.First();
-			ResourceExtractionHadler.Extract(context.Caster, resourceSource, Desc.Amount);
+			//TODO
+			int factionID = ((Unit)context.Caster).FactionID;
+			ResourceExtractionHadler.Extract(resourceSource, Desc.Amount, factionID);
 			return UniTask.CompletedTask;
 		}
 	}

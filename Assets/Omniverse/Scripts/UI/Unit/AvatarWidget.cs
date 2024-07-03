@@ -20,7 +20,7 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					Unit selectedUnit = UnitSelector.SelectedUnit.Unit;
+					Unit selectedUnit = UnitSelector.SelectedUnit;
 					Vector3 selectedUnitPosition = selectedUnit.transform.position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
 					CameraController.SetViewPoint(viewPoint);

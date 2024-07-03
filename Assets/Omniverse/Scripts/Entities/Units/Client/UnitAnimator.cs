@@ -1,0 +1,53 @@
+﻿using Dreambox.Physics;
+using UnityEngine;
+
+namespace Omniverse.Entities.Units.Client
+{
+	public class UnitAnimator: EntityComponent<Unit>
+	{
+		private static class AnimatorVariables
+		{
+			public static int IsMoving { get; } = Animator.StringToHash(nameof(IsMoving));
+
+			public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
+
+			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
+		}
+
+		[field: SerializeField]
+		public Animator Animator { get; set; }
+
+		[field: SerializeField]
+		private Ragdoll Ragdoll { get; set; }
+
+		public override void Initialize(Unit unit)
+		{
+			base.Initialize(unit);
+
+			unit.Died += OnDied;
+			unit.Attack.Started += OnAttackStarted;
+		}
+
+		private void Update()
+		{
+			Animator.SetBool(AnimatorVariables.IsMoving, Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
+			//TODO
+			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
+		}
+
+		private void OnAttackStarted()
+		{
+			Animator.SetTrigger(AnimatorVariables.Attack);
+		}
+		
+		private void OnDied()
+		{
+			Animator.enabled = false;
+
+			if (Ragdoll != null)
+			{
+				Ragdoll.Enable(true);
+			}
+		}
+	}
+}

@@ -4,7 +4,7 @@
 	{
 		public PropertyID ID { get; set; }
 
-		public IEntity Source { get; set; }
+		public Entity Source { get; set; }
 
 		public float Amount { get; set; }
 	}

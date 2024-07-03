@@ -41,7 +41,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			Unit unit = UnitSelector.SelectedUnit.Unit;
+			Unit unit = UnitSelector.SelectedUnit;
 			
 			int abilityIndex = AbilitiesActions.Get().actions.IndexOf(i => i == context.action);
 

@@ -2,7 +2,7 @@
 using UnityEngine;
 using VContainer;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
 	public class HealthBar: MonoBehaviour
 	{

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Entities.Items;
 using Omniverse.Entities.Units;
-using Omniverse.Entities.Units.Rendering;
+using Omniverse.Entities.Units.Client;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -21,7 +19,7 @@ namespace Omniverse.Input
 
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
-		
+
 		private UnitControllerConfig Config { get; }
 
 		public UnitController(UnitControllerConfig config)
@@ -35,7 +33,7 @@ namespace Omniverse.Input
 			{
 				return;
 			}
-			
+
 			if (Mouse.current.rightButton.wasReleasedThisFrame)
 			{
 				if (EntityDetector.Target != null)
@@ -44,19 +42,19 @@ namespace Omniverse.Input
 					switch (target)
 					{
 						case Unit unit:
-							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
+							foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
 							{
-								if (selectedUnit.Unit != unit)
+								if (selectedUnit != unit)
 								{
-									selectedUnit.Unit.Target = unit;
+									selectedUnit.Target = unit;
 								}
 							}
 
 							break;
 						case Item item:
-							foreach (UnitRenderer selectedUnit in UnitSelector.SelectedUnits)
+							foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
 							{
-								selectedUnit.Unit.Target = item;
+								selectedUnit.Target = item;
 							}
 
 							break;
@@ -76,7 +74,7 @@ namespace Omniverse.Input
 				CreateNavigationPoint(navMeshHit.position);
 			}
 		}
-		
+
 		private void ProcessNavigationPoint()
 		{
 			if (NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position))
@@ -92,10 +90,10 @@ namespace Omniverse.Input
 
 			AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
 
-			foreach (UnitRenderer unitRenderer in UnitSelector.SelectedUnits)
+			foreach (Unit unit in UnitSelector.SelectedUnits)
 			{
-				unitRenderer.Unit.Target = null;
-				unitRenderer.Unit.NavMeshAgent.destination = position;
+				unit.Target = null;
+				unit.NavMeshAgent.destination = position;
 			}
 		}
 

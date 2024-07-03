@@ -23,7 +23,7 @@ namespace Omniverse.Abilities
 	{
 		public EntityTargetDesc Desc { get; }
 
-		public IEntity Value { get; set; }
+		public Entity Value { get; set; }
 
 		public EntityTarget(EntityTargetDesc desc)
 		{

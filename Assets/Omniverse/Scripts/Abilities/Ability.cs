@@ -16,7 +16,7 @@ namespace Omniverse.Abilities
 		
 		public bool AwaitsTarget { get; set; }
 
-		public bool InProcess { get; private set; }
+		public bool InProcess { get; set; }
 		
 		public AutoResetUniTaskCompletionSource Used { get; }
 
@@ -30,55 +30,10 @@ namespace Omniverse.Abilities
 			Used = AutoResetUniTaskCompletionSource.Create();
 			ExecutionContext = new ExecutionContext(objectResolver, desc.Actions);
 		}
-		
-		public AbilityCastError CanBeCasted(IEntity caster)
+
+		public async UniTask Cast(Entity caster, CancellationToken token)
 		{
-			if (Cooldown is not null && Cooldown.IsActive)
-			{
-				return AbilityCastError.IsOnCooldown;
-			}
-
-			if (InProcess)
-			{
-				return AbilityCastError.AlreadyInProcess;
-			}
-
-			foreach (CostDesc costDesc in Desc.Cost)
-			{
-				if (!caster.Properties.ContainsKey(costDesc.PropertyID))
-				{
-					return AbilityCastError.NotEnoughResources;
-				}
-
-				if (caster.Properties[costDesc.PropertyID].Amount.Value < costDesc.Amount)
-				{
-					return AbilityCastError.NotEnoughResources;
-				}
-			}
-			
-			return AbilityCastError.None;
-		}
-		
-		public async UniTask Cast(IEntity caster, CancellationToken token)
-		{
-			InProcess = true;
-
-			if (!string.IsNullOrEmpty(Desc.Cast.AnimationTrigger))
-			{
-				//TODO:
-				//Unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Cast.AnimationTrigger));
-			}
-
-			await UniTask.Delay(TimeSpan.FromSeconds(Desc.Cast.Time), cancellationToken: token);
-			
-			foreach (CostDesc cost in Desc.Cost)
-			{
-				caster.Properties[cost.PropertyID].Change(-cost.Amount);
-			}
-			
 			Cooldown?.ActivateAsync(token);
-
-			InProcess = false;
 			
 			switch (Target)
 			{

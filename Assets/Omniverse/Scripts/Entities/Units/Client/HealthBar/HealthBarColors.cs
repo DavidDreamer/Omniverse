@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
 	[Serializable]
 	public class HealthBarColors

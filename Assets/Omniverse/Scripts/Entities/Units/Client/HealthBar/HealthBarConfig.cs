@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
 	[CreateAssetMenu(menuName = "Omniverse/Client/Health Bar", fileName = nameof(HealthBarConfig))]
 	public class HealthBarConfig: ScriptableObject

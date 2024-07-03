@@ -43,11 +43,17 @@ namespace Omniverse.Entities.Units
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
 			Unit unit = Pool.Take(Config.UnitPrefab);
-			unit.Initialize(desc, factionID);
+			unit.Initialize(desc);
+			unit.ChangeFaction(factionID);
 			Units.Add(unit);
 
 			GameObject model = UnityEngine.Object.Instantiate(desc.Model, unit.transform, false);
 			ObjectResolver.InjectGameObject(model);
+			var components = model.GetComponentsInChildren<EntityComponent<Unit>>();
+			foreach (var component in components)
+			{
+				component.Initialize(unit);
+			}
 			
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
 			FogOfWarAgents.Add(unit, unitFogOfWarAgent);

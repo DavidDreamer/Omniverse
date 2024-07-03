@@ -1,79 +1,43 @@
-﻿using Dreambox.Physics;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
-	public class UnitRenderer: MonoBehaviour
+	public class UnitRenderer: RendererComponent<Unit>
 	{
-		private static class AnimatorVariables
-		{
-			public static int IsMoving { get; } = Animator.StringToHash(nameof(IsMoving));
-			public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
-			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
-		}
-		
-		[field: SerializeField]
-		public Animator Animator { get; set; }
-
 		[field: SerializeField]
 		private HealthBar HealthBar { get; set; }
-		
-		[field: SerializeField]
-		private Ragdoll Ragdoll { get; set; }
 
 		[field: SerializeField]
 		public UnitMarker Selection { get; set; }
 
 		[field: SerializeField]
 		public UnitMarker Focus { get; set; }
-		
-		[field: SerializeField]
-		[field: HideInInspector]
-		public Renderer[] Renderers { get; private set; }
 
 		[field: SerializeField]
-		[field: HideInInspector]
 		public MeshFilter[] MeshFilters { get; private set; }
-		
+
 		[field: SerializeField]
 		public AudioSource AudioSource { get; private set; }
-		
-		public Unit Unit { get; private set; }
 
-		private void OnValidate()
+		public override void Initialize(Unit unit)
 		{
-			Renderers = GetComponentsInChildren<Renderer>(true);
-			MeshFilters = GetComponentsInChildren<MeshFilter>(true);
-		}
-		
-		public void Start()
-		{
-			//TODO: TEMP
-			Unit = GetComponentInParent<Unit>();
-			Unit.Died += OnDied;
-			Unit.Attack.Started += OnAttackStarted;
+			base.Initialize(unit);
 
-			HealthBar.Initialize(Unit);
-			Selection.Initialize(Unit);
-			Focus.Initialize(Unit);
+			unit.Died += OnDied;
+
+			HealthBar.Initialize(unit);
+			Selection.Initialize(unit);
+			Focus.Initialize(unit);
 		}
 
 		private void OnDestroy()
 		{
-			if (Unit == null)
+			if (Entity == null)
 			{
 				return;
 			}
-			
-			Unit.Died -= OnDied;
-			Unit.Attack.Started -= OnAttackStarted;
-		}
 
-		private void Update()
-		{
-			Animator.SetBool(AnimatorVariables.IsMoving, Unit.NavMeshAgent.velocity.sqrMagnitude > 0);
-			//TODO
-			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
+			Entity.Died -= OnDied;
 		}
 
 		private void OnDied()
@@ -83,19 +47,7 @@ namespace Omniverse.Entities.Units.Rendering
 
 		private void ProcessLivingState(bool alive)
 		{
-			Animator.enabled = alive;
-			
-			if (Ragdoll != null)
-			{
-				Ragdoll.Enable(!alive);
-			}
-
 			HealthBar.gameObject.SetActive(alive);
-		}
-		
-		private void OnAttackStarted()
-		{
-			Animator.SetTrigger(AnimatorVariables.Attack);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using UnityEngine.Rendering.Universal;
 using VContainer;
 
-namespace Omniverse.Entities.Units.Rendering
+namespace Omniverse.Entities.Units.Client
 {
 	public class UnitMarker: MonoBehaviour
 	{
