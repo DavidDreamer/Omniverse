@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sprint
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 21300000, guid: f6898f6415206624ea01848ac73e2d17, type: 3}
+  <Prefab>k__BackingField: {fileID: 3263916143083249974, guid: dfd0757824a47bb4aa8cf14a6f55ec79, type: 3}
   <IsPositive>k__BackingField: 1
   <Time>k__BackingField: 3
   <UnitStatus>k__BackingField: 0

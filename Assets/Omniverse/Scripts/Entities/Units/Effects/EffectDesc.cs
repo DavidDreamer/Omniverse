@@ -10,6 +10,9 @@ namespace Omniverse.Entities.Units
 		public Sprite Icon { get; private set; }
 		
 		[field: SerializeField]
+		public GameObject Prefab { get; private set; }
+		
+		[field: SerializeField]
 		public bool IsPositive { get; private set; }
 
 		[field: SerializeField]

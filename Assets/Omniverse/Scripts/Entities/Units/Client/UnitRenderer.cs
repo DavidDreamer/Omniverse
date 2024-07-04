@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Omniverse.Entities.Units.Client
 {
@@ -19,12 +20,16 @@ namespace Omniverse.Entities.Units.Client
 		[field: SerializeField]
 		public AudioSource AudioSource { get; private set; }
 
+		private Dictionary<Effect, GameObject> Effects { get; } = new();
+
 		public override void Initialize(Unit unit)
 		{
 			base.Initialize(unit);
 
-			unit.Died += OnDied;
-
+			Entity.Died += OnDied;
+			Entity.EffectApplied += OnEffectApplied;
+			Entity.EffectRemoved += OnEffectRemoved;
+			
 			HealthBar.Initialize(unit);
 			Selection.Initialize(unit);
 			Focus.Initialize(unit);
@@ -38,8 +43,22 @@ namespace Omniverse.Entities.Units.Client
 			}
 
 			Entity.Died -= OnDied;
+			Entity.EffectApplied += OnEffectApplied;
+			Entity.EffectRemoved += OnEffectRemoved;
 		}
-
+		
+		private void OnEffectApplied(Effect effect)
+		{ 
+			GameObject instance= Instantiate(effect.Desc.Prefab, transform, false);
+			Effects.Add(effect,instance);
+		}
+		
+		private void OnEffectRemoved(Effect effect)
+		{
+			Destroy(Effects[effect]);
+			Effects.Remove(effect);
+		}
+		
 		private void OnDied()
 		{
 			ProcessLivingState(false);

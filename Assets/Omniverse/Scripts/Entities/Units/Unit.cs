@@ -13,6 +13,10 @@ namespace Omniverse.Entities.Units
 {
 	public class Unit: FactiousEntity<UnitDesc>, IPoolObject
 	{
+		public event Action<Effect> EffectApplied;
+		
+		public event Action<Effect> EffectRemoved;
+		
 		public event Action Died;
 		
 		[field: SerializeField]
@@ -174,11 +178,7 @@ namespace Omniverse.Entities.Units
 
 				if (effect.OutOfTime)
 				{
-					foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
-					{
-						Properties[desc.ID].RemoveModifier(desc.Modifier);
-					}
-					Effects.RemoveAt(i);
+					RemoveEffect(effect, i);
 					i--;
 				}
 				else
@@ -203,8 +203,22 @@ namespace Omniverse.Entities.Units
 			{
 				Properties[desc.ID].AddModifier(desc.Modifier);
 			}
+
+			EffectApplied?.Invoke(effect);
 		}
 
+		public void RemoveEffect(Effect effect, int index)
+		{
+			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
+			{
+				Properties[desc.ID].RemoveModifier(desc.Modifier);
+			}
+			
+			Effects.RemoveAt(index);
+			
+			EffectRemoved?.Invoke(effect);
+		}
+		
 		public async UniTaskVoid Cast(Ability ability, CancellationToken token)
 		{
 			ability.InProcess = true;
