@@ -140,13 +140,10 @@ namespace Omniverse.Entities.Units
 
 					if (unit.IsEnemyFor(this))
 					{
-						if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
+						if (Attack.CanAttack(unit))
 						{
-							if (Time.time - Attack.lastTime > Properties[PropertyID.AttackSpeed].Amount)
-							{
-								NavMeshAgent.isStopped = true;
-								Attack.Perform(unit);
-							}
+							NavMeshAgent.isStopped = true;
+							Attack.Perform(unit, default).Forget();
 						}
 					}
 
@@ -157,7 +154,7 @@ namespace Omniverse.Entities.Units
 					NavMeshAgent.destination = item.transform.position;
 					if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 					{
-						Object.Destroy(item.gameObject);
+						Destroy(item.gameObject);
 						Inventory.Add(item);
 						Target = null;
 					}

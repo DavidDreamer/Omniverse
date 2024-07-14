@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Omniverse.Entities.Units
@@ -10,27 +12,47 @@ namespace Omniverse.Entities.Units
 		
 		private Unit Unit { get; }
 		
-		//TODO
-		public float lastTime;
+		public bool InProcess { get; private set; }
 		
 		public Attack(Unit unit)
 		{
 			Unit = unit;
 		}
 		
-		public void Perform(Unit target)
+		public bool TargetIsInRange(Unit target)
 		{
-			lastTime = Time.time;
+			float sqrDistance = Vector3.SqrMagnitude(Unit.transform.position - target.transform.position);
+			float attackRange = Unit.Properties[PropertyID.AttackRange].Amount.Value;
+			float sqrAttackRange = attackRange * attackRange;
+			return sqrDistance <= sqrAttackRange;
+		}
+
+		public bool CanAttack(Unit target) => !InProcess && TargetIsInRange(target);
+
+		public async UniTaskVoid Perform(Unit target, CancellationToken token)
+		{
+			InProcess = true;
+			
+			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount.Value;
+
+			await UniTask.Delay(TimeSpan.FromSeconds(attackSpeed / 2f), cancellationToken: token);
 			
 			Started?.Invoke();
-			
-			var data = new ChangePropertyData
+
+			if (TargetIsInRange(target))
 			{
-				Amount = -Unit.Properties[PropertyID.AttackDamage].Amount,
-				ID = target.Properties.Keys.First()
-			};
+				var data = new ChangePropertyData
+				{
+					Amount = -Unit.Properties[PropertyID.AttackDamage].Amount,
+					ID = target.Properties.Keys.First()
+				};
 			
-			target.ChangeResource(data);
+				target.ChangeResource(data);
+			}
+			
+			await UniTask.Delay(TimeSpan.FromSeconds(attackSpeed / 2f), cancellationToken: token);
+
+			InProcess = false;
 		}
 	}
 }
