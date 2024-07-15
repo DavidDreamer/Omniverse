@@ -7,7 +7,6 @@ using Omniverse.Entities.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
-using Object = UnityEngine.Object;
 
 namespace Omniverse.Entities.Units
 {
@@ -18,7 +17,7 @@ namespace Omniverse.Entities.Units
 		public event Action<Effect> EffectRemoved;
 		
 		public event Action Died;
-		
+
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
 		
@@ -124,10 +123,27 @@ namespace Omniverse.Entities.Units
 					NavMeshAgent.angularSpeed = 0;
 				}
 				
-				NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
+				//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
 			}
 		}
+		
+		public void Stop()
+		{
+			NavMeshAgent.isStopped = true;
+		}
 
+		public void Start()
+		{
+			NavMeshAgent.isStopped = false;
+		}
+
+		public void MoveToPosition(Vector3 position)
+		{
+			Target = null;
+			Start();
+			NavMeshAgent.destination = position;
+		}
+		
 		private void ProcessTarget()
 		{
 			switch (Target)
@@ -136,17 +152,17 @@ namespace Omniverse.Entities.Units
 					return;
 				case Unit unit:
 				{
-					NavMeshAgent.destination = unit.transform.position;
-
-					if (unit.IsEnemyFor(this))
+					if (Attack.CanAttack(unit))
 					{
-						if (Attack.CanAttack(unit))
-						{
-							NavMeshAgent.isStopped = true;
-							Attack.Perform(unit, default).Forget();
-						}
+						Stop();
+						Attack.Perform(unit, default).Forget();
 					}
-
+					else if (!Attack.InProcess)
+					{
+						Start();
+						NavMeshAgent.destination = unit.transform.position;
+					}
+			
 					break;
 				}
 				case Item item:

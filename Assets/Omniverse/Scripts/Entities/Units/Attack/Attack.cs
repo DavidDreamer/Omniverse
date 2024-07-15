@@ -27,7 +27,7 @@ namespace Omniverse.Entities.Units
 			return sqrDistance <= sqrAttackRange;
 		}
 
-		public bool CanAttack(Unit target) => !InProcess && TargetIsInRange(target);
+		public bool CanAttack(Unit target) => !InProcess && target.IsEnemyFor(Unit) && TargetIsInRange(target);
 
 		public async UniTaskVoid Perform(Unit target, CancellationToken token)
 		{

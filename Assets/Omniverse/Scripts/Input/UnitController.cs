@@ -92,8 +92,7 @@ namespace Omniverse.Input
 
 			foreach (Unit unit in UnitSelector.SelectedUnits)
 			{
-				unit.Target = null;
-				unit.NavMeshAgent.destination = position;
+				unit.MoveToPosition(position);
 			}
 		}
 

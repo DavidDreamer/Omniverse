@@ -3393,9 +3393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86bd1e815594963bb7d5b510247739e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <HealthBar>k__BackingField: {fileID: 5998634054266159542}
-  <Selection>k__BackingField: {fileID: 8837485615914964900}
-  <Focus>k__BackingField: {fileID: 2048342167885987510}
   <Renderers>k__BackingField:
   - {fileID: 3675506214835833156}
   - {fileID: 6188539473687658781}
@@ -3405,6 +3402,9 @@ MonoBehaviour:
   - {fileID: 2877096950672005567}
   - {fileID: 6965789964256310765}
   - {fileID: 5546428424902439201}
+  <HealthBar>k__BackingField: {fileID: 5998634054266159542}
+  <Selection>k__BackingField: {fileID: 8837485615914964900}
+  <Focus>k__BackingField: {fileID: 2048342167885987510}
   <MeshFilters>k__BackingField: []
   <AudioSource>k__BackingField: {fileID: 0}
 --- !u!114 &5334351857256759043
