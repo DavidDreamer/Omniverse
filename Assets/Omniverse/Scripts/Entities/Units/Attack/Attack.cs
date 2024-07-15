@@ -35,9 +35,12 @@ namespace Omniverse.Entities.Units
 			
 			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount.Value;
 
-			await UniTask.Delay(TimeSpan.FromSeconds(attackSpeed / 2f), cancellationToken: token);
-			
+			float time = 1f / attackSpeed;
+			TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+
 			Started?.Invoke();
+			
+			await UniTask.Delay(timeSpan, cancellationToken: token);
 
 			if (TargetIsInRange(target))
 			{
@@ -50,8 +53,6 @@ namespace Omniverse.Entities.Units
 				target.ChangeResource(data);
 			}
 			
-			await UniTask.Delay(TimeSpan.FromSeconds(attackSpeed / 2f), cancellationToken: token);
-
 			InProcess = false;
 		}
 	}

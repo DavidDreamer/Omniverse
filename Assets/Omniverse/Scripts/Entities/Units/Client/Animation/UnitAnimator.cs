@@ -12,6 +12,8 @@ namespace Omniverse.Entities.Units.Client
 			public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
 
 			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
+			
+			public static int AttackSpeed { get; } = Animator.StringToHash(nameof(AttackSpeed));
 		}
 
 		[field: SerializeField]
@@ -33,6 +35,9 @@ namespace Omniverse.Entities.Units.Client
 			Animator.SetBool(AnimatorVariables.IsMoving, Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
 			//TODO
 			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
+
+			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount.Value;
+			Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
 		}
 
 		private void OnAttackStarted()
