@@ -33,8 +33,9 @@ namespace Omniverse.Entities.Units.Client
 		private void Update()
 		{
 			Animator.SetBool(AnimatorVariables.IsMoving, Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
-			//TODO
-			Animator.SetFloat(AnimatorVariables.MovementSpeed, 1);
+			
+			float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount.Value;
+			Animator.SetFloat(AnimatorVariables.MovementSpeed, movementSpeed);
 
 			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount.Value;
 			Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
