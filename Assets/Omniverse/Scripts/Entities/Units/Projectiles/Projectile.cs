@@ -1,30 +1,60 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Dreambox.Math;
 using UnityEngine;
 
 namespace Omniverse.Entities.Units
 {
-	public class Projectile: MonoBehaviour
+	public class Projectile : FactiousEntity<ProjectileDesc>
 	{
-		public void Launch(ParabolicTrajectory3D trajectory, Vector3 direction, float force)
+		public Vector3 Direction { get; set; }
+
+		private float Distance { get; set; }
+
+		public void FixedUpdate()
 		{
-			transform.forward = direction;
+			float deltaTime = Time.fixedDeltaTime;
 
-			LaunchAsync(destroyCancellationToken).SuppressCancellationThrow();
+			float speed = Desc.Speed;
+			float range = Desc.Range;
+			float radius = Desc.Radius;
 
-			async UniTask LaunchAsync(CancellationToken token)
+			float positionDelta = Desc.Speed * deltaTime;
+			float remainingDistance = Desc.Range - Distance;
+			positionDelta = Mathf.Min(positionDelta, remainingDistance);
+			Distance += positionDelta;
+			transform.position += Direction * positionDelta;
+
+			if (Distance == range)
 			{
-				float time = 0;
-				
-				while (true)
-				{
-					await UniTask.WaitForFixedUpdate(token);
+				Destroy(gameObject);
 
-					time += force * Time.fixedDeltaTime;
-					
-					transform.position = trajectory.EvaluatePosition(time / trajectory.Parameters.Time);
-				}
+				return;
+			}
+
+
+			var filter = FactiousFilter.Enemy;
+
+			//TODO
+			bool hit = false;
+
+			foreach (var item in PhysicsHelper.GetUnitsInSphere(transform.position, radius, 1).Where(unit => filter.Match(this, unit)))
+			{
+				hit = true;
+
+				var data = new ChangePropertyData()
+				{
+					ID = PropertyID.Health,
+					Amount = -10
+				};
+
+				item.ChangeResource(data);
+			}
+
+			if (hit)
+			{
+				Destroy(gameObject);
 			}
 		}
 	}

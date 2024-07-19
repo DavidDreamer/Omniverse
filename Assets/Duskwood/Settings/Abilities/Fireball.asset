@@ -34,4 +34,4 @@ MonoBehaviour:
     - rid: 6869238924522815515
       type: {class: LaunchProjectileDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
       data:
-        <Projectile>k__BackingField: {fileID: 0}
+        <Projectile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}

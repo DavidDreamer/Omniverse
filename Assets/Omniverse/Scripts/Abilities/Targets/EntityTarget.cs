@@ -16,7 +16,7 @@ namespace Omniverse.Abilities
 	public class UnitTargetDesc
 	{
 		[field: SerializeField]
-		public EntityTargetType Filter { get; private set; }
+		public FactiousFilter Filter { get; private set; }
 	}
 
 	public class EntityTarget: ITarget

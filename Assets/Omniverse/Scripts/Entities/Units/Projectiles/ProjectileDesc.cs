@@ -3,20 +3,16 @@ using UnityEngine;
 
 namespace Omniverse.Entities.Units
 {
-	[CreateAssetMenu(menuName = "Omniverse/Misc/Projectile")]
-	public class ProjectileDesc: ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Projectile")]
+	public class ProjectileDesc : EntityDesc
 	{
 		[field: SerializeField]
-		private Projectile Prefab { get; set; }
+		public float Range { get; private set; }
 
-		private Projectile Presenter { get; set; }
+		[field: SerializeField]
+		public float Speed { get; private set; }
 
-		public void InstantiatePresenter(Vector3 position, Quaternion rotation)
-		{
-			Presenter = Instantiate(Prefab, position, rotation);
-		}
-
-		public void Launch(ParabolicTrajectory3D trajectory, Vector3 direction, float force) =>
-			Presenter.Launch(trajectory, direction, force);
+		[field: SerializeField]
+		public float Radius { get; private set; }
 	}
 }

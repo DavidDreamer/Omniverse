@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1465ff307604fa7b936f816f4c101fd, type: 3}
+  m_Script: {fileID: 11500000, guid: bf695844c8404276b1f21681e68af449, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <Model>k__BackingField: {fileID: 7493261732366072096, guid: e2765cefeca1c5f4fa78ac48bb53d109, type: 3}
+  <Range>k__BackingField: 30
+  <Speed>k__BackingField: 20
+  <Radius>k__BackingField: 1

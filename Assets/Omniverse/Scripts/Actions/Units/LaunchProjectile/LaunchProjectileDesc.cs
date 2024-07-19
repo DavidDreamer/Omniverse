@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 	public class LaunchProjectileDesc : IActionDesc
 	{
 		[field: SerializeField]
-		public Projectile Projectile { get; private set; }
+		public ProjectileDesc Projectile { get; private set; }
 
 		public IAction Build() => new LaunchProjectile(this);
 	}

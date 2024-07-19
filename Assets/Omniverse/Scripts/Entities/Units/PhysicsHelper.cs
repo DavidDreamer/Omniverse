@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Omniverse.Abilities;
 using UnityEngine;
 
 namespace Omniverse.Entities.Units
@@ -13,7 +14,7 @@ namespace Omniverse.Entities.Units
 			LayerMask layerMask)
 		{
 			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, layerMask.value);
-			
+
 			for (int i = 0; i < count; ++i)
 			{
 				var unit = Colliders[i].GetComponentInParent<Unit>();
@@ -26,8 +27,12 @@ namespace Omniverse.Entities.Units
 				yield return unit;
 			}
 		}
-		
-		public static IEnumerable<Unit> GetUnitsInSector(Vector3 position, Vector3 forward, float radius, float angle, LayerMask layerMask)
+
+		public static IEnumerable<Unit> GetUnitsInSector(Vector3 position,
+			Vector3 forward,
+			float radius,
+			float angle,
+			LayerMask layerMask)
 		{
 			foreach (Unit unit in GetUnitsInSphere(position, radius, layerMask))
 			{

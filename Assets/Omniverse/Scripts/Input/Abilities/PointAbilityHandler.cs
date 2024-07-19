@@ -37,8 +37,10 @@ namespace Omniverse.Input
 
 		protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 		{
-			var pointTarget = (PointTargetDesc)Ability.Desc.Target;
-			AbilityRangeRenderer.SetRange(pointTarget.Range);
+			var pointTargetDesc = (PointTargetDesc)Ability.Desc.Target;
+			var pointTarget = (PointTarget)Ability.Target;
+			
+			AbilityRangeRenderer.SetRange(pointTargetDesc.Range);
 
 			while (true)
 			{
@@ -51,12 +53,12 @@ namespace Omniverse.Input
 				Vector3 characterToTarget = targetPositionXZ - characterPositionXZ;
 
 				bool positionIsOutOfRange = characterToTarget.sqrMagnitude >
-				                            pointTarget.Range * pointTarget.Range;
+				                            pointTargetDesc.Range * pointTargetDesc.Range;
 
 				if (positionIsOutOfRange)
 				{
 					Vector3 targetPositionClamped =
-						characterPosition + characterToTarget.normalized * pointTarget.Range;
+						characterPosition + characterToTarget.normalized * pointTargetDesc.Range;
 					navMeshPositionIsValid =
 						NavMesh.SamplePosition(targetPositionClamped, out NavMeshHit navMeshHit, float.MaxValue, 1);
 					point = navMeshHit.position;
@@ -69,9 +71,7 @@ namespace Omniverse.Input
 				bool abilityCasted = navMeshPositionIsValid && CommonActions.Apply.WasPerformedThisFrame();
 				if (abilityCasted)
 				{
-					//TODO
-					//Ability.Context.Points.Clear();
-					//Ability.Context.Points.Add(point);
+					pointTarget.Value = point;
 					return;
 				}
 

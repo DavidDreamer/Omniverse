@@ -8,9 +8,9 @@ using Omniverse.Entities.Units;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public abstract class CollectUnitTargets<T>: Action<T> where T : CollectUnitTargetsDesc
+	public abstract class CollectUnitTargets<T> : Action<T> where T : CollectUnitTargetsDesc
 	{
-		protected CollectUnitTargets(T desc): base(desc)
+		protected CollectUnitTargets(T desc) : base(desc)
 		{
 		}
 
@@ -18,29 +18,19 @@ namespace Omniverse.Actions
 
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
-			bool selfCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Self);
-			bool allyCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Ally);
-			bool enemyCastAllowed = Desc.EntityTargetType.HasFlag(EntityTargetType.Enemy);
+			//TODO
+			var source = context.Caster as IFactious;
 
 			foreach (Unit unit in GetUnits(context))
 			{
-				if (context.Caster != null)
+				if (source != null)
 				{
-					if (unit == context.Caster && !selfCastAllowed)
+					if (!Desc.Filter.Match(source, unit))
 					{
 						continue;
 					}
-
-					//TODO
-					bool hasSameFaction = unit.FactionID == ((Unit)context.Caster).FactionID;
-					switch (hasSameFaction)
-					{
-						case true when !allyCastAllowed:
-						case false when !enemyCastAllowed:
-							continue;
-					}
 				}
-				
+
 				context.Entities.Add(unit);
 			}
 

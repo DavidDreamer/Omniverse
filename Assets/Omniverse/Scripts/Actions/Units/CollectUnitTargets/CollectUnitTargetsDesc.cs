@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 	public abstract class CollectUnitTargetsDesc: IActionDesc
 	{
 		[field: SerializeField]
-		public EntityTargetType EntityTargetType { get; private set; }
+		public FactiousFilter Filter { get; private set; }
 
 		public abstract IAction Build();
 	}
