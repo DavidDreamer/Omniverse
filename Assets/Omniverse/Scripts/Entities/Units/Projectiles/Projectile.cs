@@ -1,22 +1,31 @@
-﻿using Dreambox.Math;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Dreambox.Math;
 using UnityEngine;
 
 namespace Omniverse.Entities.Units
 {
-	[CreateAssetMenu(menuName = "Omniverse/Misc/Projectile")]
-	public class Projectile: ScriptableObject
+	public class Projectile: MonoBehaviour
 	{
-		[field: SerializeField]
-		private ProjectilePresenter Prefab { get; set; }
-
-		private ProjectilePresenter Presenter { get; set; }
-
-		public void InstantiatePresenter(Vector3 position, Quaternion rotation)
+		public void Launch(ParabolicTrajectory3D trajectory, Vector3 direction, float force)
 		{
-			Presenter = Instantiate(Prefab, position, rotation);
-		}
+			transform.forward = direction;
 
-		public void Launch(ParabolicTrajectory3D trajectory, Vector3 direction, float force) =>
-			Presenter.Launch(trajectory, direction, force);
+			LaunchAsync(destroyCancellationToken).SuppressCancellationThrow();
+
+			async UniTask LaunchAsync(CancellationToken token)
+			{
+				float time = 0;
+				
+				while (true)
+				{
+					await UniTask.WaitForFixedUpdate(token);
+
+					time += force * Time.fixedDeltaTime;
+					
+					transform.position = trajectory.EvaluatePosition(time / trajectory.Parameters.Time);
+				}
+			}
+		}
 	}
 }
