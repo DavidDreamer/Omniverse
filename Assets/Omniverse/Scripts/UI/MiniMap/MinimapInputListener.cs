@@ -13,6 +13,10 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private RectTransform RectTransform { get; set; }
 
+		[field: SerializeField]
+		[field: HideInInspector]
+		private Canvas Canvas{ get; set; }
+
 		[Inject]
 		private Map Map { get; set; }
 
@@ -24,6 +28,11 @@ namespace Omniverse.UI
 
 		private bool MovingEnabled { get; set; }
 
+		private void OnValidate()
+		{
+			Canvas = GetComponentInParent<Canvas>(true);
+		}
+
 		public void OnPointerDown(PointerEventData eventData)
 		{
 			switch (eventData.button)
@@ -31,7 +40,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 				{
 					MovingEnabled = true;
-					ProcessMovingToPointerPosition(eventData);
+					MoveCameraToPointerPosition(eventData);
 					break;
 				}
 			}
@@ -45,7 +54,7 @@ namespace Omniverse.UI
 				{
 					if (MovingEnabled)
 					{
-						ProcessMovingToPointerPosition(eventData);
+						MoveCameraToPointerPosition(eventData);
 					}
 
 					break;
@@ -73,12 +82,12 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(Vector2 position)
 		{
-			Vector2 sizeMultiplier = Map.MapSettings.Size / RectTransform.rect.size;
+			Vector2 sizeMultiplier = Map.MapSettings.Size / (RectTransform.rect.size * Canvas.scaleFactor);
 			Vector2 worldSpacePosition = position * sizeMultiplier;
 			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
 		}
 
-		private void ProcessMovingToPointerPosition(PointerEventData eventData)
+		private void MoveCameraToPointerPosition(PointerEventData eventData)
 		{
 			Vector3 viewPoint = TransformPosition(eventData.position);
 			CameraController.SetViewPoint(viewPoint);
