@@ -32,6 +32,11 @@ namespace Omniverse.Entities.Units.Client
 
 		private void Update()
 		{
+			if (Entity.IsDead)
+			{
+				return;
+			}
+
 			Animator.SetBool(AnimatorVariables.IsMoving,
 				!Entity.NavMeshAgent.isStopped && Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
 			
