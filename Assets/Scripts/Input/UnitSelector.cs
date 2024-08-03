@@ -8,22 +8,21 @@ using VContainer.Unity;
 
 namespace Omniverse.Input
 {
-	//TODO add limit
-	public class UnitSelector: ILateTickable
+	public class UnitSelector : ILateTickable
 	{
 		public const int Capacity = 16;
 
 		public List<Unit> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
-		
+
 		public Unit SelectedUnit => SelectedUnits[SelectionIndex];
-		
+
 		public int SelectionIndex { get; private set; }
 
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
-		
+
 		public void LateTick()
 		{
 			if (EntityDetector.Target == null)
@@ -36,19 +35,19 @@ namespace Omniverse.Input
 			{
 				return;
 			}
-			
+
 			bool isSelected = SelectedUnits.Contains(unit);
 
 			bool additiveMode = Keyboard.current.shiftKey.isPressed;
 			bool wasClicked = Mouse.current.leftButton.wasReleasedThisFrame;
-					
+
 			if (wasClicked)
 			{
 				if (!additiveMode)
 				{
 					ClearSelection();
 				}
-						
+
 				if (isSelected)
 				{
 					if (additiveMode)
@@ -76,7 +75,7 @@ namespace Omniverse.Input
 					EntityDetector.RemoveFromFilter<Item>();
 				}
 			}
-			
+
 			void UpdateSelectionIndex()
 			{
 				if (Keyboard.current.tabKey.wasReleasedThisFrame)
@@ -92,6 +91,11 @@ namespace Omniverse.Input
 
 		private void AddToSelection(Unit unit)
 		{
+			if (SelectedUnits.Count == Capacity)
+			{
+				return;
+			}
+
 			SelectedUnits.Add(unit);
 		}
 

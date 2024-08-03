@@ -1,11 +1,12 @@
 ﻿using Dreambox.Rendering.URP;
+using Omniverse.Input;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Input
+namespace Omniverse.Rendering
 {
-	public class EntityOutliner: ILateTickable
+	public class Outliner: ILateTickable
 	{
 		[Inject]
 		private Player Player { get; set; }

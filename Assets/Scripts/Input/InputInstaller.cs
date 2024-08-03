@@ -43,7 +43,6 @@ namespace Omniverse.Input
 			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();
 			
 			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-			builder.Register<EntityOutliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
