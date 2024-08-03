@@ -9,9 +9,6 @@ namespace Omniverse.Entities.Units.Client
 		private HealthBar HealthBar { get; set; }
 
 		[field: SerializeField]
-		public UnitMarker Focus { get; set; }
-
-		[field: SerializeField]
 		public MeshFilter[] MeshFilters { get; private set; }
 
 		[field: SerializeField]
@@ -28,7 +25,6 @@ namespace Omniverse.Entities.Units.Client
 			Entity.EffectRemoved += OnEffectRemoved;
 			
 			HealthBar.Initialize(unit);
-			Focus.Initialize(unit);
 		}
 
 		private void OnDestroy()

@@ -7,9 +7,6 @@ namespace Omniverse.Input
 	public class UnitSelectorConfig: ScriptableObject
 	{
 		[field: SerializeField]
-		public UnitMarker Prefab { get; set; }
-
-		[field: SerializeField]
 		public Mesh Mesh{ get; set; }
 
 		[field: SerializeField]
