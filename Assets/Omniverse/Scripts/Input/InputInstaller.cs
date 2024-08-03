@@ -47,8 +47,11 @@ namespace Omniverse.Input
 			
 			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			builder.Register<EntityOutliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
-				.WithParameter(UnitSelectorConfig);
+
+			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+			builder.RegisterInstance(UnitSelectorConfig);
+			builder.RegisterComponentOnNewGameObject<UnitSelectorRenderer>(Lifetime.Singleton, nameof(UnitSelectorRenderer)).AsImplementedInterfaces().AsSelf();
+
 			builder.Register<UnitController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
 				.WithParameter(UnitControllerConfig);
 		}

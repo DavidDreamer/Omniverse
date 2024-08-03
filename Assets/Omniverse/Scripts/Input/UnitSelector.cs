@@ -11,6 +11,8 @@ namespace Omniverse.Input
 	//TODO add limit
 	public class UnitSelector: ILateTickable
 	{
+		public const int Capacity = 16;
+
 		public List<Unit> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
@@ -18,16 +20,9 @@ namespace Omniverse.Input
 		public Unit SelectedUnit => SelectedUnits[SelectionIndex];
 		
 		public int SelectionIndex { get; private set; }
-		
-		private UnitSelectorConfig Config { get; }
-		
+
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
-		
-		public UnitSelector(UnitSelectorConfig config)
-		{
-			Config = config;
-		}
 		
 		public void LateTick()
 		{
@@ -97,26 +92,16 @@ namespace Omniverse.Input
 
 		private void AddToSelection(Unit unit)
 		{
-			//TODO
-			unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(true);
 			SelectedUnits.Add(unit);
 		}
 
 		private void RemoveFromSelection(Unit unit)
 		{
-			//TODO
-			unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(false);
 			SelectedUnits.Remove(unit);
 		}
 
 		private void ClearSelection()
 		{
-			//TODO
-			foreach (Unit unit in SelectedUnits)
-			{
-				unit.GetComponentInChildren<UnitRenderer>().Selection.gameObject.SetActive(false);
-			}
-
 			SelectedUnits.Clear();
 			SelectionIndex = 0;
 		}

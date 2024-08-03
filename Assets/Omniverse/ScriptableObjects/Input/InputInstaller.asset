@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50da16260662457db1b63af528499b63, type: 3}
   m_Name: InputInstaller
   m_EditorClassIdentifier: 
-  <UnitSelectorConfig>k__BackingField: {fileID: 0}
+  <UnitSelectorConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}
   <UnitControllerConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438, type: 2}
   <AbilityTargetRenderer>k__BackingField: {fileID: 5558822419149552007, guid: 962d6bc95d1aae049b8f2b5d8b0f5605, type: 3}
   <AbilityRangeRenderer>k__BackingField: {fileID: 6405163963653004453, guid: 03bc3b3243a4fba4ab1cb4834f5859dc, type: 3}

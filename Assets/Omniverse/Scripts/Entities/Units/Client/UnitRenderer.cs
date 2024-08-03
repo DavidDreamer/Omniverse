@@ -9,9 +9,6 @@ namespace Omniverse.Entities.Units.Client
 		private HealthBar HealthBar { get; set; }
 
 		[field: SerializeField]
-		public UnitMarker Selection { get; set; }
-
-		[field: SerializeField]
 		public UnitMarker Focus { get; set; }
 
 		[field: SerializeField]
@@ -31,7 +28,6 @@ namespace Omniverse.Entities.Units.Client
 			Entity.EffectRemoved += OnEffectRemoved;
 			
 			HealthBar.Initialize(unit);
-			Selection.Initialize(unit);
 			Focus.Initialize(unit);
 		}
 
