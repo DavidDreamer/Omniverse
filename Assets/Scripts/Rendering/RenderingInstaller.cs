@@ -2,17 +2,21 @@
 using System.Linq;
 using System.Reflection;
 using Dreambox.Rendering.URP;
+using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse
+namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Rendering")]
 	public class RenderingInstaller: ScriptableObject, IInstaller
 	{
+		[field: SerializeField]
+		private UnitSelectorRenderingConfig UnitSelectorRenderingConfig { get; set; }
+
 		public void Install(IContainerBuilder builder)
 		{
 			var universalRenderPipelineAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
@@ -23,6 +27,9 @@ namespace Omniverse
 
 			OutlineRendererFeature outline = features.OfType<OutlineRendererFeature>().First();
 			builder.RegisterInstance(outline);
+
+			builder.RegisterInstance(UnitSelectorRenderingConfig);
+			builder.RegisterComponentOnNewGameObject<UnitSelectorRenderer>(Lifetime.Singleton, nameof(UnitSelectorRenderer)).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

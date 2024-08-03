@@ -1,0 +1,23 @@
+{
+    "name": "Omniverse.Rendering",
+    "rootNamespace": "Omniverse.Rendering",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:47071599995e68342a77d27fd6d25e2f",
+        "GUID:52b66ecdce8fc0344be17b519768f3f4",
+        "GUID:982fb07580c14034db6e6f7e0a2e08f4",
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
+        "GUID:0eb4d9d5a8ebac0488598f6793b914ac"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

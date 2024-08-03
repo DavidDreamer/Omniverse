@@ -9,9 +9,6 @@ namespace Omniverse.Input
 	public class InputInstaller: ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
-		private UnitSelectorConfig UnitSelectorConfig { get; set; }
-
-		[field: SerializeField]
 		private UnitControllerConfig UnitControllerConfig { get; set; }
 		
 		[field: SerializeField]
@@ -49,8 +46,6 @@ namespace Omniverse.Input
 			builder.Register<EntityOutliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-			builder.RegisterInstance(UnitSelectorConfig);
-			builder.RegisterComponentOnNewGameObject<UnitSelectorRenderer>(Lifetime.Singleton, nameof(UnitSelectorRenderer)).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<UnitController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
 				.WithParameter(UnitControllerConfig);

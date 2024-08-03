@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660415735422462198b497cb05b7549d, type: 3}
   m_Name: RenderingInstaller
   m_EditorClassIdentifier: 
-  <OutlineConfig>k__BackingField: {fileID: 11400000, guid: 259e20946e982f74fb9b91eb44999e91, type: 2}
+  <UnitSelectorRenderingConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}

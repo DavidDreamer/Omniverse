@@ -1,9 +1,10 @@
 ﻿using Dreambox.Rendering.Core;
+using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Omniverse.Input
+namespace Omniverse.Rendering
 {
 	public class UnitSelectorPass : ScriptableRenderPass
 	{
@@ -29,7 +30,7 @@ namespace Omniverse.Input
 			using CommandBufferContextScope scope = new(context, nameof(UnitSelectorPass));
 			var commandBuffer = scope.CommandBuffer;
 
-			UnitSelectorConfig config = UnitSelectorRenderer.Config;
+			UnitSelectorRenderingConfig config = UnitSelectorRenderer.Config;
 			UnitSelector unitSelector = UnitSelectorRenderer.UnitSelector;
 
 			MaterialPropertyBlock.Clear();

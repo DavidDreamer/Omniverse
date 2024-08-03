@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using Omniverse.Input;
+using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.Input
+namespace Omniverse.Rendering
 {
 	public class UnitSelectorRenderer : MonoBehaviour, IInitializable
 	{
 		[Inject]
-		public UnitSelectorConfig Config { get; private set; }
+		public UnitSelectorRenderingConfig Config { get; private set; }
 
 		[Inject]
 		public UnitSelector UnitSelector { get; private set; }

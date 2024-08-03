@@ -1,10 +1,9 @@
-﻿using Omniverse.Entities.Units.Client;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Omniverse.Input
+namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/UnitSelector")]
-	public class UnitSelectorConfig: ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/UnitSelector")]
+	public class UnitSelectorRenderingConfig: ScriptableObject
 	{
 		[field: SerializeField]
 		public Mesh Mesh{ get; set; }

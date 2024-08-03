@@ -3,6 +3,7 @@ using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Omniverse.Rendering;
 
 namespace Omniverse
 {
@@ -23,13 +24,12 @@ namespace Omniverse
 		
 		public void Install(IContainerBuilder builder)
 		{
-			RenderingInstaller.Install(builder);
-			
 			builder.RegisterInstance(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 
 			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 			InputInstaller.Install(builder);
+			RenderingInstaller.Install(builder);
 		}
 	}
 }
