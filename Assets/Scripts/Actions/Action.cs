@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Omniverse.Actions
 {
-	public abstract class Action<T>: IAction where T: IActionDesc
+	public abstract class Action<T> : IAction where T : IActionDesc
 	{
 		protected T Desc { get; }
 

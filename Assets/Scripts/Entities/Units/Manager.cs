@@ -9,14 +9,14 @@ using VContainer;
 using VContainer.Unity;
 using Random = UnityEngine.Random;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	[UnityEngine.Scripting.Preserve]
-	public class Manager: IFixedTickable, IPostFixedTickable, IDisposable
+	public class Manager : IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
 		private PrefabPool<Unit> Pool { get; set; }
-		
+
 		[Inject]
 		private Items.Manager ItemManager { get; set; }
 
@@ -28,7 +28,7 @@ namespace Omniverse.Entities.Units
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
-		
+
 		public List<Unit> Units { get; } = new();
 
 		private CancellationTokenSource CancellationTokenSource { get; } = new();
@@ -39,7 +39,7 @@ namespace Omniverse.Entities.Units
 		{
 			CancellationTokenSource.Dispose();
 		}
-		
+
 		public Unit Spawn(UnitDesc desc, int factionID)
 		{
 			Unit unit = Pool.Take(Config.UnitPrefab);
@@ -54,7 +54,7 @@ namespace Omniverse.Entities.Units
 			{
 				component.Initialize(unit);
 			}
-			
+
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
 			FogOfWarAgents.Add(unit, unitFogOfWarAgent);
 			FogOfWarManager.Register(unitFogOfWarAgent);
@@ -81,7 +81,7 @@ namespace Omniverse.Entities.Units
 				//TODO
 				CellVisibilityState cellVisibilityState =
 					FogOfWarManager.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
-				
+
 				unit.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
 
 				Units[i].FixedTick();

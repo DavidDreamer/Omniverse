@@ -8,10 +8,10 @@ namespace Omniverse.FogOfWar.Rendering
 	{
 		[field: SerializeField]
 		public Shader PreProcess { get; private set; }
-		
+
 		[field: SerializeField]
 		public Shader Blur { get; private set; }
-		
+
 		[field: SerializeField]
 		public Shader Apply { get; private set; }
 	}

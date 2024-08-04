@@ -70,17 +70,17 @@ namespace Dreambox.Math
 				}
 			}
 		}
-		
+
 		public static void Circle<T>(int x0, int y0, int radius, T handler) where T : struct, IBresenhamCircleHandler
 		{
 			int x = 0;
 			int y = radius;
 			int delta = 3 - 2 * y;
-			
+
 			while (x <= y)
 			{
 				HandleAllOctants(x0, y0, x, y, handler);
-				
+
 				if (delta < 0)
 				{
 					delta += 4 * x + 6;

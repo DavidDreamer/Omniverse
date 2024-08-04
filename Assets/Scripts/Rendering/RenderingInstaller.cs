@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using Dreambox.Rendering.URP;
-using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -12,7 +11,7 @@ using VContainer.Unity;
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Rendering")]
-	public class RenderingInstaller: ScriptableObject, IInstaller
+	public class RenderingInstaller : ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
 		private SelectionConfig SelectionConfig { get; set; }

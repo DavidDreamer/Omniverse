@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class DelayDesc: IActionDesc
+	public class DelayDesc : IActionDesc
 	{
 		[field: SerializeField]
 		public float Duration { get; private set; }
-		
+
 		public IAction Build() => new Delay(this);
 	}
 }

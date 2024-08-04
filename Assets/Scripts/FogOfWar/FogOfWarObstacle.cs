@@ -3,7 +3,7 @@ using VContainer;
 
 namespace Omniverse.FogOfWar
 {
-	public class FogOfWarObstacle: MonoBehaviour
+	public class FogOfWarObstacle : MonoBehaviour
 	{
 		[field: SerializeField]
 		public Vector3 Size { get; private set; }

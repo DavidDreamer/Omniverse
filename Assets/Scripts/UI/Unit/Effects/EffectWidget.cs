@@ -1,25 +1,25 @@
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class EffectWidget: MonoBehaviour
+	public class EffectWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Image Background { get; set; }
-		
+
 		[field: SerializeField]
 		private Image Icon { get; set; }
-		
+
 		[field: SerializeField]
 		private Color ColorPositive { get; set; }
-		
+
 		[field: SerializeField]
 		private Color ColorNegative { get; set; }
-		
+
 		private Effect Effect { get; set; }
-		
+
 		public void Bind(Effect effect)
 		{
 			Effect = effect;
@@ -30,7 +30,7 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-			
+
 		}
 	}
 }

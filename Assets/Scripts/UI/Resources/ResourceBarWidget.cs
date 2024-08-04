@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class ResourceBarWidget: MonoBehaviour, IInitializable, ILateTickable
+	public class ResourceBarWidget : MonoBehaviour, IInitializable, ILateTickable
 	{
 		[field: SerializeField]
 		private ResourceWidget ResourceWidgetPrefab { get; set; }
@@ -18,7 +17,7 @@ namespace Omniverse.UI
 		private ResourceDesc[] ResourceDescs { get; set; }
 
 		private List<ResourceWidget> ResourceWidgets { get; } = new();
-		
+
 		public void Initialize()
 		{
 			foreach (ResourceDesc desc in ResourceDescs)

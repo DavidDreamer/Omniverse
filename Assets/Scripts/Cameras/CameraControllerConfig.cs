@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse.Cameras
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/CameraControllerConfig", fileName = nameof(CameraControllerConfig))]
-	public class CameraControllerConfig: ScriptableObject
+	public class CameraControllerConfig : ScriptableObject
 	{
 		[field: SerializeField]
 		public FloatRange HeightRange { get; private set; }
@@ -21,7 +21,7 @@ namespace Omniverse.Cameras
 
 		[field: SerializeField]
 		public FloatRange ZBounds { get; private set; }
-		
+
 		[field: SerializeField]
 		public ScreenBordersMovement ScreenBordersMovement { get; private set; }
 	}

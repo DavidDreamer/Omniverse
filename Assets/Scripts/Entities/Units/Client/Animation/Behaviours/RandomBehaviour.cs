@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Animations;
 
-namespace Omniverse.Entities.Units.Client
+namespace Omniverse.Units.Client
 {
-	public class RandomBehaviour: StateMachineBehaviour
+	public class RandomBehaviour : StateMachineBehaviour
 	{
 		private static int Random { get; } = Animator.StringToHash("Random");
 

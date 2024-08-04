@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Omniverse.Abilities;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public static class PhysicsHelper
 	{

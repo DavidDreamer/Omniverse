@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class CollectUnitTargetsFromSectorDesc: CollectUnitTargetsDesc
+	public class CollectUnitTargetsFromSectorDesc : CollectUnitTargetsDesc
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -12,7 +12,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		[field: Range(0, 360)]
 		public float Angle { get; private set; }
-		
+
 		public override IAction Build() => new CollectUnitTargetsFromSector(this);
 	}
 }

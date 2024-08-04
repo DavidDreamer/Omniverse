@@ -1,4 +1,4 @@
-﻿using Omniverse.Entities.Units.Client;
+﻿using Omniverse.Units.Client;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -6,11 +6,11 @@ using VContainer.Unity;
 namespace Omniverse.Input
 {
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Input")]
-	public class InputInstaller: ScriptableObject, IInstaller
+	public class InputInstaller : ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
 		private UnitControllerConfig UnitControllerConfig { get; set; }
-		
+
 		[field: SerializeField]
 		private AbilityTargetRenderer AbilityTargetRenderer { get; set; }
 
@@ -19,7 +19,7 @@ namespace Omniverse.Input
 
 		[field: SerializeField]
 		private AbilityTrajectoryRenderer TrajectoryRenderer { get; set; }
-		
+
 		public void Install(IContainerBuilder builder)
 		{
 			var inputActions = new InputActions();
@@ -28,7 +28,7 @@ namespace Omniverse.Input
 
 			inputActions.Abilities.Enable();
 			inputActions.Common.Enable();
-			
+
 			builder.RegisterComponentInNewPrefab(AbilityTargetRenderer, Lifetime.Singleton);
 			builder.RegisterComponentInNewPrefab(AbilityRangeRenderer, Lifetime.Singleton);
 			builder.RegisterComponentInNewPrefab(TrajectoryRenderer, Lifetime.Singleton);
@@ -41,7 +41,7 @@ namespace Omniverse.Input
 			builder.RegisterEntryPoint<AbilityHandlerResolver>().AsSelf();
 
 			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();
-			
+
 			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();

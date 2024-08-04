@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using VContainer;
 
 namespace Omniverse.Input
 {
-	public class EntityTargetHandler: TargetAbilityHandler
+	public class EntityTargetHandler : TargetAbilityHandler
 	{
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
@@ -19,7 +19,7 @@ namespace Omniverse.Input
 			var entityTarget = (EntityTarget)Ability.Target;
 
 			EntityDetector.ClearFilter();
-			
+
 			if (entityTarget.Desc.ResourceSources != null)
 			{
 				EntityDetector.AddToFilter<ResourceSource>();
@@ -43,7 +43,7 @@ namespace Omniverse.Input
 			while (!inputProcessed || !hasTarget);
 
 			entityTarget.Value = EntityDetector.Target;
-			
+
 			EntityDetector.SetDefaultDetectableType();
 		}
 	}

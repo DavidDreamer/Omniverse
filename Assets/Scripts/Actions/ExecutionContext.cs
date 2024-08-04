@@ -18,7 +18,7 @@ namespace Omniverse.Actions
 		public List<Vector3> Points { get; } = new();
 
 		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
-		
+
 		public ExecutionContext(IObjectResolver objectResolver, IActionDesc[] actionDescs)
 		{
 			Actions = new IAction[actionDescs.Length];
@@ -34,7 +34,7 @@ namespace Omniverse.Actions
 		public async UniTask PerformAsync(Entity caster, CancellationToken token)
 		{
 			Caster = caster;
-			
+
 			foreach (IAction action in Actions)
 			{
 				await action.Perform(this, token);

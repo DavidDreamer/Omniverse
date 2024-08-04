@@ -1,5 +1,5 @@
-﻿using Omniverse.Entities.Items;
-using Omniverse.Input;
+﻿using Omniverse.Input;
+using Omniverse.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Omniverse.UI
 {
-	public class ItemWidget: MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+	public class ItemWidget : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		[field: SerializeField]
 		private Image Icon { get; set; }

@@ -2,11 +2,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 
 namespace Omniverse.Input
 {
-	public abstract class TargetAbilityHandler: AbilityHandler, IDisposable
+	public abstract class TargetAbilityHandler : AbilityHandler, IDisposable
 	{
 		protected Ability Ability { get; private set; }
 

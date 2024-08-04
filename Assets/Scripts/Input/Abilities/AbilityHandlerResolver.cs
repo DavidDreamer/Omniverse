@@ -1,5 +1,5 @@
 ﻿using Omniverse.Abilities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using VContainer;
 
 namespace Omniverse.Input
@@ -23,23 +23,23 @@ namespace Omniverse.Input
 			switch (ability.Target)
 			{
 				case null:
-				{
-					AbilityHandler.TryCastAbility(unit, ability);
-					break;
-				}
+					{
+						AbilityHandler.TryCastAbility(unit, ability);
+						break;
+					}
 				case PointTarget:
-				{
-					if (PointAbilityHandler.InProcess)
 					{
-						PointAbilityHandler.Cancell();
-					}
-					else
-					{
-						PointAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-					}
+						if (PointAbilityHandler.InProcess)
+						{
+							PointAbilityHandler.Cancell();
+						}
+						else
+						{
+							PointAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+						}
 
-					break;
-				}
+						break;
+					}
 				// case TrajectoryTarget:
 				// {
 				// 	if (TrajectoryAbilityHandler.InProcess)
@@ -54,18 +54,18 @@ namespace Omniverse.Input
 				// 	break;
 				// }
 				case EntityTarget:
-				{
-					if (EntityTargetHandler.InProcess)
 					{
-						EntityTargetHandler.Cancell();
-					}
-					else
-					{
-						EntityTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-					}
+						if (EntityTargetHandler.InProcess)
+						{
+							EntityTargetHandler.Cancell();
+						}
+						else
+						{
+							EntityTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+						}
 
-					break;
-				}
+						break;
+					}
 			}
 		}
 	}

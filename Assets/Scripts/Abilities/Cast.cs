@@ -8,7 +8,7 @@ namespace Omniverse.Abilities
 	{
 		[field: SerializeField]
 		public float Time { get; private set; }
-		
+
 		[field: SerializeField]
 		public string AnimationTrigger { get; private set; }
 	}

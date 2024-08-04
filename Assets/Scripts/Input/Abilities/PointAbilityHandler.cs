@@ -1,15 +1,15 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
-using Omniverse.Entities.Units;
-using Omniverse.Entities.Units.Client;
+using Omniverse.Units;
+using Omniverse.Units.Client;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
 
 namespace Omniverse.Input
 {
-	public class PointAbilityHandler: TargetAbilityHandler
+	public class PointAbilityHandler : TargetAbilityHandler
 	{
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
@@ -39,7 +39,7 @@ namespace Omniverse.Input
 		{
 			var pointTargetDesc = (PointTargetDesc)Ability.Desc.Target;
 			var pointTarget = (PointTarget)Ability.Target;
-			
+
 			AbilityRangeRenderer.SetRange(pointTargetDesc.Range);
 
 			while (true)
@@ -53,7 +53,7 @@ namespace Omniverse.Input
 				Vector3 characterToTarget = targetPositionXZ - characterPositionXZ;
 
 				bool positionIsOutOfRange = characterToTarget.sqrMagnitude >
-				                            pointTargetDesc.Range * pointTargetDesc.Range;
+											pointTargetDesc.Range * pointTargetDesc.Range;
 
 				if (positionIsOutOfRange)
 				{

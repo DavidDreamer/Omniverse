@@ -1,6 +1,6 @@
-﻿using Omniverse.Entities.Items;
+﻿using Omniverse.Items;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public class InventorySlot
 	{

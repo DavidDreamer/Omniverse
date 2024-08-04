@@ -1,6 +1,6 @@
-﻿namespace Omniverse.Entities.Units.Client
+﻿namespace Omniverse.Units.Client
 {
-	public class AbilityTargetRenderer: AbilityHelperRenderer
+	public class AbilityTargetRenderer : AbilityHelperRenderer
 	{
 	}
 }

@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class AbilitySlotWidget: MonoBehaviour
+	public class AbilitySlotWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Image Background { get; set; }
-		
+
 		[field: SerializeField]
 		private AbilityWidget AbilityWidget { get; set; }
 
@@ -27,7 +27,7 @@ namespace Omniverse.UI
 			AbilityWidget.gameObject.SetActive(hasAbility);
 			Background.gameObject.SetActive(!hasAbility);
 			Hotkey.gameObject.SetActive(hasAbility);
-			
+
 			if (hasAbility)
 			{
 				AbilityWidget.Bind(ability);

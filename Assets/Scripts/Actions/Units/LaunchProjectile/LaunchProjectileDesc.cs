@@ -1,5 +1,5 @@
 using System;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions

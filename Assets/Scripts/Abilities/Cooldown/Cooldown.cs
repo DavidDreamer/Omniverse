@@ -7,7 +7,7 @@ namespace Omniverse.Abilities
 	public class Cooldown
 	{
 		public CooldownDesc Desc { get; }
-		
+
 		public float TimeLeft { get; private set; }
 
 		public float TimeLeftRatio { get; private set; }
@@ -18,7 +18,7 @@ namespace Omniverse.Abilities
 		{
 			Desc = desc;
 		}
-		
+
 		public async UniTask ActivateAsync(CancellationToken token)
 		{
 			IsActive = true;

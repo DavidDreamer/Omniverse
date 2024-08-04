@@ -1,9 +1,9 @@
 ﻿using Dreambox.Physics;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units.Client
+namespace Omniverse.Units.Client
 {
-	public class UnitAnimator: EntityComponent<Unit>
+	public class UnitAnimator : EntityComponent<Unit>
 	{
 		private static class AnimatorVariables
 		{
@@ -12,7 +12,7 @@ namespace Omniverse.Entities.Units.Client
 			public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
 
 			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
-			
+
 			public static int AttackSpeed { get; } = Animator.StringToHash(nameof(AttackSpeed));
 		}
 
@@ -39,7 +39,7 @@ namespace Omniverse.Entities.Units.Client
 
 			Animator.SetBool(AnimatorVariables.IsMoving,
 				!Entity.NavMeshAgent.isStopped && Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
-			
+
 			float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount.Value;
 			Animator.SetFloat(AnimatorVariables.MovementSpeed, movementSpeed);
 
@@ -51,7 +51,7 @@ namespace Omniverse.Entities.Units.Client
 		{
 			Animator.SetTrigger(AnimatorVariables.Attack);
 		}
-		
+
 		private void OnDied()
 		{
 			Animator.enabled = false;

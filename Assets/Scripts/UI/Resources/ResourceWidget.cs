@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Omniverse.UI
 {
-	public class ResourceWidget: MonoBehaviour
+	public class ResourceWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Image Icon { get; set; }
@@ -17,10 +17,10 @@ namespace Omniverse.UI
 
 		[Inject]
 		private FactionManager FactionManager { get; set; }
-		
+
 		[Inject]
 		private Player Player { get; set; }
-		
+
 		public void Initialize(ResourceDesc resourceDesc)
 		{
 			ResourceDesc = resourceDesc;

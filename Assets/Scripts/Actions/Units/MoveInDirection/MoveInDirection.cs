@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.AI;
 
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class MoveInDirection: Action<MoveInDirectionDesc>
+	public class MoveInDirection : Action<MoveInDirectionDesc>
 	{
-		public MoveInDirection(MoveInDirectionDesc desc): base(desc)
+		public MoveInDirection(MoveInDirectionDesc desc) : base(desc)
 		{
 		}
 

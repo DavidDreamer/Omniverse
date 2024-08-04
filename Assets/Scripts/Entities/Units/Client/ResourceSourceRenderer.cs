@@ -1,7 +1,7 @@
-﻿namespace Omniverse.Entities.Units.Client
+﻿namespace Omniverse.Units.Client
 {
 	//TODO
-	public class ResourceSourceRenderer: RendererComponent<ResourceSource>
+	public class ResourceSourceRenderer : RendererComponent<ResourceSource>
 	{
 	}
 }

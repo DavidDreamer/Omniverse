@@ -9,9 +9,9 @@ using Object = UnityEngine.Object;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class SpawnVisualEffect: Action<SpawnVisualEffectDesc>
+	public class SpawnVisualEffect : Action<SpawnVisualEffectDesc>
 	{
-		public SpawnVisualEffect(SpawnVisualEffectDesc desc): base(desc)
+		public SpawnVisualEffect(SpawnVisualEffectDesc desc) : base(desc)
 		{
 		}
 

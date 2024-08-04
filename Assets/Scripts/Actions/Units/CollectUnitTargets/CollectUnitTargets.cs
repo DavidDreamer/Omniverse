@@ -2,8 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Omniverse.Entities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 
 namespace Omniverse.Actions
 {

@@ -1,20 +1,16 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Dreambox.Math;
 using JetBrains.Annotations;
-using Omniverse.Entities.Units;
-using UnityEngine;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class MoveToTarget: Action<MoveToTargetDesc>
+	public class MoveToTarget : Action<MoveToTargetDesc>
 	{
-		public MoveToTarget(MoveToTargetDesc desc): base(desc)
+		public MoveToTarget(MoveToTargetDesc desc) : base(desc)
 		{
 		}
-		
+
 		public override async UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			await UniTask.CompletedTask;

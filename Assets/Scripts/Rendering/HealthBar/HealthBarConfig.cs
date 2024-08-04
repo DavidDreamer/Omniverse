@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Health Bar", fileName = nameof(HealthBarConfig))]
-	public class HealthBarConfig: ScriptableObject
+	public class HealthBarConfig : ScriptableObject
 	{
 		[field: SerializeField]
 		public int MaxCount { get; set; }
@@ -17,7 +17,7 @@ namespace Omniverse.Rendering
 
 		[field: SerializeField]
 		public HealthBarColors AllyColors { get; private set; }
-		
+
 		[field: SerializeField]
 		public HealthBarColors EnemyColors { get; private set; }
 	}

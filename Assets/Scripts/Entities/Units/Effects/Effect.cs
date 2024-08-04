@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public class Effect
 	{

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse
 {
 	[CreateAssetMenu(menuName = "Omniverse/Settings/Physics")]
-	public class PhysicsSettings: ScriptableObject
+	public class PhysicsSettings : ScriptableObject
 	{
 		[field: Header("Physics")]
 		[field: Layer]

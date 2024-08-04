@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class ApplyEffect: Action<ApplyEffectDesc>
+	public class ApplyEffect : Action<ApplyEffectDesc>
 	{
-		public ApplyEffect(ApplyEffectDesc desc): base(desc)
+		public ApplyEffect(ApplyEffectDesc desc) : base(desc)
 		{
 		}
 

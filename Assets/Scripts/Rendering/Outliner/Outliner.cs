@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class Outliner: ILateTickable
+	public class Outliner : ILateTickable
 	{
 		[Inject]
 		private Player Player { get; set; }
@@ -27,7 +27,7 @@ namespace Omniverse.Rendering
 			{
 				return;
 			}
-			
+
 			//TODO
 			var entityRenderer = entity.GetComponentInChildren<IRendererComponent>();
 			if (entityRenderer != null)

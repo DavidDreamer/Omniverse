@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.FogOfWar
 {
-	internal readonly struct BresenhamCircleHandler: IBresenhamCircleHandler
+	internal readonly struct BresenhamCircleHandler : IBresenhamCircleHandler
 	{
 		private int X { get; }
 
@@ -13,7 +13,7 @@ namespace Omniverse.FogOfWar
 		private CellVisibilityState[] CellVisibilityStates { get; }
 
 		private bool[] CellObstacles { get; }
-			
+
 		private Vector2Int Resolution { get; }
 
 		public BresenhamCircleHandler(int x, int y, CellVisibilityState[] cellVisibilityStates, bool[] cellObstacles, Vector2Int resoution)
@@ -30,7 +30,7 @@ namespace Omniverse.FogOfWar
 		{
 			x = Math.Clamp(x, 0, Resolution.x - 1);
 			y = Math.Clamp(y, 0, Resolution.y - 1);
-			
+
 			var lineHandler = new BresenhamLineHandler(CellVisibilityStates, CellObstacles, Resolution);
 			Bresenham.Line(X, Y, x, y, lineHandler);
 		}

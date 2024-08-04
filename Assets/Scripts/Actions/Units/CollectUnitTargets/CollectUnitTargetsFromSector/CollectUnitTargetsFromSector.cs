@@ -1,26 +1,24 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Omniverse.Entities.Units;
-using UnityEngine;
+using Omniverse.Units;
 using VContainer;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class CollectUnitTargetsFromSector: CollectUnitTargets<CollectUnitTargetsFromSectorDesc>
+	public class CollectUnitTargetsFromSector : CollectUnitTargets<CollectUnitTargetsFromSectorDesc>
 	{
 		[Inject]
 		private PhysicsSettings PhysicsSettings { get; set; }
-		
-		public CollectUnitTargetsFromSector(CollectUnitTargetsFromSectorDesc desc): base(desc)
+
+		public CollectUnitTargetsFromSector(CollectUnitTargetsFromSectorDesc desc) : base(desc)
 		{
 		}
 
 		public override IEnumerable<Unit> GetUnits(ExecutionContext context)
 		{
 			yield return null;
-			
+
 			// Transform transform = context.Caster.Presenter;
 			//
 			// return PhysicsHelper.GetUnitsInSector(transform.position,

@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace Omniverse.FogOfWar.Rendering
 {
-	public class FogOfWarRenderer: MonoBehaviour, IInitializable, IDisposable
+	public class FogOfWarRenderer : MonoBehaviour, IInitializable, IDisposable
 	{
 		[field: SerializeField]
 		private Shaders Shaders { get; set; }
@@ -19,7 +19,7 @@ namespace Omniverse.FogOfWar.Rendering
 
 		[field: SerializeField]
 		private BlurSettings BlurSettings { get; set; }
-		
+
 		[Inject]
 		public Manager Manager { get; set; }
 
@@ -49,20 +49,20 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
-			
+
 			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
-			
+
 			if (BlurMaterial != null)
 			{
 				BlurSettings.ApplyTo(BlurMaterial);
 			}
 		}
-		
+
 		public void Initialize()
 		{
 			AnimationMaterial = new Material(Shaders.PreProcess);
 			BlurMaterial = new Material(Shaders.Blur);
-			
+
 			UpdateShaderVariables();
 
 			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
@@ -133,7 +133,7 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
-		
+
 		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
 		{
 			if (cam.cameraType is CameraType.Game or CameraType.SceneView)

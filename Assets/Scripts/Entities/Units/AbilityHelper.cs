@@ -1,6 +1,6 @@
 ﻿using Omniverse.Abilities;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public static class AbilityHelper
 	{

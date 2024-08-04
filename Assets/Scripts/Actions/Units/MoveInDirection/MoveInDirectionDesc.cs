@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class MoveInDirectionDesc: IActionDesc
+	public class MoveInDirectionDesc : IActionDesc
 	{
 		[field: SerializeField]
 		public Vector3 Direction { get; private set; }
@@ -14,7 +14,7 @@ namespace Omniverse.Actions
 
 		[field: SerializeField]
 		public float Duration { get; private set; }
-		
+
 		public IAction Build() => new MoveInDirection(this);
 	}
 }

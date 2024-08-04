@@ -1,5 +1,6 @@
 ﻿using Dreambox.Rendering.Core;
 using Omniverse.Input;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -42,7 +43,7 @@ namespace Omniverse.Rendering
 
 			for (int i = 0; i < unitSelector.SelectedUnits.Count; i++)
 			{
-				Entities.Units.Unit unit = unitSelector.SelectedUnits[i];
+				Unit unit = unitSelector.SelectedUnits[i];
 				var matrix = Matrix4x4.TRS(config.Position, Quaternion.Euler(config.Rotation), Vector3.one);
 				matrix = unit.transform.localToWorldMatrix * matrix;
 				Matrices[i] = matrix;

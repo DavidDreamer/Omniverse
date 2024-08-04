@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public abstract class EntityDesc: ScriptableObject
+	public abstract class EntityDesc : ScriptableObject
 	{
 		[field: SerializeField]
 		public string Name { get; private set; }

@@ -8,7 +8,7 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 		private static Color Visible { get; } = Color.green;
 
 		private static Color Invisible { get; } = Color.red;
-		
+
 		private static Color Occluded { get; } = Color.black;
 
 		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacle))]
@@ -16,7 +16,7 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 		{
 			Gizmos.DrawWireCube(obstacle.transform.position, obstacle.Size);
 		}
-		
+
 		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarRenderer))]
 		private static void DrawGizmos(FogOfWarRenderer fogOfWarRenderer, GizmoType gizmoType)
 		{
@@ -30,7 +30,7 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 
 			var cellVisibilityStates = fogOfWarRenderer.Manager.CellsVisibilityPerFaction[0];
 			var cellsObstacles = fogOfWarRenderer.Manager.CellsObstaclesPerFaction[0];
-			
+
 			Vector3 size = new Vector3(1, 0, 1) * Manager.Multiplier;
 
 			for (int x = 0; x < width; ++x)

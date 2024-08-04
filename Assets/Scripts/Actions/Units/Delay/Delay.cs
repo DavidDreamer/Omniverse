@@ -6,9 +6,9 @@ using JetBrains.Annotations;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class Delay: Action<DelayDesc>
+	public class Delay : Action<DelayDesc>
 	{
-		public Delay(DelayDesc desc): base(desc)
+		public Delay(DelayDesc desc) : base(desc)
 		{
 		}
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.FogOfWar
 {
-	internal readonly struct BresenhamLineHandler: IBresenhamLineHandler
+	internal readonly struct BresenhamLineHandler : IBresenhamLineHandler
 	{
 		private CellVisibilityState[] CellVisibilityStates { get; }
 

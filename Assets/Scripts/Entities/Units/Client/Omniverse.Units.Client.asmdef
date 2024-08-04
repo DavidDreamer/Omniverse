@@ -1,6 +1,6 @@
 {
-    "name": "Omniverse.Entities.Units.Client",
-    "rootNamespace": "Omniverse.Entities.Units.Client",
+    "name": "Omniverse.Units.Client",
+    "rootNamespace": "Omniverse.Units.Client",
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",

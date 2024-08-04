@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class ChangeProperty: Action<ChangePropertyDesc>
+	public class ChangeProperty : Action<ChangePropertyDesc>
 	{
-		public ChangeProperty(ChangePropertyDesc desc): base(desc)
+		public ChangeProperty(ChangePropertyDesc desc) : base(desc)
 		{
 		}
 

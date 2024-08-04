@@ -5,12 +5,12 @@ using JetBrains.Annotations;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class KillUnits: Action<KillUnitsDesc>
+	public class KillUnits : Action<KillUnitsDesc>
 	{
-		public KillUnits(KillUnitsDesc desc): base(desc)
+		public KillUnits(KillUnitsDesc desc) : base(desc)
 		{
 		}
-		
+
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO: insta kill

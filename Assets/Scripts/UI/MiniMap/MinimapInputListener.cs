@@ -1,5 +1,4 @@
-﻿using System;
-using Omniverse.Cameras;
+﻿using Omniverse.Cameras;
 using Omniverse.Input;
 using Omniverse.Mapping;
 using UnityEngine;
@@ -8,14 +7,14 @@ using VContainer;
 
 namespace Omniverse.UI
 {
-	public class MinimapInputListener: MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
+	public class MinimapInputListener : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
 	{
 		[field: SerializeField]
 		private RectTransform RectTransform { get; set; }
 
 		[field: SerializeField]
 		[field: HideInInspector]
-		private Canvas Canvas{ get; set; }
+		private Canvas Canvas { get; set; }
 
 		[Inject]
 		private Map Map { get; set; }
@@ -38,11 +37,11 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-				{
-					MovingEnabled = true;
-					MoveCameraToPointerPosition(eventData);
-					break;
-				}
+					{
+						MovingEnabled = true;
+						MoveCameraToPointerPosition(eventData);
+						break;
+					}
 			}
 		}
 
@@ -51,14 +50,14 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-				{
-					if (MovingEnabled)
 					{
-						MoveCameraToPointerPosition(eventData);
-					}
+						if (MovingEnabled)
+						{
+							MoveCameraToPointerPosition(eventData);
+						}
 
-					break;
-				}
+						break;
+					}
 			}
 		}
 
@@ -67,16 +66,16 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-				{
-					MovingEnabled = false;
-					break;
-				}
+					{
+						MovingEnabled = false;
+						break;
+					}
 				case PointerEventData.InputButton.Right:
-				{
-					Vector3 position = TransformPosition(eventData.position);
-					UnitController.ProcessNavigationPoint(position);
-					break;
-				}
+					{
+						Vector3 position = TransformPosition(eventData.position);
+						UnitController.ProcessNavigationPoint(position);
+						break;
+					}
 			}
 		}
 

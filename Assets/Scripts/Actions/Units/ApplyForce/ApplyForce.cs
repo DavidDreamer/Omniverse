@@ -1,15 +1,14 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Omniverse.Entities.Units;
-using UnityEngine;
+using Omniverse.Units;
 
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class ApplyForce: Action<ApplyForceDesc>
+	public class ApplyForce : Action<ApplyForceDesc>
 	{
-		public ApplyForce(ApplyForceDesc desc): base(desc)
+		public ApplyForce(ApplyForceDesc desc) : base(desc)
 		{
 		}
 

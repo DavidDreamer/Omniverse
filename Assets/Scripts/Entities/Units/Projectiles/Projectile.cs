@@ -1,10 +1,7 @@
 ﻿using System.Linq;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Dreambox.Math;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public class Projectile : FactiousEntity<ProjectileDesc>
 	{

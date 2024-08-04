@@ -4,21 +4,21 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public class Attack
 	{
 		public event Action Started;
-		
+
 		private Unit Unit { get; }
-		
+
 		public bool InProcess { get; private set; }
-		
+
 		public Attack(Unit unit)
 		{
 			Unit = unit;
 		}
-		
+
 		public bool TargetIsInRange(Unit target)
 		{
 			float sqrDistance = Vector3.SqrMagnitude(Unit.transform.position - target.transform.position);
@@ -32,14 +32,14 @@ namespace Omniverse.Entities.Units
 		public async UniTaskVoid Perform(Unit target, CancellationToken token)
 		{
 			InProcess = true;
-			
+
 			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount.Value;
 
 			float time = 1f / attackSpeed;
 			TimeSpan timeSpan = TimeSpan.FromSeconds(time);
 
 			Started?.Invoke();
-			
+
 			await UniTask.Delay(timeSpan, cancellationToken: token);
 
 			if (TargetIsInRange(target))
@@ -49,10 +49,10 @@ namespace Omniverse.Entities.Units
 					Amount = -Unit.Properties[PropertyID.AttackDamage].Amount,
 					ID = target.Properties.Keys.First()
 				};
-			
+
 				target.ChangeResource(data);
 			}
-			
+
 			InProcess = false;
 		}
 	}

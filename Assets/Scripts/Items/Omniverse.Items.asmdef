@@ -1,0 +1,19 @@
+{
+    "name": "Omniverse.Items",
+    "rootNamespace": "Omniverse.Items",
+    "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
+        "GUID:c2607f496bdafbd48ab90b2a2689d5e3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

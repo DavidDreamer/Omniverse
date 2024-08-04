@@ -1,22 +1,21 @@
-using Omniverse.Entities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class PropertyBarWidget: MonoBehaviour
+	public class PropertyBarWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		public PropertyID PropertyID { get; private set; }
-		
+
 		[field: SerializeField]
 		private Slider Slider { get; set; }
 
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
-		
+
 		private Property Property { get; set; }
 
 		public void Bind(Unit unit)
@@ -40,7 +39,7 @@ namespace Omniverse.UI
 			}
 
 			Slider.value = Property.Amount.Value;
-			
+
 			if (Label != null)
 			{
 				Label.text = $"{(int)Slider.value} / {Slider.maxValue}";

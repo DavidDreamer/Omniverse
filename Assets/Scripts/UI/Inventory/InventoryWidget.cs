@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Omniverse.Input;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class InventoryWidget: MonoBehaviour
+	public class InventoryWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		public Canvas Canvas { get; private set; }
@@ -25,7 +25,7 @@ namespace Omniverse.UI
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
-		
+
 		public void LateUpdate()
 		{
 			if (UnitSelector.HasSelection is false)

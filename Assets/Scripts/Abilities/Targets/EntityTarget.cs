@@ -1,6 +1,5 @@
 using System;
 using Dreambox.Core;
-using Omniverse.Entities;
 using UnityEngine;
 
 namespace Omniverse.Abilities
@@ -19,7 +18,7 @@ namespace Omniverse.Abilities
 		public FactiousFilter Filter { get; private set; }
 	}
 
-	public class EntityTarget: ITarget
+	public class EntityTarget : ITarget
 	{
 		public EntityTargetDesc Desc { get; }
 
@@ -31,7 +30,7 @@ namespace Omniverse.Abilities
 		}
 	}
 
-	public class EntityTargetDesc: ITargetDesc
+	public class EntityTargetDesc : ITargetDesc
 	{
 		[field: SerializeField]
 		public float Range { get; private set; }

@@ -7,7 +7,7 @@ namespace Omniverse.FogOfWar.Rendering
 		public const string ExploredKeyword = "FOG_OF_WAR_EXPLORED";
 
 		public static int FogOfWarResolution { get; } = Shader.PropertyToID(nameof(FogOfWarResolution));
-		
+
 		public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
 
 		public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));

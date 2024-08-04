@@ -8,7 +8,7 @@ namespace Omniverse.Cameras
 	{
 		[field: SerializeField]
 		public float Threshold { get; private set; }
-		
+
 		[field: SerializeField]
 		public float Speed { get; private set; }
 	}

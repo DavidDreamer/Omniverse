@@ -1,9 +1,9 @@
 ﻿using Dreambox.Math;
 using UnityEngine;
 
-namespace Omniverse.Entities.Units.Client
+namespace Omniverse.Units.Client
 {
-	public class AbilityTrajectoryRenderer: MonoBehaviour
+	public class AbilityTrajectoryRenderer : MonoBehaviour
 	{
 		[field: SerializeField]
 		private LineRenderer LineRenderer { get; set; }

@@ -3,11 +3,11 @@ using UnityEngine.InputSystem;
 
 namespace Omniverse.Cameras
 {
-	public class CameraController: MonoBehaviour
+	public class CameraController : MonoBehaviour
 	{
 		[field: SerializeField]
 		private CameraControllerConfig Config { get; set; }
-		
+
 		private float CurrentHeight { get; set; }
 
 		public void Start()
@@ -42,7 +42,7 @@ namespace Omniverse.Cameras
 			float clampedZ = Config.ZBounds.Clamp(position.z);
 			position = new Vector3(clampedX, position.y, clampedZ);
 		}
-		
+
 		public void LateUpdate()
 		{
 			Vector3 position = transform.position;

@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse.FogOfWar
 {
-	public class Manager: IInitializable, IFixedTickable
+	public class Manager : IInitializable, IFixedTickable
 	{
 		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 
@@ -14,13 +14,13 @@ namespace Omniverse.FogOfWar
 
 		[Inject]
 		public Settings Settings { get; set; }
-		
+
 		[Inject]
 		private MapSettings MapSettings { get; set; }
 
 		[Inject]
 		private FactionDesc[] Factions { get; set; }
-		
+
 		[Inject]
 		public Player Player { get; set; }
 
@@ -29,7 +29,7 @@ namespace Omniverse.FogOfWar
 		public bool[][] CellsObstaclesPerFaction { get; set; }
 
 		private HashSet<IAgent> Agents { get; } = new();
-		
+
 		public void Initialize()
 		{
 			Resolution = MapSettings.Size / Multiplier;
@@ -40,7 +40,7 @@ namespace Omniverse.FogOfWar
 
 			CellVisibilityState initialState =
 				Settings.Explored ? CellVisibilityState.Explored : CellVisibilityState.Unexplored;
-			
+
 			for (int i = 0; i < Factions.Length; ++i)
 			{
 				CellsVisibilityPerFaction[i] = new CellVisibilityState[cellsCount];
@@ -57,16 +57,16 @@ namespace Omniverse.FogOfWar
 		{
 			Vector3 size = new Vector3(1, 0, 1) * Multiplier;
 			Vector3 offset = size / 2f;
-			
+
 			return new Vector3(x, 0, y) * Multiplier + offset;
 		}
-		
+
 		//TODO
 		public void AddObstacle(FogOfWarObstacle obstacle)
 		{
 			int x = (int)obstacle.transform.position.x / Multiplier;
 			int y = (int)obstacle.transform.position.z / Multiplier;
-			
+
 			int index = x * Resolution.y + y;
 			foreach (bool[] cells in CellsObstaclesPerFaction)
 			{
@@ -86,12 +86,12 @@ namespace Omniverse.FogOfWar
 		{
 			Agents.Add(agent);
 		}
-		
+
 		public void Unregister(IAgent agent)
 		{
 			Agents.Remove(agent);
 		}
-		
+
 		private void UpdateAgentPositions()
 		{
 			foreach (IAgent agent in Agents)

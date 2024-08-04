@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.Entities.Items;
+using Omniverse.Items;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	public class Inventory
 	{

@@ -1,5 +1,4 @@
-﻿using Omniverse.Entities.Units;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using VContainer;
@@ -13,7 +12,7 @@ namespace Omniverse.Rendering
 		public HealthBarConfig Config { get; private set; }
 
 		[Inject]
-		public Manager UnitManager{ get; private set; }
+		public Units.Manager UnitManager { get; private set; }
 
 		[Inject]
 		public Player Player { get; private set; }

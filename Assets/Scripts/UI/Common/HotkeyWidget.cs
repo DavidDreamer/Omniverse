@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Omniverse.UI
 {
-	public class HotkeyWidget: MonoBehaviour
+	public class HotkeyWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }

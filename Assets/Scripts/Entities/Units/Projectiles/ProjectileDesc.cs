@@ -1,7 +1,6 @@
-﻿using Dreambox.Math;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Omniverse.Entities.Units
+namespace Omniverse.Units
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Projectile")]
 	public class ProjectileDesc : EntityDesc

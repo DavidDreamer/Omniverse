@@ -1,6 +1,5 @@
 ﻿using Dreambox.Rendering.Core;
-using Omniverse.Entities.Units;
-using Omniverse.Input;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -48,7 +47,7 @@ namespace Omniverse.Rendering
 			var commandBuffer = scope.CommandBuffer;
 
 			HealthBarConfig config = Renderer.Config;
-			Manager unitManager = Renderer.UnitManager;
+			Units.Manager unitManager = Renderer.UnitManager;
 			var units = unitManager.Units;
 
 			MaterialPropertyBlock.Clear();
@@ -71,7 +70,7 @@ namespace Omniverse.Rendering
 				BaseColors[i] = colors.BaseColor;
 				SecondColors[i] = colors.SecondColor;
 
-				var healthProperty = unit.Properties[Entities.PropertyID.Health];
+				var healthProperty = unit.Properties[PropertyID.Health];
 				Amounts[i] = healthProperty.Amount.Value / healthProperty.Desc.Range.Max;
 			}
 

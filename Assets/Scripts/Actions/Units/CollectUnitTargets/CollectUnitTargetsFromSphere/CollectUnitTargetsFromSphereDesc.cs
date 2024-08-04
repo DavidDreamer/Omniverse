@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class CollectUnitTargetsFromSphereDesc: CollectUnitTargetsDesc
+	public class CollectUnitTargetsFromSphereDesc : CollectUnitTargetsDesc
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
-		
+
 		public override IAction Build() => new CollectUnitTargetsFromSphere(this);
 	}
 }

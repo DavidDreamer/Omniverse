@@ -1,32 +1,31 @@
 using System.Collections.Generic;
 using Omniverse.Abilities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class AbilityBarWidget: MonoBehaviour
+	public class AbilityBarWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private AbilitySlotWidget AbilitySlotWidgetPrefab { get; set; }
-		
+
 		[field: SerializeField]
 		private RectTransform Holder { get; set; }
 
 		private List<AbilitySlotWidget> Slots { get; } = new();
-		
+
 		private Unit Unit { get; set; }
-		
+
 		[Inject]
 		private InputActions.AbilitiesActions InputActions { get; set; }
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
-		
+
 		public void Bind(Unit unit)
 		{
 			Unit = unit;
@@ -48,7 +47,7 @@ namespace Omniverse.UI
 				slot.Tick();
 			}
 		}
-		
+
 		private void UpdateSlotsCount(int count)
 		{
 			int slotsDelta = count - Slots.Count;

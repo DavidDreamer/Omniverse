@@ -1,8 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.Entities.Items;
-using Omniverse.Entities.Units;
-using Omniverse.Entities.Units.Client;
+using Omniverse.Items;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -12,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace Omniverse.Input
 {
-	public class UnitController: ITickable
+	public class UnitController : ITickable
 	{
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }

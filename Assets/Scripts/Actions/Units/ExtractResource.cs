@@ -1,26 +1,26 @@
 ﻿using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 
 namespace Omniverse.Actions
 {
-	public class ExtractResourceDesc: IActionDesc
+	public class ExtractResourceDesc : IActionDesc
 	{
 		[field: SerializeField]
 		public int Amount { get; private set; }
-		
+
 		public IAction Build() => new ExtractResource(this);
 	}
-	
-	public class ExtractResource: Action<ExtractResourceDesc>
+
+	public class ExtractResource : Action<ExtractResourceDesc>
 	{
 		[Inject]
 		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
-		
-		public ExtractResource(ExtractResourceDesc desc): base(desc)
+
+		public ExtractResource(ExtractResourceDesc desc) : base(desc)
 		{
 		}
 

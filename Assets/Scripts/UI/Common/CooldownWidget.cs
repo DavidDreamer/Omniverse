@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class CooldownWidget: MonoBehaviour
+	public class CooldownWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Image Image { get; set; }
-		
+
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
 
 		private Abilities.Cooldown Cooldown { get; set; }
-		
+
 		public void Bind(Abilities.Cooldown cooldown)
 		{
 			Cooldown = cooldown;

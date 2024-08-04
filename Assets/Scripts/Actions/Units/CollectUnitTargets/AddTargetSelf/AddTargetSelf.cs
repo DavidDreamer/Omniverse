@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class AddTargetSelf: Action<AddTargetSelfDesc>
+	public class AddTargetSelf : Action<AddTargetSelfDesc>
 	{
-		public AddTargetSelf(AddTargetSelfDesc desc): base(desc)
+		public AddTargetSelf(AddTargetSelfDesc desc) : base(desc)
 		{
 		}
 

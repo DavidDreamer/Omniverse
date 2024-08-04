@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace Omniverse.Actions
 {
 	[UsedImplicitly]
-	public class AnimationTrigger: Action<AnimationTriggerDesc>
+	public class AnimationTrigger : Action<AnimationTriggerDesc>
 	{
-		public AnimationTrigger(AnimationTriggerDesc desc): base(desc)
+		public AnimationTrigger(AnimationTriggerDesc desc) : base(desc)
 		{
 		}
 

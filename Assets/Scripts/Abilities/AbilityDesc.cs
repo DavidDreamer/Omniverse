@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Omniverse.Abilities
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Ability")]
-	public class AbilityDesc: ScriptableObject
+	public class AbilityDesc : ScriptableObject
 	{
 		[field: SerializeField]
 		public Presentation Presentation { get; private set; }

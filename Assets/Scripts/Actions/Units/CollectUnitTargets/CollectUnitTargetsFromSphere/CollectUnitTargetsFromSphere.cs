@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Omniverse.Entities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 

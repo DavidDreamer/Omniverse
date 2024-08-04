@@ -1,19 +1,19 @@
 using System.Collections.Generic;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class EffectsBarWidget: MonoBehaviour, ITickable
+	public class EffectsBarWidget : MonoBehaviour, ITickable
 	{
 		[field: SerializeField]
 		private RectTransform Holder { get; set; }
-		
+
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
-		
+
 		private Unit Unit { get; set; }
 
 		private List<EffectWidget> EffectIndicators { get; } = new();
@@ -44,12 +44,12 @@ namespace Omniverse.UI
 				EffectIndicators.RemoveAt(i);
 				i--;
 			}
-			
+
 			foreach (EffectWidget effectIndicator in EffectIndicators)
 			{
 				effectIndicator.Tick();
 			}
-			
+
 			Holder.ForceLayoutRebuild();
 		}
 	}

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Omniverse.Entities.Items;
-using Omniverse.Entities.Units;
-using Omniverse.Entities.Units.Client;
+using Omniverse.Items;
+using Omniverse.Units;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;

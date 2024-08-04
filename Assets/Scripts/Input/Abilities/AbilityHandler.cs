@@ -1,5 +1,5 @@
 ﻿using Omniverse.Abilities;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using VContainer;
 
 namespace Omniverse.Input
@@ -8,7 +8,7 @@ namespace Omniverse.Input
 	{
 		[Inject]
 		private ErrorHandler ErrorHandler { get; set; }
-		
+
 		public void TryCastAbility(Unit unit, Ability ability)
 		{
 			AbilityCastError error = ability.CanBeCasted(unit);

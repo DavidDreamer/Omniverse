@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace Omniverse.Entities.Units.Client
+namespace Omniverse.Units.Client
 {
-	public class AbilityHelperRenderer: MonoBehaviour
+	public class AbilityHelperRenderer : MonoBehaviour
 	{
 		[field: SerializeField, HideInInspector]
 		public DecalProjector DecalProjector { get; private set; }

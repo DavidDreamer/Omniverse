@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Input
 {
-	public class NavigationPoint: MonoBehaviour
+	public class NavigationPoint : MonoBehaviour
 	{
 		private static int PowerID { get; } = Shader.PropertyToID("Power");
 

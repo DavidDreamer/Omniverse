@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Omniverse.UI
 {
-	public class InventoryButton: MonoBehaviour, IPointerClickHandler
+	public class InventoryButton : MonoBehaviour, IPointerClickHandler
 	{
 		[Inject]
 		private InventoryWidget InventoryWidget { get; set; }

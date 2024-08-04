@@ -1,6 +1,5 @@
-using System.Linq;
 using Omniverse.Input;
-using Omniverse.Entities.Units;
+using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -8,30 +7,30 @@ using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class UnitWidget: MonoBehaviour, ILateTickable
+	public class UnitWidget : MonoBehaviour, ILateTickable
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
-		
+
 		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
-		
+
 		[field: SerializeField]
 		private PropertiesWidget Properties { get; set; }
-		
+
 		[field: SerializeField]
 		private AbilityBarWidget AbilityBar { get; set; }
-		
+
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
-		
+
 		public PropertyBarWidget Health;
 
 		public Image Icon;
-		
+
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
-		
+
 		public void LateTick()
 		{
 			bool hasSelection = UnitSelector.SelectedUnits.Count > 0;
@@ -42,11 +41,11 @@ namespace Omniverse.UI
 			{
 				return;
 			}
-			
+
 			Unit unit = UnitSelector.SelectedUnit;
 
 			Icon.sprite = unit.Desc.Icon;
-				
+
 			Health.Bind(unit);
 
 			AbilityBar.Bind(unit);
@@ -54,7 +53,7 @@ namespace Omniverse.UI
 
 			EffectsBar.Bind(unit);
 			EffectsBar.Tick();
-			
+
 			Experience.Bind(unit.Experience);
 			Properties.Bind(unit);
 		}

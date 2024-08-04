@@ -8,7 +8,7 @@ namespace Omniverse.Rendering
 	{
 		[field: SerializeField]
 		public Color BaseColor { get; private set; }
-		
+
 		[field: SerializeField]
 		public Color SecondColor { get; private set; }
 	}
