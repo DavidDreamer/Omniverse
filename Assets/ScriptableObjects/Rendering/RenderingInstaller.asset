@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660415735422462198b497cb05b7549d, type: 3}
   m_Name: RenderingInstaller
   m_EditorClassIdentifier: 
-  <UnitSelectorRenderingConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}
+  <SelectionConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}
   <HealthBarConfig>k__BackingField: {fileID: 11400000, guid: 97ca53884d0094b4ca34f4eda79b596b, type: 2}

@@ -7,10 +7,10 @@ using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class UnitSelectorRenderer : MonoBehaviour, IInitializable
+	public class SelectionRenderer : MonoBehaviour, IInitializable
 	{
 		[Inject]
-		public UnitSelectorRenderingConfig Config { get; private set; }
+		public SelectionConfig Config { get; private set; }
 
 		[Inject]
 		public UnitSelector UnitSelector { get; private set; }
@@ -18,11 +18,11 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Player Player { get; private set; }
 
-		private UnitSelectorPass Pass { get; set; }
+		private SelectionPass Pass { get; set; }
 
 		public void Initialize()
 		{
-			Pass = new UnitSelectorPass(this)
+			Pass = new SelectionPass(this)
 			{
 				renderPassEvent = RenderPassEvent.BeforeRenderingTransparents
 			};

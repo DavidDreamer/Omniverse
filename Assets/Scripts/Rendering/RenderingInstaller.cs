@@ -15,7 +15,7 @@ namespace Omniverse.Rendering
 	public class RenderingInstaller: ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
-		private UnitSelectorRenderingConfig UnitSelectorRenderingConfig { get; set; }
+		private SelectionConfig SelectionConfig { get; set; }
 
 		[field: SerializeField]
 		private HealthBarConfig HealthBarConfig { get; set; }
@@ -31,8 +31,8 @@ namespace Omniverse.Rendering
 			OutlineRendererFeature outline = features.OfType<OutlineRendererFeature>().First();
 			builder.RegisterInstance(outline);
 
-			builder.RegisterInstance(UnitSelectorRenderingConfig);
-			builder.RegisterComponentOnNewGameObject<UnitSelectorRenderer>(Lifetime.Singleton, nameof(UnitSelectorRenderer)).AsImplementedInterfaces().AsSelf();
+			builder.RegisterInstance(SelectionConfig);
+			builder.RegisterComponentOnNewGameObject<SelectionRenderer>(Lifetime.Singleton, nameof(SelectionRenderer)).AsImplementedInterfaces().AsSelf();
 
 			builder.RegisterInstance(HealthBarConfig);
 			builder.RegisterComponentOnNewGameObject<HealthBarRenderer>(Lifetime.Singleton, nameof(HealthBarRenderer)).AsImplementedInterfaces().AsSelf();

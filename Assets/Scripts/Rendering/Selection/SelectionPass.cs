@@ -6,9 +6,14 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class UnitSelectorPass : ScriptableRenderPass
+	public class SelectionPass : ScriptableRenderPass
 	{
-		private UnitSelectorRenderer UnitSelectorRenderer { get; }
+		private static class ShaderVariables
+		{
+			public static int BaseColor { get; } = Shader.PropertyToID(nameof(BaseColor));
+		}
+
+		private SelectionRenderer Renderer { get; }
 
 		private Matrix4x4[] Matrices { get; }
 
@@ -16,9 +21,9 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public UnitSelectorPass(UnitSelectorRenderer unitSelectorRenderer)
+		public SelectionPass(SelectionRenderer renderer)
 		{
-			UnitSelectorRenderer = unitSelectorRenderer;
+			Renderer = renderer;
 
 			Matrices = new Matrix4x4[UnitSelector.Capacity];
 			Colors = new Vector4[UnitSelector.Capacity];
@@ -27,11 +32,11 @@ namespace Omniverse.Rendering
 
 		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
 		{
-			using CommandBufferContextScope scope = new(context, nameof(UnitSelectorPass));
+			using CommandBufferContextScope scope = new(context, "Selection");
 			var commandBuffer = scope.CommandBuffer;
 
-			UnitSelectorRenderingConfig config = UnitSelectorRenderer.Config;
-			UnitSelector unitSelector = UnitSelectorRenderer.UnitSelector;
+			SelectionConfig config = Renderer.Config;
+			UnitSelector unitSelector = Renderer.UnitSelector;
 
 			MaterialPropertyBlock.Clear();
 
@@ -41,10 +46,10 @@ namespace Omniverse.Rendering
 				var matrix = Matrix4x4.TRS(config.Position, Quaternion.Euler(config.Rotation), Vector3.one);
 				matrix = unit.transform.localToWorldMatrix * matrix;
 				Matrices[i] = matrix;
-				Colors[i] = UnitSelectorRenderer.Player.FactionID == unit.FactionID ? config.AllyColor : config.EnemyColor;
+				Colors[i] = Renderer.Player.FactionID == unit.FactionID ? config.AllyColor : config.EnemyColor;
 			}
 
-			MaterialPropertyBlock.SetVectorArray("_Color", Colors);
+			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
 
 			commandBuffer.DrawMeshInstanced(
 				config.Mesh,

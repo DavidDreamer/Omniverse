@@ -2,8 +2,8 @@
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/UnitSelector")]
-	public class UnitSelectorRenderingConfig: ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Selection")]
+	public class SelectionConfig: ScriptableObject
 	{
 		[field: SerializeField]
 		public Mesh Mesh{ get; set; }
