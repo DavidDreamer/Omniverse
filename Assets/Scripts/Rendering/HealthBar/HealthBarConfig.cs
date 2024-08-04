@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Dreambox.Rendering.Core;
+using UnityEngine;
 
 namespace Omniverse.Rendering
 {
@@ -9,13 +10,7 @@ namespace Omniverse.Rendering
 		public int MaxCount { get; set; }
 
 		[field: SerializeField]
-		public Mesh Mesh { get; set; }
-
-		[field: SerializeField]
-		public Material Material { get; set; }
-
-		[field: SerializeField]
-		public int ShaderPass { get; set; }
+		public DrawMeshParams DrawMeshParams { get; set; }
 
 		[field: SerializeField]
 		public Vector3 Offset { get; set; }

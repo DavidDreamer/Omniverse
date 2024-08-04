@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72cb506d616f334db1ca24a3773232e, type: 3}
   m_Name: SelectionConfig
   m_EditorClassIdentifier: 
-  <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-  <Material>k__BackingField: {fileID: 2100000, guid: 9558f4e092a92224baa647b4b5bc3736, type: 2}
-  <ShaderPass>k__BackingField: 3
+  <DrawMeshParams>k__BackingField:
+    <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+    <SubmeshIndex>k__BackingField: 0
+    <Material>k__BackingField: {fileID: 2100000, guid: 9558f4e092a92224baa647b4b5bc3736, type: 2}
+    <ShaderPass>k__BackingField: 3
   <Position>k__BackingField: {x: 0, y: 0, z: 0}
   <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
   <AllyColor>k__BackingField: {r: 0, g: 0.7490196, b: 0.05882353, a: 0.7490196}

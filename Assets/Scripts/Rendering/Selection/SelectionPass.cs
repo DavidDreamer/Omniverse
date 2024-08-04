@@ -51,11 +51,12 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
 
+			var drawMeshParams = config.DrawMeshParams;
 			commandBuffer.DrawMeshInstanced(
-				config.Mesh,
-				0,
-				config.Material,
-				config.ShaderPass,
+				drawMeshParams.Mesh,
+				drawMeshParams.SubmeshIndex,
+				drawMeshParams.Material,
+				drawMeshParams.ShaderPass,
 				Matrices,
 				unitSelector.SelectedUnits.Count,
 				MaterialPropertyBlock);
