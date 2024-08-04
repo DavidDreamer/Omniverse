@@ -23,7 +23,7 @@ namespace Omniverse.Rendering
 		{
 			Pass = new HealthBarPass(this)
 			{
-				renderPassEvent = RenderPassEvent.BeforeRenderingTransparents
+				renderPassEvent = Config.RenderPassEvent
 			};
 		}
 

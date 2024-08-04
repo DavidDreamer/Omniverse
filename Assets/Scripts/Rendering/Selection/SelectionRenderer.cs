@@ -24,7 +24,7 @@ namespace Omniverse.Rendering
 		{
 			Pass = new SelectionPass(this)
 			{
-				renderPassEvent = RenderPassEvent.BeforeRenderingTransparents
+				renderPassEvent = Config.RenderPassEvent
 			};
 		}
 

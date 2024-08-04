@@ -33,10 +33,10 @@ namespace Omniverse.Rendering
 			builder.RegisterInstance(SelectionConfig);
 			builder.RegisterComponentOnNewGameObject<SelectionRenderer>(Lifetime.Singleton, nameof(SelectionRenderer)).AsImplementedInterfaces().AsSelf();
 
+			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+
 			builder.RegisterInstance(HealthBarConfig);
 			builder.RegisterComponentOnNewGameObject<HealthBarRenderer>(Lifetime.Singleton, nameof(HealthBarRenderer)).AsImplementedInterfaces().AsSelf();
-
-			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

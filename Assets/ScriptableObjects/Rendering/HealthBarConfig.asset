@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7889b4005b43da89f2519ef1e720af, type: 3}
   m_Name: HealthBarConfig
   m_EditorClassIdentifier: 
+  <RenderPassEvent>k__BackingField: 550
   <MaxCount>k__BackingField: 64
   <DrawMeshParams>k__BackingField:
     <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

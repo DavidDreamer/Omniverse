@@ -1,11 +1,15 @@
 ﻿using Dreambox.Rendering.Core;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Health Bar", fileName = nameof(HealthBarConfig))]
 	public class HealthBarConfig : ScriptableObject
 	{
+		[field: SerializeField]
+		public RenderPassEvent RenderPassEvent { get; set; }
+
 		[field: SerializeField]
 		public int MaxCount { get; set; }
 
