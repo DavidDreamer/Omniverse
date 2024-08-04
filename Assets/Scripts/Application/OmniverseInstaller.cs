@@ -14,9 +14,6 @@ namespace Omniverse
 		private PhysicsSettings PhysicsSettings { get; set; }
 		
 		[field: SerializeField]
-		private RenderingInstaller RenderingInstaller { get; set; }
-		
-		[field: SerializeField]
 		private UnitManagerConfig UnitManagerConfig { get; set; }
 		
 		[field: SerializeField]
@@ -29,7 +26,6 @@ namespace Omniverse
 
 			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 			InputInstaller.Install(builder);
-			RenderingInstaller.Install(builder);
 		}
 	}
 }

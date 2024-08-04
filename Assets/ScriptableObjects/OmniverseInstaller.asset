@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: OmniverseInstaller
   m_EditorClassIdentifier: 
   <PhysicsSettings>k__BackingField: {fileID: 11400000, guid: 0817cbc1212925141be8379b0d47f99c, type: 2}
-  <RenderingInstaller>k__BackingField: {fileID: 11400000, guid: eb2b58e5cc33a804999eda657265dcfc, type: 2}
   <UnitManagerConfig>k__BackingField: {fileID: 11400000, guid: 7b3c0afe10d49cc479384f4e0872654a, type: 2}
   <InputInstaller>k__BackingField: {fileID: 11400000, guid: 0480c4abc619df24cb1f767bcbe505a7, type: 2}

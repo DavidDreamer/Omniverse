@@ -9,6 +9,7 @@ using Omniverse.Entities.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Omniverse.Rendering;
 
 namespace Omniverse
 {
@@ -28,7 +29,10 @@ namespace Omniverse
 		
 		[field: SerializeField]
 		public CameraController CameraController { get; set; }
-		
+
+		[field: SerializeField]
+		private RenderingInstaller RenderingInstaller { get; set; }
+
 		protected override void Configure(IContainerBuilder builder)
 		{
 			builder.RegisterInstance(GameSettings);
@@ -61,6 +65,7 @@ namespace Omniverse
 			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
 			
 			UIInstaller.Install(builder);
+			RenderingInstaller.Install(builder);
 		}
 	}
 }

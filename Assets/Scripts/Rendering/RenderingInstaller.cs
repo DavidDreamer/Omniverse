@@ -17,6 +17,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private UnitSelectorRenderingConfig UnitSelectorRenderingConfig { get; set; }
 
+		[field: SerializeField]
+		private HealthBarConfig HealthBarConfig { get; set; }
+
 		public void Install(IContainerBuilder builder)
 		{
 			var universalRenderPipelineAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
@@ -30,6 +33,9 @@ namespace Omniverse.Rendering
 
 			builder.RegisterInstance(UnitSelectorRenderingConfig);
 			builder.RegisterComponentOnNewGameObject<UnitSelectorRenderer>(Lifetime.Singleton, nameof(UnitSelectorRenderer)).AsImplementedInterfaces().AsSelf();
+
+			builder.RegisterInstance(HealthBarConfig);
+			builder.RegisterComponentOnNewGameObject<HealthBarRenderer>(Lifetime.Singleton, nameof(HealthBarRenderer)).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 		}

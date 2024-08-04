@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7889b4005b43da89f2519ef1e720af, type: 3}
   m_Name: HealthBarConfig
   m_EditorClassIdentifier: 
+  <MaxCount>k__BackingField: 64
+  <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  <Material>k__BackingField: {fileID: 2100000, guid: 9d85aa9f8b146ac4691ef7e4bbfe7637, type: 2}
+  <ShaderPass>k__BackingField: 0
+  <Offset>k__BackingField: {x: 0, y: 2, z: 0}
   <AllyColors>k__BackingField:
     <BaseColor>k__BackingField: {r: 0.1254902, g: 0.5019608, b: 0.1254902, a: 1}
     <SecondColor>k__BackingField: {r: 0.2509804, g: 1, b: 0.2509804, a: 1}

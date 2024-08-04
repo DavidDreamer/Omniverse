@@ -29,7 +29,7 @@ namespace Omniverse.Entities.Units
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 		
-		private List<Unit> Units { get; } = new();
+		public List<Unit> Units { get; } = new();
 
 		private CancellationTokenSource CancellationTokenSource { get; } = new();
 
