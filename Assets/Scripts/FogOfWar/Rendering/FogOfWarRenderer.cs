@@ -1,5 +1,6 @@
 ﻿using System;
 using Dreambox.Rendering.Core;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -33,6 +34,10 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public RenderTexture BlurRT2 { get; set; }
 
+		private ComputeBuffer PropertiesBuffer { get; set; }
+
+		private Properties[] PropertiesData { get; set; }
+
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 
 		private ApplyPass ApplyPass { get; set; }
@@ -50,7 +55,11 @@ namespace Omniverse.FogOfWar.Rendering
 			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
-			ConstantBuffer.PushGlobal(Properties, ShaderVariables.FogOfWarProperties);
+			if (PropertiesBuffer != null)
+			{
+				PropertiesData[0] = Properties;
+				PropertiesBuffer.SetData(PropertiesData);
+			}
 
 			if (BlurMaterial != null)
 			{
@@ -63,11 +72,13 @@ namespace Omniverse.FogOfWar.Rendering
 			AnimationMaterial = new Material(Shaders.PreProcess);
 			BlurMaterial = new Material(Shaders.Blur);
 
-			UpdateShaderVariables();
-
 			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
+
+			PropertiesBuffer = new ComputeBuffer(1, UnsafeUtility.SizeOf<Properties>(), ComputeBufferType.Constant);
+			PropertiesData = new Properties[1];
+			Shader.SetGlobalConstantBuffer(ShaderVariables.FogOfWarProperties, PropertiesBuffer, 0, PropertiesBuffer.stride);
 
 			CellsVisibilityBuffer =
 				new ComputeBuffer(Manager.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
@@ -85,6 +96,8 @@ namespace Omniverse.FogOfWar.Rendering
 			{
 				Shader.DisableKeyword(ShaderVariables.ExploredKeyword);
 			}
+
+			UpdateShaderVariables();
 
 			RenderTexture CreateAnimationRT(string textureName)
 			{
@@ -119,6 +132,7 @@ namespace Omniverse.FogOfWar.Rendering
 			BlurRT1.Release();
 			BlurRT2.Release();
 
+			PropertiesBuffer.Release();
 			CellsVisibilityBuffer.Release();
 
 			ApplyPass.Dispose();
