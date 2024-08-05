@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -21,6 +22,10 @@ namespace Omniverse.Mapping
 		public MapSettings MapSettings { get; set; }
 
 		public RenderTexture RenderTexture { get; private set; }
+
+		private ComputeBuffer PropertiesBuffer { get; set; }
+
+		private MapShaderProperties[] PropertiesData { get; set; }
 
 		public void Initialize()
 		{
@@ -45,7 +50,12 @@ namespace Omniverse.Mapping
 				MapSize = new Vector4(MapSettings.Size.x, MapSettings.Size.y, 0, 0)
 			};
 
-			ConstantBuffer.PushGlobal(mapShaderProperties, ShaderVariables.MapProperties);
+			PropertiesBuffer = new ComputeBuffer(1, UnsafeUtility.SizeOf<MapShaderProperties>(), ComputeBufferType.Constant);
+			Shader.SetGlobalConstantBuffer(ShaderVariables.MapProperties, PropertiesBuffer, 0, PropertiesBuffer.stride);
+
+			PropertiesData = new MapShaderProperties[1];
+			PropertiesData[0] = mapShaderProperties;
+			PropertiesBuffer.SetData(PropertiesData);
 		}
 
 		public void Dispose()
@@ -56,6 +66,8 @@ namespace Omniverse.Mapping
 			}
 
 			Destroy(RenderTexture);
+
+			PropertiesBuffer.Release();
 		}
 	}
 }
