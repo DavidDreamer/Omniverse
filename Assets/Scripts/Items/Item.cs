@@ -8,7 +8,7 @@ namespace Omniverse.Items
 	{
 		public Ability Ability { get; set; }
 
-		[field: SerializeField]
+		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
 		public override void Initialize(ItemDesc desc)

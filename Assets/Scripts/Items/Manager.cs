@@ -14,8 +14,9 @@ namespace Omniverse.Items
 
 		public void Spawn(ItemDesc desc, Vector3 position, Quaternion rotation)
 		{
-			Item presenter = PrefabPool.Take(desc.Prefab);
-			Transform transform = presenter.transform;
+			Item item = PrefabPool.Take(desc.Prefab);
+			item.Initialize(desc);
+			Transform transform = item.transform;
 			transform.SetPositionAndRotation(position, rotation);
 		}
 

@@ -170,7 +170,7 @@ namespace Omniverse.Units
 						NavMeshAgent.destination = item.transform.position;
 						if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
 						{
-							Destroy(item.gameObject);
+							item.gameObject.SetActive(false);
 							Inventory.Add(item);
 							Target = null;
 						}
