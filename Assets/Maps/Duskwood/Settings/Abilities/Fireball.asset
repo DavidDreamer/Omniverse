@@ -18,7 +18,10 @@ MonoBehaviour:
     <Time>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
-    rid: 6869238924522815513
+    <Type>k__BackingField: 2
+    <Range>k__BackingField: 0
+    <Filter>k__BackingField: 0
+    <ResourceSources>k__BackingField: []
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
@@ -27,10 +30,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6869238924522815513
-      type: {class: PointTargetDesc, ns: Omniverse.Abilities, asm: Omniverse.Ablities}
-      data:
-        <Range>k__BackingField: 30
     - rid: 6869238924522815515
       type: {class: LaunchProjectileDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
       data:

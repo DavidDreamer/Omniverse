@@ -16,16 +16,16 @@ namespace Omniverse.Input
 
 		protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 		{
-			var entityTarget = (EntityTarget)Ability.Target;
+			TargetDesc abiltiyTargetDesc= Ability.Desc.Target;
 
 			EntityDetector.ClearFilter();
 
-			if (entityTarget.Desc.ResourceSources != null)
+			if (abiltiyTargetDesc.Type.HasFlag(TargetType.ResourceSource))
 			{
 				EntityDetector.AddToFilter<ResourceSource>();
 			}
 
-			if (entityTarget.Desc.Units != null)
+			if (abiltiyTargetDesc.Type.HasFlag(TargetType.Unit))
 			{
 				EntityDetector.AddToFilter<Unit>();
 			}
@@ -42,7 +42,7 @@ namespace Omniverse.Input
 			}
 			while (!inputProcessed || !hasTarget);
 
-			entityTarget.Value = EntityDetector.Target;
+			Ability.ExecutionContext.Entities.Add(EntityDetector.Target);
 
 			EntityDetector.SetDefaultDetectableType();
 		}

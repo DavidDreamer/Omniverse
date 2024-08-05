@@ -17,6 +17,8 @@ namespace Omniverse.Actions
 
 		public List<Vector3> Points { get; } = new();
 
+		public List<Vector3> Directions { get; } = new();
+
 		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
 
 		public ExecutionContext(IObjectResolver objectResolver, IActionDesc[] actionDescs)
@@ -48,6 +50,7 @@ namespace Omniverse.Actions
 			Caster = null;
 			Entities.Clear();
 			Points.Clear();
+			Directions.Clear();
 			Trajectories.Clear();
 		}
 	}

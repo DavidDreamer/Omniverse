@@ -24,8 +24,7 @@ namespace Omniverse.Actions
 			Projectile projectile = Object.Instantiate(Desc.Projectile.Model, position, Quaternion.identity).GetComponent<Projectile>();
 			projectile.Initialize(Desc.Projectile);
 			projectile.ChangeFaction(unit.FactionID);
-			Vector3 point = context.Points.First();
-			Vector3 direction = new Vector3(point.x - position.x, 0, point.z - position.z).normalized;
+			Vector3 direction = context.Directions.First();
 			projectile.Direction = direction;
 			await UniTask.CompletedTask;
 		}

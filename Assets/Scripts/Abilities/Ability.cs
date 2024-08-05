@@ -10,8 +10,6 @@ namespace Omniverse.Abilities
 	{
 		public AbilityDesc Desc { get; }
 
-		public ITarget Target { get; }
-
 		public Cooldown Cooldown { get; }
 
 		public bool AwaitsTarget { get; set; }
@@ -20,12 +18,11 @@ namespace Omniverse.Abilities
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
-		private ExecutionContext ExecutionContext { get; }
+		public ExecutionContext ExecutionContext { get; }
 
 		public Ability(IObjectResolver objectResolver, AbilityDesc desc)
 		{
 			Desc = desc;
-			Target = desc.Target.Build();
 			Cooldown = new Cooldown(Desc.Cooldown);
 			Used = AutoResetUniTaskCompletionSource.Create();
 			ExecutionContext = new ExecutionContext(objectResolver, desc.Actions);
@@ -34,20 +31,6 @@ namespace Omniverse.Abilities
 		public async UniTask Cast(Entity caster, CancellationToken token)
 		{
 			Cooldown?.ActivateAsync(token);
-
-			switch (Target)
-			{
-				case null:
-					break;
-				case EntityTarget entityTarget:
-					ExecutionContext.Entities.Add(entityTarget.Value);
-					break;
-				case PointTarget pointTarget:
-					ExecutionContext.Points.Add(pointTarget.Value);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(Target));
-			}
 
 			await ExecutionContext.PerformAsync(caster, token);
 

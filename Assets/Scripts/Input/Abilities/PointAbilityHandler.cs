@@ -6,9 +6,11 @@ using Omniverse.Units.Client;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
+using static InputActions;
 
 namespace Omniverse.Input
 {
+
 	public class PointAbilityHandler : TargetAbilityHandler
 	{
 		[Inject]
@@ -37,10 +39,9 @@ namespace Omniverse.Input
 
 		protected override async UniTask GetTarget(Unit caster, CancellationToken token)
 		{
-			var pointTargetDesc = (PointTargetDesc)Ability.Desc.Target;
-			var pointTarget = (PointTarget)Ability.Target;
+			TargetDesc abilityTargetDesc = Ability.Desc.Target;
 
-			AbilityRangeRenderer.SetRange(pointTargetDesc.Range);
+			AbilityRangeRenderer.SetRange(abilityTargetDesc.Range);
 
 			while (true)
 			{
@@ -53,12 +54,12 @@ namespace Omniverse.Input
 				Vector3 characterToTarget = targetPositionXZ - characterPositionXZ;
 
 				bool positionIsOutOfRange = characterToTarget.sqrMagnitude >
-											pointTargetDesc.Range * pointTargetDesc.Range;
+											abilityTargetDesc.Range * abilityTargetDesc.Range;
 
 				if (positionIsOutOfRange)
 				{
 					Vector3 targetPositionClamped =
-						characterPosition + characterToTarget.normalized * pointTargetDesc.Range;
+						characterPosition + characterToTarget.normalized * abilityTargetDesc.Range;
 					navMeshPositionIsValid =
 						NavMesh.SamplePosition(targetPositionClamped, out NavMeshHit navMeshHit, float.MaxValue, 1);
 					point = navMeshHit.position;
@@ -71,7 +72,7 @@ namespace Omniverse.Input
 				bool abilityCasted = navMeshPositionIsValid && CommonActions.Apply.WasPerformedThisFrame();
 				if (abilityCasted)
 				{
-					pointTarget.Value = point;
+					Ability.ExecutionContext.Points.Add(point);
 					return;
 				}
 

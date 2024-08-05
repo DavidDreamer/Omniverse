@@ -13,59 +13,51 @@ namespace Omniverse.Input
 		private PointAbilityHandler PointAbilityHandler { get; set; }
 
 		[Inject]
-		private EntityTargetHandler EntityTargetHandler { get; set; }
+		private DirectionAbilityHandler DirectionAbilityHandler { get; set; }
 
-		// [Inject]
-		// private TrajectoryAbilityHandler TrajectoryAbilityHandler { get; set; }
+		[Inject]
+		private EntityTargetHandler EntityTargetHandler { get; set; }
 
 		public void TryCastAbility(Unit unit, Ability ability)
 		{
-			switch (ability.Target)
+			TargetType targetType = ability.Desc.Target.Type;
+
+			if (targetType == TargetType.None)
 			{
-				case null:
-					{
-						AbilityHandler.TryCastAbility(unit, ability);
-						break;
-					}
-				case PointTarget:
-					{
-						if (PointAbilityHandler.InProcess)
-						{
-							PointAbilityHandler.Cancell();
-						}
-						else
-						{
-							PointAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-						}
-
-						break;
-					}
-				// case TrajectoryTarget:
-				// {
-				// 	if (TrajectoryAbilityHandler.InProcess)
-				// 	{
-				// 		TrajectoryAbilityHandler.Cancell();
-				// 	}
-				// 	else
-				// 	{
-				// 		TrajectoryAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-				// 	}
-				//
-				// 	break;
-				// }
-				case EntityTarget:
-					{
-						if (EntityTargetHandler.InProcess)
-						{
-							EntityTargetHandler.Cancell();
-						}
-						else
-						{
-							EntityTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
-						}
-
-						break;
-					}
+				AbilityHandler.TryCastAbility(unit, ability);
+			}
+			else if (targetType.HasFlag(TargetType.Point))
+			{
+				if (PointAbilityHandler.InProcess)
+				{
+					PointAbilityHandler.Cancell();
+				}
+				else
+				{
+					PointAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+				}
+			}
+			else if (targetType.HasFlag(TargetType.Direction))
+			{
+				if (DirectionAbilityHandler.InProcess)
+				{
+					DirectionAbilityHandler.Cancell();
+				}
+				else
+				{
+					DirectionAbilityHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+				}
+			}
+			else if (targetType.HasFlag(TargetType.Unit) || targetType.HasFlag(TargetType.ResourceSource))
+			{
+				if (EntityTargetHandler.InProcess)
+				{
+					EntityTargetHandler.Cancell();
+				}
+				else
+				{
+					EntityTargetHandler.GetTargetAndCast(unit, ability).SuppressCancellationThrow();
+				}
 			}
 		}
 	}
