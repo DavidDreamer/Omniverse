@@ -63,3 +63,6 @@ Assets/TEST
 Assets/TEST.meta
 Assets/Local
 Assets/Local.meta
+
+# Blender
+*.blend1
