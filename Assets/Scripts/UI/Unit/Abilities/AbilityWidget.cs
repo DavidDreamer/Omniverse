@@ -33,6 +33,9 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
+		[Inject]
+		private UnitController UnitController { get; set; }
+
 		private Ability Ability { get; set; }
 
 		public void Bind(Ability ability)
@@ -69,7 +72,7 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-			Activator.enabled = Ability.AwaitsTarget;
+			Activator.enabled = UnitController.ActiveAbility == Ability;
 
 			if (Ability.Cooldown is not null)
 			{

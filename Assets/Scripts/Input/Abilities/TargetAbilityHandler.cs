@@ -3,6 +3,8 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
 using Omniverse.Units;
+using UnityEditor.Playables;
+using VContainer;
 
 namespace Omniverse.Input
 {
@@ -14,10 +16,13 @@ namespace Omniverse.Input
 
 		public bool InProcess => Ability is not null;
 
+		[Inject]
+		private UnitController UnitController { get; set; }
+
 		protected virtual void Setup(Ability ability)
 		{
 			Ability = ability;
-			ability.AwaitsTarget = true;
+			UnitController.ActiveAbility = ability;
 
 			CancellationTokenSource = new CancellationTokenSource();
 			CancellationTokenSource.Token.Register(Cleanup);
@@ -25,7 +30,7 @@ namespace Omniverse.Input
 
 		protected virtual void Cleanup()
 		{
-			Ability.AwaitsTarget = false;
+			UnitController.ActiveAbility = null;
 			Ability = null;
 
 			CancellationTokenSource.Dispose();

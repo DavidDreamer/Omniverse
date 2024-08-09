@@ -12,8 +12,6 @@ namespace Omniverse.Abilities
 
 		public Cooldown Cooldown { get; }
 
-		public bool AwaitsTarget { get; set; }
-
 		public bool InProcess { get; set; }
 
 		public AutoResetUniTaskCompletionSource Used { get; }

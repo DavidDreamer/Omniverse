@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Omniverse.Abilities;
 using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace Omniverse.Input
 		private EntityDetector EntityDetector { get; set; }
 
 		private UnitControllerConfig Config { get; }
+
+		public Ability ActiveAbility { get; set; }
 
 		public UnitController(UnitControllerConfig config)
 		{
