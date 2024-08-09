@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Input
 {
-	public class UnitSelector : ILateTickable
+	public class UnitSelector
 	{
 		public const int Capacity = 16;
 
@@ -25,7 +25,7 @@ namespace Omniverse.Input
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
-		public void LateTick()
+		public void Tick()
 		{
 			if (EntityDetector.Target == null)
 			{

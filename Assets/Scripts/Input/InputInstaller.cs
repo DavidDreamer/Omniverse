@@ -36,14 +36,12 @@ namespace Omniverse.Input
 			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
+
+			builder.Register<UnitSelector>(Lifetime.Singleton).AsSelf();
+			builder.Register<UnitController>(Lifetime.Singleton).AsSelf().WithParameter(UnitControllerConfig);
 			builder.RegisterEntryPoint<AbilityController>().AsSelf();
-	
-			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();
 
-			builder.Register<UnitSelector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-
-			builder.Register<UnitController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
-				.WithParameter(UnitControllerConfig);
+			builder.Register<InputController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

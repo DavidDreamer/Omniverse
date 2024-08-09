@@ -6,15 +6,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using VContainer;
-using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace Omniverse.Input
 {
-	public class UnitController : ITickable
+
+	public class UnitController
 	{
 		[Inject]
-		private InputActions.CommonActions CommonActions{ get; set; }
+		private InputActions.CommonActions CommonActions { get; set; }
 
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
@@ -31,11 +31,6 @@ namespace Omniverse.Input
 
 		public void Tick()
 		{
-			if (UnitSelector.SelectedUnits.Count == 0)
-			{
-				return;
-			}
-
 			if (CommonActions.Command.WasReleasedThisFrame())
 			{
 				if (EntityDetector.Target != null)
