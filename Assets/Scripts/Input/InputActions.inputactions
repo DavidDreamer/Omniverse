@@ -6,9 +6,36 @@
             "id": "5eb4973a-d0cc-4085-bd6f-1371f942d52c",
             "actions": [
                 {
-                    "name": "Apply",
+                    "name": "Select",
                     "type": "Button",
                     "id": "11b74588-3463-45ae-a81b-20c28636d17f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Command",
+                    "type": "Button",
+                    "id": "58523e7e-3f6e-4e2d-8164-7daf3adec734",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AdditiveMode",
+                    "type": "Button",
+                    "id": "54bc1dbc-2724-4e1d-9f9a-2bf3b3da6315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextSelectionTarget",
+                    "type": "Button",
+                    "id": "a2cd7014-1dab-4313-b9e2-88e9ded64dd4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +50,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Apply",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "052dcf06-f4a7-483c-940f-090ff5a8d369",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Command",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be8b8083-48bb-4845-a958-5274b69203b8",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AdditiveMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "102dfa3e-a491-4b8d-adb8-140384abdb62",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NextSelectionTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -64,15 +124,6 @@
                     "name": "4",
                     "type": "Button",
                     "id": "47842aa0-1e61-462b-917c-13a7de7d672d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Apply",
-                    "type": "Button",
-                    "id": "cc9a2f86-2592-485b-97a3-28287d4952da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -121,17 +172,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "abf00d43-9e43-43f0-a875-383b54008544",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Apply",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

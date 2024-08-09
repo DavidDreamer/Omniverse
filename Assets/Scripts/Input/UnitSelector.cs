@@ -22,6 +22,9 @@ namespace Omniverse.Input
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
 
+		[Inject]
+		private InputActions.CommonActions CommonActions { get; set; }
+
 		public void LateTick()
 		{
 			if (EntityDetector.Target == null)
@@ -37,8 +40,8 @@ namespace Omniverse.Input
 
 			bool isSelected = SelectedUnits.Contains(unit);
 
-			bool additiveMode = Keyboard.current.shiftKey.isPressed;
-			bool wasClicked = Mouse.current.leftButton.wasReleasedThisFrame;
+			bool additiveMode = CommonActions.AdditiveMode.IsPressed();
+			bool wasClicked = CommonActions.Select.WasReleasedThisFrame();
 
 			if (wasClicked)
 			{
@@ -77,7 +80,7 @@ namespace Omniverse.Input
 
 			void UpdateSelectionIndex()
 			{
-				if (Keyboard.current.tabKey.wasReleasedThisFrame)
+				if (CommonActions.NextSelectionTarget.WasReleasedThisFrame())
 				{
 					SelectionIndex++;
 					if (SelectionIndex >= SelectedUnits.Count)

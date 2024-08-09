@@ -98,7 +98,7 @@ namespace Omniverse.Input
 		{
 			while (true)
 			{
-				if (CommonActions.Apply.WasPerformedThisFrame())
+				if (CommonActions.Select.WasPerformedThisFrame())
 				{
 					bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
 					if (navMeshPositionIsValid)
@@ -113,6 +113,8 @@ namespace Omniverse.Input
 
 		private async UniTask<Entity> ReadEntity(TargetType targetType, CancellationToken token)
 		{
+			token.Register(Cleanup);
+
 			EntityDetector.ClearFilter();
 
 			if (targetType.HasFlag(TargetType.ResourceSource))
@@ -132,14 +134,16 @@ namespace Omniverse.Input
 			{
 				await UniTask.NextFrame(token);
 
-				inputProcessed = CommonActions.Apply.WasPressedThisFrame();
+				inputProcessed = CommonActions.Select.WasPressedThisFrame();
 				hasTarget = EntityDetector.Target != null;
 			}
 			while (!inputProcessed || !hasTarget);
 
-			EntityDetector.SetDefaultDetectableType();
+			Cleanup();
 
 			return EntityDetector.Target;
+
+			void Cleanup() => EntityDetector.SetDefaultDetectableType();
 		}
 
 		private void Discard()

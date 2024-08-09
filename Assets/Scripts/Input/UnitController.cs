@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.Abilities;
 using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
@@ -14,6 +13,9 @@ namespace Omniverse.Input
 {
 	public class UnitController : ITickable
 	{
+		[Inject]
+		private InputActions.CommonActions CommonActions{ get; set; }
+
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
 
@@ -34,7 +36,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			if (Mouse.current.rightButton.wasReleasedThisFrame)
+			if (CommonActions.Command.WasReleasedThisFrame())
 			{
 				if (EntityDetector.Target != null)
 				{
