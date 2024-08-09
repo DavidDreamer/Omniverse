@@ -34,12 +34,8 @@ namespace Omniverse.Input
 			builder.RegisterComponentInNewPrefab(TrajectoryRenderer, Lifetime.Singleton);
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
-			builder.RegisterEntryPoint<AbilityHandler>().AsSelf();
-			builder.RegisterEntryPoint<EntityTargetHandler>().AsSelf();
-			builder.RegisterEntryPoint<PointAbilityHandler>().AsSelf();
-			builder.RegisterEntryPoint<DirectionAbilityHandler>().AsSelf();
-			builder.RegisterEntryPoint<AbilityHandlerResolver>().AsSelf();
-
+			builder.RegisterEntryPoint<AbilityController>().AsSelf();
+	
 			builder.RegisterEntryPoint<AbilityInputListener>().AsSelf();
 
 			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();

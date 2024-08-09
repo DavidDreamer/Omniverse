@@ -22,8 +22,6 @@ namespace Omniverse.Input
 
 		private UnitControllerConfig Config { get; }
 
-		public Ability ActiveAbility { get; set; }
-
 		public UnitController(UnitControllerConfig config)
 		{
 			Config = config;

@@ -16,7 +16,7 @@ namespace Omniverse.UI
 		private Image Highlight { get; set; }
 
 		[Inject]
-		private AbilityHandlerResolver AbilityHandlerResolver { get; set; }
+		private AbilityController AbilityController { get; set; }
 
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
@@ -36,7 +36,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 					if (Item.Ability is not null)
 					{
-						AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit, Item.Ability);
+						AbilityController.Process(UnitSelector.SelectedUnit, Item.Ability);
 					}
 					break;
 			}

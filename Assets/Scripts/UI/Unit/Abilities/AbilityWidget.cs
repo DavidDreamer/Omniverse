@@ -28,13 +28,10 @@ namespace Omniverse.UI
 		private Material OnCooldownMaterial { get; set; }
 
 		[Inject]
-		private AbilityHandlerResolver AbilityHandlerResolver { get; set; }
+		private AbilityController AbilityController { get; set; }
 
 		[Inject]
 		private UnitSelector UnitSelector { get; set; }
-
-		[Inject]
-		private UnitController UnitController { get; set; }
 
 		private Ability Ability { get; set; }
 
@@ -55,7 +52,7 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					AbilityHandlerResolver.TryCastAbility(UnitSelector.SelectedUnit, Ability);
+					AbilityController.Process(UnitSelector.SelectedUnit, Ability);
 					break;
 			}
 		}
@@ -72,7 +69,7 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-			Activator.enabled = UnitController.ActiveAbility == Ability;
+			Activator.enabled = AbilityController.ActiveAbility == Ability;
 
 			if (Ability.Cooldown is not null)
 			{

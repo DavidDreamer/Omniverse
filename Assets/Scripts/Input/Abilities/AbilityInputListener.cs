@@ -16,7 +16,7 @@ namespace Omniverse.Input
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
-		private AbilityHandlerResolver AbilityHandlerResolver { get; set; }
+		private AbilityController AbilityController { get; set; }
 
 		public void Initialize()
 		{
@@ -51,7 +51,7 @@ namespace Omniverse.Input
 			}
 
 			Ability ability = unit.Abilities[abilityIndex];
-			AbilityHandlerResolver.TryCastAbility(unit, ability);
+			AbilityController.Process(unit, ability);
 		}
 	}
 }
