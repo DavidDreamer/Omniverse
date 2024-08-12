@@ -20,7 +20,14 @@ namespace Omniverse.Input
 
 		public void LateTick()
 		{
-			UnitSelector.Tick();
+			if (AbilityController.ActiveAbility is null)
+			{
+				UnitSelector.Tick();
+			}
+			else
+			{
+				AbilityController.ProcessAbility();
+			}
 
 			if (UnitSelector.HasSelection)
 			{

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Omniverse.Units;
 using UnityEngine;
 using VContainer;
@@ -18,9 +16,9 @@ namespace Omniverse.Input
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
 
-		public Ability ActiveAbility { get; private set; }
+		public Unit ActiveUnit { get; private set; }
 
-		private CancellationTokenSource CancellationTokenSource { get; set; }
+		public Ability ActiveAbility { get; private set; }
 
 		public void Process(Unit unit, Ability ability)
 		{
@@ -43,42 +41,85 @@ namespace Omniverse.Input
 				return;
 			}
 
-			if (ability.Desc.Target.Type is TargetType.None)
+			TargetType targetType = ability.Desc.Target.Type;
+
+			if (targetType is TargetType.None)
 			{
 				Cast(unit, ability);
 			}
 			else
 			{
+				ActiveUnit = unit;
 				ActiveAbility = ability;
-				CancellationTokenSource = new CancellationTokenSource();
-				ProcessAbilityAsync(unit, ability, CancellationTokenSource.Token).Forget();
+
+				EntityDetector.ClearFilter();
+
+				if (targetType.HasFlag(TargetType.ResourceSource))
+				{
+					EntityDetector.AddToFilter<ResourceSource>();
+				}
+
+				if (targetType.HasFlag(TargetType.Unit))
+				{
+					EntityDetector.AddToFilter<Unit>();
+				}
 			}
 		}
 
-		private async UniTask ProcessAbilityAsync(Unit unit, Ability ability, CancellationToken token)
+		public void ProcessAbility()
 		{
-			TargetType targetType = ability.Desc.Target.Type;
+			TargetType targetType = ActiveAbility.Desc.Target.Type;
 
 			if (targetType is TargetType.Point)
 			{
-				Vector3 point = await ReadWorldPoint(token);
-				ability.ExecutionContext.Points.Add(point);
+				if (!CommonActions.Select.WasPerformedThisFrame())
+				{
+					return;
+				}
+
+				bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
+				if (!navMeshPositionIsValid)
+				{
+					return;
+				}
+
+				ActiveAbility.ExecutionContext.Points.Add(point);
 			}
 			else if (targetType is TargetType.Direction)
 			{
-				Vector3 point = await ReadWorldPoint(token);
-				Vector3 direction = point - unit.transform.position;
+				if (!CommonActions.Select.WasPerformedThisFrame())
+				{
+					return;
+				}
+
+				bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
+				if (!navMeshPositionIsValid)
+				{
+					return;
+				}
+
+				Vector3 direction = point - ActiveUnit.transform.position;
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
-				ability.ExecutionContext.Directions.Add(direction);
+				ActiveAbility.ExecutionContext.Directions.Add(direction);
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
-				Entity entity = await ReadEntity(targetType, token);
-				ability.ExecutionContext.Entities.Add(entity);
+				if (!CommonActions.Select.WasPerformedThisFrame())
+				{
+					return;
+				}
+
+				if (EntityDetector.Target == null)
+				{
+					return;
+				}
+
+				var entity = EntityDetector.Target;
+				ActiveAbility.ExecutionContext.Entities.Add(entity);
 			}
 
-			AbilityCastError error = ability.CanBeCasted(unit);
+			AbilityCastError error = ActiveAbility.CanBeCasted(ActiveUnit);
 
 			if (error is not AbilityCastError.None)
 			{
@@ -86,7 +127,7 @@ namespace Omniverse.Input
 			}
 			else
 			{
-				Cast(unit, ability);
+				Cast(ActiveUnit, ActiveAbility);
 			}
 
 			Discard();
@@ -94,62 +135,10 @@ namespace Omniverse.Input
 
 		private void Cast(Unit unit, Ability ability) => unit.Cast(ability, default).Forget();
 
-		private async UniTask<Vector3> ReadWorldPoint(CancellationToken token)
-		{
-			while (true)
-			{
-				if (CommonActions.Select.WasPerformedThisFrame())
-				{
-					bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
-					if (navMeshPositionIsValid)
-					{
-						return point;
-					}
-				}
-
-				await UniTask.NextFrame(token);
-			}
-		}
-
-		private async UniTask<Entity> ReadEntity(TargetType targetType, CancellationToken token)
-		{
-			token.Register(Cleanup);
-
-			EntityDetector.ClearFilter();
-
-			if (targetType.HasFlag(TargetType.ResourceSource))
-			{
-				EntityDetector.AddToFilter<ResourceSource>();
-			}
-
-			if (targetType.HasFlag(TargetType.Unit))
-			{
-				EntityDetector.AddToFilter<Unit>();
-			}
-
-			bool inputProcessed;
-			bool hasTarget;
-
-			do
-			{
-				await UniTask.NextFrame(token);
-
-				inputProcessed = CommonActions.Select.WasPressedThisFrame();
-				hasTarget = EntityDetector.Target != null;
-			}
-			while (!inputProcessed || !hasTarget);
-
-			Cleanup();
-
-			return EntityDetector.Target;
-
-			void Cleanup() => EntityDetector.SetDefaultDetectableType();
-		}
-
 		private void Discard()
 		{
 			ActiveAbility = null;
-			CancellationTokenSource.Cancel();
+			EntityDetector.SetDefaultDetectableType();
 		}
 	}
 }

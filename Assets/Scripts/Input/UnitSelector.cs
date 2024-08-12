@@ -41,7 +41,7 @@ namespace Omniverse.Input
 			bool isSelected = SelectedUnits.Contains(unit);
 
 			bool additiveMode = CommonActions.AdditiveMode.IsPressed();
-			bool wasClicked = CommonActions.Select.WasReleasedThisFrame();
+			bool wasClicked = CommonActions.Select.WasPerformedThisFrame();
 
 			if (wasClicked)
 			{
