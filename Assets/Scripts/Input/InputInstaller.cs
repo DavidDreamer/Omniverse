@@ -9,9 +9,6 @@ namespace Omniverse.Input
 	public class InputInstaller : ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
-		private UnitControllerConfig UnitControllerConfig { get; set; }
-
-		[field: SerializeField]
 		private AbilityTargetRenderer AbilityTargetRenderer { get; set; }
 
 		[field: SerializeField]
@@ -38,7 +35,7 @@ namespace Omniverse.Input
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
 
 			builder.Register<UnitSelector>(Lifetime.Singleton).AsSelf();
-			builder.Register<UnitController>(Lifetime.Singleton).AsSelf().WithParameter(UnitControllerConfig);
+			builder.Register<UnitController>(Lifetime.Singleton).AsSelf();
 			builder.RegisterEntryPoint<AbilityController>().AsSelf();
 
 			builder.Register<InputController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();

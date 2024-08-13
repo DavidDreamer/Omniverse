@@ -1,18 +1,16 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+﻿using System;
 using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 using VContainer;
-using Object = UnityEngine.Object;
 
 namespace Omniverse.Input
 {
-
 	public class UnitController
 	{
+		public event Action<Vector3> NavigationPointCreated;
+
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
@@ -21,13 +19,6 @@ namespace Omniverse.Input
 
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
-
-		private UnitControllerConfig Config { get; }
-
-		public UnitController(UnitControllerConfig config)
-		{
-			Config = config;
-		}
 
 		public void Tick()
 		{
@@ -82,32 +73,12 @@ namespace Omniverse.Input
 
 		private void CreateNavigationPoint(Vector3 position)
 		{
-			NavigationPoint navigationPoint =
-				Object.Instantiate(Config.NavigationPointPrefab, position, Quaternion.identity);
-
-			AnimatieNavigationPoint(navigationPoint, navigationPoint.destroyCancellationToken).Forget();
-
 			foreach (Unit unit in UnitSelector.SelectedUnits)
 			{
 				unit.MoveToPosition(position);
 			}
-		}
 
-		private async UniTaskVoid AnimatieNavigationPoint(NavigationPoint navigationPoint, CancellationToken token)
-		{
-			float duration = Config.NavigationPointDuration;
-			float time = 0;
-
-			navigationPoint.SetPower(0);
-
-			while (time < duration)
-			{
-				await UniTask.NextFrame(token);
-				time = Mathf.Min(time + Time.deltaTime, duration);
-				navigationPoint.SetPower(time / duration);
-			}
-
-			Object.Destroy(navigationPoint.gameObject);
+			NavigationPointCreated?.Invoke(position);
 		}
 	}
 }

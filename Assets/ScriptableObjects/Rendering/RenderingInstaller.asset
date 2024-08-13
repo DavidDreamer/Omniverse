@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SelectionConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}
   <HealthBarConfig>k__BackingField: {fileID: 11400000, guid: 97ca53884d0094b4ca34f4eda79b596b, type: 2}
+  <NavigationRenderConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438, type: 2}

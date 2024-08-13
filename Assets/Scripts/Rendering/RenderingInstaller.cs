@@ -19,6 +19,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private HealthBarConfig HealthBarConfig { get; set; }
 
+		[field: SerializeField]
+		private NavigationRenderConfig NavigationRenderConfig { get; set; }
+
 		public void Install(IContainerBuilder builder)
 		{
 			var universalRenderPipelineAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
@@ -37,6 +40,9 @@ namespace Omniverse.Rendering
 
 			builder.RegisterInstance(HealthBarConfig);
 			builder.RegisterComponentOnNewGameObject<HealthBarRenderer>(Lifetime.Singleton, nameof(HealthBarRenderer)).AsImplementedInterfaces().AsSelf();
+
+			builder.RegisterInstance(NavigationRenderConfig);
+			builder.RegisterComponentOnNewGameObject<NavigationRenderer>(Lifetime.Singleton, nameof(NavigationRenderer)).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

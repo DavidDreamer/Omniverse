@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74aa2dd42114b07bc4f31701e6495c0, type: 3}
+  m_Name: NavigationRenderConfig
+  m_EditorClassIdentifier: 
+  <RenderPassEvent>k__BackingField: 450
+  <DrawMeshParams>k__BackingField:
+    <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+    <SubmeshIndex>k__BackingField: 0
+    <Material>k__BackingField: {fileID: 2100000, guid: 73d1bb8caf943c447b3d5c55ad8bb8d1, type: 2}
+    <ShaderPass>k__BackingField: 3
+  <Capacity>k__BackingField: 5
+  <Lifetime>k__BackingField: 1
