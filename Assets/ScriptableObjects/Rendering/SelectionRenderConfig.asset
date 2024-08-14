@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d72cb506d616f334db1ca24a3773232e, type: 3}
-  m_Name: SelectionConfig
+  m_Name: SelectionRenderConfig
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 450
   <DrawMeshParams>k__BackingField:

@@ -4,8 +4,8 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Health Bar", fileName = nameof(HealthBarConfig))]
-	public class HealthBarConfig : ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Health Bar")]
+	public class HealthBarRenderConfig : ScriptableObject
 	{
 		[field: SerializeField]
 		public RenderPassEvent RenderPassEvent { get; set; }

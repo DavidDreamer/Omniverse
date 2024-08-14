@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class HealthBarPass : ScriptableRenderPass
+	public class HealthBarRenderPass : ScriptableRenderPass
 	{
 		private static class ShaderVariables
 		{
@@ -29,7 +29,7 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public HealthBarPass(HealthBarRenderer renderer)
+		public HealthBarRenderPass(HealthBarRenderer renderer)
 		{
 			Renderer = renderer;
 
@@ -46,8 +46,8 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, "Health Bars");
 			var commandBuffer = scope.CommandBuffer;
 
-			HealthBarConfig config = Renderer.Config;
-			Units.Manager unitManager = Renderer.UnitManager;
+			HealthBarRenderConfig config = Renderer.Config;
+			Manager unitManager = Renderer.UnitManager;
 			var units = unitManager.Units;
 
 			MaterialPropertyBlock.Clear();

@@ -9,7 +9,7 @@ namespace Omniverse.Rendering
 	public class HealthBarRenderer : MonoBehaviour, IInitializable
 	{
 		[Inject]
-		public HealthBarConfig Config { get; private set; }
+		public HealthBarRenderConfig Config { get; private set; }
 
 		[Inject]
 		public Units.Manager UnitManager { get; private set; }
@@ -17,11 +17,11 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Player Player { get; private set; }
 
-		private HealthBarPass Pass { get; set; }
+		private HealthBarRenderPass Pass { get; set; }
 
 		public void Initialize()
 		{
-			Pass = new HealthBarPass(this)
+			Pass = new HealthBarRenderPass(this)
 			{
 				renderPassEvent = Config.RenderPassEvent
 			};

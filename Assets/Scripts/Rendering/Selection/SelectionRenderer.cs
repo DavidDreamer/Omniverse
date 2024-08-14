@@ -10,7 +10,7 @@ namespace Omniverse.Rendering
 	public class SelectionRenderer : MonoBehaviour, IInitializable
 	{
 		[Inject]
-		public SelectionConfig Config { get; private set; }
+		public SelectionRenderConfig Config { get; private set; }
 
 		[Inject]
 		public UnitSelector UnitSelector { get; private set; }
@@ -18,11 +18,11 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Player Player { get; private set; }
 
-		private SelectionPass Pass { get; set; }
+		private SelectionRenderPass Pass { get; set; }
 
 		public void Initialize()
 		{
-			Pass = new SelectionPass(this)
+			Pass = new SelectionRenderPass(this)
 			{
 				renderPassEvent = Config.RenderPassEvent
 			};

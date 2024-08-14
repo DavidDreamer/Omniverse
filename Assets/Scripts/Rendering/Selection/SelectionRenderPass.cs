@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionPass : ScriptableRenderPass
+	public class SelectionRenderPass : ScriptableRenderPass
 	{
 		private static class ShaderVariables
 		{
@@ -22,7 +22,7 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public SelectionPass(SelectionRenderer renderer)
+		public SelectionRenderPass(SelectionRenderer renderer)
 		{
 			Renderer = renderer;
 
@@ -36,7 +36,7 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, "Selection");
 			var commandBuffer = scope.CommandBuffer;
 
-			SelectionConfig config = Renderer.Config;
+			SelectionRenderConfig config = Renderer.Config;
 			UnitSelector unitSelector = Renderer.UnitSelector;
 
 			MaterialPropertyBlock.Clear();

@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Selection")]
-	public class SelectionConfig : ScriptableObject
+	public class SelectionRenderConfig : ScriptableObject
 	{
 		[field: SerializeField]
 		public RenderPassEvent RenderPassEvent { get; set; }
