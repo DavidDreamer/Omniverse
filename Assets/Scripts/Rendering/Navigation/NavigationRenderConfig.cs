@@ -1,15 +1,12 @@
 ﻿using Dreambox.Rendering.Core;
+using Dreambox.Rendering.URP;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Navigation")]
-	public class NavigationRenderConfig : ScriptableObject
+	public class NavigationRenderConfig : RendererFeatureConfig
 	{
-		[field: SerializeField]
-		public RenderPassEvent RenderPassEvent { get; set; }
-
 		[field: SerializeField]
 		public DrawMeshParams DrawMeshParams { get; set; }
 

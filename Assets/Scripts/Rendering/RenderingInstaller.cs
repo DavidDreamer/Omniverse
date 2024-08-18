@@ -33,6 +33,10 @@ namespace Omniverse.Rendering
 			OutlineRendererFeature outline = features.OfType<OutlineRendererFeature>().First();
 			builder.RegisterInstance(outline);
 
+			NavigationRendererFeature navigation = features.OfType<NavigationRendererFeature>().First();
+			builder.RegisterInstance(navigation);
+			builder.Register<Navigator>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+
 			builder.RegisterInstance(SelectionRenderConfig);
 			builder.RegisterComponentOnNewGameObject<SelectionRenderer>(Lifetime.Singleton, nameof(SelectionRenderer)).AsImplementedInterfaces().AsSelf();
 
@@ -40,9 +44,6 @@ namespace Omniverse.Rendering
 
 			builder.RegisterInstance(HealthBarRenderConfig);
 			builder.RegisterComponentOnNewGameObject<HealthBarRenderer>(Lifetime.Singleton, nameof(HealthBarRenderer)).AsImplementedInterfaces().AsSelf();
-
-			builder.RegisterInstance(NavigationRenderConfig);
-			builder.RegisterComponentOnNewGameObject<NavigationRenderer>(Lifetime.Singleton, nameof(NavigationRenderer)).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

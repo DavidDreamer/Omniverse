@@ -1,18 +1,21 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class NavigationRenderPass : ScriptableRenderPass
+	public class NavigationRenderPass : ScriptableRenderPass, IDisposable
 	{
 		private static class ShaderVariables
 		{
 			public static int Lifetime { get; } = Shader.PropertyToID(nameof(Lifetime));
 		}
 
-		private NavigationRenderer Renderer { get; }
+		private NavigationRendererFeature RendererFeature { get; }
+
+		private NavigationRenderConfig Config { get; }
 
 		private Matrix4x4[] Matrices { get; }
 
@@ -20,13 +23,18 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public NavigationRenderPass(NavigationRenderer renderer)
+		public NavigationRenderPass(NavigationRendererFeature rendererFeature)
 		{
-			Renderer = renderer;
+			RendererFeature = rendererFeature;
+			Config = rendererFeature.Config;
 
-			Matrices = new Matrix4x4[Renderer.Config.Capacity];
-			Lifetimes = new float[Renderer.Config.Capacity];
+			Matrices = new Matrix4x4[rendererFeature.Config.Capacity];
+			Lifetimes = new float[rendererFeature.Config.Capacity];
 			MaterialPropertyBlock = new();
+		}
+
+		public void Dispose()
+		{
 		}
 
 		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -34,17 +42,15 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, nameof(NavigationRenderPass));
 			var commandBuffer = scope.CommandBuffer;
 
-
-			NavigationRenderConfig config = Renderer.Config;
-			DrawMeshParams drawMeshParams = config.DrawMeshParams;
+			DrawMeshParams drawMeshParams = Config.DrawMeshParams;
 
 			float time = Time.time;
 
 			int i = 0;
-			foreach (NavigationPoint navigationPoint in Renderer.NavigationPoints)
+			foreach (NavigationPoint navigationPoint in RendererFeature.Points)
 			{
 				Matrices[i] = Matrix4x4.TRS(navigationPoint.Position, Quaternion.identity, Vector3.one);
-				Lifetimes[i] = Mathf.Clamp01((time - navigationPoint.Time) / config.Lifetime);
+				Lifetimes[i] = Mathf.Clamp01((time - navigationPoint.Time) / Config.Lifetime);
 				i++;
 			}
 
@@ -56,7 +62,7 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.ShaderPass,
 				Matrices,
-				Renderer.NavigationPoints.Count,
+				RendererFeature.Points.Count,
 				MaterialPropertyBlock);
 		}
 	}

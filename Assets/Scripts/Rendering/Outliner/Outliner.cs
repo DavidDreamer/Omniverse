@@ -19,7 +19,7 @@ namespace Omniverse.Rendering
 
 		public void LateTick()
 		{
-			Outline.Pass.Clear();
+			Outline.Clear();
 
 			Entity entity = EntityDetector.Target;
 
@@ -36,7 +36,7 @@ namespace Omniverse.Rendering
 				{
 					int variant = GetOutlineVariant(entity);
 					var outlineRenderer = new OutlineRenderer(renderer, variant);
-					Outline.Pass.AddRenderer(outlineRenderer);
+					Outline.AddRenderer(outlineRenderer);
 				}
 			}
 		}
