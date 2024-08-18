@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Omniverse.Items;
 using Omniverse.Units;
-using UnityEngine.InputSystem;
 using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.Input
 {

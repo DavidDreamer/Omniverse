@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SelectionRenderConfig
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 450
+  <CameraType>k__BackingField: 3
   <DrawMeshParams>k__BackingField:
     <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
     <SubmeshIndex>k__BackingField: 0

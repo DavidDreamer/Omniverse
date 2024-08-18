@@ -1,4 +1,5 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using Dreambox.Rendering.Core;
 using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -6,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class HealthBarRenderPass : ScriptableRenderPass
+	public class HealthBarsRendererPass : ScriptableRenderPass, IDisposable
 	{
 		private static class ShaderVariables
 		{
@@ -17,7 +18,9 @@ namespace Omniverse.Rendering
 			public static int Amount { get; } = Shader.PropertyToID(nameof(Amount));
 		}
 
-		private HealthBarRenderer Renderer { get; }
+		private HealthBarsRenderer Renderer { get; }
+
+		private HealthBarsRendererConfig Config { get; }
 
 		private Matrix4x4[] Matrices { get; }
 
@@ -29,16 +32,21 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public HealthBarRenderPass(HealthBarRenderer renderer)
+		public HealthBarsRendererPass(HealthBarsRenderer renderer)
 		{
 			Renderer = renderer;
+			Config = renderer.Config;
 
-			Matrices = new Matrix4x4[renderer.Config.MaxCount];
-			BaseColors = new Vector4[renderer.Config.MaxCount];
-			SecondColors = new Vector4[renderer.Config.MaxCount];
-			Amounts = new float[renderer.Config.MaxCount];
+			Matrices = new Matrix4x4[Config.MaxCount];
+			BaseColors = new Vector4[Config.MaxCount];
+			SecondColors = new Vector4[Config.MaxCount];
+			Amounts = new float[Config.MaxCount];
 
 			MaterialPropertyBlock = new MaterialPropertyBlock();
+		}
+
+		public void Dispose()
+		{
 		}
 
 		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -46,13 +54,12 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, "Health Bars");
 			var commandBuffer = scope.CommandBuffer;
 
-			HealthBarRenderConfig config = Renderer.Config;
 			Manager unitManager = Renderer.UnitManager;
 			var units = unitManager.Units;
 
 			MaterialPropertyBlock.Clear();
 
-			int count = Mathf.Min(units.Count, config.MaxCount);
+			int count = Mathf.Min(units.Count, Config.MaxCount);
 
 			if (count == 0)
 			{
@@ -63,10 +70,10 @@ namespace Omniverse.Rendering
 			{
 				Unit unit = units[i];
 
-				var matrix = unit.transform.localToWorldMatrix * Matrix4x4.Translate(config.Offset);
+				var matrix = unit.transform.localToWorldMatrix * Matrix4x4.Translate(Config.Offset);
 				Matrices[i] = matrix;
 
-				HealthBarColors colors = Renderer.Player.FactionID == unit.FactionID ? config.AllyColors : config.EnemyColors;
+				HealthBarColors colors = Renderer.Player.FactionID == unit.FactionID ? Config.AllyColors : Config.EnemyColors;
 				BaseColors[i] = colors.BaseColor;
 				SecondColors[i] = colors.SecondColor;
 
@@ -78,7 +85,7 @@ namespace Omniverse.Rendering
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.SecondColor, SecondColors);
 			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Amount, Amounts);
 
-			var drawMeshParams = config.DrawMeshParams;
+			var drawMeshParams = Config.DrawMeshParams;
 			commandBuffer.DrawMeshInstanced(
 				drawMeshParams.Mesh,
 				drawMeshParams.SubmeshIndex,

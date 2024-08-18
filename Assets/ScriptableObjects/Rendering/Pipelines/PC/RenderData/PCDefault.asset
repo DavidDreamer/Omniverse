@@ -91,8 +91,7 @@ MonoBehaviour:
   - {fileID: -1878332245247344467}
   - {fileID: -620289116012903196}
   - {fileID: -1084149356951124177}
-  - {fileID: 2566216951745374264}
-  m_RendererFeatureMap: adc0de57c6d2eee5e48402de554a64f72fc77567e753f4f038685ea1b8089d23
+  m_RendererFeatureMap: adc0de57c6d2eee5e48402de554a64f72fc77567e753f4f0
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   shaders:
@@ -130,17 +129,3 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &2566216951745374264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc5772ab031f1746b16d892d9318dec, type: 3}
-  m_Name: Navigation
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  <Config>k__BackingField: {fileID: 0}

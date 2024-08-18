@@ -13,7 +13,7 @@ namespace Omniverse.Rendering
 			public static int Lifetime { get; } = Shader.PropertyToID(nameof(Lifetime));
 		}
 
-		private NavigationRendererFeature RendererFeature { get; }
+		private NavigationRenderer RendererFeature { get; }
 
 		private NavigationRenderConfig Config { get; }
 
@@ -23,7 +23,7 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public NavigationRenderPass(NavigationRendererFeature rendererFeature)
+		public NavigationRenderPass(NavigationRenderer rendererFeature)
 		{
 			RendererFeature = rendererFeature;
 			Config = rendererFeature.Config;

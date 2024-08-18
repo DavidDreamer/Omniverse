@@ -1,15 +1,12 @@
 ﻿using Dreambox.Rendering.Core;
+using Dreambox.Rendering.Universal;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Selection")]
-	public class SelectionRenderConfig : ScriptableObject
+	public class SelectionRendererConfig : CustomRendererConfig
 	{
-		[field: SerializeField]
-		public RenderPassEvent RenderPassEvent { get; set; }
-
 		[field: SerializeField]
 		public DrawMeshParams DrawMeshParams { get; set; }
 

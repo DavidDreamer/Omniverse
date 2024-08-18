@@ -1,4 +1,5 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using Omniverse.Units;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionRenderPass : ScriptableRenderPass
+	public class SelectionRendererPass : ScriptableRenderPass, IDisposable
 	{
 		private static class ShaderVariables
 		{
@@ -22,7 +23,7 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public SelectionRenderPass(SelectionRenderer renderer)
+		public SelectionRendererPass(SelectionRenderer renderer)
 		{
 			Renderer = renderer;
 
@@ -31,12 +32,16 @@ namespace Omniverse.Rendering
 			MaterialPropertyBlock = new MaterialPropertyBlock();
 		}
 
+		public void Dispose()
+		{
+		}
+
 		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
 		{
 			using CommandBufferContextScope scope = new(context, "Selection");
 			var commandBuffer = scope.CommandBuffer;
 
-			SelectionRenderConfig config = Renderer.Config;
+			SelectionRendererConfig config = Renderer.Config;
 			UnitSelector unitSelector = Renderer.UnitSelector;
 
 			MaterialPropertyBlock.Clear();

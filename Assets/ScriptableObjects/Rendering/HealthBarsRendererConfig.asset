@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b7889b4005b43da89f2519ef1e720af, type: 3}
-  m_Name: HealthBarRenderConfig
+  m_Name: HealthBarsRendererConfig
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 550
+  <CameraType>k__BackingField: 3
   <MaxCount>k__BackingField: 64
   <DrawMeshParams>k__BackingField:
     <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

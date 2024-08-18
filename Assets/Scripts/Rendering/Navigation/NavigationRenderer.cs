@@ -1,19 +1,23 @@
-using Omniverse.Input;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using Dreambox.Rendering.Universal;
+using Omniverse.Input;
 using UnityEngine;
-using VContainer.Unity;
 using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class Navigator : IInitializable, ILateTickable, IDisposable
+	public class NavigationRenderer : CustomRenderer<NavigationRenderConfig, NavigationRenderPass>, IInitializable, ILateTickable, IDisposable
 	{
 		[Inject]
 		public UnitController UnitController { get; private set; }
 
-		[Inject]
-		public NavigationRendererFeature NavigationRendererFeature { get; private set; }
+		public Queue<NavigationPoint> Points { get; } = new();
+
+		protected override NavigationRenderPass CreatePass() => new(this);
+
+		protected override bool IsInactive() => Points.Count == 0;
 
 		public void Initialize()
 		{
@@ -27,19 +31,17 @@ namespace Omniverse.Rendering
 
 		public void LateTick()
 		{
-			Queue<NavigationPoint> points = NavigationRendererFeature.Points;
-
 			float time = Time.time;
 
-			while (points.Count > 0)
+			while (Points.Count > 0)
 			{
-				NavigationPoint navigationPoint = points.Peek();
+				NavigationPoint navigationPoint = Points.Peek();
 
 				float lifetime = time - navigationPoint.Time;
 
-				if (lifetime >= NavigationRendererFeature.Config.Lifetime)
+				if (lifetime >= Config.Lifetime)
 				{
-					points.Dequeue();
+					Points.Dequeue();
 				}
 				else
 				{
@@ -50,20 +52,18 @@ namespace Omniverse.Rendering
 
 		private void OnNavigationPointCreated(Vector3 point)
 		{
-			Queue<NavigationPoint> points = NavigationRendererFeature.Points;
-
 			var navigationPointData = new NavigationPoint
 			{
 				Position = point,
 				Time = Time.time
 			};
 
-			if (points.Count == NavigationRendererFeature.Config.Capacity)
+			if (Points.Count == Config.Capacity)
 			{
-				points.Dequeue();
+				Points.Dequeue();
 			}
 
-			points.Enqueue(navigationPointData);
+			Points.Enqueue(navigationPointData);
 		}
 	}
 }

@@ -1,49 +1,19 @@
-﻿using Omniverse.Input;
-using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+﻿using Dreambox.Rendering.Universal;
+using Omniverse.Input;
 using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionRenderer : MonoBehaviour, IInitializable
+	public class SelectionRenderer : CustomRenderer<SelectionRendererConfig, SelectionRendererPass>
 	{
-		[Inject]
-		public SelectionRenderConfig Config { get; private set; }
-
 		[Inject]
 		public UnitSelector UnitSelector { get; private set; }
 
 		[Inject]
 		public Player Player { get; private set; }
 
-		private SelectionRenderPass Pass { get; set; }
+		protected override SelectionRendererPass CreatePass() => new(this);
 
-		public void Initialize()
-		{
-			Pass = new SelectionRenderPass(this)
-			{
-				renderPassEvent = Config.RenderPassEvent
-			};
-		}
-
-		private void OnEnable()
-		{
-			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
-		}
-
-		private void OnDisable()
-		{
-			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
-		}
-
-		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
-		{
-			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
-			{
-				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
-			}
-		}
+		protected override bool IsInactive() => false;
 	}
 }
