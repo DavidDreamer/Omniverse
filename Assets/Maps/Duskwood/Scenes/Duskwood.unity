@@ -939,7 +939,7 @@ MonoBehaviour:
   <Map>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
   <UIInstaller>k__BackingField: {fileID: 456758840}
   <CameraController>k__BackingField: {fileID: 330585548}
-  <RenderingInstaller>k__BackingField: {fileID: 2088478822}
+  <RenderingInstaller>k__BackingField: {fileID: 11400000, guid: eb2b58e5cc33a804999eda657265dcfc, type: 2}
 --- !u!4 &77597338
 Transform:
   m_ObjectHideFlags: 0
@@ -952,8 +952,7 @@ Transform:
   m_LocalPosition: {x: 49.097046, y: -893.1025, z: 435.07736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2088478821}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &81130147 stripped
@@ -23100,55 +23099,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33bf0a6bb0a539642b6f3ec51c4e0e5f, type: 3}
---- !u!1 &2088478820
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2088478821}
-  - component: {fileID: 2088478822}
-  m_Layer: 0
-  m_Name: Rendering
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2088478821
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088478820}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 77597338}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2088478822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088478820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660415735422462198b497cb05b7549d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
-  <FogOfWarRendererConfig>k__BackingField: {fileID: 11400000, guid: c0a4120d8ece4304e95f5daa88c73516, type: 2}
-  <HealthBarsRendererConfig>k__BackingField: {fileID: 11400000, guid: 97ca53884d0094b4ca34f4eda79b596b, type: 2}
-  <SelectionRendererConfig>k__BackingField: {fileID: 11400000, guid: 25cfc1973faad6940a57b279291546c8, type: 2}
-  <NavigationRendererConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438, type: 2}
 --- !u!1001 &2098572137
 PrefabInstance:
   m_ObjectHideFlags: 0

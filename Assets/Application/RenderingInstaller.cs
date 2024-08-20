@@ -11,12 +11,9 @@ using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class RenderingInstaller : MonoBehaviour, IInstaller
+	[CreateAssetMenu(menuName = "Omniverse/Installer/Rendering")]
+	public class RenderingInstaller : ScriptableObject, IInstaller
 	{
-		//TODO INJECT
-		[field: SerializeField]
-		private GameSettings GameSettings { get; set; }
-
 		[field: SerializeField]
 		private FogOfWarRendererConfig FogOfWarRendererConfig { get; set; }
 
@@ -29,8 +26,13 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private NavigationRendererConfig NavigationRendererConfig { get; set; }
 
+		[Inject]
+		private GameSettings GameSettings { get; set; }
+
 		public void Install(IContainerBuilder builder)
 		{
+			var transform = new GameObject("Rendering").transform;
+
 			var universalRenderPipelineAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
 			ScriptableRenderer scriptableRenderer = universalRenderPipelineAsset.GetRenderer(0);
 			PropertyInfo property = typeof(ScriptableRenderer).GetProperty("rendererFeatures",
