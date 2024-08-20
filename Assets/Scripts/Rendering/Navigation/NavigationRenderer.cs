@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
@@ -8,7 +7,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class NavigationRenderer : CustomRenderer<NavigationRenderConfig, NavigationRenderPass>, IInitializable, ILateTickable, IDisposable
+	public class NavigationRenderer : CustomRenderer<NavigationRendererConfig, NavigationRenderPass>, ILateTickable
 	{
 		[Inject]
 		public UnitController UnitController { get; private set; }
@@ -19,13 +18,17 @@ namespace Omniverse.Rendering
 
 		protected override bool IsInactive() => Points.Count == 0;
 
-		public void Initialize()
+		public override void Initialize()
 		{
+			base.Initialize();
+
 			UnitController.NavigationPointCreated += OnNavigationPointCreated;
 		}
 
-		public void Dispose()
+		public override void Dispose()
 		{
+			base.Dispose();
+
 			UnitController.NavigationPointCreated -= OnNavigationPointCreated;
 		}
 

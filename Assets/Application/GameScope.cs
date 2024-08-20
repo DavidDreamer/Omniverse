@@ -20,9 +20,6 @@ namespace Omniverse
 		private Map Map { get; set; }
 
 		[field: SerializeField]
-		private FogOfWarRenderer FogOfWarRenderer { get; set; }
-
-		[field: SerializeField]
 		private UIInstaller UIInstaller { get; set; }
 
 		[field: SerializeField]
@@ -47,8 +44,6 @@ namespace Omniverse
 			{
 				builder.RegisterInstance(GameSettings.FogOfWarSettings);
 				builder.Register<FogOfWar.Manager>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-				builder.RegisterComponentInNewPrefab(FogOfWarRenderer, Lifetime.Singleton).AsImplementedInterfaces()
-					.AsSelf();
 			}
 
 			builder.Register<PrefabPool<Unit>>(Lifetime.Singleton);

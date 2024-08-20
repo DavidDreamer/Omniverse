@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Omniverse.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Navigation")]
-	public class NavigationRenderConfig : CustomRendererConfig
+	public class NavigationRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
 		public DrawMeshParams DrawMeshParams { get; set; }

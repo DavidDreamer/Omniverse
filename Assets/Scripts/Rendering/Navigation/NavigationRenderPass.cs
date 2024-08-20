@@ -15,7 +15,7 @@ namespace Omniverse.Rendering
 
 		private NavigationRenderer RendererFeature { get; }
 
-		private NavigationRenderConfig Config { get; }
+		private NavigationRendererConfig Config { get; }
 
 		private Matrix4x4[] Matrices { get; }
 

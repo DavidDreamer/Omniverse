@@ -1,16 +1,14 @@
-﻿using System;
-using Dreambox.Rendering.Core;
+﻿using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
-using VContainer.Unity;
 using Omniverse.FogOfWar;
 
 namespace Omniverse.Rendering.FogOfWar
 {
-	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>, IInitializable, IDisposable
+	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
 	{
 		private static class ShaderVariables
 		{
@@ -52,9 +50,6 @@ namespace Omniverse.Rendering.FogOfWar
 
 		private void UpdateShaderVariables()
 		{
-			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
-			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
-
 			PropertiesBuffer?.SetData(Config.Properties);
 
 			if (BlurMaterial != null)
@@ -63,8 +58,13 @@ namespace Omniverse.Rendering.FogOfWar
 			}
 		}
 
-		public void Initialize()
+		public override void Initialize()
 		{
+			base.Initialize();
+
+			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
+			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
+
 			AnimationMaterial = new Material(Config.PreProcessShader);
 			BlurMaterial = new Material(Config.BlurShader);
 
@@ -116,8 +116,10 @@ namespace Omniverse.Rendering.FogOfWar
 
 		protected override bool IsInactive() => false;
 
-		public void Dispose()
+		public override void Dispose()
 		{
+			base.Dispose();
+
 			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);
 
