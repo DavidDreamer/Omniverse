@@ -34,9 +34,7 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public RenderTexture BlurRT2 { get; set; }
 
-		private ComputeBuffer PropertiesBuffer { get; set; }
-
-		private Properties[] PropertiesData { get; set; }
+		private ConstantComputeBuffer<Properties> PropertiesBuffer { get; set; }
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 
@@ -55,11 +53,7 @@ namespace Omniverse.FogOfWar.Rendering
 			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
-			if (PropertiesBuffer != null)
-			{
-				PropertiesData[0] = Properties;
-				PropertiesBuffer.SetData(PropertiesData);
-			}
+			PropertiesBuffer?.SetData(Properties);
 
 			if (BlurMaterial != null)
 			{
@@ -76,9 +70,7 @@ namespace Omniverse.FogOfWar.Rendering
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
 
-			PropertiesBuffer = new ComputeBuffer(1, UnsafeUtility.SizeOf<Properties>(), ComputeBufferType.Constant);
-			PropertiesData = new Properties[1];
-			Shader.SetGlobalConstantBuffer(ShaderVariables.FogOfWarProperties, PropertiesBuffer, 0, PropertiesBuffer.stride);
+			PropertiesBuffer = new ConstantComputeBuffer<Properties>(ShaderVariables.FogOfWarProperties);
 
 			CellsVisibilityBuffer =
 				new ComputeBuffer(Manager.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
@@ -132,7 +124,7 @@ namespace Omniverse.FogOfWar.Rendering
 			BlurRT1.Release();
 			BlurRT2.Release();
 
-			PropertiesBuffer.Release();
+			PropertiesBuffer.Dispose();
 			CellsVisibilityBuffer.Release();
 
 			ApplyPass.Dispose();

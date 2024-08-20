@@ -1,9 +1,9 @@
 using System;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using VContainer;
 using VContainer.Unity;
+using Dreambox.Rendering.Core;
 
 namespace Omniverse.Mapping
 {
@@ -22,9 +22,7 @@ namespace Omniverse.Mapping
 
 		public RenderTexture RenderTexture { get; private set; }
 
-		private ComputeBuffer PropertiesBuffer { get; set; }
-
-		private MapShaderProperties[] PropertiesData { get; set; }
+		private ConstantComputeBuffer<MapShaderProperties> PropertiesBuffer { get; set; }
 
 		public void Initialize()
 		{
@@ -49,12 +47,8 @@ namespace Omniverse.Mapping
 				MapSize = new Vector4(MapSettings.Size.x, MapSettings.Size.y, 0, 0)
 			};
 
-			PropertiesBuffer = new ComputeBuffer(1, UnsafeUtility.SizeOf<MapShaderProperties>(), ComputeBufferType.Constant);
-			Shader.SetGlobalConstantBuffer(ShaderVariables.MapProperties, PropertiesBuffer, 0, PropertiesBuffer.stride);
-
-			PropertiesData = new MapShaderProperties[1];
-			PropertiesData[0] = mapShaderProperties;
-			PropertiesBuffer.SetData(PropertiesData);
+			PropertiesBuffer = new ConstantComputeBuffer<MapShaderProperties>(ShaderVariables.MapProperties);
+			PropertiesBuffer.SetData(mapShaderProperties);
 		}
 
 		public void Dispose()
@@ -66,7 +60,7 @@ namespace Omniverse.Mapping
 
 			Destroy(RenderTexture);
 
-			PropertiesBuffer.Release();
+			PropertiesBuffer.Dispose();
 		}
 	}
 }
