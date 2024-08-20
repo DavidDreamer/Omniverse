@@ -1,20 +1,24 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Omniverse.FogOfWar.Rendering
+namespace Omniverse.Rendering.FogOfWar
 {
-	public class ApplyPass : ScriptableRenderPass
+	public class FogOfWarPass : ScriptableRenderPass, IDisposable
 	{
-		private Manager Manager { get; }
+		private FogOfWarRenderer Renderer { get; }
+
+		private FogOfWarRendererConfig Config { get; }
 
 		private Material Material { get; }
 
-		public ApplyPass(Manager manager, Shader shader)
+		public FogOfWarPass(FogOfWarRenderer renderer)
 		{
-			Manager = manager;
-			Material = new Material(shader);
+			Renderer = renderer;
+			Config = renderer.Config;
+			Material = new Material(Config.ApplyShader);
 		}
 
 		public void Dispose()

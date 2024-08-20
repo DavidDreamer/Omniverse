@@ -1,5 +1,5 @@
 ﻿using Omniverse.Cameras;
-using Omniverse.FogOfWar.Rendering;
+using Omniverse.Rendering.FogOfWar;
 using Omniverse.Items;
 using Omniverse.Mapping;
 using Omniverse.Rendering;

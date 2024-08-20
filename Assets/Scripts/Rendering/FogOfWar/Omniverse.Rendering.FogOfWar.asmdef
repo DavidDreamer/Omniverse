@@ -1,6 +1,6 @@
 {
-    "name": "Omniverse.FogOfWar.Rendering",
-    "rootNamespace": "Omniverse.FogOfWar.Rendering",
+    "name": "Omniverse.Rendering.FogOfWar",
+    "rootNamespace": "Omniverse.Rendering.FogOfWar",
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:18f3a18bf9983ff488e6cb8707086a7a",

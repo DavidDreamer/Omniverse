@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.FogOfWar.Rendering
+namespace Omniverse.Rendering.FogOfWar
 {
 	[Serializable]
-	public struct Properties
+	public struct FogOfWarProperties
 	{
 		public Color UnexploredColor;
 

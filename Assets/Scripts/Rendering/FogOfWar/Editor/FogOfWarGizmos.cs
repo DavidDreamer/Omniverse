@@ -1,7 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Omniverse.FogOfWar;
 
-namespace Omniverse.FogOfWar.Rendering.Editor
+namespace Omniverse.Rendering.FogOfWar.Editor
 {
 	public static class FogOfWarGizmos
 	{

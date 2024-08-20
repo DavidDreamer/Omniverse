@@ -1,4 +1,4 @@
-using Omniverse.FogOfWar.Rendering;
+using Omniverse.Rendering.FogOfWar;
 using Omniverse.Mapping;
 using UnityEngine;
 using UnityEngine.UI;

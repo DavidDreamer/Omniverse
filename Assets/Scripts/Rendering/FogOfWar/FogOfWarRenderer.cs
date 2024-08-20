@@ -1,25 +1,29 @@
 ﻿using System;
 using Dreambox.Rendering.Core;
-using Unity.Collections.LowLevel.Unsafe;
+using Dreambox.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 using VContainer;
 using VContainer.Unity;
+using Omniverse.FogOfWar;
 
-namespace Omniverse.FogOfWar.Rendering
+namespace Omniverse.Rendering.FogOfWar
 {
-	public class FogOfWarRenderer : MonoBehaviour, IInitializable, IDisposable
+	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>, IInitializable, IDisposable
 	{
-		[field: SerializeField]
-		private Shaders Shaders { get; set; }
+		private static class ShaderVariables
+		{
+			public const string ExploredKeyword = "FOG_OF_WAR_EXPLORED";
 
-		[field: SerializeField]
-		private Properties Properties { get; set; }
+			public static int FogOfWarResolution { get; } = Shader.PropertyToID(nameof(FogOfWarResolution));
 
-		[field: SerializeField]
-		private BlurSettings BlurSettings { get; set; }
+			public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
+
+			public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));
+
+			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
+		}
 
 		[Inject]
 		public Manager Manager { get; set; }
@@ -34,11 +38,9 @@ namespace Omniverse.FogOfWar.Rendering
 
 		public RenderTexture BlurRT2 { get; set; }
 
-		private ConstantComputeBuffer<Properties> PropertiesBuffer { get; set; }
+		private ConstantComputeBuffer<FogOfWarProperties> PropertiesBuffer { get; set; }
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
-
-		private ApplyPass ApplyPass { get; set; }
 
 		private void OnValidate()
 		{
@@ -53,32 +55,27 @@ namespace Omniverse.FogOfWar.Rendering
 			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
-			PropertiesBuffer?.SetData(Properties);
+			PropertiesBuffer?.SetData(Config.Properties);
 
 			if (BlurMaterial != null)
 			{
-				BlurSettings.ApplyTo(BlurMaterial);
+				Config.BlurSettings.ApplyTo(BlurMaterial);
 			}
 		}
 
 		public void Initialize()
 		{
-			AnimationMaterial = new Material(Shaders.PreProcess);
-			BlurMaterial = new Material(Shaders.Blur);
+			AnimationMaterial = new Material(Config.PreProcessShader);
+			BlurMaterial = new Material(Config.BlurShader);
 
 			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
 
-			PropertiesBuffer = new ConstantComputeBuffer<Properties>(ShaderVariables.FogOfWarProperties);
+			PropertiesBuffer = new ConstantComputeBuffer<FogOfWarProperties>(ShaderVariables.FogOfWarProperties);
 
 			CellsVisibilityBuffer =
 				new ComputeBuffer(Manager.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
-
-			ApplyPass = new ApplyPass(Manager, Shaders.Apply)
-			{
-				renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
-			};
 
 			if (Manager.Settings.Explored)
 			{
@@ -115,6 +112,10 @@ namespace Omniverse.FogOfWar.Rendering
 			}
 		}
 
+		protected override FogOfWarPass CreatePass() => new FogOfWarPass(this);
+
+		protected override bool IsInactive() => false;
+
 		public void Dispose()
 		{
 			CoreUtils.Destroy(AnimationMaterial);
@@ -126,26 +127,6 @@ namespace Omniverse.FogOfWar.Rendering
 
 			PropertiesBuffer.Dispose();
 			CellsVisibilityBuffer.Release();
-
-			ApplyPass.Dispose();
-		}
-
-		private void OnEnable()
-		{
-			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
-		}
-
-		private void OnDisable()
-		{
-			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
-		}
-
-		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
-		{
-			if (cam.cameraType is CameraType.Game or CameraType.SceneView)
-			{
-				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(ApplyPass);
-			}
 		}
 
 		private void LateUpdate()
