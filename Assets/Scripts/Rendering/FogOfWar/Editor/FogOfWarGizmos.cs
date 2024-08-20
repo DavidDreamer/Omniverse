@@ -1,6 +1,6 @@
-﻿using UnityEditor;
+﻿using Omniverse.FogOfWar;
+using UnityEditor;
 using UnityEngine;
-using Omniverse.FogOfWar;
 
 namespace Omniverse.Rendering.FogOfWar.Editor
 {

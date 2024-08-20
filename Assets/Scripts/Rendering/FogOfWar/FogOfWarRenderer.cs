@@ -1,10 +1,10 @@
 ﻿using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
+using Omniverse.FogOfWar;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
-using Omniverse.FogOfWar;
 
 namespace Omniverse.Rendering.FogOfWar
 {
