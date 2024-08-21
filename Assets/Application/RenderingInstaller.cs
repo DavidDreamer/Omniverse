@@ -29,7 +29,8 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private NavigationRendererConfig NavigationRendererConfig { get; set; }
 
-		[Inject]
+		//TODO INJECT
+		[field: SerializeField]
 		private GameSettings GameSettings { get; set; }
 
 		public void Install(IContainerBuilder builder)
