@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using Dreambox.Rendering;
 using Dreambox.Rendering.Universal;
 using Omniverse.Rendering.FogOfWar;
 using UnityEngine;
@@ -14,6 +14,9 @@ namespace Omniverse.Rendering
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Rendering")]
 	public class RenderingInstaller : ScriptableObject, IInstaller
 	{
+		[field: SerializeField]
+		private OutlineRendererConfig OutlineRendererConfig { get; set; }
+
 		[field: SerializeField]
 		private FogOfWarRendererConfig FogOfWarRendererConfig { get; set; }
 
@@ -39,8 +42,7 @@ namespace Omniverse.Rendering
 				BindingFlags.NonPublic | BindingFlags.Instance);
 			var features = (List<ScriptableRendererFeature>)property.GetValue(scriptableRenderer);
 
-			OutlineRendererFeature outline = features.OfType<OutlineRendererFeature>().First();
-			builder.RegisterInstance(outline);
+			RegisterRenderer<OutlineRenderer, OutlineRendererConfig>(OutlineRendererConfig);
 			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			if (GameSettings.FogOfWarSettings.Enabled)

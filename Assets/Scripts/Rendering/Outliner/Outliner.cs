@@ -15,11 +15,11 @@ namespace Omniverse.Rendering
 		public EntityDetector EntityDetector { get; private set; }
 
 		[Inject]
-		public OutlineRendererFeature Outline { get; private set; }
+		public OutlineRenderer OutlineRenderer { get; private set; }
 
 		public void LateTick()
 		{
-			Outline.Clear();
+			OutlineRenderer.Clear();
 
 			Entity entity = EntityDetector.Target;
 
@@ -35,8 +35,8 @@ namespace Omniverse.Rendering
 				foreach (Renderer renderer in entityRenderer.Renderers)
 				{
 					int variant = GetOutlineVariant(entity);
-					var outlineRenderer = new OutlineRenderer(renderer, variant);
-					Outline.AddRenderer(outlineRenderer);
+					var outlineTarget = new OutlineTarget(renderer, variant);
+					OutlineRenderer.AddTarget(outlineTarget);
 				}
 			}
 		}
