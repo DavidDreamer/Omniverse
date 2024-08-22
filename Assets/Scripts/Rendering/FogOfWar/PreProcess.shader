@@ -32,7 +32,7 @@ Shader "Hidden/Omniverse/FogOfWar/PreProcess"
                 const int cellIndex = input.positionCS.x * FogOfWarResolution.x - (FogOfWarResolution.x / 2 - input.positionCS.y);
                 const int currentCellState = CellsVisibilityBuffer[cellIndex];
                 const float speed = FogOfWarAnimationSpeed * unity_DeltaTime.x;
-                const float delta = (currentCellState == CELL_VISIBILITY_VISIBLE ? 1 : -1) * speed;
+                const float delta = (currentCellState == CELL_VISIBILITY_VISIBLE ? -1 : 1) * speed;
                 const float unexplored = currentCellState == CELL_VISIBILITY_UNEXPLORED;
                 return float4(delta, unexplored, 0, 0);
             }

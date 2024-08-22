@@ -9,6 +9,7 @@ CBUFFER_START(FogOfWarProperties)
 float4 FogOfWarUnexploredColor;
 float4 FogOfWarExploredColor;
 float FogOfWarAnimationSpeed;
+float FogOfWarBorderLength;
 CBUFFER_END
 
 uniform StructuredBuffer<int> CellsVisibilityBuffer;

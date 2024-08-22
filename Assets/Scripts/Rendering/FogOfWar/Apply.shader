@@ -39,19 +39,20 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
                 const float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
                 const float2 uv = worldPos.xz / MapSize.xy;
 
+                const float2 distanceFromBorder = 1 - (abs(float2(0.5, 0.5) - uv) * 2);
+                const float2 distanceFromBorderClamped = 1 - saturate(distanceFromBorder / FogOfWarBorderLength);
+                const float4 outOfBorderShading = max(distanceFromBorderClamped.x, distanceFromBorderClamped.y) * FogOfWarUnexploredColor;
+
                 const float4 fowData = tex2D(FogOfWarTexture, uv);
-
-                const bool outOfBounds = uv.x < 0 || uv.x > 1 || uv.y < 0 || uv.y > 1;
-
-                const float v = (fowData.r + 1.0) * 0.5;
-                
-                const float animationValue = outOfBounds ? 1 :  1 - v;
+                const float fogValue = (fowData.r + 1.0) * 0.5;
                 
                 #ifdef FOG_OF_WAR_EXPLORED
-                return FogOfWarExploredColor * animationValue;
+                const float4 fogColor = FogOfWarExploredColor * fogValue;
                 #else
-                return lerp(FogOfWarExploredColor, FogOfWarUnexploredColor, fowData.g) * animationValue;
+                const float4 fogColor = lerp(FogOfWarExploredColor, FogOfWarUnexploredColor, fowData.g) * fogValue;
                 #endif
+                
+                return max(fogColor, outOfBorderShading);
             }
             ENDHLSL
         }

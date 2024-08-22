@@ -11,5 +11,7 @@ namespace Omniverse.Rendering.FogOfWar
 		public Color ExploredColor;
 
 		public float AnimationSpeed;
+
+		public float BorderLength;
 	}
 }

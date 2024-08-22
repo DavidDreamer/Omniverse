@@ -17,14 +17,11 @@ MonoBehaviour:
   <PreProcessShader>k__BackingField: {fileID: 4800000, guid: 94e506d0b5edbfd47a4801d0b625f362, type: 3}
   <BlurShader>k__BackingField: {fileID: 4800000, guid: 54060db8c13c6594e8d1a1e51fd4fa9c, type: 3}
   <ApplyShader>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
-  <Shaders>k__BackingField:
-    <PreProcess>k__BackingField: {fileID: 4800000, guid: 94e506d0b5edbfd47a4801d0b625f362, type: 3}
-    <Blur>k__BackingField: {fileID: 4800000, guid: 54060db8c13c6594e8d1a1e51fd4fa9c, type: 3}
-    <Apply>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
     ExploredColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     AnimationSpeed: 2.5
+    BorderLength: 0.05
   <BlurSettings>k__BackingField:
     <Algorithm>k__BackingField: 1
     <WrapMode>k__BackingField: 0
