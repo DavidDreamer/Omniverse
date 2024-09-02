@@ -6,6 +6,9 @@ namespace Omniverse.Units.Client
 	public class UnitRenderer : RendererComponent<Unit>
 	{
 		[field: SerializeField]
+		private BloodStain BloodStain { get; set; }
+
+		[field: SerializeField]
 		public MeshFilter[] MeshFilters { get; private set; }
 
 		[field: SerializeField]
@@ -17,6 +20,7 @@ namespace Omniverse.Units.Client
 		{
 			base.Initialize(unit);
 
+			Entity.Died += OnDied;
 			Entity.EffectApplied += OnEffectApplied;
 			Entity.EffectRemoved += OnEffectRemoved;
 		}
@@ -28,8 +32,16 @@ namespace Omniverse.Units.Client
 				return;
 			}
 
+			Entity.Died -= OnDied;
 			Entity.EffectApplied += OnEffectApplied;
 			Entity.EffectRemoved += OnEffectRemoved;
+		}
+
+		private void OnDied()
+		{
+			BloodStain bloodStain = Instantiate(BloodStain);
+			bloodStain.transform.position = transform.position;
+			bloodStain.BeginAnimation();
 		}
 
 		private void OnEffectApplied(Effect effect)
