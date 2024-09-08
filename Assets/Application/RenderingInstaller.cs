@@ -29,6 +29,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private NavigationRendererConfig NavigationRendererConfig { get; set; }
 
+		[field: SerializeField]
+		private AbilityRendererConfig AbilityRendererConfig { get; set; }
+
 		//TODO INJECT
 		[field: SerializeField]
 		private GameSettings GameSettings { get; set; }
@@ -54,6 +57,7 @@ namespace Omniverse.Rendering
 			RegisterRenderer<HealthBarsRenderer, HealthBarsRendererConfig>(HealthBarsRendererConfig);
 			RegisterRenderer<SelectionRenderer, SelectionRendererConfig>(SelectionRendererConfig);
 			RegisterRenderer<NavigationRenderer, NavigationRendererConfig>(NavigationRendererConfig);
+			RegisterRenderer<AbilityRenderer, AbilityRendererConfig>(AbilityRendererConfig);
 
 			void RegisterRenderer<TRenderer, TConfig>(TConfig config)
 				where TRenderer : MonoBehaviour

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd2b2b3e6ea454bb43a1097c452253, type: 3}
+  m_Name: AbilityRenderer
+  m_EditorClassIdentifier: 
+  <RenderPassEvent>k__BackingField: 450
+  <CameraType>k__BackingField: 3
+  <Range>k__BackingField:
+    <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+    <SubmeshIndex>k__BackingField: 0
+    <Material>k__BackingField: {fileID: 2100000, guid: 47df882da3c958f4b8153cb5359bf5d1, type: 2}
+    <ShaderPass>k__BackingField: 3
