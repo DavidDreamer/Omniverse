@@ -15,7 +15,7 @@ MonoBehaviour:
   <RenderPassEvent>k__BackingField: 450
   <CameraType>k__BackingField: 3
   <Range>k__BackingField:
-    <Mesh>k__BackingField: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+    <Mesh>k__BackingField: {fileID: -3781860745874542921, guid: 604c5671fa3654943a4f1b935fe86fc0, type: 3}
     <SubmeshIndex>k__BackingField: 0
     <Material>k__BackingField: {fileID: 2100000, guid: 47df882da3c958f4b8153cb5359bf5d1, type: 2}
     <ShaderPass>k__BackingField: 3
