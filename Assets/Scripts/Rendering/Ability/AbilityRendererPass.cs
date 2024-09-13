@@ -1,4 +1,5 @@
 ﻿using System;
+using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using UnityEngine;
@@ -28,7 +29,10 @@ namespace Omniverse.Rendering
 			AbilityRendererConfig config = Renderer.Config;
 			AbilityController abilityController = Renderer.AbilityController;
 
-			var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix * Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range);
+			var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix * 
+				Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range) * 
+				MatrixUtils.WorldUpRotation;
+
 			var drawMeshParams = config.Range;
 			commandBuffer.DrawMesh(
 				drawMeshParams.Mesh,

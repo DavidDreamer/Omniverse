@@ -11,12 +11,6 @@ namespace Omniverse.Rendering
 		public DrawMeshParams DrawMeshParams { get; set; }
 
 		[field: SerializeField]
-		public Vector3 Position { get; set; }
-
-		[field: SerializeField]
-		public Vector3 Rotation { get; set; }
-
-		[field: SerializeField]
 		public Color AllyColor { get; set; }
 
 		[field: SerializeField]

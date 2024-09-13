@@ -1,4 +1,5 @@
 ﻿using System;
+using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -49,7 +50,7 @@ namespace Omniverse.Rendering
 			int i = 0;
 			foreach (NavigationPoint navigationPoint in RendererFeature.Points)
 			{
-				Matrices[i] = Matrix4x4.TRS(navigationPoint.Position, Quaternion.identity, Vector3.one);
+				Matrices[i] = Matrix4x4.TRS(navigationPoint.Position, Quaternion.identity, Vector3.one) * MatrixUtils.WorldUpRotation;
 				Lifetimes[i] = Mathf.Clamp01((time - navigationPoint.Time) / Config.Lifetime);
 				i++;
 			}

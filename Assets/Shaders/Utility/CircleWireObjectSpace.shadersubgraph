@@ -203,6 +203,7 @@
     "m_OutputNode": {
         "m_Id": "6ef8fdb4a2c54635bd05d005790a8515"
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": []
 }
 
@@ -461,7 +462,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "SmoothCircleWire",
+    "m_Name": "CircleWire",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -542,10 +543,10 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "68e043865e074fb2a3f898cb6ab61df9",
     "m_Id": 1,
-    "m_DisplayName": "Out_Vector1",
+    "m_DisplayName": "Value",
     "m_SlotType": 1,
     "m_Hidden": false,
-    "m_ShaderOutputName": "OutVector1",
+    "m_ShaderOutputName": "Value",
     "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
@@ -830,8 +831,8 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "_maskInput": "xz",
-    "convertedMask": "xz"
+    "_maskInput": "xy",
+    "convertedMask": "xy"
 }
 
 {
@@ -1096,10 +1097,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -282.75006103515627,
-            "y": 48.74998474121094,
-            "width": 0.0,
-            "height": 0.0
+            "x": -279.5,
+            "y": 7.500023365020752,
+            "width": 132.0,
+            "height": 33.99998092651367
         }
     },
     "m_Slots": [

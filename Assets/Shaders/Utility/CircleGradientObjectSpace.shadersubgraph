@@ -825,8 +825,8 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "_maskInput": "xz",
-    "convertedMask": "xz"
+    "_maskInput": "xy",
+    "convertedMask": "xy"
 }
 
 {

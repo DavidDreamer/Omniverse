@@ -1,4 +1,5 @@
 ﻿using System;
+using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using Omniverse.Units;
@@ -49,9 +50,7 @@ namespace Omniverse.Rendering
 			for (int i = 0; i < unitSelector.SelectedUnits.Count; i++)
 			{
 				Unit unit = unitSelector.SelectedUnits[i];
-				var matrix = Matrix4x4.TRS(config.Position, Quaternion.Euler(config.Rotation), Vector3.one);
-				matrix = unit.transform.localToWorldMatrix * matrix;
-				Matrices[i] = matrix;
+				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
 				Colors[i] = Renderer.Player.FactionID == unit.FactionID ? config.AllyColor : config.EnemyColor;
 			}
 
