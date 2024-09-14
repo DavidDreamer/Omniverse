@@ -29,8 +29,8 @@ namespace Omniverse.Rendering
 			AbilityRendererConfig config = Renderer.Config;
 			AbilityController abilityController = Renderer.AbilityController;
 
-			var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix * 
-				Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range) * 
+			var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix *
+				Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range) *
 				MatrixUtils.WorldUpRotation;
 
 			var drawMeshParams = config.Range;
@@ -40,7 +40,40 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.SubmeshIndex,
 				drawMeshParams.ShaderPass);
-	
+
+			DrawDireciton(commandBuffer);
+		}
+
+		private void DrawDireciton(CommandBuffer commandBuffer)
+		{
+			var target = Renderer.AbilityController.ActiveAbility.Desc.Target;
+			if (!target.Type.HasFlag(Abilities.TargetType.Direction))
+			{
+				return;
+			}
+
+			AbilityDirectionRendererData config = Renderer.Config.Direction;
+			InputController inputController = Renderer.InputController;
+			AbilityController abilityController = Renderer.AbilityController;
+
+			Vector3 activeUnitPosition = abilityController.ActiveUnit.transform.position;
+			Vector3 direction = inputController.CursorWorldPosition - activeUnitPosition;
+			direction.Set(direction.x, 0, direction.z);
+			direction.Normalize();
+
+			Vector3 position = activeUnitPosition + direction * config.Scale.y * 0.5f;
+			Quaternion rotation = Quaternion.LookRotation(Vector3.down, direction);
+			Vector3 scale = config.Scale;
+
+			var matrix = Matrix4x4.TRS(position, rotation, scale);
+
+			var drawMeshParams = config.DrawMeshParams;
+			commandBuffer.DrawMesh(
+				drawMeshParams.Mesh,
+				matrix,
+				drawMeshParams.Material,
+				drawMeshParams.SubmeshIndex,
+				drawMeshParams.ShaderPass);
 		}
 	}
 }

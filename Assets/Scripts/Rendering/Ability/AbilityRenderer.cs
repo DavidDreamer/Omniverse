@@ -7,6 +7,9 @@ namespace Omniverse.Rendering
 	public class AbilityRenderer : CustomRenderer<AbilityRendererConfig, AbilityRendererPass>
 	{
 		[Inject]
+		public InputController InputController { get; private set; }
+
+		[Inject]
 		public AbilityController AbilityController { get; private set; }
 
 		protected override AbilityRendererPass CreatePass() => new(this);

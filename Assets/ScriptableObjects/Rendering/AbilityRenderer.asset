@@ -19,3 +19,10 @@ MonoBehaviour:
     <SubmeshIndex>k__BackingField: 0
     <Material>k__BackingField: {fileID: 2100000, guid: 47df882da3c958f4b8153cb5359bf5d1, type: 2}
     <ShaderPass>k__BackingField: 3
+  <Direction>k__BackingField:
+    <DrawMeshParams>k__BackingField:
+      <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+      <SubmeshIndex>k__BackingField: 0
+      <Material>k__BackingField: {fileID: 2100000, guid: b2f47e85c077de945a5922fc72d91234, type: 2}
+      <ShaderPass>k__BackingField: 3
+    <Scale>k__BackingField: {x: 0.5, y: 5, z: 1}

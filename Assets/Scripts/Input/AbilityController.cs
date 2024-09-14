@@ -66,7 +66,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void ProcessAbility()
+		public void ProcessAbility(Vector3 cursorWorldPosition)
 		{
 			TargetType targetType = ActiveAbility.Desc.Target.Type;
 
@@ -77,13 +77,7 @@ namespace Omniverse.Input
 					return;
 				}
 
-				bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
-				if (!navMeshPositionIsValid)
-				{
-					return;
-				}
-
-				ActiveAbility.ExecutionContext.Points.Add(point);
+				ActiveAbility.ExecutionContext.Points.Add(cursorWorldPosition);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -92,13 +86,7 @@ namespace Omniverse.Input
 					return;
 				}
 
-				bool navMeshPositionIsValid = NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 point);
-				if (!navMeshPositionIsValid)
-				{
-					return;
-				}
-
-				Vector3 direction = point - ActiveUnit.transform.position;
+				Vector3 direction = cursorWorldPosition - ActiveUnit.transform.position;
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
 				ActiveAbility.ExecutionContext.Directions.Add(direction);

@@ -1,4 +1,5 @@
 ﻿using Omniverse.Abilities;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,15 +19,20 @@ namespace Omniverse.Input
 		[Inject]
 		private AbilityController AbilityController { get; set; }
 
+		public Vector3 CursorWorldPosition { get; private set; }
+
 		public void LateTick()
 		{
+			NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position);
+			CursorWorldPosition = position;
+
 			if (AbilityController.ActiveAbility is null)
 			{
 				UnitSelector.Tick();
 			}
 			else
 			{
-				AbilityController.ProcessAbility();
+				AbilityController.ProcessAbility(CursorWorldPosition);
 			}
 
 			if (UnitSelector.HasSelection)
