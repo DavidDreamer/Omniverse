@@ -33,7 +33,8 @@ namespace Omniverse.Rendering
 			SelectionBoxRendererConfig config = Renderer.Config;
 			UnitSelector unitSelector = Renderer.UnitSelector;
 
-			float x, z;
+			float x, z, y, w;
+
 			if (unitSelector.SelectionBoxStart.x > unitSelector.SelectionBoxEnd.x)
 			{
 				x = unitSelector.SelectionBoxEnd.x;
@@ -45,7 +46,6 @@ namespace Omniverse.Rendering
 				z = unitSelector.SelectionBoxEnd.x;
 			}
 
-			float y, w;
 			if (unitSelector.SelectionBoxStart.y > unitSelector.SelectionBoxEnd.y)
 			{
 				y = unitSelector.SelectionBoxEnd.y;
@@ -57,8 +57,9 @@ namespace Omniverse.Rendering
 				w = unitSelector.SelectionBoxEnd.y;
 			}
 
-			Vector4 selectionBox = new Vector4(x, y, z, w);
+			Vector4 selectionBox = new(x, y, z, w);
 			commandBuffer.SetGlobalVector(ShaderVariables.SelectionBox, selectionBox);
+
 			RTHandle cameraColorTargetHandle = renderingData.cameraData.renderer.cameraColorTargetHandle;
 			commandBuffer.Blit(cameraColorTargetHandle, cameraColorTargetHandle, config.Material);
 		}
