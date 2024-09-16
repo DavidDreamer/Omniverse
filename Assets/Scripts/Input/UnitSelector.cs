@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using Omniverse.Items;
 using Omniverse.Units;
+using UnityEngine.InputSystem;
 using VContainer;
 
 namespace Omniverse.Input
@@ -23,8 +25,26 @@ namespace Omniverse.Input
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
+		public Vector2 SelectionBoxStart { get; private set; }
+
+		public Vector2 SelectionBoxEnd { get; private set; }
+
+		public bool SelectionBoxInProcess { get; private set; }
+
 		public void Tick()
 		{
+			SelectionBoxInProcess = CommonActions.Select.IsPressed();
+
+			if (CommonActions.Select.WasPressedThisFrame())
+			{
+				SelectionBoxStart = Mouse.current.position.value;
+			}
+
+			if (CommonActions.Select.IsPressed())
+			{
+				SelectionBoxEnd = Mouse.current.position.value;
+			}
+
 			if (EntityDetector.Target == null)
 			{
 				return;

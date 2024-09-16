@@ -27,6 +27,9 @@ namespace Omniverse.Rendering
 		private SelectionRendererConfig SelectionRendererConfig { get; set; }
 
 		[field: SerializeField]
+		private SelectionBoxRendererConfig SelectionBoxRendererConfig { get; set; }
+
+		[field: SerializeField]
 		private NavigationRendererConfig NavigationRendererConfig { get; set; }
 
 		[field: SerializeField]
@@ -56,6 +59,7 @@ namespace Omniverse.Rendering
 
 			RegisterRenderer<HealthBarsRenderer, HealthBarsRendererConfig>(HealthBarsRendererConfig);
 			RegisterRenderer<SelectionRenderer, SelectionRendererConfig>(SelectionRendererConfig);
+			RegisterRenderer<SelectionBoxRenderer, SelectionBoxRendererConfig>(SelectionBoxRendererConfig);
 			RegisterRenderer<NavigationRenderer, NavigationRendererConfig>(NavigationRendererConfig);
 			RegisterRenderer<AbilityRenderer, AbilityRendererConfig>(AbilityRendererConfig);
 
