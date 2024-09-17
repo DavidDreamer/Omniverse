@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84331128a6f4a3fb19892c7a882b4be, type: 3}
   m_Name: PhysicsSettings
   m_EditorClassIdentifier: 
-  <HitboxLayer>k__BackingField: 0
+  <HitboxLayer>k__BackingField: 6
   <HitboxLayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64

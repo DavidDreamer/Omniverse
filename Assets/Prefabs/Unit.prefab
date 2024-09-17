@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4154135827708144273}
   - component: {fileID: -2109561056999165210}
   - component: {fileID: 3021569670787000090}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe6b39d3b6847efaf404beb95418dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Renderers>k__BackingField: []
   <HitBox>k__BackingField: {fileID: 3021569670787000090}
   <NavMeshAgent>k__BackingField: {fileID: -2109561056999165210}
 --- !u!195 &-2109561056999165210
