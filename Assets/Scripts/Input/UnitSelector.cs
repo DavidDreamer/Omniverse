@@ -11,6 +11,9 @@ namespace Omniverse.Input
 	{
 		public const int Capacity = 16;
 
+		private const float SelectionBoxTreshold = 16;
+		private static object cam;
+
 		public List<Unit> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
@@ -33,18 +36,47 @@ namespace Omniverse.Input
 
 		public void Tick()
 		{
-			SelectionBoxInProcess = CommonActions.Select.IsPressed();
+			InputAction selectAction = CommonActions.Select;
 
-			if (CommonActions.Select.WasPressedThisFrame())
+			if (selectAction.WasPressedThisFrame())
 			{
 				SelectionBoxStart = Mouse.current.position.value;
 			}
 
-			if (CommonActions.Select.IsPressed())
+			SelectionBoxInProcess = selectAction.IsPressed();
+
+			if (selectAction.IsPressed())
 			{
 				SelectionBoxEnd = Mouse.current.position.value;
 			}
 
+			if (selectAction.WasReleasedThisFrame())
+			{
+				bool additiveMode = CommonActions.AdditiveMode.IsPressed();
+
+				if (!additiveMode)
+				{
+					ClearSelection();
+				}
+
+				if (Vector2.Distance(SelectionBoxStart, SelectionBoxEnd) > SelectionBoxTreshold)
+				{
+					var cam = Camera.main;
+
+					foreach (Unit unit in PhysicsHelper.GetUnitsInScreenRect(cam, SelectionBoxStart, SelectionBoxEnd))
+					{
+						AddToSelection(unit);
+					}
+				}	
+				else
+				{
+					TrySelectSingleTarget();
+				}
+			}
+		}
+
+		private void TrySelectSingleTarget()
+		{
 			if (EntityDetector.Target == null)
 			{
 				return;
@@ -58,56 +90,43 @@ namespace Omniverse.Input
 
 			bool isSelected = SelectedUnits.Contains(unit);
 
-			bool additiveMode = CommonActions.AdditiveMode.IsPressed();
-			bool wasClicked = CommonActions.Select.WasPerformedThisFrame();
-
-			if (wasClicked)
+			if (isSelected)
 			{
-				if (!additiveMode)
-				{
-					ClearSelection();
-				}
-
-				if (isSelected)
-				{
-					if (additiveMode)
-					{
-						RemoveFromSelection(unit);
-					}
-				}
-				else
-				{
-					AddToSelection(unit);
-				}
+				RemoveFromSelection(unit);
+			}
+			else
+			{
+				AddToSelection(unit);
 			}
 
 			UpdateDetectionFilter();
 			UpdateSelectionIndex();
+		}
 
-			void UpdateDetectionFilter()
+		void UpdateDetectionFilter()
+		{
+			if (HasSelection)
 			{
-				if (HasSelection)
-				{
-					EntityDetector.AddToFilter<Item>();
-				}
-				else
-				{
-					EntityDetector.RemoveFromFilter<Item>();
-				}
+				EntityDetector.AddToFilter<Item>();
 			}
-
-			void UpdateSelectionIndex()
+			else
 			{
-				if (CommonActions.NextSelectionTarget.WasReleasedThisFrame())
+				EntityDetector.RemoveFromFilter<Item>();
+			}
+		}
+
+		void UpdateSelectionIndex()
+		{
+			if (CommonActions.NextSelectionTarget.WasReleasedThisFrame())
+			{
+				SelectionIndex++;
+				if (SelectionIndex >= SelectedUnits.Count)
 				{
-					SelectionIndex++;
-					if (SelectionIndex >= SelectedUnits.Count)
-					{
-						SelectionIndex = 0;
-					}
+					SelectionIndex = 0;
 				}
 			}
 		}
+
 
 		private void AddToSelection(Unit unit)
 		{
