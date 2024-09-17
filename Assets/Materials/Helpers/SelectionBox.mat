@@ -81,7 +81,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - FrameWidth: 1
+    - FrameWidth: 2
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -114,6 +114,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - FillingColor: {r: 0.2509804, g: 1, b: 0.2509804, a: 0.101960786}
+    - FillingColorBottom: {r: 0.25, g: 1, b: 0.25, a: 0.101960786}
+    - FillingColorTop: {r: 0.25, g: 1, b: 0.25, a: 0.2509804}
     - FrameColor: {r: 0.25, g: 1, b: 0.25, a: 0.5019608}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

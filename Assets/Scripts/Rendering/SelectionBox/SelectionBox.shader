@@ -4,7 +4,8 @@ Shader "Omniverse/Utility/SelectionBox"
     {
         FrameColor ("FrameColor", Color) = (1,1,1,1)
         FrameWidth ("FrameWidth", Float) = 5
-        FillingColor ("FillingColor", Color) = (1,1,1,1)
+        FillingColorTop ("FillingColorTop", Color) = (1,1,1,1)
+        FillingColorBottom ("FillingColorBottom", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -37,7 +38,10 @@ Shader "Omniverse/Utility/SelectionBox"
             }
 
             float4 FrameColor;
-            float4 FillingColor;
+            float FrameWidth;
+
+            float4 FillingColorTop;
+            float4 FillingColorBottom;
 
             float4 SelectionBox;
            
@@ -48,14 +52,16 @@ Shader "Omniverse/Utility/SelectionBox"
 
             float4 frag (v2f i) : SV_Target
             {
-                float4 selectionBoxWithoutFrame = SelectionBox + float4(1, 1, -1, -1);
                 const float2 position = i.vertex;
+
                 if (IsPointInsideRect(position, SelectionBox))
                 {
+                    float4 selectionBoxWithoutFrame = SelectionBox + float4(FrameWidth, FrameWidth, -FrameWidth, -FrameWidth);
+
                     if (IsPointInsideRect(position, selectionBoxWithoutFrame))
                     {
-                        const float alpha = (position.y - selectionBoxWithoutFrame.y) / (selectionBoxWithoutFrame.w - selectionBoxWithoutFrame.y);
-                        return FillingColor * alpha;
+                        const float height = (position.y - selectionBoxWithoutFrame.y) / (selectionBoxWithoutFrame.w - selectionBoxWithoutFrame.y);
+                        return lerp(FillingColorBottom, FillingColorTop, height);
                     }
                     else
                     {
