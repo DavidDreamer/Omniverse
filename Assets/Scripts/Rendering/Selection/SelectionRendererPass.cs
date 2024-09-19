@@ -51,7 +51,9 @@ namespace Omniverse.Rendering
 			{
 				Unit unit = unitSelector.SelectedUnits[i];
 				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
-				Colors[i] = Renderer.Player.FactionID == unit.FactionID ? config.AllyColor : config.EnemyColor;
+				Colors[i] = Renderer.Player.FactionID == unit.FactionID ?
+					unitSelector.SelectedUnit == unit ? config.MainSelectionColor : config.AllyColor :
+					config.EnemyColor;
 			}
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);

@@ -11,6 +11,9 @@ namespace Omniverse.Rendering
 		public DrawMeshParams DrawMeshParams { get; set; }
 
 		[field: SerializeField]
+		public Color MainSelectionColor { get; set; }
+
+		[field: SerializeField]
 		public Color AllyColor { get; set; }
 
 		[field: SerializeField]
