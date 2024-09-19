@@ -56,8 +56,8 @@ namespace Omniverse
 
 			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
 
-			UIInstaller.Install(builder);
 			RenderingInstaller.Install(builder);
+			UIInstaller.Install(builder);
 		}
 	}
 }
