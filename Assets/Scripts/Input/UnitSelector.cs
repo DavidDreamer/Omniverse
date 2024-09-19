@@ -73,6 +73,8 @@ namespace Omniverse.Input
 					TrySelectSingleTarget();
 				}
 			}
+
+			UpdateSelectionIndex();
 		}
 
 		private void TrySelectSingleTarget()
@@ -100,7 +102,6 @@ namespace Omniverse.Input
 			}
 
 			UpdateDetectionFilter();
-			UpdateSelectionIndex();
 		}
 
 		void UpdateDetectionFilter()
