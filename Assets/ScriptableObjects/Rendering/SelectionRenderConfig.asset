@@ -19,6 +19,6 @@ MonoBehaviour:
     <SubmeshIndex>k__BackingField: 0
     <Material>k__BackingField: {fileID: 2100000, guid: 9558f4e092a92224baa647b4b5bc3736, type: 2}
     <ShaderPass>k__BackingField: 3
-  <MainSelectionColor>k__BackingField: {r: 0.25, g: 1, b: 0.25, a: 0.7490196}
+  <MainSelectionColor>k__BackingField: {r: 0.25, g: 1, b: 0.25, a: 0.5019608}
   <AllyColor>k__BackingField: {r: 0.25130886, g: 1, b: 0.25130886, a: 0.2509804}
   <EnemyColor>k__BackingField: {r: 1, g: 0.25, b: 0.25, a: 0.2509804}
