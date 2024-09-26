@@ -41,9 +41,8 @@ namespace Omniverse.Input
 			if (selectAction.WasPressedThisFrame())
 			{
 				SelectionBoxStart = Mouse.current.position.value;
+				SelectionBoxInProcess = true;
 			}
-
-			SelectionBoxInProcess = selectAction.IsPressed();
 
 			if (selectAction.IsPressed())
 			{
@@ -52,6 +51,8 @@ namespace Omniverse.Input
 
 			if (selectAction.WasReleasedThisFrame())
 			{
+				SelectionBoxInProcess = false;
+
 				bool additiveMode = CommonActions.AdditiveMode.IsPressed();
 
 				if (!additiveMode)
