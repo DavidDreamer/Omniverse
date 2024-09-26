@@ -72,7 +72,7 @@ namespace Omniverse.Input
 
 			if (targetType is TargetType.Point)
 			{
-				if (!CommonActions.Select.WasPerformedThisFrame())
+				if (!CommonActions.Select.WasPressedThisFrame())
 				{
 					return;
 				}
@@ -81,7 +81,7 @@ namespace Omniverse.Input
 			}
 			else if (targetType is TargetType.Direction)
 			{
-				if (!CommonActions.Select.WasPerformedThisFrame())
+				if (!CommonActions.Select.WasPressedThisFrame())
 				{
 					return;
 				}
@@ -93,7 +93,7 @@ namespace Omniverse.Input
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
-				if (!CommonActions.Select.WasPerformedThisFrame())
+				if (!CommonActions.Select.WasPressedThisFrame())
 				{
 					return;
 				}

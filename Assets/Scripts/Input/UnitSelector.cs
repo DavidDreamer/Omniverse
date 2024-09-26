@@ -10,9 +10,7 @@ namespace Omniverse.Input
 	public class UnitSelector
 	{
 		public const int Capacity = 16;
-
 		private const float SelectionBoxTreshold = 16;
-		private static object cam;
 
 		public List<Unit> SelectedUnits { get; } = new();
 
@@ -49,7 +47,7 @@ namespace Omniverse.Input
 				SelectionBoxEnd = Mouse.current.position.value;
 			}
 
-			if (selectAction.WasReleasedThisFrame())
+			if (SelectionBoxInProcess && selectAction.WasReleasedThisFrame())
 			{
 				SelectionBoxInProcess = false;
 
