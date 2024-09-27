@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Omniverse.Input
 {
-	public class UnitSelector
+	public class Selector
 	{
 		public const int Capacity = 16;
 		private const float SelectionBoxTreshold = 16;

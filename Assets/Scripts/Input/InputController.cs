@@ -12,7 +12,7 @@ namespace Omniverse.Input
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		[Inject]
 		private UnitController UnitController { get; set; }
@@ -32,16 +32,16 @@ namespace Omniverse.Input
 
 			if (AbilityController.ActiveAbility is null)
 			{
-				UnitSelector.Tick(camera, mouse);
+				Selector.Tick(camera, mouse);
 			}
 			else
 			{
 				AbilityController.ProcessAbility(CursorWorldPosition);
 			}
 
-			if (UnitSelector.HasSelection)
+			if (Selector.HasSelection)
 			{
-				var unit = UnitSelector.SelectedUnit;
+				var unit = Selector.SelectedUnit;
 
 				var abilityActions = AbilitiesActions.Get().actions;
 				for (int i = 0; i < abilityActions.Count; ++i)

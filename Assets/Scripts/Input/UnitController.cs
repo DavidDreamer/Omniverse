@@ -15,7 +15,7 @@ namespace Omniverse.Input
 		private InputActions.CommonActions CommonActions { get; set; }
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		[Inject]
 		private EntityDetector EntityDetector { get; set; }
@@ -30,7 +30,7 @@ namespace Omniverse.Input
 					switch (target)
 					{
 						case Unit unit:
-							foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
+							foreach (Unit selectedUnit in Selector.SelectedUnits)
 							{
 								if (selectedUnit != unit)
 								{
@@ -40,7 +40,7 @@ namespace Omniverse.Input
 
 							break;
 						case Item item:
-							foreach (Unit selectedUnit in UnitSelector.SelectedUnits)
+							foreach (Unit selectedUnit in Selector.SelectedUnits)
 							{
 								selectedUnit.Target = item;
 							}
@@ -73,7 +73,7 @@ namespace Omniverse.Input
 
 		private void CreateNavigationPoint(Vector3 position)
 		{
-			foreach (Unit unit in UnitSelector.SelectedUnits)
+			foreach (Unit unit in Selector.SelectedUnits)
 			{
 				unit.MoveToPosition(position);
 			}

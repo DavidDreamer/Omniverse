@@ -7,10 +7,10 @@ namespace Omniverse.Rendering
 	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>
 	{
 		[Inject]
-		public UnitSelector UnitSelector { get; private set; }
+		public Selector Selector { get; private set; }
 
 		protected override SelectionBoxRendererPass CreatePass() => new(this);
 
-		protected override bool IsInactive() => !UnitSelector.InProcess;
+		protected override bool IsInactive() => !Selector.InProcess;
 	}
 }

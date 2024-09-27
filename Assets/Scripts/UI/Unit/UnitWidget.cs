@@ -29,11 +29,11 @@ namespace Omniverse.UI
 		public Image Icon;
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		public void LateTick()
 		{
-			bool hasSelection = UnitSelector.SelectedUnits.Count > 0;
+			bool hasSelection = Selector.SelectedUnits.Count > 0;
 
 			Canvas.enabled = hasSelection;
 
@@ -42,7 +42,7 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Unit unit = UnitSelector.SelectedUnit;
+			Unit unit = Selector.SelectedUnit;
 
 			Icon.sprite = unit.Desc.Icon;
 

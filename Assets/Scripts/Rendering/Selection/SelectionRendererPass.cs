@@ -28,8 +28,8 @@ namespace Omniverse.Rendering
 		{
 			Renderer = renderer;
 
-			Matrices = new Matrix4x4[UnitSelector.Capacity];
-			Colors = new Vector4[UnitSelector.Capacity];
+			Matrices = new Matrix4x4[Selector.Capacity];
+			Colors = new Vector4[Selector.Capacity];
 			MaterialPropertyBlock = new MaterialPropertyBlock();
 		}
 
@@ -43,16 +43,16 @@ namespace Omniverse.Rendering
 			var commandBuffer = scope.CommandBuffer;
 
 			SelectionRendererConfig config = Renderer.Config;
-			UnitSelector unitSelector = Renderer.UnitSelector;
+			Selector selector = Renderer.Selector;
 
 			MaterialPropertyBlock.Clear();
 
-			for (int i = 0; i < unitSelector.SelectedUnits.Count; i++)
+			for (int i = 0; i < selector.SelectedUnits.Count; i++)
 			{
-				Unit unit = unitSelector.SelectedUnits[i];
+				Unit unit = selector.SelectedUnits[i];
 				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
 				Colors[i] = Renderer.Player.FactionID == unit.FactionID ?
-					unitSelector.SelectedUnit == unit ? config.MainSelectionColor : config.AllyColor :
+					selector.SelectedUnit == unit ? config.MainSelectionColor : config.AllyColor :
 					config.EnemyColor;
 			}
 
@@ -65,7 +65,7 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.ShaderPass,
 				Matrices,
-				unitSelector.SelectedUnits.Count,
+				selector.SelectedUnits.Count,
 				MaterialPropertyBlock);
 		}
 	}

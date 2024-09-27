@@ -14,7 +14,7 @@ namespace Omniverse.UI
 		private UnitSelectorItem[] Items { get; set; }
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		private void OnValidate()
 		{
@@ -23,7 +23,7 @@ namespace Omniverse.UI
 
 		public void LateTick()
 		{
-			var selectedUnits = UnitSelector.SelectedUnits;
+			var selectedUnits = Selector.SelectedUnits;
 			int selectedUnitsCount = selectedUnits.Count;
 
 			bool multipleUnitsSelected = selectedUnitsCount > 1;

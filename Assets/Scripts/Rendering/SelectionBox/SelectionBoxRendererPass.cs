@@ -31,30 +31,30 @@ namespace Omniverse.Rendering
 			var commandBuffer = scope.CommandBuffer;
 
 			SelectionBoxRendererConfig config = Renderer.Config;
-			UnitSelector unitSelector = Renderer.UnitSelector;
+			Selector selector = Renderer.Selector;
 
 			float x, z, y, w;
 
-			if (unitSelector.StartPosition.x > unitSelector.EndPosition.x)
+			if (selector.StartPosition.x > selector.EndPosition.x)
 			{
-				x = unitSelector.EndPosition.x;
-				z = unitSelector.StartPosition.x;
+				x = selector.EndPosition.x;
+				z = selector.StartPosition.x;
 			}
 			else
 			{
-				x = unitSelector.StartPosition.x;
-				z = unitSelector.EndPosition.x;
+				x = selector.StartPosition.x;
+				z = selector.EndPosition.x;
 			}
 
-			if (unitSelector.StartPosition.y > unitSelector.EndPosition.y)
+			if (selector.StartPosition.y > selector.EndPosition.y)
 			{
-				y = unitSelector.EndPosition.y;
-				w = unitSelector.StartPosition.y;
+				y = selector.EndPosition.y;
+				w = selector.StartPosition.y;
 			}
 			else
 			{
-				y = unitSelector.StartPosition.y;
-				w = unitSelector.EndPosition.y;
+				y = selector.StartPosition.y;
+				w = selector.EndPosition.y;
 			}
 
 			Vector4 selectionBox = new(x, y, z, w);

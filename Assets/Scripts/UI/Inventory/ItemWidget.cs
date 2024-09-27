@@ -19,7 +19,7 @@ namespace Omniverse.UI
 		private AbilityController AbilityController { get; set; }
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		private Item Item { get; set; }
 
@@ -36,7 +36,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 					if (Item.Ability is not null)
 					{
-						AbilityController.Process(UnitSelector.SelectedUnit, Item.Ability);
+						AbilityController.Process(Selector.SelectedUnit, Item.Ability);
 					}
 					break;
 			}

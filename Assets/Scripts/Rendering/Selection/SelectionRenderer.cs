@@ -7,7 +7,7 @@ namespace Omniverse.Rendering
 	public class SelectionRenderer : CustomRenderer<SelectionRendererConfig, SelectionRendererPass>
 	{
 		[Inject]
-		public UnitSelector UnitSelector { get; private set; }
+		public Selector Selector { get; private set; }
 
 		[Inject]
 		public Player Player { get; private set; }

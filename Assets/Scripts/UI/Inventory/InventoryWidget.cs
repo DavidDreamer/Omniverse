@@ -21,19 +21,19 @@ namespace Omniverse.UI
 		public List<InventorySlotWidget> Slots { get; } = new();
 
 		[Inject]
-		private UnitSelector UnitSelector { get; set; }
+		private Selector Selector { get; set; }
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
 		public void LateUpdate()
 		{
-			if (UnitSelector.HasSelection is false)
+			if (Selector.HasSelection is false)
 			{
 				return;
 			}
 
-			Unit unit = UnitSelector.SelectedUnit;
+			Unit unit = Selector.SelectedUnit;
 
 			UpdateSlotsCount(unit.Inventory.Slots.Count);
 

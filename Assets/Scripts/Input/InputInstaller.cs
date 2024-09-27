@@ -34,7 +34,7 @@ namespace Omniverse.Input
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
 
-			builder.Register<UnitSelector>(Lifetime.Singleton).AsSelf();
+			builder.Register<Selector>(Lifetime.Singleton).AsSelf();
 			builder.Register<UnitController>(Lifetime.Singleton).AsSelf();
 			builder.RegisterEntryPoint<AbilityController>().AsSelf();
 
