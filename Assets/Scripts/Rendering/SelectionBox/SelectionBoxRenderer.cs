@@ -11,6 +11,6 @@ namespace Omniverse.Rendering
 
 		protected override SelectionBoxRendererPass CreatePass() => new(this);
 
-		protected override bool IsInactive() => !UnitSelector.SelectionBoxInProcess;
+		protected override bool IsInactive() => !UnitSelector.InProcess;
 	}
 }

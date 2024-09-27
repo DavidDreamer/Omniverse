@@ -26,30 +26,30 @@ namespace Omniverse.Input
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
-		public Vector2 SelectionBoxStart { get; private set; }
+		public Vector2 StartPosition { get; private set; }
 
-		public Vector2 SelectionBoxEnd { get; private set; }
+		public Vector2 EndPosition { get; private set; }
 
-		public bool SelectionBoxInProcess { get; private set; }
+		public bool InProcess { get; private set; }
 
-		public void Tick()
+		public void Tick(Camera camera, Mouse mouse)
 		{
 			InputAction selectAction = CommonActions.Select;
 
 			if (selectAction.WasPressedThisFrame())
 			{
-				SelectionBoxStart = Mouse.current.position.value;
-				SelectionBoxInProcess = true;
+				StartPosition = mouse.position.value;
+				InProcess = true;
 			}
 
 			if (selectAction.IsPressed())
 			{
-				SelectionBoxEnd = Mouse.current.position.value;
+				EndPosition = mouse.position.value;
 			}
 
-			if (SelectionBoxInProcess && selectAction.WasReleasedThisFrame())
+			if (InProcess && selectAction.WasReleasedThisFrame())
 			{
-				SelectionBoxInProcess = false;
+				InProcess = false;
 
 				bool additiveMode = CommonActions.AdditiveMode.IsPressed();
 
@@ -58,11 +58,9 @@ namespace Omniverse.Input
 					ClearSelection();
 				}
 
-				if (Vector2.Distance(SelectionBoxStart, SelectionBoxEnd) > SelectionBoxTreshold)
+				if (Vector2.Distance(StartPosition, EndPosition) > SelectionBoxTreshold)
 				{
-					var cam = Camera.main;
-
-					foreach (Unit unit in PhysicsHelper.GetUnitsInScreenRect(cam, SelectionBoxStart, SelectionBoxEnd))
+					foreach (Unit unit in PhysicsHelper.GetUnitsInScreenRect(camera, StartPosition, EndPosition))
 					{
 						AddToSelection(unit);
 					}
@@ -126,7 +124,6 @@ namespace Omniverse.Input
 				}
 			}
 		}
-
 
 		private void AddToSelection(Unit unit)
 		{

@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
@@ -23,12 +24,15 @@ namespace Omniverse.Input
 
 		public void LateTick()
 		{
+			Camera camera = Camera.main;
+			Mouse mouse = Mouse.current;
+
 			NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position);
 			CursorWorldPosition = position;
 
 			if (AbilityController.ActiveAbility is null)
 			{
-				UnitSelector.Tick();
+				UnitSelector.Tick(camera, mouse);
 			}
 			else
 			{

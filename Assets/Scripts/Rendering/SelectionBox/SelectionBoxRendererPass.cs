@@ -35,26 +35,26 @@ namespace Omniverse.Rendering
 
 			float x, z, y, w;
 
-			if (unitSelector.SelectionBoxStart.x > unitSelector.SelectionBoxEnd.x)
+			if (unitSelector.StartPosition.x > unitSelector.EndPosition.x)
 			{
-				x = unitSelector.SelectionBoxEnd.x;
-				z = unitSelector.SelectionBoxStart.x;
+				x = unitSelector.EndPosition.x;
+				z = unitSelector.StartPosition.x;
 			}
 			else
 			{
-				x = unitSelector.SelectionBoxStart.x;
-				z = unitSelector.SelectionBoxEnd.x;
+				x = unitSelector.StartPosition.x;
+				z = unitSelector.EndPosition.x;
 			}
 
-			if (unitSelector.SelectionBoxStart.y > unitSelector.SelectionBoxEnd.y)
+			if (unitSelector.StartPosition.y > unitSelector.EndPosition.y)
 			{
-				y = unitSelector.SelectionBoxEnd.y;
-				w = unitSelector.SelectionBoxStart.y;
+				y = unitSelector.EndPosition.y;
+				w = unitSelector.StartPosition.y;
 			}
 			else
 			{
-				y = unitSelector.SelectionBoxStart.y;
-				w = unitSelector.SelectionBoxEnd.y;
+				y = unitSelector.StartPosition.y;
+				w = unitSelector.EndPosition.y;
 			}
 
 			Vector4 selectionBox = new(x, y, z, w);
