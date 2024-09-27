@@ -47,13 +47,14 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.Clear();
 
-			for (int i = 0; i < selector.SelectedUnits.Count; i++)
+			int i = 0;
+			foreach (Unit unit in selector.SelectedUnits)
 			{
-				Unit unit = selector.SelectedUnits[i];
 				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
 				Colors[i] = Renderer.Player.FactionID == unit.FactionID ?
 					selector.SelectedUnit == unit ? config.MainSelectionColor : config.AllyColor :
 					config.EnemyColor;
+				i++;
 			}
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);

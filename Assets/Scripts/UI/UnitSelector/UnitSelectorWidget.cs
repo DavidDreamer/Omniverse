@@ -1,4 +1,5 @@
 ﻿using Omniverse.Input;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -36,11 +37,11 @@ namespace Omniverse.UI
 			}
 
 			int i = 0;
-			while (i < selectedUnitsCount)
+			foreach (Unit unit in selectedUnits)
 			{
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);
-				item.Icon.sprite = selectedUnits[i].Desc.Icon;
+				item.Icon.sprite = unit.Desc.Icon;
 				i++;
 			}
 

@@ -4,6 +4,7 @@ using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine.InputSystem;
 using VContainer;
+using System.Linq;
 
 namespace Omniverse.Input
 {
@@ -12,11 +13,11 @@ namespace Omniverse.Input
 		public const int Capacity = 16;
 		private const float SelectionBoxTreshold = 16;
 
-		public List<Unit> SelectedUnits { get; } = new();
+		public HashSet<Unit> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
 
-		public Unit SelectedUnit => SelectedUnits[SelectionIndex];
+		public Unit SelectedUnit => SelectedUnits.ElementAt(SelectionIndex);
 
 		public int SelectionIndex { get; private set; }
 
@@ -62,7 +63,7 @@ namespace Omniverse.Input
 				{
 					foreach (Unit unit in PhysicsHelper.GetUnitsInScreenRect(camera, StartPosition, EndPosition))
 					{
-						AddToSelection(unit);
+						TrySelect(unit);
 					}
 				}	
 				else
@@ -95,7 +96,7 @@ namespace Omniverse.Input
 			}
 			else
 			{
-				AddToSelection(unit);
+				TrySelect(unit);
 			}
 
 			UpdateDetectionFilter();
@@ -125,8 +126,13 @@ namespace Omniverse.Input
 			}
 		}
 
-		private void AddToSelection(Unit unit)
+		private void TrySelect(Unit unit)
 		{
+			if (SelectedUnits.Contains(unit))
+			{
+				return;
+			}
+
 			if (SelectedUnits.Count == Capacity)
 			{
 				return;
