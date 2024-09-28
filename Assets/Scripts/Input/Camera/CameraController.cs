@@ -1,21 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.Input
 {
-	public class CameraController : MonoBehaviour
+	public class CameraController : IInitializable
 	{
-		[field: SerializeField]
+		[Inject]
+		private Camera Camera { get; set; }
+
+		[Inject]
 		private CameraControllerConfig Config { get; set; }
 
 		private float CurrentHeight { get; set; }
 
-		public void Start()
+		public void Initialize()
 		{
 			CurrentHeight = Config.HeightRange.Evaluate(Config.DefaultHeight);
 
-			transform.position = new Vector3(transform.position.x, CurrentHeight, transform.position.z);
-			transform.eulerAngles = Config.Rotation;
+			Camera.transform.position = new Vector3(Camera.transform.position.x, CurrentHeight, Camera.transform.position.z);
+			Camera.transform.eulerAngles = Config.Rotation;
 
 			Cursor.lockState = CursorLockMode.Confined;
 		}
@@ -43,9 +48,9 @@ namespace Omniverse.Input
 			position = new Vector3(clampedX, position.y, clampedZ);
 		}
 
-		public void LateUpdate()
+		public void Tick()
 		{
-			Vector3 position = transform.position;
+			Vector3 position = Camera.transform.position;
 			if (Mouse.current.middleButton.isPressed)
 			{
 				float x = Mouse.current.delta.x.value;
@@ -57,14 +62,14 @@ namespace Omniverse.Input
 			ProcessScreenBorderMovements(ref position);
 			ProcessBounds(ref position);
 
-			transform.position = position;
+			Camera.transform.position = position;
 		}
 
 		public void SetViewPoint(Vector3 viewPoint)
 		{
-			float distanceToViewPoint = CurrentHeight / Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.x);
+			float distanceToViewPoint = CurrentHeight / Mathf.Sin(Mathf.Deg2Rad * Camera.transform.eulerAngles.x);
 
-			transform.position = viewPoint - transform.forward * distanceToViewPoint;
+			Camera.transform.position = viewPoint - Camera.transform.forward * distanceToViewPoint;
 		}
 	}
 }

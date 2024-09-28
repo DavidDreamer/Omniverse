@@ -15,6 +15,9 @@ namespace Omniverse.Input
 		private Selector Selector { get; set; }
 
 		[Inject]
+		private CameraController CameraController { get; set; }
+
+		[Inject]
 		private UnitController UnitController { get; set; }
 
 		[Inject]
@@ -57,6 +60,11 @@ namespace Omniverse.Input
 				}
 
 				UnitController.Tick();
+			}
+
+			if (!Selector.InProcess)
+			{
+				CameraController.Tick();
 			}
 		}
 	}

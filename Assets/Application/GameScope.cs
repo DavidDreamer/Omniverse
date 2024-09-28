@@ -22,9 +22,6 @@ namespace Omniverse
 		private UIInstaller UIInstaller { get; set; }
 
 		[field: SerializeField]
-		public CameraController CameraController { get; set; }
-
-		[field: SerializeField]
 		private RenderingInstaller RenderingInstaller { get; set; }
 
 		protected override void Configure(IContainerBuilder builder)
@@ -53,8 +50,6 @@ namespace Omniverse
 
 			builder.RegisterEntryPoint<FactionManager>().AsSelf();
 			builder.RegisterEntryPoint<ResourceExtractionHadler>().AsSelf();
-
-			builder.RegisterInstance(CameraController).AsImplementedInterfaces().AsSelf();
 
 			RenderingInstaller.Install(builder);
 			UIInstaller.Install(builder);
