@@ -25,44 +25,48 @@ namespace Omniverse.Input
 			Cursor.lockState = CursorLockMode.Confined;
 		}
 
-		private void ProcessScreenBorderMovements(ref Vector3 position)
-		{
-			const float threshold = 4f;
-		
-			Vector2 mousePosition = Mouse.current.position.value;
-			float deltaTime = Time.deltaTime;
-
-			float xDirection = mousePosition.x < threshold ? -1 : mousePosition.x > Screen.width - 1 - threshold ? 1 : 0;
-			float yDirection = mousePosition.y < threshold ? -1 : mousePosition.y > Screen.height - 1 - threshold ? 1 : 0;
-			var direction = new Vector3(xDirection, 0, yDirection);
-
-			float distance = Config.Speed * deltaTime;
-
-			position += direction.normalized * distance;
-		}
-
-		private void ProcessBounds(ref Vector3 position)
-		{
-			float clampedX = Config.XBounds.Clamp(position.x);
-			float clampedZ = Config.ZBounds.Clamp(position.z);
-			position = new Vector3(clampedX, position.y, clampedZ);
-		}
-
-		public void Tick()
+		public void Tick(Mouse mouse, float deltaTime)
 		{
 			Vector3 position = Camera.transform.position;
-			if (Mouse.current.middleButton.isPressed)
-			{
-				float x = Mouse.current.delta.x.value;
-				float y = Mouse.current.delta.y.value;
 
-				position += new Vector3(x, 0, y);
-			}
-
+			ProcessSnapping(ref position);
 			ProcessScreenBorderMovements(ref position);
 			ProcessBounds(ref position);
 
 			Camera.transform.position = position;
+
+			void ProcessSnapping(ref Vector3 position)
+			{
+				if (mouse.middleButton.isPressed)
+				{
+					float x = mouse.delta.x.value;
+					float y = mouse.delta.y.value;
+
+					position += new Vector3(x, 0, y);
+				}
+			}
+
+			void ProcessScreenBorderMovements(ref Vector3 position)
+			{
+				const float threshold = 4f;
+
+				Vector2 mousePosition = mouse.position.value;
+
+				float xDirection = mousePosition.x < threshold ? -1 : mousePosition.x > Screen.width - 1 - threshold ? 1 : 0;
+				float yDirection = mousePosition.y < threshold ? -1 : mousePosition.y > Screen.height - 1 - threshold ? 1 : 0;
+				var direction = new Vector3(xDirection, 0, yDirection);
+
+				float distance = Config.Speed * deltaTime;
+
+				position += direction.normalized * distance;
+			}
+
+			void ProcessBounds(ref Vector3 position)
+			{
+				float clampedX = Config.XBounds.Clamp(position.x);
+				float clampedZ = Config.ZBounds.Clamp(position.z);
+				position = new Vector3(clampedX, position.y, clampedZ);
+			}
 		}
 
 		public void SetViewPoint(Vector3 viewPoint)

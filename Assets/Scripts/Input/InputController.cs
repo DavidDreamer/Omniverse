@@ -29,6 +29,7 @@ namespace Omniverse.Input
 		{
 			Camera camera = Camera.main;
 			Mouse mouse = Mouse.current;
+			float deltaTime = Time.deltaTime;
 
 			NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position);
 			CursorWorldPosition = position;
@@ -64,7 +65,7 @@ namespace Omniverse.Input
 
 			if (!Selector.InProcess)
 			{
-				CameraController.Tick();
+				CameraController.Tick(mouse, deltaTime);
 			}
 		}
 	}
