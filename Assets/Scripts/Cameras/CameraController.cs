@@ -22,16 +22,16 @@ namespace Omniverse.Cameras
 
 		private void ProcessScreenBorderMovements(ref Vector3 position)
 		{
+			const float threshold = 4f;
+		
 			Vector2 mousePosition = Mouse.current.position.value;
-			float threshold = Config.ScreenBordersMovement.Threshold;
-			float speed = Config.ScreenBordersMovement.Speed;
 			float deltaTime = Time.deltaTime;
 
-			float xDirection = mousePosition.x < threshold ? -1 : mousePosition.x > Screen.width - threshold ? 1 : 0;
-			float yDirection = mousePosition.y < threshold ? -1 : mousePosition.y > Screen.height - threshold ? 1 : 0;
+			float xDirection = mousePosition.x < threshold ? -1 : mousePosition.x > Screen.width - 1 - threshold ? 1 : 0;
+			float yDirection = mousePosition.y < threshold ? -1 : mousePosition.y > Screen.height - 1 - threshold ? 1 : 0;
 			var direction = new Vector3(xDirection, 0, yDirection);
 
-			float distance = speed * deltaTime;
+			float distance = Config.Speed * deltaTime;
 
 			position += direction.normalized * distance;
 		}

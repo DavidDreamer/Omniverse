@@ -23,6 +23,6 @@ namespace Omniverse.Cameras
 		public FloatRange ZBounds { get; private set; }
 
 		[field: SerializeField]
-		public ScreenBordersMovement ScreenBordersMovement { get; private set; }
+		public float Speed { get; private set; }
 	}
 }

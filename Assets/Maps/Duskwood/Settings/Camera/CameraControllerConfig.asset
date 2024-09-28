@@ -23,6 +23,4 @@ MonoBehaviour:
   <ZBounds>k__BackingField:
     <Min>k__BackingField: 0
     <Max>k__BackingField: 256
-  <ScreenBordersMovement>k__BackingField:
-    <Threshold>k__BackingField: 5
-    <Speed>k__BackingField: 100
+  <Speed>k__BackingField: 100
