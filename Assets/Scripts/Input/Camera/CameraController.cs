@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Omniverse.Cameras
+namespace Omniverse.Input
 {
 	public class CameraController : MonoBehaviour
 	{

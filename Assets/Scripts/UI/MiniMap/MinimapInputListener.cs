@@ -1,5 +1,4 @@
-﻿using Omniverse.Cameras;
-using Omniverse.Input;
+﻿using Omniverse.Input;
 using Omniverse.Mapping;
 using UnityEngine;
 using UnityEngine.EventSystems;

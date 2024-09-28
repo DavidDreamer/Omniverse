@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e86e38ade34fe59cccbb3f113d6f0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 48534f733ef90074abed817569a9b633, type: 3}
   m_Name: CameraControllerConfig
   m_EditorClassIdentifier: 
   <HeightRange>k__BackingField:
