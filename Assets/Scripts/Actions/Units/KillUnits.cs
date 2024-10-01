@@ -3,9 +3,9 @@ using Cysharp.Threading.Tasks;
 
 namespace Omniverse.Actions
 {
-	public class KillUnitsDesc : IActionDesc
+	public class KillUnits : Action
 	{
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO: insta kill
 

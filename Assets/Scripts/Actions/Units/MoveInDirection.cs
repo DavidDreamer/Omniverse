@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Omniverse.Actions
 {
 	[Serializable]
-	public class MoveInDirectionDesc : IActionDesc
+	public class MoveInDirection : Action
 	{
 		[field: SerializeField]
 		public Vector3 Direction { get; private set; }
@@ -17,7 +17,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float Duration { get; private set; }
 
-		public async UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override async UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			await UniTask.CompletedTask;
 			// Transform transform = context.Caster.Presenter.transform;

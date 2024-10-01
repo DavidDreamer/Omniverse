@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class AnimationTriggerDesc : IActionDesc
+	public class AnimationTrigger : Action
 	{
 		[field: SerializeField]
 		public string Name { get; private set; }
 
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO
 			// foreach (Unit unit in context.Units)

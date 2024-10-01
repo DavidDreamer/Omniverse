@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class DelayDesc : IActionDesc
+	public class Delay : Action
 	{
 		[field: SerializeField]
 		public float Duration { get; private set; }
 
-		public async UniTask Perform(ExecutionContext context, CancellationToken token) =>
+		public override async UniTask Perform(ExecutionContext context, CancellationToken token) =>
 			await UniTask.Delay(TimeSpan.FromSeconds(Duration), cancellationToken: token);
 	}
 }

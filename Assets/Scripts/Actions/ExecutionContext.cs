@@ -3,14 +3,11 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Dreambox.Math;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse.Actions
 {
 	public class ExecutionContext
 	{
-		private IActionDesc[] Actions { get; }
-
 		public Entity Caster { get; set; }
 
 		public List<Entity> Entities { get; } = new();
@@ -21,24 +18,16 @@ namespace Omniverse.Actions
 
 		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
 
-		public ExecutionContext(IObjectResolver objectResolver, IActionDesc[] actionDescs)
-		{
-			Actions = actionDescs;
-
-			foreach (var action in Actions)
-			{
-				objectResolver.Inject(action);
-			}
-		}
-
-		public async UniTask PerformAsync(Entity caster, CancellationToken token)
+		public async UniTask PerformAsync(Action action, Entity caster, CancellationToken token)
 		{
 			Caster = caster;
 
-			foreach (IActionDesc action in Actions)
+			do
 			{
 				await action.Perform(this, token);
+				action = action.Next;
 			}
+			while (action != null);
 
 			Clear();
 		}

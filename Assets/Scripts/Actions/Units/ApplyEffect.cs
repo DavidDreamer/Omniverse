@@ -5,12 +5,13 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ApplyEffectDesc : IActionDesc
+	[CreateAssetMenu]
+	public class ApplyEffect : Action
 	{
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			foreach (var unit in context.Units())
 			{

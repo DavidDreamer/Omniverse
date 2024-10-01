@@ -7,12 +7,12 @@ using Object = UnityEngine.Object;
 
 namespace Omniverse.Actions
 {
-	public class LaunchHomingProjectileDesc : IActionDesc
+	public class LaunchHomingProjectile : Action
 	{
 		[field: SerializeField]
 		public HomingProjectileDesc Projectile { get; private set; }
 
-		public async UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override async UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO
 			var unit = context.Caster as Unit;

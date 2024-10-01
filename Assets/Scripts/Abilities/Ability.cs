@@ -15,21 +15,20 @@ namespace Omniverse.Abilities
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
-		public ExecutionContext ExecutionContext { get; }
+		public ExecutionContext ExecutionContext { get; } = new();
 
 		public Ability(IObjectResolver objectResolver, AbilityDesc desc)
 		{
 			Desc = desc;
 			Cooldown = new Cooldown(Desc.Cooldown);
 			Used = AutoResetUniTaskCompletionSource.Create();
-			ExecutionContext = new ExecutionContext(objectResolver, desc.Actions);
 		}
 
 		public async UniTask Cast(Entity caster, CancellationToken token)
 		{
 			Cooldown?.ActivateAsync(token);
 
-			await ExecutionContext.PerformAsync(caster, token);
+			await ExecutionContext.PerformAsync(Desc.Action, caster, token);
 
 			Used.TrySetResult();
 		}

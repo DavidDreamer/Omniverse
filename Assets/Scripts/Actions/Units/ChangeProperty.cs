@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ChangePropertyDesc : IActionDesc
+	public class ChangeProperty : Action
 	{
 		[field: SerializeField]
 		public PropertyID PropertyID { get; private set; }
@@ -13,7 +13,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public int Amount { get; private set; }
 
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			foreach (Unit unit in context.Units())
 			{

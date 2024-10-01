@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Omniverse.Actions
 {
-	public class ExtractResourceDesc : IActionDesc
+	public class ExtractResource : Action
 	{
 		[field: SerializeField]
 		public int Amount { get; private set; }
@@ -15,7 +15,7 @@ namespace Omniverse.Actions
 		[Inject]
 		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
 
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			var resourceSource = (ResourceSource)context.Entities.First();
 			//TODO

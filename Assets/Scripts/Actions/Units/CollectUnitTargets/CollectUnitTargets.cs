@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public abstract class CollectUnitTargetsDesc : IActionDesc 
+	public abstract class CollectUnitTargets : Action 
 	{
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
 		public abstract IEnumerable<Unit> GetUnits(ExecutionContext context);
 
-		public UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			//TODO
 			var source = context.Caster as IFactious;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class MoveToTargetDesc : IActionDesc
+	public class MoveToTarget : Action
 	{
 		[field: SerializeField]
 		public float Speed { get; private set; }
@@ -12,7 +12,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float LethalHeight { get; private set; }
 
-		public async UniTask Perform(ExecutionContext context, CancellationToken token)
+		public async override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			await UniTask.CompletedTask;
 			// Unit unit = context.Caster;

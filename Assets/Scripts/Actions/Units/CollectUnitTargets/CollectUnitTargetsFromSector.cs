@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Omniverse.Actions
 {
-	public class CollectUnitTargetsFromSectorDesc : CollectUnitTargetsDesc
+	public class CollectUnitTargetsFromSector : CollectUnitTargets
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
