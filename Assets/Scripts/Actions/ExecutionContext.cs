@@ -9,7 +9,7 @@ namespace Omniverse.Actions
 {
 	public class ExecutionContext
 	{
-		private IAction[] Actions { get; }
+		private IActionDesc[] Actions { get; }
 
 		public Entity Caster { get; set; }
 
@@ -23,13 +23,11 @@ namespace Omniverse.Actions
 
 		public ExecutionContext(IObjectResolver objectResolver, IActionDesc[] actionDescs)
 		{
-			Actions = new IAction[actionDescs.Length];
+			Actions = actionDescs;
 
-			for (int i = 0; i < actionDescs.Length; ++i)
+			foreach (var action in Actions)
 			{
-				IAction action = actionDescs[i].Build();
 				objectResolver.Inject(action);
-				Actions[i] = action;
 			}
 		}
 
@@ -37,7 +35,7 @@ namespace Omniverse.Actions
 		{
 			Caster = caster;
 
-			foreach (IAction action in Actions)
+			foreach (IActionDesc action in Actions)
 			{
 				await action.Perform(this, token);
 			}

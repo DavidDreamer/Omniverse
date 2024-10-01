@@ -1,7 +1,10 @@
-﻿namespace Omniverse.Actions
+﻿using Cysharp.Threading.Tasks;
+using System.Threading;
+
+namespace Omniverse.Actions
 {
 	public interface IActionDesc
 	{
-		IAction Build();
+		UniTask Perform(ExecutionContext context, CancellationToken token);
 	}
 }
