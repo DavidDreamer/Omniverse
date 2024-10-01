@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Omniverse.Abilities;
+using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.Input
 {
-	public class EntityDetector : ILateTickable
+	public class EntityDetector
 	{
 		public Entity Target { get; private set; }
 
@@ -17,16 +17,37 @@ namespace Omniverse.Input
 
 		private HashSet<Type> DetectableTypes { get; } = new();
 
-		public FactiousFilter Filter { get; set; }
+		private FactiousFilter Filter { get; set; }
 
-		public EntityDetector()
+		public void SetDefaultDetectableType()
 		{
-			SetDefaultDetectableType();
+			ClearFilter();
+			AddToFilter<Unit>();
+			AddToFilter<Item>();
+			Filter = (FactiousFilter)~0;
 		}
 
-		public void SetDefaultDetectableType() => SetFiler<Unit>();
-
 		public void ClearFilter() => DetectableTypes.Clear();
+
+		public void SetupForAbility(Ability ability)
+		{
+			ClearFilter();
+
+			var target = ability.Desc.Target;
+			var targetType = target.Type;
+
+			if (targetType.HasFlag(TargetType.ResourceSource))
+			{
+				AddToFilter<ResourceSource>();
+			}
+
+			if (targetType.HasFlag(TargetType.Unit))
+			{
+				AddToFilter<Unit>();
+			}
+
+			Filter = target.Filter;
+		}
 
 		public void SetFiler<TEntityType>() where TEntityType : Entity
 		{
@@ -44,19 +65,10 @@ namespace Omniverse.Input
 			DetectableTypes.Remove(typeof(TEntityType));
 		}
 
-		public void LateTick()
+		public void Tick(Ray ray)
 		{
 			Target = null;
 
-			Camera camera = Camera.main;
-
-			if (camera == null)
-			{
-				return;
-			}
-
-			Vector2 mousePosition = Mouse.current.position.value;
-			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
 				var entity = hitInfo.collider.GetComponent<Entity>();

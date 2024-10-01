@@ -17,16 +17,12 @@ namespace Omniverse.Input
 		[Inject]
 		private Selector Selector { get; set; }
 
-		[Inject]
-		private EntityDetector EntityDetector { get; set; }
-
-		public void Tick()
+		public void Tick(Entity target, Vector3 position) 
 		{
 			if (CommonActions.Command.WasReleasedThisFrame())
 			{
-				if (EntityDetector.Target != null)
+				if (target != null)
 				{
-					Entity target = EntityDetector.Target;
 					switch (target)
 					{
 						case Unit unit:
@@ -50,7 +46,7 @@ namespace Omniverse.Input
 				}
 				else
 				{
-					ProcessNavigationPoint();
+					CreateNavigationPoint(position);
 				}
 			}
 		}
@@ -60,14 +56,6 @@ namespace Omniverse.Input
 			if (NavMesh.SamplePosition(position, out NavMeshHit navMeshHit, float.MaxValue, 1))
 			{
 				CreateNavigationPoint(navMeshHit.position);
-			}
-		}
-
-		private void ProcessNavigationPoint()
-		{
-			if (NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position))
-			{
-				CreateNavigationPoint(position);
 			}
 		}
 

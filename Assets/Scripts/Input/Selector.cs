@@ -22,9 +22,6 @@ namespace Omniverse.Input
 		public int SelectionIndex { get; private set; }
 
 		[Inject]
-		private EntityDetector EntityDetector { get; set; }
-
-		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
 		public Vector2 StartPosition { get; private set; }
@@ -33,7 +30,7 @@ namespace Omniverse.Input
 
 		public bool InProcess { get; private set; }
 
-		public void Tick(Camera camera, Mouse mouse)
+		public void Tick(Camera camera, Mouse mouse, Entity target)
 		{
 			InputAction selectAction = CommonActions.Select;
 
@@ -68,21 +65,21 @@ namespace Omniverse.Input
 				}	
 				else
 				{
-					TrySelectSingleTarget();
+					TrySelectSingleTarget(target);
 				}
 			}
 
 			UpdateSelectionIndex();
 		}
 
-		private void TrySelectSingleTarget()
+		private void TrySelectSingleTarget(Entity target)
 		{
-			if (EntityDetector.Target == null)
+			if (target == null)
 			{
 				return;
 			}
 
-			var unit = EntityDetector.Target as Unit;
+			var unit = target as Unit;
 			if (unit == null)
 			{
 				return;
@@ -97,20 +94,6 @@ namespace Omniverse.Input
 			else
 			{
 				TrySelect(unit);
-			}
-
-			UpdateDetectionFilter();
-		}
-
-		void UpdateDetectionFilter()
-		{
-			if (HasSelection)
-			{
-				EntityDetector.AddToFilter<Item>();
-			}
-			else
-			{
-				EntityDetector.RemoveFromFilter<Item>();
 			}
 		}
 

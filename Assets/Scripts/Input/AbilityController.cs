@@ -51,18 +51,6 @@ namespace Omniverse.Input
 			{
 				ActiveUnit = unit;
 				ActiveAbility = ability;
-
-				EntityDetector.ClearFilter();
-
-				if (targetType.HasFlag(TargetType.ResourceSource))
-				{
-					EntityDetector.AddToFilter<ResourceSource>();
-				}
-
-				if (targetType.HasFlag(TargetType.Unit))
-				{
-					EntityDetector.AddToFilter<Unit>();
-				}
 			}
 		}
 
@@ -126,7 +114,6 @@ namespace Omniverse.Input
 		private void Discard()
 		{
 			ActiveAbility = null;
-			EntityDetector.SetDefaultDetectableType();
 		}
 	}
 }

@@ -12,6 +12,9 @@ namespace Omniverse.Input
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
+		private EntityDetector EntityDetector { get; set; }
+
+		[Inject]
 		private Selector Selector { get; set; }
 
 		[Inject]
@@ -29,18 +32,33 @@ namespace Omniverse.Input
 		{
 			Camera camera = Camera.main;
 			Mouse mouse = Mouse.current;
+			Vector2 mousePosition = Mouse.current.position.value;
+			Ray ray = camera.ScreenPointToRay(mousePosition);
 			float deltaTime = Time.deltaTime;
 
-			NavmeshUtils.GetNavMeshPositionFromCursor(out Vector3 position);
+			NavmeshUtils.GetNavMeshPositionFromCursor(ray, out Vector3 position);
 			CursorWorldPosition = position;
 
-			if (AbilityController.ActiveAbility is null)
+			bool abilityInProcess = AbilityController.ActiveAbility is not null;
+
+			if (abilityInProcess)
 			{
-				Selector.Tick(camera, mouse);
+				EntityDetector.SetupForAbility(AbilityController.ActiveAbility);
 			}
 			else
 			{
+				EntityDetector.SetDefaultDetectableType();
+			}
+
+			EntityDetector.Tick(ray);
+
+			if (abilityInProcess)
+			{
 				AbilityController.ProcessAbility(CursorWorldPosition);
+			}
+			else
+			{
+				Selector.Tick(camera, mouse, EntityDetector.Target);
 			}
 
 			if (Selector.HasSelection)
@@ -60,7 +78,7 @@ namespace Omniverse.Input
 					}
 				}
 
-				UnitController.Tick();
+				UnitController.Tick(EntityDetector.Target, CursorWorldPosition);
 			}
 
 			if (!Selector.InProcess)

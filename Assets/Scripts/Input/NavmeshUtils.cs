@@ -21,18 +21,9 @@ namespace Omniverse.Input
 			throw new InvalidOperationException("Position not found");
 		}
 
-		public static bool GetNavMeshPositionFromCursor(out Vector3 position)
+		public static bool GetNavMeshPositionFromCursor(Ray ray, out Vector3 position)
 		{
 			position = Vector3.zero;
-
-			Camera mainCamera = Camera.main;
-
-			if (mainCamera == null)
-			{
-				return false;
-			}
-
-			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.value);
 
 			if (!Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue))
 			{
