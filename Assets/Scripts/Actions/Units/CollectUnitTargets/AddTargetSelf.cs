@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	[CreateAssetMenu]
 	public class AddTargetSelf : Action
 	{
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)

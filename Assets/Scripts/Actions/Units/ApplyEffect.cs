@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	[CreateAssetMenu]
 	public class ApplyEffect : Action
 	{
 		[field: SerializeField]
