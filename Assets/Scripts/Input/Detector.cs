@@ -4,16 +4,12 @@ using Omniverse.Abilities;
 using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse.Input
 {
 	public class Detector
 	{
 		public Entity Target { get; private set; }
-
-		[Inject]
-		private Player Player { get; set; }
 
 		private HashSet<Type> DetectableTypes { get; } = new();
 
@@ -65,7 +61,7 @@ namespace Omniverse.Input
 			DetectableTypes.Remove(typeof(TEntityType));
 		}
 
-		public void Tick(Ray ray)
+		public void Tick(Ray ray, IFactious source)
 		{
 			Target = null;
 
@@ -81,7 +77,7 @@ namespace Omniverse.Input
 					return;
 				}
 				
-				if (entity is IFactious factious && !Filter.Match(Player, factious))
+				if (entity is IFactious factious && !Filter.Match(source, factious))
 				{
 					return;
 				}

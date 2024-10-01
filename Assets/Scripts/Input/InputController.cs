@@ -12,6 +12,9 @@ namespace Omniverse.Input
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
+		private Player Player { get; set; }
+
+		[Inject]
 		private Detector Detector { get; set; }
 
 		[Inject]
@@ -50,7 +53,8 @@ namespace Omniverse.Input
 				Detector.SetDefaultDetectableType();
 			}
 
-			Detector.Tick(ray);
+			IFactious source = Selector.HasSelection ? Selector.SelectedUnit : Player;
+			Detector.Tick(ray, source);
 
 			if (abilityInProcess)
 			{
