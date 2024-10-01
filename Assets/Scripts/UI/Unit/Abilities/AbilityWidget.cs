@@ -39,7 +39,7 @@ namespace Omniverse.UI
 		{
 			Ability = ability;
 
-			Icon.sprite = ability.Desc.Presentation.Icon;
+			Icon.sprite = ability.Desc.Meta.Icon;
 
 			if (Ability.Cooldown is not null)
 			{

@@ -8,7 +8,7 @@ namespace Omniverse.Abilities
 	public class AbilityDesc : ScriptableObject
 	{
 		[field: SerializeField]
-		public Presentation Presentation { get; private set; }
+		public Meta Meta { get; private set; }
 
 		[field: SerializeField]
 		public Cast Cast { get; private set; }

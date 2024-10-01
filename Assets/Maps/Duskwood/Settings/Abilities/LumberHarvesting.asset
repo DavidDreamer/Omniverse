@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725bde4d0ade44deb22801c15b58b07a, type: 3}
   m_Name: LumberHarvesting
   m_EditorClassIdentifier: 
-  <Presentation>k__BackingField:
+  <Meta>k__BackingField:
     <Icon>k__BackingField: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
   <Cast>k__BackingField:
     <Time>k__BackingField: 0
@@ -26,12 +26,4 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Actions>k__BackingField:
-  - rid: 8872749453277659149
-  references:
-    version: 2
-    RefIds:
-    - rid: 8872749453277659149
-      type: {class: ExtractResourceDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
-      data:
-        <Amount>k__BackingField: 10
+  <Action>k__BackingField: {fileID: 0}
