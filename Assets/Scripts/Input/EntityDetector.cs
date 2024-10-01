@@ -17,6 +17,8 @@ namespace Omniverse.Input
 
 		private HashSet<Type> DetectableTypes { get; } = new();
 
+		public FactiousFilter Filter { get; set; }
+
 		public EntityDetector()
 		{
 			SetDefaultDetectableType();
@@ -57,11 +59,24 @@ namespace Omniverse.Input
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var entityPresenter = hitInfo.collider.GetComponent<Entity>();
-				if (entityPresenter != null && DetectableTypes.Contains(entityPresenter.GetType()))
+				var entity = hitInfo.collider.GetComponent<Entity>();
+
+				if (entity == null)
 				{
-					Target = entityPresenter;
+					return;
 				}
+
+				if (!DetectableTypes.Contains(entity.GetType()))
+				{
+					return;
+				}
+				
+				if (entity is IFactious factious && !Filter.Match(Player, factious))
+				{
+					return;
+				}
+
+				Target = entity;
 			}
 		}
 	}
