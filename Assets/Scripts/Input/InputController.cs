@@ -12,7 +12,7 @@ namespace Omniverse.Input
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
-		private EntityDetector EntityDetector { get; set; }
+		private Detector Detector { get; set; }
 
 		[Inject]
 		private Selector Selector { get; set; }
@@ -43,22 +43,22 @@ namespace Omniverse.Input
 
 			if (abilityInProcess)
 			{
-				EntityDetector.SetupForAbility(AbilityController.ActiveAbility);
+				Detector.SetupForAbility(AbilityController.ActiveAbility);
 			}
 			else
 			{
-				EntityDetector.SetDefaultDetectableType();
+				Detector.SetDefaultDetectableType();
 			}
 
-			EntityDetector.Tick(ray);
+			Detector.Tick(ray);
 
 			if (abilityInProcess)
 			{
-				AbilityController.ProcessAbility(CursorWorldPosition);
+				AbilityController.ProcessAbility(Detector.Target, CursorWorldPosition);
 			}
 			else
 			{
-				Selector.Tick(camera, mouse, EntityDetector.Target);
+				Selector.Tick(camera, mouse, Detector.Target);
 			}
 
 			if (Selector.HasSelection)
@@ -78,7 +78,7 @@ namespace Omniverse.Input
 					}
 				}
 
-				UnitController.Tick(EntityDetector.Target, CursorWorldPosition);
+				UnitController.Tick(Detector.Target, CursorWorldPosition);
 			}
 
 			if (!Selector.InProcess)

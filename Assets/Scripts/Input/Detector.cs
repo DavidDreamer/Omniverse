@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Omniverse.Input
 {
-	public class EntityDetector
+	public class Detector
 	{
 		public Entity Target { get; private set; }
 
@@ -71,9 +71,7 @@ namespace Omniverse.Input
 
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
 			{
-				var entity = hitInfo.collider.GetComponent<Entity>();
-
-				if (entity == null)
+				if (!hitInfo.collider.TryGetComponent<Entity>(out var entity))
 				{
 					return;
 				}

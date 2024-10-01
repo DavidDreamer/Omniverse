@@ -12,7 +12,7 @@ namespace Omniverse.Rendering
 		private Player Player { get; set; }
 
 		[Inject]
-		public EntityDetector EntityDetector { get; private set; }
+		public Detector Detector { get; private set; }
 
 		[Inject]
 		public OutlineRenderer OutlineRenderer { get; private set; }
@@ -21,7 +21,7 @@ namespace Omniverse.Rendering
 		{
 			OutlineRenderer.Clear();
 
-			Entity entity = EntityDetector.Target;
+			Entity entity = Detector.Target;
 
 			if (entity == null)
 			{

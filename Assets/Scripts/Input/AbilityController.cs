@@ -14,7 +14,7 @@ namespace Omniverse.Input
 		private ErrorHandler ErrorHandler { get; set; }
 
 		[Inject]
-		private EntityDetector EntityDetector { get; set; }
+		private Detector EntityDetector { get; set; }
 
 		public Unit ActiveUnit { get; private set; }
 
@@ -54,7 +54,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void ProcessAbility(Vector3 cursorWorldPosition)
+		public void ProcessAbility(Entity target, Vector3 cursorWorldPosition)
 		{
 			TargetType targetType = ActiveAbility.Desc.Target.Type;
 
@@ -86,13 +86,12 @@ namespace Omniverse.Input
 					return;
 				}
 
-				if (EntityDetector.Target == null)
+				if (target == null)
 				{
 					return;
 				}
 
-				var entity = EntityDetector.Target;
-				ActiveAbility.ExecutionContext.Entities.Add(entity);
+				ActiveAbility.ExecutionContext.Entities.Add(target);
 			}
 
 			AbilityCastError error = ActiveAbility.CanBeCasted(ActiveUnit);

@@ -33,7 +33,7 @@ namespace Omniverse.Input
 			builder.RegisterComponentInNewPrefab(AbilityRangeRenderer, Lifetime.Singleton);
 			builder.RegisterComponentInNewPrefab(TrajectoryRenderer, Lifetime.Singleton);
 
-			builder.Register<EntityDetector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+			builder.Register<Detector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
 
