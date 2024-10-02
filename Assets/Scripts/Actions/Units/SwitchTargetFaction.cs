@@ -24,7 +24,7 @@ namespace Omniverse.Actions
 			await UniTask.CompletedTask;
 
 			var unit = context.Units().First();
-			var caster = (Unit)context.Caster;
+			var caster = (IFactious)context.Caster;
 
 			if (caster == unit)
 			{

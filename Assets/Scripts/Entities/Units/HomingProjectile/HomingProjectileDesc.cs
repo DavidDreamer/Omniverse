@@ -14,6 +14,6 @@ namespace Omniverse.Units
 
 		[field: SerializeField]
 		[field: OperationPicker]
-		public Action HitAction { get; private set; }
+		public Operation HitOperation { get; private set; }
 	}
 }
