@@ -25,7 +25,7 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Action>k__BackingField: {fileID: 0}
+  <Action>k__BackingField: {fileID: 4596990455587310882}
 --- !u!114 &4596990455587310882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,4 +39,4 @@ MonoBehaviour:
   m_Name: LaunchProjectile
   m_EditorClassIdentifier: 
   <Next>k__BackingField: {fileID: 0}
-  <Projectile>k__BackingField: {fileID: 0}
+  <Projectile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}
