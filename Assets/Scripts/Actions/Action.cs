@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 	{
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Action Next { get; private set; }
+		public Action Then { get; private set; }
 
 		public abstract UniTask Perform(ExecutionContext context, CancellationToken token);
 	}

@@ -25,7 +25,7 @@ namespace Omniverse.Actions
 			do
 			{
 				await action.Perform(this, token);
-				action = action.Next;
+				action = action.Then;
 			}
 			while (action != null);
 

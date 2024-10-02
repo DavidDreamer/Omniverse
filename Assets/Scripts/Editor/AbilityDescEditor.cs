@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
 using Dreambox.Core.Editor;
-using NUnit.Framework;
 using Omniverse.Abilities;
-using Omniverse.Actions;
 using UnityEditor;
 using UnityEngine;
 
@@ -69,20 +63,15 @@ namespace Omniverse.Editor
 			{
 				EditorGUILayout.PropertyField(serializedProperty);
 
-				//ValidateActionType(serializedProperty);
+				while (serializedProperty.objectReferenceValue != null)
+				{
+					var editor = CreateEditor(serializedProperty.objectReferenceValue);
+					editor.OnInspectorGUI();
 
-				//while (serializedProperty.objectReferenceValue != null)
-				//{
-				//	var editor = CreateEditor(serializedProperty.objectReferenceValue);
-				//	editor.OnInspectorGUI();
+					serializedProperty = editor.serializedObject.FindProperty(nameof(Actions.Action.Then).ToBackingField());
 
-				//	serializedProperty = editor.serializedObject.FindProperty("Next".ToBackingField());
-
-				//	ValidateActionType(serializedProperty);
-
-				//	editor.serializedObject.ApplyModifiedProperties();
-			
-				//}
+					editor.serializedObject.ApplyModifiedProperties();
+				}
 			}
 		}
 	}
