@@ -23,6 +23,7 @@ namespace Omniverse.Abilities
 		public List<CostDesc> Cost { get; private set; }
 
 		[field: SerializeField]
+		[field: ActionPicker]
 		public Action Action { get; private set; }
 	}
 }

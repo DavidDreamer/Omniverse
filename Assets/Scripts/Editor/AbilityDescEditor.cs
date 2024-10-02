@@ -21,9 +21,6 @@ namespace Omniverse.Editor
 		private SerializedProperty Cost { get; set; }
 		private SerializedProperty Action { get; set; }
 
-		private List<Type> ActionTypes { get; set; }
-		private string[] ActionNames { get; set; }
-
 		private void OnEnable()
 		{
 			Meta = serializedObject.FindProperty(nameof(Meta).ToBackingField());
@@ -32,14 +29,6 @@ namespace Omniverse.Editor
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 			Action = serializedObject.FindProperty(nameof(Action).ToBackingField());
-
-			ActionTypes = TypeUtils.GetInheritedTypes(typeof(Actions.Action)).ToList();
-			var actionNames = ActionTypes.Select(type => type.Name).ToList();
-
-			ActionTypes.Insert(0, null);
-
-			actionNames.Insert(0, "None");
-			ActionNames = actionNames.ToArray();
 		}
 
 		public override void OnInspectorGUI()
@@ -78,70 +67,22 @@ namespace Omniverse.Editor
 
 			if (serializedProperty.isExpanded)
 			{
-				ValidateActionType(serializedProperty);
+				EditorGUILayout.PropertyField(serializedProperty);
 
-				while (serializedProperty.objectReferenceValue != null)
-				{
-					var editor = CreateEditor(serializedProperty.objectReferenceValue);
-					editor.OnInspectorGUI();
+				//ValidateActionType(serializedProperty);
 
-					serializedProperty = editor.serializedObject.FindProperty("Next".ToBackingField());
+				//while (serializedProperty.objectReferenceValue != null)
+				//{
+				//	var editor = CreateEditor(serializedProperty.objectReferenceValue);
+				//	editor.OnInspectorGUI();
 
-					ValidateActionType(serializedProperty);
+				//	serializedProperty = editor.serializedObject.FindProperty("Next".ToBackingField());
 
-					editor.serializedObject.ApplyModifiedProperties();
+				//	ValidateActionType(serializedProperty);
+
+				//	editor.serializedObject.ApplyModifiedProperties();
 			
-				}
-			}
-		}
-
-		private void ValidateActionType(SerializedProperty serializedProperty)
-		{
-			UnityEngine.Object objectReferenceValue = serializedProperty.objectReferenceValue;
-			
-			var typeIndex = objectReferenceValue == null ? 0 : ActionTypes.IndexOf(serializedProperty.objectReferenceValue.GetType());
-
-			int index = EditorGUILayout.Popup(typeIndex, ActionNames);
-
-			var type = ActionTypes[index];
-
-			if (type == null)
-			{
-				if (objectReferenceValue != null)
-				{
-					DeleteAsset();
-				}
-			}
-			else
-			{
-				if (objectReferenceValue == null)
-				{
-					CreateAsset();
-				}
-				else
-				{
-					if (objectReferenceValue.GetType() != type)
-					{
-						DeleteAsset();
-						CreateAsset();
-					}
-				}
-			}
-
-			void CreateAsset()
-			{
-				var instance = CreateInstance(type);
-				instance.name = type.Name;
-				AssetDatabase.AddObjectToAsset(instance, serializedObject.targetObject);
-				AssetDatabase.SaveAssets();
-				serializedProperty.objectReferenceValue = instance;
-			}
-
-			void DeleteAsset()
-			{
-				AssetDatabase.RemoveObjectFromAsset(objectReferenceValue);
-				AssetDatabase.SaveAssets();
-				DestroyImmediate(objectReferenceValue);
+				//}
 			}
 		}
 	}

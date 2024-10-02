@@ -7,7 +7,7 @@ namespace Omniverse.Actions
 	public abstract class Action : ScriptableObject
 	{
 		[field: SerializeField]
-		[field: HideInInspector]
+		[field: ActionPicker]
 		public Action Next { get; private set; }
 
 		public abstract UniTask Perform(ExecutionContext context, CancellationToken token);
