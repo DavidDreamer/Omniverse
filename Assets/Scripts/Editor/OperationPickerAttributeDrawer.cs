@@ -29,6 +29,14 @@ namespace Omniverse.Editor
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			ValidateType(position, property, label);
+
+			if (property.objectReferenceValue != null)
+			{
+				EditorGUI.indentLevel++;
+				var editor = UnityEditor.Editor.CreateEditor(property.objectReferenceValue);
+				editor.OnInspectorGUI();
+				EditorGUI.indentLevel--;
+			}
 		}
 
 		private void ValidateType(Rect position, SerializedProperty property, GUIContent label)

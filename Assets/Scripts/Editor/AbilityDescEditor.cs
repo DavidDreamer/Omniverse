@@ -62,16 +62,6 @@ namespace Omniverse.Editor
 			if (serializedProperty.isExpanded)
 			{
 				EditorGUILayout.PropertyField(serializedProperty);
-
-				while (serializedProperty?.objectReferenceValue != null)
-				{
-					var editor = CreateEditor(serializedProperty.objectReferenceValue);
-					editor.OnInspectorGUI();
-
-					serializedProperty = editor.serializedObject.FindProperty(nameof(Actions.Action.Then).ToBackingField());
-
-					editor.serializedObject.ApplyModifiedProperties();
-				}
 			}
 		}
 	}
