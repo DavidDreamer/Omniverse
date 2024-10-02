@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Omniverse.Actions;
+using UnityEngine;
 
 namespace Omniverse.Units
 {
@@ -20,13 +21,10 @@ namespace Omniverse.Units
 
 			if (sqrDistanceToTarget <= radius * radius)
 			{
-				var data = new ChangePropertyData()
-				{
-					ID = PropertyID.Health,
-					Amount = -10
-				};
-
-				Target.ChangeResource(data);
+				var executionContext = new ExecutionContext();
+				executionContext.Entities.Add(Target);
+				Desc.HitAction.Perform(executionContext, default);
+		
 				Destroy(gameObject);
 			}
 		}

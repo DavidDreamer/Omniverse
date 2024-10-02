@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Omniverse.Actions;
+using UnityEngine;
 
 namespace Omniverse.Units
 {
@@ -10,5 +11,9 @@ namespace Omniverse.Units
 
 		[field: SerializeField]
 		public float Radius { get; private set; }
+
+		[field: SerializeField]
+		[field: ActionPicker]
+		public Action HitAction { get; private set; }
 	}
 }
