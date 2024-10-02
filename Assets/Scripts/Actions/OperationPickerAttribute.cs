@@ -2,7 +2,7 @@
 
 namespace Omniverse.Actions
 {
-	public class ActionPickerAttribute : PropertyAttribute
+	public class OperationPickerAttribute : PropertyAttribute
 	{
 	}
 }

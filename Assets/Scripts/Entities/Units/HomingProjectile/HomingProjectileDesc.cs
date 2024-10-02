@@ -13,7 +13,7 @@ namespace Omniverse.Units
 		public float Radius { get; private set; }
 
 		[field: SerializeField]
-		[field: ActionPicker]
+		[field: OperationPicker]
 		public Action HitAction { get; private set; }
 	}
 }

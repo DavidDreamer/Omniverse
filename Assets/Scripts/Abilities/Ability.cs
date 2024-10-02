@@ -28,7 +28,7 @@ namespace Omniverse.Abilities
 		{
 			Cooldown?.ActivateAsync(token);
 
-			await ExecutionContext.PerformAsync(Desc.Action, caster, token);
+			await ExecutionContext.PerformAsync(Desc.Operation, caster, token);
 
 			Used.TrySetResult();
 		}

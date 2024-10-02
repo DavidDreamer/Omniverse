@@ -18,16 +18,15 @@ namespace Omniverse.Actions
 
 		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
 
-		public async UniTask PerformAsync(Action action, Entity caster, CancellationToken token)
+		public async UniTask PerformAsync(Operation operation, Entity caster, CancellationToken token)
 		{
 			Caster = caster;
 
 			do
 			{
-				await action.Perform(this, token);
-				action = action.Then;
+				operation = await operation.PerformAsync(this, token);
 			}
-			while (action != null);
+			while (operation != null);
 
 			Clear();
 		}

@@ -8,22 +8,22 @@ using UnityEngine;
 
 namespace Omniverse.Editor
 {
-	[CustomPropertyDrawer(typeof(ActionPickerAttribute))]
-	public class ActionPickerAttributeDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(OperationPickerAttribute))]
+	public class OperationPickerAttributeDrawer : PropertyDrawer
 	{
-		private static List<Type> ActionTypes { get; set; }
+		private static List<Type> OperationTypes { get; set; }
 
-		private static GUIContent[] ActionNames { get; set; }
+		private static GUIContent[] OperationNames { get; set; }
 
-		static ActionPickerAttributeDrawer()
+		static OperationPickerAttributeDrawer()
 		{
-			ActionTypes = TypeUtils.GetInheritedTypes(typeof(Actions.Action)).ToList();
-			var actionNames = ActionTypes.Select(type => type.Name).ToList();
+			OperationTypes = TypeUtils.GetInheritedTypes(typeof(Operation)).ToList();
+			var operationNames = OperationTypes.Select(type => type.Name).ToList();
 
-			ActionTypes.Insert(0, null);
+			OperationTypes.Insert(0, null);
 
-			actionNames.Insert(0, "None");
-			ActionNames = actionNames.Select(name => new GUIContent(name)).ToArray();
+			operationNames.Insert(0, "None");
+			OperationNames = operationNames.Select(name => new GUIContent(name)).ToArray();
 		}
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -35,11 +35,11 @@ namespace Omniverse.Editor
 		{
 			UnityEngine.Object objectReferenceValue = property.objectReferenceValue;
 
-			var typeIndex = objectReferenceValue == null ? 0 : ActionTypes.IndexOf(objectReferenceValue.GetType());
+			var typeIndex = objectReferenceValue == null ? 0 : OperationTypes.IndexOf(objectReferenceValue.GetType());
 
-			int index = EditorGUI.Popup(position, label, typeIndex, ActionNames);
+			int index = EditorGUI.Popup(position, label, typeIndex, OperationNames);
 
-			var type = ActionTypes[index];
+			var type = OperationTypes[index];
 
 			if (type == null)
 			{

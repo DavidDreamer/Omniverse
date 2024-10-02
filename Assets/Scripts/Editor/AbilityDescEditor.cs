@@ -13,7 +13,7 @@ namespace Omniverse.Editor
 		private SerializedProperty Target { get; set; }
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
-		private SerializedProperty Action { get; set; }
+		private SerializedProperty Operation { get; set; }
 
 		private void OnEnable()
 		{
@@ -22,7 +22,7 @@ namespace Omniverse.Editor
 			Target = serializedObject.FindProperty(nameof(Target).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
-			Action = serializedObject.FindProperty(nameof(Action).ToBackingField());
+			Operation = serializedObject.FindProperty(nameof(Operation).ToBackingField());
 		}
 
 		public override void OnInspectorGUI()
@@ -34,7 +34,7 @@ namespace Omniverse.Editor
 			DrawSection(Target);
 			DrawSection(Cooldown);
 			DrawSection(Cost);
-			DrawAction(Action);
+			DrawAction(Operation);
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -63,7 +63,7 @@ namespace Omniverse.Editor
 			{
 				EditorGUILayout.PropertyField(serializedProperty);
 
-				while (serializedProperty.objectReferenceValue != null)
+				while (serializedProperty?.objectReferenceValue != null)
 				{
 					var editor = CreateEditor(serializedProperty.objectReferenceValue);
 					editor.OnInspectorGUI();
