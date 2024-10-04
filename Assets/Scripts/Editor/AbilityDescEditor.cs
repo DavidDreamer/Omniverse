@@ -9,7 +9,6 @@ namespace Omniverse.Editor
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
 		private SerializedProperty Cast { get; set; }
-		private SerializedProperty Target { get; set; }
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
 		private SerializedProperty Operation { get; set; }
@@ -17,7 +16,6 @@ namespace Omniverse.Editor
 		private void OnEnable()
 		{
 			Cast = serializedObject.FindProperty(nameof(Cast).ToBackingField());
-			Target = serializedObject.FindProperty(nameof(Target).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 			Operation = serializedObject.FindProperty(nameof(Operation).ToBackingField());
@@ -28,8 +26,8 @@ namespace Omniverse.Editor
 			serializedObject.UpdateIfRequiredOrScript();
 
 			DrawMeta();
+			DrawTarget();
 			DrawSection(Cast);
-			DrawSection(Target);
 			DrawSection(Cooldown);
 			DrawSection(Cost);
 			DrawAction(Operation);
@@ -39,12 +37,44 @@ namespace Omniverse.Editor
 
 		private void DrawMeta()
 		{
-			SerializedProperty meta = serializedObject.FindProperty(nameof(Meta).ToBackingField());
+			SerializedProperty meta = serializedObject.FindProperty(nameof(AbilityDesc.Meta).ToBackingField());
 
 			if (DrawSectionHeader(meta))
 			{
-				SerializedProperty icon = meta.FindPropertyRelative(nameof(Meta.Icon).ToBackingField());
+				SerializedProperty icon = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Icon).ToBackingField());
 				icon.DrawIcon();
+			}
+		}
+
+		private void DrawTarget()
+		{
+			SerializedProperty target = serializedObject.FindProperty(nameof(AbilityDesc.Target).ToBackingField());
+
+			if (DrawSectionHeader(target))
+			{
+				SerializedProperty type = target.FindPropertyRelative(nameof(AbilityDesc.Target.Type).ToBackingField());
+				EditorGUILayout.PropertyField(type);
+
+				var targetType = (TargetType)type.enumValueFlag;
+				if (targetType is TargetType.None)
+				{
+					return;
+				}
+
+				SerializedProperty range = target.FindPropertyRelative(nameof(AbilityDesc.Target.Range).ToBackingField());
+				EditorGUILayout.PropertyField(range);
+
+				if (targetType.HasFlag(TargetType.Unit))
+				{
+					SerializedProperty filter = target.FindPropertyRelative(nameof(AbilityDesc.Target.Filter).ToBackingField());
+					EditorGUILayout.PropertyField(filter);
+				}
+
+				if (targetType.HasFlag(TargetType.ResourceSource))
+				{
+					SerializedProperty resourceSources = target.FindPropertyRelative(nameof(AbilityDesc.Target.ResourceSources).ToBackingField());
+					EditorGUILayout.PropertyField(resourceSources);
+				}
 			}
 		}
 
