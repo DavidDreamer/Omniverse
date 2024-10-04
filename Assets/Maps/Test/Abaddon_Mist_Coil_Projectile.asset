@@ -30,6 +30,7 @@ MonoBehaviour:
   <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
+    Operation: 0
     Mode: 0
     Value: 10
 --- !u!114 &11400000
@@ -65,5 +66,6 @@ MonoBehaviour:
   <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
+    Operation: 1
     Mode: 0
-    Value: -10
+    Value: 10

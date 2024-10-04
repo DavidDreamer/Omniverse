@@ -15,8 +15,9 @@ MonoBehaviour:
   <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
+    Operation: 1
     Mode: 0
-    Value: -4
+    Value: 4
 --- !u!114 &-5412004965919780713
 MonoBehaviour:
   m_ObjectHideFlags: 0

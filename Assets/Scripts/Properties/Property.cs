@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -66,8 +67,34 @@ namespace Omniverse
 		{
 			Debug.Assert(!Invulnerable);
 
-			//TODO: switch mode
-			Change(modifier.Value);
+			float value = GetModificationValue();
+
+			switch (modifier.Operation)
+			{
+				case Dreambox.Core.ArithmeticOperation.Addition:
+					Change(value);
+					break;
+				case Dreambox.Core.ArithmeticOperation.Subtraction:
+					Change(-value);
+					break;
+				case Dreambox.Core.ArithmeticOperation.Multiplication:
+					break;
+				case Dreambox.Core.ArithmeticOperation.Division:
+					break;
+				default: throw new ArgumentOutOfRangeException(modifier.Operation.ToString());
+			}
+
+			float GetModificationValue()
+			{
+				switch (modifier.Mode)
+				{
+					case PropertyModifierMode.Absolute:
+						return modifier.Value;
+					case PropertyModifierMode.Percentage:
+						return modifier.Value * Desc.Range.Max;
+					default: throw new ArgumentOutOfRangeException(modifier.Mode.ToString());
+				}
+			}
 		}
 
 		public void Change(float delta)
