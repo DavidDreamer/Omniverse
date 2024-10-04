@@ -13,6 +13,6 @@ namespace Omniverse.Abilities
 		public float Amount { get; set; }
 
 		[field: SerializeField]
-		public CostMode Mode { get; private set; }
+		public CalculationMode Mode { get; private set; }
 	}
 }
