@@ -20,11 +20,10 @@ namespace Omniverse.Actions
 				var data = new ChangePropertyData
 				{
 					ID = PropertyID,
-					Source = context.Caster,
 					Amount = Amount
 				};
 
-				unit.ModifyProperty(data);
+				unit.ModifyProperty(data, context.Caster);
 			}
 
 			return UniTask.CompletedTask;

@@ -201,7 +201,7 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void ModifyProperty(ChangePropertyData data)
+		public void ModifyProperty(ChangePropertyData data, Entity source)
 		{
 			Property property = Properties[data.ID];
 
