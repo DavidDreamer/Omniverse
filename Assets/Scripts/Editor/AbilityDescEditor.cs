@@ -8,7 +8,6 @@ namespace Omniverse.Editor
 	[CustomEditor(typeof(AbilityDesc))]
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
-		private SerializedProperty Meta { get; set; }
 		private SerializedProperty Cast { get; set; }
 		private SerializedProperty Target { get; set; }
 		private SerializedProperty Cooldown { get; set; }
@@ -17,7 +16,6 @@ namespace Omniverse.Editor
 
 		private void OnEnable()
 		{
-			Meta = serializedObject.FindProperty(nameof(Meta).ToBackingField());
 			Cast = serializedObject.FindProperty(nameof(Cast).ToBackingField());
 			Target = serializedObject.FindProperty(nameof(Target).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
@@ -28,8 +26,8 @@ namespace Omniverse.Editor
 		public override void OnInspectorGUI()
 		{
 			serializedObject.UpdateIfRequiredOrScript();
-			
-			DrawSection(Meta);
+
+			DrawMeta();
 			DrawSection(Cast);
 			DrawSection(Target);
 			DrawSection(Cooldown);
@@ -37,6 +35,17 @@ namespace Omniverse.Editor
 			DrawAction(Operation);
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		private void DrawMeta()
+		{
+			SerializedProperty meta = serializedObject.FindProperty(nameof(Meta).ToBackingField());
+
+			if (DrawSectionHeader(meta))
+			{
+				SerializedProperty icon = meta.FindPropertyRelative(nameof(Meta.Icon).ToBackingField());
+				icon.DrawIcon();
+			}
 		}
 
 		private void DrawSection(SerializedProperty serializedProperty)
@@ -59,12 +68,14 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void DrawSectionHeader(SerializedProperty serializedProperty)
+		private bool DrawSectionHeader(SerializedProperty serializedProperty)
 		{
 			if (GUILayout.Button(serializedProperty.displayName))
 			{
 				serializedProperty.isExpanded = !serializedProperty.isExpanded;
 			}
+
+			return serializedProperty.isExpanded;
 		}
 	}
 }
