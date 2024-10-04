@@ -25,7 +25,7 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Action>k__BackingField: {fileID: 4596990455587310882}
+  <Operation>k__BackingField: {fileID: 4596990455587310882}
 --- !u!114 &4596990455587310882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,5 +38,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6c26875bfe40f9900cc2812a1c7421, type: 3}
   m_Name: LaunchProjectile
   m_EditorClassIdentifier: 
-  <Next>k__BackingField: {fileID: 0}
+  <Then>k__BackingField: {fileID: 0}
   <Projectile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}

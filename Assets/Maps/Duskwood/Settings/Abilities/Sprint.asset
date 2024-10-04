@@ -41,7 +41,7 @@ MonoBehaviour:
   - <PropertyID>k__BackingField: 0
     <Amount>k__BackingField: 0
     <Mode>k__BackingField: 0
-  <Action>k__BackingField: {fileID: -4625536503803056052}
+  <Operation>k__BackingField: {fileID: -4625536503803056052}
 --- !u!114 &1086742633205297327
 MonoBehaviour:
   m_ObjectHideFlags: 0

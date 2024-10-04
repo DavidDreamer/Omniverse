@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0b11ac46a447558c212d4019228ffe, type: 3}
   m_Name: ExtractResource
   m_EditorClassIdentifier: 
-  <Next>k__BackingField: {fileID: 0}
+  <Then>k__BackingField: {fileID: 0}
   <Amount>k__BackingField: 10
 --- !u!114 &11400000
 MonoBehaviour:
@@ -40,4 +40,4 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Action>k__BackingField: {fileID: -8525168635583495473}
+  <Operation>k__BackingField: {fileID: -8525168635583495473}
