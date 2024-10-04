@@ -50,7 +50,7 @@ namespace Omniverse.Units
 					ID = target.Properties.Keys.First()
 				};
 
-				target.ChangeResource(data);
+				target.ModifyProperty(data);
 			}
 
 			InProcess = false;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ChangeProperty : Action
+	public class ModifyProperty : Action
 	{
 		[field: SerializeField]
 		public PropertyID PropertyID { get; private set; }
@@ -24,7 +24,7 @@ namespace Omniverse.Actions
 					Amount = Amount
 				};
 
-				unit.ChangeResource(data);
+				unit.ModifyProperty(data);
 			}
 
 			return UniTask.CompletedTask;

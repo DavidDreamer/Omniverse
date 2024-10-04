@@ -201,11 +201,11 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void ChangeResource(ChangePropertyData data)
+		public void ModifyProperty(ChangePropertyData data)
 		{
-			Property resource = Properties[data.ID];
+			Property property = Properties[data.ID];
 
-			resource.Change(data.Amount);
+			property.Change(data.Amount);
 		}
 
 		public void ApplyEffect(Effect effect)

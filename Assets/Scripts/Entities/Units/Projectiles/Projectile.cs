@@ -46,7 +46,7 @@ namespace Omniverse.Units
 					Amount = -10
 				};
 
-				item.ChangeResource(data);
+				item.ModifyProperty(data);
 			}
 
 			if (hit)
