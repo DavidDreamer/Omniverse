@@ -201,11 +201,10 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void ModifyProperty(ChangePropertyData data, Entity source)
+		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, Entity source)
 		{
-			Property property = Properties[data.ID];
-
-			property.Change(data.Amount);
+			Property property = Properties[propertyID];
+			property.Modify(modifier);
 		}
 
 		public void ApplyEffect(Effect effect)
@@ -248,7 +247,7 @@ namespace Omniverse.Units
 
 			foreach (CostDesc cost in ability.Desc.Cost)
 			{
-				Properties[cost.PropertyID].Change(-cost.Amount);
+				Properties[cost.PropertyID].Modify(cost.PropertyModifier);
 			}
 
 			await ability.Cast(this, token);

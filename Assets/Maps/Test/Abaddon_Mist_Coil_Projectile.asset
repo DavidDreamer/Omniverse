@@ -28,8 +28,10 @@ MonoBehaviour:
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
   <Then>k__BackingField: {fileID: 0}
-  <PropertyID>k__BackingField: 3
-  <Amount>k__BackingField: 10
+  <Property>k__BackingField: 3
+  <Modifier>k__BackingField:
+    Mode: 0
+    Value: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,5 +63,7 @@ MonoBehaviour:
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
   <Then>k__BackingField: {fileID: 0}
-  <PropertyID>k__BackingField: 3
-  <Amount>k__BackingField: -10
+  <Property>k__BackingField: 3
+  <Modifier>k__BackingField:
+    Mode: 0
+    Value: -10

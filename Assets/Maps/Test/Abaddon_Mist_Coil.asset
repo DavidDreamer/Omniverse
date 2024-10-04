@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
   <Then>k__BackingField: {fileID: 0}
-  <PropertyID>k__BackingField: 3
-  <Amount>k__BackingField: -4
+  <Property>k__BackingField: 3
+  <Modifier>k__BackingField:
+    Mode: 0
+    Value: -4
 --- !u!114 &-5412004965919780713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,4 +82,4 @@ MonoBehaviour:
   m_Name: LaunchHomingProjectile
   m_EditorClassIdentifier: 
   <Then>k__BackingField: {fileID: -5412004965919780713}
-  <Projectile>k__BackingField: {fileID: 11400000, guid: ee2c57984f955f74ca4baf3853e639fd, type: 2}
+  <Projectile>k__BackingField: {fileID: 11400000, guid: 02829142c00378e45bea5055c624b555, type: 2}

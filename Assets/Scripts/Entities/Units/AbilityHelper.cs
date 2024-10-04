@@ -23,7 +23,8 @@ namespace Omniverse.Units
 					return AbilityCastError.NotEnoughResources;
 				}
 
-				if (unit.Properties[costDesc.PropertyID].Amount.Value < costDesc.Amount)
+				//TODO processing
+				if (unit.Properties[costDesc.PropertyID].Amount.Value < costDesc.PropertyModifier.Value)
 				{
 					return AbilityCastError.NotEnoughResources;
 				}

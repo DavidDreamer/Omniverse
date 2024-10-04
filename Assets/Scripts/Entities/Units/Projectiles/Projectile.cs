@@ -40,13 +40,12 @@ namespace Omniverse.Units
 			{
 				hit = true;
 
-				var data = new ChangePropertyData()
+				var modifier = new PropertyModifier()
 				{
-					ID = PropertyID.Health,
-					Amount = -10
+					Value = -10
 				};
 
-				item.ModifyProperty(data, this);
+				item.ModifyProperty(PropertyID.Health, modifier, this);
 			}
 
 			if (hit)

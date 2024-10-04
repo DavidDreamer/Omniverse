@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -44,13 +43,12 @@ namespace Omniverse.Units
 
 			if (TargetIsInRange(target))
 			{
-				var data = new ChangePropertyData
+				var modifier = new PropertyModifier
 				{
-					Amount = -Unit.Properties[PropertyID.AttackDamage].Amount,
-					ID = target.Properties.Keys.First()
+					Value = -Unit.Properties[PropertyID.AttackDamage].Amount,
 				};
 
-				target.ModifyProperty(data, Unit);
+				target.ModifyProperty(PropertyID.Health, modifier, Unit);
 			}
 
 			InProcess = false;

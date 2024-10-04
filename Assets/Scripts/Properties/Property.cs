@@ -62,10 +62,16 @@ namespace Omniverse
 			Amount.Value = Desc.Default;
 		}
 
-		public void Change(float delta)
+		public void Modify(PropertyModifier modifier)
 		{
 			Debug.Assert(!Invulnerable);
 
+			//TODO: switch mode
+			Change(modifier.Value);
+		}
+
+		public void Change(float delta)
+		{
 			RawAmount.Value = Mathf.Clamp(RawAmount.Value + delta, Desc.Range.Min, Desc.Range.Max);
 		}
 	}

@@ -8,22 +8,16 @@ namespace Omniverse.Actions
 	public class ModifyProperty : Action
 	{
 		[field: SerializeField]
-		public PropertyID PropertyID { get; private set; }
+		public PropertyID Property { get; private set; }
 
 		[field: SerializeField]
-		public int Amount { get; private set; }
+		public PropertyModifier Modifier { get; private set; }
 
 		public override UniTask Perform(ExecutionContext context, CancellationToken token)
 		{
 			foreach (Unit unit in context.Units())
 			{
-				var data = new ChangePropertyData
-				{
-					ID = PropertyID,
-					Amount = Amount
-				};
-
-				unit.ModifyProperty(data, context.Caster);
+				unit.ModifyProperty(Property, Modifier, context.Caster);
 			}
 
 			return UniTask.CompletedTask;
