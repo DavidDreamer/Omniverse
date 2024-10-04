@@ -23,7 +23,7 @@ namespace Omniverse.Editor
 			iterator.NextVisible(true);
 			iterator.NextVisible(true);
 
-			while (iterator.NextVisible(true))
+			while (iterator.NextVisible(false))
 			{
 				EditorGUILayout.PropertyField(iterator);
 			}

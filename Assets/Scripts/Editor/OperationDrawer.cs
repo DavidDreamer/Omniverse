@@ -15,7 +15,7 @@ namespace Omniverse.Editor
 			//Skip script link
 			iterator.NextVisible(true);
 
-			while (iterator.NextVisible(true))
+			while (iterator.NextVisible(false))
 			{
 				EditorGUILayout.PropertyField(iterator);
 			}
