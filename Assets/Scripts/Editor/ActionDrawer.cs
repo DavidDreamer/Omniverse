@@ -6,15 +6,10 @@ namespace Omniverse.Editor
 	[CustomEditor(typeof(Actions.Action), true)]
 	public class ActionDrawer : UnityEditor.Editor
 	{
-		private SerializedProperty Then { get; set; }
-
-		private void OnEnable()
-		{
-			Then = serializedObject.FindProperty(nameof(Actions.Action.Then).ToBackingField());
-		}
-
 		public override void OnInspectorGUI()
 		{
+			SerializedProperty then = serializedObject.FindProperty(nameof(Actions.Action.Then).ToBackingField());
+
 			serializedObject.UpdateIfRequiredOrScript();
 
 			var iterator = serializedObject.GetIterator();
@@ -28,7 +23,7 @@ namespace Omniverse.Editor
 				EditorGUILayout.PropertyField(iterator);
 			}
 
-			EditorGUILayout.PropertyField(Then);
+			EditorGUILayout.PropertyField(then);
 
 			serializedObject.ApplyModifiedProperties();
 		}

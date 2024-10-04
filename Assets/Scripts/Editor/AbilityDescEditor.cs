@@ -41,10 +41,7 @@ namespace Omniverse.Editor
 
 		private void DrawSection(SerializedProperty serializedProperty)
 		{
-			if (GUILayout.Button(serializedProperty.displayName))
-			{
-				serializedProperty.isExpanded = !serializedProperty.isExpanded;
-			}
+			DrawSectionHeader(serializedProperty);
 
 			if (serializedProperty.isExpanded)
 			{
@@ -54,14 +51,19 @@ namespace Omniverse.Editor
 
 		private void DrawAction(SerializedProperty serializedProperty)
 		{
-			if (GUILayout.Button(serializedProperty.displayName))
-			{
-				serializedProperty.isExpanded = !serializedProperty.isExpanded;
-			}
+			DrawSectionHeader(serializedProperty);
 
 			if (serializedProperty.isExpanded)
 			{
 				EditorGUILayout.PropertyField(serializedProperty);
+			}
+		}
+
+		private void DrawSectionHeader(SerializedProperty serializedProperty)
+		{
+			if (GUILayout.Button(serializedProperty.displayName))
+			{
+				serializedProperty.isExpanded = !serializedProperty.isExpanded;
 			}
 		}
 	}
