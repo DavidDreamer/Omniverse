@@ -226,6 +226,14 @@ namespace Omniverse.Units
 				Properties[desc.ID].RemoveModifier(desc.Modifier);
 			}
 
+			if (effect.Desc.OnRemovedOperation != null)
+			{
+				//TODO
+				var contex = new ExecutionContext();
+				contex.Points.Add(transform.position);
+				contex.PerformAsync(effect.Desc.OnRemovedOperation, this, default).Forget();
+			}
+
 			Effects.RemoveAt(index);
 
 			EffectRemoved?.Invoke(effect);
