@@ -5,9 +5,9 @@ namespace Omniverse.Actions
 {
 	public class AddTargetSelf : Action
 	{
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
-			context.Entities.Add(context.Caster);
+			context.Entities.Add(context.Actor);
 			return UniTask.CompletedTask;
 		}
 	}

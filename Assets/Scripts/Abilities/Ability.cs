@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using VContainer;
 
 namespace Omniverse.Abilities
 {
@@ -14,22 +13,30 @@ namespace Omniverse.Abilities
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
-		public ExecutionContext ExecutionContext { get; } = new();
+		public OperationHandler OperationHandler { get; }
 
-		public Ability(IObjectResolver objectResolver, AbilityDesc desc)
+		public OperationContext OperationContext { get; }
+
+		public Ability(AbilityDesc desc, Entity actor, OperationHandler operationHandler)
 		{
 			Desc = desc;
 			Cooldown = new Cooldown(Desc.Cooldown);
 			Used = AutoResetUniTaskCompletionSource.Create();
+
+			OperationHandler = operationHandler;
+
+			OperationContext = new OperationContext(actor);
 		}
 
 		public async UniTask Cast(Entity caster, CancellationToken token)
 		{
 			Cooldown?.ActivateAsync(token);
 
-			await ExecutionContext.PerformAsync(Desc.Operation, caster, token);
+			await OperationHandler.PerformAsync(Desc.Operation, caster, OperationContext, token);
 
 			Used.TrySetResult();
+
+			OperationContext.Clear();
 		}
 	}
 }

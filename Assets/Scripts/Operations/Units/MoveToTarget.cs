@@ -12,7 +12,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float LethalHeight { get; private set; }
 
-		public async override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public async override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			await UniTask.CompletedTask;
 			// Unit unit = context.Caster;

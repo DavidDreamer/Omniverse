@@ -48,6 +48,9 @@ namespace Omniverse.Units
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
+		[Inject]
+		private OperationHandler OperationHandler { get; set; }
+
 		public override void Initialize(UnitDesc desc)
 		{
 			base.Initialize(desc);
@@ -61,7 +64,7 @@ namespace Omniverse.Units
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(ObjectResolver, abilityDesc);
+				var ability = new Ability(abilityDesc, this, OperationHandler);
 				Abilities.Add(ability);
 			}
 
@@ -228,10 +231,9 @@ namespace Omniverse.Units
 
 			if (effect.Desc.OnRemovedOperation != null)
 			{
-				//TODO
-				var contex = new ExecutionContext();
-				contex.Points.Add(transform.position);
-				contex.PerformAsync(effect.Desc.OnRemovedOperation, this, default).Forget();
+				var context = new OperationContext(this);
+				context.Points.Add(transform.position);
+				OperationHandler.PerformAsync(effect.Desc.OnRemovedOperation, this, context, default).Forget();
 			}
 
 			Effects.RemoveAt(index);

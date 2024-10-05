@@ -10,7 +10,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			foreach (var unit in context.Units())
 			{

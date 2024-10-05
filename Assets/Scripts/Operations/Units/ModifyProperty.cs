@@ -13,11 +13,11 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public PropertyModifier Modifier { get; private set; }
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			foreach (Unit unit in context.Units())
 			{
-				unit.ModifyProperty(Property, Modifier, context.Caster);
+				unit.ModifyProperty(Property, Modifier, context.Actor);
 			}
 
 			return UniTask.CompletedTask;

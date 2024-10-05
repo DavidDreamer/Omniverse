@@ -10,12 +10,12 @@ namespace Omniverse
 		[field: OperationPicker]
 		public Operation Then { get; private set; }
 
-		public override async UniTask<Operation> PerformAsync(ExecutionContext context, CancellationToken token)
+		public override async UniTask<Operation> PerformAsync(OperationContext context, CancellationToken token)
 		{
 			await Perform(context, token);
 			return Then;
 		}
 
-		public abstract UniTask Perform(ExecutionContext context, CancellationToken token);
+		public abstract UniTask Perform(OperationContext context, CancellationToken token);
 	}
 }

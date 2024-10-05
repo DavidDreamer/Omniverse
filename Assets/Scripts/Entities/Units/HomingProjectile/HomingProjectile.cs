@@ -1,10 +1,14 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Units
 {
 	public class HomingProjectile : FactiousEntity<HomingProjectileDesc>
 	{
+		[Inject]
+		private OperationHandler OperationHandler { get; set; }
+
 		public Unit Target { get; set; }
 
 		public void FixedUpdate()
@@ -21,10 +25,9 @@ namespace Omniverse.Units
 
 			if (sqrDistanceToTarget <= radius * radius)
 			{
-				var executionContext = new ExecutionContext();
-				executionContext.Entities.Add(Target);
-				executionContext.PerformAsync(Desc.HitOperation, this, default).Forget();
-
+				var context = new OperationContext(this);
+				context.Entities.Add(Target);
+				OperationHandler.PerformAsync(Desc.HitOperation, this, context, default).Forget();
 				Destroy(gameObject);
 			}
 		}

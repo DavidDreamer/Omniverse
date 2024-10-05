@@ -12,12 +12,12 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public ProjectileDesc Projectile { get; private set; }
 
-		public override async UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override async UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			//TODO
-			var unit = context.Caster as Unit;
+			var unit = context.Actor as Unit;
 
-			Vector3 position = context.Caster.transform.position;
+			Vector3 position = context.Actor.transform.position;
 			Projectile projectile = Object.Instantiate(Projectile.Model, position, Quaternion.identity).GetComponent<Projectile>();
 			projectile.Initialize(Projectile);
 			projectile.ChangeFaction(unit.FactionID);

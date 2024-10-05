@@ -15,7 +15,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float Time { get; private set; }
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			Vector3 position = context.Points.First();
 

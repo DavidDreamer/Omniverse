@@ -7,19 +7,15 @@ namespace Omniverse.Actions
 {
 	public class CollectUnitTargetsFromSphere : CollectUnitTargets
 	{
-		//TODO
-		[field: SerializeField]
-		public PhysicsService PhysicsService { get; set; }
-
 		[field: SerializeField]
 		public float Radius { get; private set; }
 
-		public override IEnumerable<Unit> GetUnits(ExecutionContext context)
+		public override IEnumerable<Unit> GetUnits(OperationContext context)
 		{
 			//TODO
-			IFactious caster = context.Caster as IFactious;
+			IFactious caster = context.Actor as IFactious;
 			Vector3 position = context.Points.First();
-			return PhysicsService.GetEntitiesInSphere<Unit>(position, Radius).Where(unit => Filter.Match(caster, unit));
+			return context.PhysicsService.GetEntitiesInSphere<Unit>(position, Radius).Where(unit => Filter.Match(caster, unit));
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Omniverse.Actions
 		[field: Range(0, 360)]
 		public float Angle { get; private set; }
 
-		public override IEnumerable<Unit> GetUnits(ExecutionContext context)
+		public override IEnumerable<Unit> GetUnits(OperationContext context)
 		{
 			yield return null;
 

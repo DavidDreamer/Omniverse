@@ -17,7 +17,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float Duration { get; private set; }
 
-		public override async UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override async UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			await UniTask.CompletedTask;
 			// Transform transform = context.Caster.Presenter.transform;

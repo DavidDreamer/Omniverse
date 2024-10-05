@@ -5,7 +5,7 @@ namespace Omniverse.Actions
 {
 	public class ClearUnits : Action
 	{
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			context.Entities.Clear();
 			return UniTask.CompletedTask;

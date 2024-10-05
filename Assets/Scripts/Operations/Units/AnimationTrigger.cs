@@ -9,7 +9,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public string Name { get; private set; }
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			//TODO
 			// foreach (Unit unit in context.Units)

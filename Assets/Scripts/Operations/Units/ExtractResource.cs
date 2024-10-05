@@ -15,11 +15,11 @@ namespace Omniverse.Actions
 		[Inject]
 		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			var resourceSource = (ResourceSource)context.Entities.First();
 			//TODO
-			int factionID = ((Unit)context.Caster).FactionID;
+			int factionID = ((Unit)context.Actor).FactionID;
 			ResourceExtractionHadler.Extract(resourceSource, Amount, factionID);
 			return UniTask.CompletedTask;
 		}

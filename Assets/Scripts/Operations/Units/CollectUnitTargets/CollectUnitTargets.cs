@@ -11,12 +11,12 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public abstract IEnumerable<Unit> GetUnits(ExecutionContext context);
+		public abstract IEnumerable<Unit> GetUnits(OperationContext context);
 
-		public override UniTask Perform(ExecutionContext context, CancellationToken token)
+		public override UniTask Perform(OperationContext context, CancellationToken token)
 		{
 			//TODO
-			var source = context.Caster as IFactious;
+			var source = context.Actor as IFactious;
 
 			foreach (Unit unit in GetUnits(context))
 			{

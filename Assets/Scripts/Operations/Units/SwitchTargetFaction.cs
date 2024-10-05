@@ -18,14 +18,14 @@ namespace Omniverse.Actions
 		[field: OperationPicker]
 		public Operation Enemy { get; private set; }
 
-		public override async UniTask<Operation> PerformAsync(ExecutionContext context, System.Threading.CancellationToken token)
+		public override async UniTask<Operation> PerformAsync(OperationContext context, System.Threading.CancellationToken token)
 		{
 			await UniTask.CompletedTask;
 
 			var unit = context.Units().First();
-			var caster = (IFactious)context.Caster;
+			var caster = (IFactious)context.Actor;
 
-			if (context.Caster == unit)
+			if (context.Actor == unit)
 			{
 				return Self;
 			}

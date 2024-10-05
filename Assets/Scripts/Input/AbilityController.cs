@@ -65,7 +65,7 @@ namespace Omniverse.Input
 					return;
 				}
 
-				ActiveAbility.ExecutionContext.Points.Add(cursorWorldPosition);
+				ActiveAbility.OperationContext.Points.Add(cursorWorldPosition);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -77,7 +77,7 @@ namespace Omniverse.Input
 				Vector3 direction = cursorWorldPosition - ActiveUnit.transform.position;
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
-				ActiveAbility.ExecutionContext.Directions.Add(direction);
+				ActiveAbility.OperationContext.Directions.Add(direction);
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
@@ -91,7 +91,7 @@ namespace Omniverse.Input
 					return;
 				}
 
-				ActiveAbility.ExecutionContext.Entities.Add(target);
+				ActiveAbility.OperationContext.Entities.Add(target);
 			}
 
 			AbilityCastError error = ActiveAbility.CanBeCasted(ActiveUnit);
