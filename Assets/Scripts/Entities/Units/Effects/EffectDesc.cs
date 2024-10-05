@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Omniverse.Actions;
 using UnityEngine;
 
 namespace Omniverse.Units
@@ -23,5 +24,9 @@ namespace Omniverse.Units
 
 		[field: SerializeField]
 		public List<PropertyModifierDesc> PropertyModifiers { get; private set; }
+
+		[field: SerializeField]
+		[field: OperationPicker]
+		public Operation OnRemovedOperation { get; set; }
 	}
 }
