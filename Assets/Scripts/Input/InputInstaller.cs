@@ -1,5 +1,4 @@
-﻿using Omniverse.Units.Client;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -8,15 +7,6 @@ namespace Omniverse.Input
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Input")]
 	public class InputInstaller : ScriptableObject, IInstaller
 	{
-		[field: SerializeField]
-		private AbilityTargetRenderer AbilityTargetRenderer { get; set; }
-
-		[field: SerializeField]
-		private AbilityRangeRenderer AbilityRangeRenderer { get; set; }
-
-		[field: SerializeField]
-		private AbilityTrajectoryRenderer TrajectoryRenderer { get; set; }
-
 		[field: SerializeField]
 		private CameraControllerConfig CameraControllerConfig { get; set; }
 
@@ -28,10 +18,6 @@ namespace Omniverse.Input
 
 			inputActions.Abilities.Enable();
 			inputActions.Common.Enable();
-
-			builder.RegisterComponentInNewPrefab(AbilityTargetRenderer, Lifetime.Singleton);
-			builder.RegisterComponentInNewPrefab(AbilityRangeRenderer, Lifetime.Singleton);
-			builder.RegisterComponentInNewPrefab(TrajectoryRenderer, Lifetime.Singleton);
 
 			builder.Register<Detector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
