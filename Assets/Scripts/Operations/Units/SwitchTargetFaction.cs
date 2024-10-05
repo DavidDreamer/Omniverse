@@ -25,7 +25,7 @@ namespace Omniverse.Actions
 			var unit = context.Units().First();
 			var caster = (IFactious)context.Caster;
 
-			if (caster == unit)
+			if (context.Caster == unit)
 			{
 				return Self;
 			}
