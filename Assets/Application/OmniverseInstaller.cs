@@ -25,7 +25,7 @@ namespace Omniverse
 		{
 			builder.RegisterComponentInNewPrefab(Camera, Lifetime.Singleton);
 
-			builder.RegisterInstance(PhysicsSettings);
+			builder.Register<PhysicsService>(Lifetime.Singleton).WithParameter(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 
 			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();

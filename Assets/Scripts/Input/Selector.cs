@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -23,6 +22,9 @@ namespace Omniverse.Input
 
 		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
+
+		[Inject]
+		private PhysicsService PhysicsService { get; set; }
 
 		public Vector2 StartPosition { get; private set; }
 
@@ -58,7 +60,7 @@ namespace Omniverse.Input
 
 				if (Vector2.Distance(StartPosition, EndPosition) > SelectionBoxTreshold)
 				{
-					foreach (Unit unit in PhysicsHelper.GetUnitsInScreenRect(camera, StartPosition, EndPosition))
+					foreach (Unit unit in PhysicsService.GetUnitsInScreenRect(camera, StartPosition, EndPosition))
 					{
 						TrySelect(unit);
 					}

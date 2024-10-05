@@ -14,9 +14,6 @@ namespace Omniverse.Actions
 		[field: Range(0, 360)]
 		public float Angle { get; private set; }
 
-		[Inject]
-		private PhysicsSettings PhysicsSettings { get; set; }
-
 		public override IEnumerable<Unit> GetUnits(ExecutionContext context)
 		{
 			yield return null;

@@ -3,16 +3,22 @@ using UnityEngine;
 
 namespace Omniverse.Units
 {
-	public static class PhysicsHelper
+	public class PhysicsService
 	{
-		private static Collider[] Colliders { get; } = new Collider[128];
+		private PhysicsSettings Settings { get; }
 
-		public static IEnumerable<Unit> GetUnitsInSphere(
-			Vector3 position,
-			float radius,
-			LayerMask layerMask)
+		private Collider[] Colliders { get; } = new Collider[128];
+
+		public PhysicsService(PhysicsSettings settings)
 		{
-			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, layerMask.value);
+			Settings = settings;
+		}
+
+		public IEnumerable<Unit> GetUnitsInSphere(
+			Vector3 position,
+			float radius)
+		{
+			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, Settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{
@@ -27,13 +33,12 @@ namespace Omniverse.Units
 			}
 		}
 
-		public static IEnumerable<Unit> GetUnitsInSector(Vector3 position,
+		public IEnumerable<Unit> GetUnitsInSector(Vector3 position,
 			Vector3 forward,
 			float radius,
-			float angle,
-			LayerMask layerMask)
+			float angle)
 		{
-			foreach (Unit unit in GetUnitsInSphere(position, radius, layerMask))
+			foreach (Unit unit in GetUnitsInSphere(position, radius))
 			{
 				Vector3 direction = (unit.transform.position - position).normalized;
 
@@ -48,7 +53,7 @@ namespace Omniverse.Units
 			}
 		}
 
-		public static Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
+		public Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
 		{
 			Ray ray = camera.ScreenPointToRay(screenPosition);
 			Vector3 worldPlaneNormal = Vector3.up;
@@ -60,7 +65,7 @@ namespace Omniverse.Units
 			return point;
 		}
 
-		public static IEnumerable<Unit> GetUnitsInScreenRect(Camera camera, Vector3 start, Vector3 end)
+		public IEnumerable<Unit> GetUnitsInScreenRect(Camera camera, Vector3 start, Vector3 end)
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);
@@ -73,7 +78,7 @@ namespace Omniverse.Units
 
 			Vector3 halfExtens = new(width, height, length);
 
-			int count = Physics.OverlapBoxNonAlloc(center, halfExtens, Colliders, Quaternion.identity, LayerMask.GetMask("Hitbox"));
+			int count = Physics.OverlapBoxNonAlloc(center, halfExtens, Colliders, Quaternion.identity, Settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{

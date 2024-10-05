@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Dreambox.Math;
 using UnityEngine;
 
 namespace Omniverse
@@ -15,8 +14,6 @@ namespace Omniverse
 		public List<Vector3> Points { get; } = new();
 
 		public List<Vector3> Directions { get; } = new();
-
-		public List<ParabolicTrajectory3D> Trajectories { get; } = new();
 
 		public async UniTask PerformAsync(Operation operation, Entity caster, CancellationToken token)
 		{
@@ -37,7 +34,6 @@ namespace Omniverse
 			Entities.Clear();
 			Points.Clear();
 			Directions.Clear();
-			Trajectories.Clear();
 		}
 	}
 }

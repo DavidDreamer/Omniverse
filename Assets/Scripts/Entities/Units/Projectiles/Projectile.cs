@@ -1,10 +1,15 @@
 ﻿using System.Linq;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Units
 {
 	public class Projectile : FactiousEntity<ProjectileDesc>
 	{
+		//TODO
+		[Inject]
+		private PhysicsService PhysicsService { get; set; }
+
 		public Vector3 Direction { get; set; }
 
 		private float Distance { get; set; }
@@ -36,7 +41,7 @@ namespace Omniverse.Units
 			//TODO
 			bool hit = false;
 
-			foreach (var item in PhysicsHelper.GetUnitsInSphere(transform.position, radius, 1).Where(unit => filter.Match(this, unit)))
+			foreach (var item in PhysicsService.GetUnitsInSphere(transform.position, radius).Where(unit => filter.Match(this, unit)))
 			{
 				hit = true;
 
