@@ -60,7 +60,7 @@ namespace Omniverse.Input
 
 				if (Vector2.Distance(StartPosition, EndPosition) > SelectionBoxTreshold)
 				{
-					foreach (Unit unit in PhysicsService.GetUnitsInScreenRect(camera, StartPosition, EndPosition))
+					foreach (Unit unit in PhysicsService.GetEntitiesInScreenRect<Unit>(camera, StartPosition, EndPosition))
 					{
 						TrySelect(unit);
 					}

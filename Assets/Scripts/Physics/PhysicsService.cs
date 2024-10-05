@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class PhysicsService
 	{
@@ -14,33 +14,33 @@ namespace Omniverse.Units
 			Settings = settings;
 		}
 
-		public IEnumerable<Unit> GetUnitsInSphere(
-			Vector3 position,
-			float radius)
+		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(Vector3 position, float radius) where TEntity : Entity
 		{
 			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, Settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{
-				var unit = Colliders[i].GetComponentInParent<Unit>();
+				var entity = Colliders[i].GetComponentInParent<TEntity>();
 
-				if (unit == null)
+				if (entity == null)
 				{
 					continue;
 				}
 
-				yield return unit;
+				yield return entity;
 			}
 		}
 
-		public IEnumerable<Unit> GetUnitsInSector(Vector3 position,
+		public IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
+			Vector3 position,
 			Vector3 forward,
 			float radius,
 			float angle)
+			where TEntity : Entity
 		{
-			foreach (Unit unit in GetUnitsInSphere(position, radius))
+			foreach (TEntity entity in GetEntitiesInSphere<TEntity>(position, radius))
 			{
-				Vector3 direction = (unit.transform.position - position).normalized;
+				Vector3 direction = (entity.transform.position - position).normalized;
 
 				float currentAngle = Vector3.Angle(direction, forward);
 
@@ -49,7 +49,7 @@ namespace Omniverse.Units
 					continue;
 				}
 
-				yield return unit;
+				yield return entity;
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace Omniverse.Units
 			return point;
 		}
 
-		public IEnumerable<Unit> GetUnitsInScreenRect(Camera camera, Vector3 start, Vector3 end)
+		public IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : Entity
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);
@@ -82,14 +82,14 @@ namespace Omniverse.Units
 
 			for (int i = 0; i < count; ++i)
 			{
-				var unit = Colliders[i].GetComponentInParent<Unit>();
+				var entity = Colliders[i].GetComponentInParent<TEntity>();
 
-				if (unit == null)
+				if (entity == null)
 				{
 					continue;
 				}
 
-				yield return unit;
+				yield return entity;
 			}
 		}
 	}

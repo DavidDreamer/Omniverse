@@ -41,7 +41,7 @@ namespace Omniverse.Units
 			//TODO
 			bool hit = false;
 
-			foreach (var item in PhysicsService.GetUnitsInSphere(transform.position, radius).Where(unit => filter.Match(this, unit)))
+			foreach (var item in PhysicsService.GetEntitiesInSphere<Unit>(transform.position, radius).Where(unit => filter.Match(this, unit)))
 			{
 				hit = true;
 
