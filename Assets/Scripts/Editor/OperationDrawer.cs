@@ -1,5 +1,4 @@
-﻿using Omniverse.Actions;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace Omniverse.Editor
 {

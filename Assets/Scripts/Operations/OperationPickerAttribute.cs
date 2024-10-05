@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Actions
+namespace Omniverse
 {
 	public class OperationPickerAttribute : PropertyAttribute
 	{

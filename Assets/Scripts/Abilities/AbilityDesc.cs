@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Omniverse.Actions;
+using Omniverse;
 using UnityEngine;
 
 namespace Omniverse.Abilities

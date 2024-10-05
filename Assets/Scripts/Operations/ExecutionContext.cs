@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using Dreambox.Math;
 using UnityEngine;
 
-namespace Omniverse.Actions
+namespace Omniverse
 {
 	public class ExecutionContext
 	{

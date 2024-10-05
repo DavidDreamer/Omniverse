@@ -7,7 +7,7 @@ namespace Omniverse.Units
 {
 	public class Attack
 	{
-		public event Action Started;
+		public event System.Action Started;
 
 		private Unit Unit { get; }
 

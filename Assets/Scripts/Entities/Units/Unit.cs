@@ -16,7 +16,7 @@ namespace Omniverse.Units
 
 		public event Action<Effect> EffectRemoved;
 
-		public event Action Died;
+		public event System.Action Died;
 
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }

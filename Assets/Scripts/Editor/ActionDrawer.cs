@@ -3,12 +3,12 @@ using UnityEditor;
 
 namespace Omniverse.Editor
 {
-	[CustomEditor(typeof(Actions.Action), true)]
+	[CustomEditor(typeof(Action), true)]
 	public class ActionDrawer : UnityEditor.Editor
 	{
 		public override void OnInspectorGUI()
 		{
-			SerializedProperty then = serializedObject.FindProperty(nameof(Actions.Action.Then).ToBackingField());
+			SerializedProperty then = serializedObject.FindProperty(nameof(Action.Then).ToBackingField());
 
 			serializedObject.UpdateIfRequiredOrScript();
 

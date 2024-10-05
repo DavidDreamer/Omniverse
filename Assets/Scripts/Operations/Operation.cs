@@ -2,7 +2,7 @@
 using System.Threading;
 using UnityEngine;
 
-namespace Omniverse.Actions
+namespace Omniverse
 {
 	public abstract class Operation : ScriptableObject
 	{
