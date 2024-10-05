@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using Omniverse.Units;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
-using System.Linq;
 
 namespace Omniverse.Input
 {
@@ -64,7 +64,7 @@ namespace Omniverse.Input
 					{
 						TrySelect(unit);
 					}
-				}	
+				}
 				else
 				{
 					TrySelectSingleTarget(target);

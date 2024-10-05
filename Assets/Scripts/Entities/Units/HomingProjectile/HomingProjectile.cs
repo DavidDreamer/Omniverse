@@ -24,7 +24,7 @@ namespace Omniverse.Units
 				var executionContext = new ExecutionContext();
 				executionContext.Entities.Add(Target);
 				executionContext.PerformAsync(Desc.HitOperation, this, default).Forget();
-		
+
 				Destroy(gameObject);
 			}
 		}

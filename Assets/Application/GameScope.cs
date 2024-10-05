@@ -1,5 +1,4 @@
-﻿using Omniverse.Input;
-using Omniverse.Items;
+﻿using Omniverse.Items;
 using Omniverse.Mapping;
 using Omniverse.Rendering;
 using Omniverse.UI;

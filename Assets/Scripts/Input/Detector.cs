@@ -76,7 +76,7 @@ namespace Omniverse.Input
 				{
 					return;
 				}
-				
+
 				if (entity is IFactious factious && !Filter.Match(source, factious))
 				{
 					return;

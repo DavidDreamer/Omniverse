@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public abstract class CollectUnitTargets : Action 
+	public abstract class CollectUnitTargets : Action
 	{
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
