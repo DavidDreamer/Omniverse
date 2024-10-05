@@ -34,7 +34,7 @@ MonoBehaviour:
   <Target>k__BackingField:
     <Type>k__BackingField: 4
     <Range>k__BackingField: 10
-    <Filter>k__BackingField: 2
+    <Filter>k__BackingField: 3
     <ResourceSources>k__BackingField: []
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
