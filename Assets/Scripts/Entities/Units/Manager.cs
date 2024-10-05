@@ -40,9 +40,10 @@ namespace Omniverse.Units
 			CancellationTokenSource.Dispose();
 		}
 
-		public Unit Spawn(UnitDesc desc, int factionID)
+		public Unit Spawn(UnitDesc desc, int factionID, Vector3 position)
 		{
 			Unit unit = Pool.Take(Config.UnitPrefab);
+			unit.NavMeshAgent.Warp(position);
 			unit.Initialize(desc);
 			unit.ChangeFaction(factionID);
 			Units.Add(unit);
