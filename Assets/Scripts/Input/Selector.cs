@@ -21,6 +21,9 @@ namespace Omniverse.Input
 		public int SelectionIndex { get; private set; }
 
 		[Inject]
+		private Player Player { get; set; }
+
+		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
 		[Inject]
@@ -62,6 +65,11 @@ namespace Omniverse.Input
 				{
 					foreach (Unit unit in PhysicsService.GetEntitiesInScreenRect<Unit>(camera, StartPosition, EndPosition))
 					{
+						if (unit.FactionID != Player.FactionID)
+						{
+							continue;
+						}
+
 						TrySelect(unit);
 					}
 				}
