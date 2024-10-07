@@ -54,7 +54,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void ProcessAbility(Entity target, Vector3 cursorWorldPosition)
+		public void ProcessAbility(Entity target, Vector3? cursorWorldPosition)
 		{
 			TargetType targetType = ActiveAbility.Desc.Target.Type;
 
@@ -65,7 +65,12 @@ namespace Omniverse.Input
 					return;
 				}
 
-				ActiveAbility.OperationContext.Points.Add(cursorWorldPosition);
+				if (!cursorWorldPosition.HasValue)
+				{
+					return;
+				}
+
+				ActiveAbility.OperationContext.Points.Add(cursorWorldPosition.Value);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -74,7 +79,12 @@ namespace Omniverse.Input
 					return;
 				}
 
-				Vector3 direction = cursorWorldPosition - ActiveUnit.transform.position;
+				if (!cursorWorldPosition.HasValue)
+				{
+					return;
+				}
+
+				Vector3 direction = cursorWorldPosition.Value - ActiveUnit.transform.position;
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
 				ActiveAbility.OperationContext.Directions.Add(direction);

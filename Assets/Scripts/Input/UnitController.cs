@@ -17,7 +17,7 @@ namespace Omniverse.Input
 		[Inject]
 		private Selector Selector { get; set; }
 
-		public void Tick(Entity target, Vector3 position)
+		public void Tick(Entity target, Vector3? position)
 		{
 			if (CommonActions.Command.WasReleasedThisFrame())
 			{
@@ -46,7 +46,10 @@ namespace Omniverse.Input
 				}
 				else
 				{
-					CreateNavigationPoint(position);
+					if (position.HasValue)
+					{
+						CreateNavigationPoint(position.Value);
+					}
 				}
 			}
 		}

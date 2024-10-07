@@ -56,8 +56,13 @@ namespace Omniverse.Rendering
 			InputController inputController = Renderer.InputController;
 			AbilityController abilityController = Renderer.AbilityController;
 
+			if (!inputController.CursorWorldPosition.HasValue)
+			{
+				return;
+			}
+
 			Vector3 activeUnitPosition = abilityController.ActiveUnit.transform.position;
-			Vector3 direction = inputController.CursorWorldPosition - activeUnitPosition;
+			Vector3 direction = inputController.CursorWorldPosition.Value - activeUnitPosition;
 			direction.Set(direction.x, 0, direction.z);
 			direction.Normalize();
 

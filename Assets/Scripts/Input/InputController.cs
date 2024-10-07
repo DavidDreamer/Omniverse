@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
@@ -29,7 +30,7 @@ namespace Omniverse.Input
 		[Inject]
 		private AbilityController AbilityController { get; set; }
 
-		public Vector3 CursorWorldPosition { get; private set; }
+		public Vector3? CursorWorldPosition { get; private set; }
 
 		public void LateTick()
 		{
@@ -39,9 +40,24 @@ namespace Omniverse.Input
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			float deltaTime = Time.deltaTime;
 
-			NavmeshUtils.GetNavMeshPositionFromCursor(ray, out Vector3 position);
-			CursorWorldPosition = position;
+			bool mouseIsOverUI = EventSystem.current.IsPointerOverGameObject();
 
+			if (mouseIsOverUI)
+			{
+				CursorWorldPosition = null;
+			}
+			else
+			{
+				if (NavmeshUtils.GetNavMeshPositionFromCursor(ray, out Vector3 position))
+				{
+					CursorWorldPosition = position;
+				}
+				else
+				{
+					CursorWorldPosition = null;
+				}
+			}
+	
 			bool abilityInProcess = AbilityController.ActiveAbility is not null;
 
 			if (abilityInProcess)
