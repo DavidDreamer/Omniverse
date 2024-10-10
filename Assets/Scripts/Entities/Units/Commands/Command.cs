@@ -3,11 +3,9 @@ namespace Omniverse.Units
 {
 	public interface ICommand
 	{
-		bool IsCompleted { get; }
-
 		void Start();
 
-		void Tick(float deltaTime);
+		bool Tick(float deltaTime);
 
 		void Cleanup();
 	}
@@ -15,8 +13,6 @@ namespace Omniverse.Units
 	public abstract class Command : ICommand
 	{
 		protected Unit Unit { get; }
-
-		public virtual bool IsCompleted => false;
 
 		protected Command(Unit unit)
 		{
@@ -27,8 +23,9 @@ namespace Omniverse.Units
 		{
 		}
 
-		public virtual void Tick(float deltaTime)
+		public virtual bool Tick(float deltaTime)
 		{
+			return false;
 		}
 
 		public virtual void Cleanup()

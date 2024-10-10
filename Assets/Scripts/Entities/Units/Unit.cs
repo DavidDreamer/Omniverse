@@ -145,9 +145,9 @@ namespace Omniverse.Units
 				}
 			}
 
-			Command.Tick(deltaTime);
+			bool completed = Command.Tick(deltaTime);
 
-			if (Command.IsCompleted)
+			if (completed)
 			{
 				Command.Cleanup();
 				Command = null;

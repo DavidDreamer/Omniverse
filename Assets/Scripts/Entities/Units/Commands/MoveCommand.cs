@@ -9,8 +9,6 @@ namespace Omniverse.Units
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public override bool IsCompleted => Vector3.Distance(Position, NavMeshAgent.nextPosition) <= NavMeshAgent.stoppingDistance;
-
 		public MoveCommand(Unit unit, Vector3 position) : base(unit)
 		{
 			Position = position;
@@ -24,6 +22,10 @@ namespace Omniverse.Units
 			NavMeshAgent.destination = Position;
 		}
 
+		public override bool Tick(float deltaTime)
+		{
+			return Vector3.Distance(Position, NavMeshAgent.nextPosition) <= NavMeshAgent.stoppingDistance;
+		}
 		public override void Cleanup()
 		{
 			base.Cleanup();
