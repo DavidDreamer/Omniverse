@@ -79,10 +79,7 @@ namespace Omniverse.Units
 				HitBox.enabled = true;
 			}
 
-			if (NavMeshAgent != null)
-			{
-				NavMeshAgent.enabled = true;
-			}
+			NavMeshAgent.enabled = true;
 		}
 
 		public void FixedTick(float deltaTime)
@@ -104,7 +101,6 @@ namespace Omniverse.Units
 				return;
 			}
 
-			if (NavMeshAgent != null)
 			{
 				ProcessTarget();
 
@@ -273,10 +269,7 @@ namespace Omniverse.Units
 
 			HitBox.enabled = false;
 
-			if (NavMeshAgent != null)
-			{
-				NavMeshAgent.enabled = false;
-			}
+			NavMeshAgent.enabled = false;
 
 			Died?.Invoke();
 		}
