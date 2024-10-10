@@ -55,7 +55,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void ProcessAbility(Entity target, Vector3? cursorWorldPosition)
+		public void ProcessAbility(Entity target, Vector3? cursorWorldPosition, bool additiveMode)
 		{
 			TargetType targetType = ActiveAbility.Desc.Target.Type;
 
@@ -72,7 +72,7 @@ namespace Omniverse.Input
 				}
 
 				var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				ActiveUnit.AddCommand(approachPositionForAbilityCastCommand, true);
+				ActiveUnit.AddCommand(approachPositionForAbilityCastCommand, !additiveMode);
 				var castPointTargetAbilityCommand = new CastPointTargetAbilityCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
 				ActiveUnit.AddCommand(castPointTargetAbilityCommand, false);
 			}
@@ -93,7 +93,7 @@ namespace Omniverse.Input
 				direction.Normalize();
 
 				var castDirectionalAbilityCommand = new CastDirectionalAbilityCommand(ActiveUnit, ActiveAbility, direction);
-				ActiveUnit.AddCommand(castDirectionalAbilityCommand, true);
+				ActiveUnit.AddCommand(castDirectionalAbilityCommand, !additiveMode);
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
@@ -108,7 +108,7 @@ namespace Omniverse.Input
 				}
 
 				var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
-				ActiveUnit.AddCommand(approachEntityForAbilityCastCommand, true);
+				ActiveUnit.AddCommand(approachEntityForAbilityCastCommand, !additiveMode);
 				var castEntityTargetAbilityCommand = new CastEntityTargetAbilityCommand(ActiveUnit, ActiveAbility, target);
 				ActiveUnit.AddCommand(castEntityTargetAbilityCommand, false);
 			}

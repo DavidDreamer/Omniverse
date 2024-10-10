@@ -10,6 +10,9 @@ namespace Omniverse.Input
 	public class InputController : ILateTickable
 	{
 		[Inject]
+		private InputActions.CommonActions CommonActions { get; set; }
+
+		[Inject]
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
@@ -39,6 +42,7 @@ namespace Omniverse.Input
 			Vector2 mousePosition = Mouse.current.position.value;
 			Ray ray = camera.ScreenPointToRay(mousePosition);
 			float deltaTime = Time.deltaTime;
+			bool additiveMode = CommonActions.AdditiveMode.IsPressed();
 
 			bool mouseIsOverUI = EventSystem.current.IsPointerOverGameObject();
 
@@ -74,7 +78,7 @@ namespace Omniverse.Input
 
 			if (abilityInProcess)
 			{
-				AbilityController.ProcessAbility(Detector.Target, CursorWorldPosition);
+				AbilityController.ProcessAbility(Detector.Target, CursorWorldPosition, additiveMode);
 			}
 			else
 			{
