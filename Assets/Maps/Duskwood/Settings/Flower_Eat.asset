@@ -12,29 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725bde4d0ade44deb22801c15b58b07a, type: 3}
   m_Name: Flower_Eat
   m_EditorClassIdentifier: 
-  <Presentation>k__BackingField:
-    <Icon>k__BackingField: {fileID: 21300000, guid: c6a37abdf836c514d8b2358a163ebdc6, type: 3}
+  <Meta>k__BackingField:
+    <Name>k__BackingField: Eat
+    <Description>k__BackingField: 
+    <Icon>k__BackingField: {fileID: 0}
   <Cast>k__BackingField:
     <Time>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
-    rid: -2
+    <Type>k__BackingField: 0
+    <Range>k__BackingField: 0
+    <Filter>k__BackingField: 0
+    <ResourceSources>k__BackingField: []
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Cost>k__BackingField: []
-  <Actions>k__BackingField:
-  - rid: 8872749308137177100
-  - rid: 8872749308137177102
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 8872749308137177100
-      type: {class: AddTargetSelfDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
-      data: 
-    - rid: 8872749308137177102
-      type: {class: ChangePropertyDesc, ns: Omniverse.Actions, asm: Omniverse.Actions.Units}
-      data:
-        <PropertyID>k__BackingField: 3
-        <Amount>k__BackingField: 10
+  <Operation>k__BackingField: {fileID: 0}

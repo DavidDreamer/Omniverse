@@ -57,6 +57,8 @@ MonoBehaviour:
   m_Name: Abaddon_Mist_Coil
   m_EditorClassIdentifier: 
   <Meta>k__BackingField:
+    <Name>k__BackingField: Mist Coil
+    <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 1b8aebb55c5ae3140a542f9b2e5ce4fd, type: 3}
   <Cast>k__BackingField:
     <Time>k__BackingField: 0

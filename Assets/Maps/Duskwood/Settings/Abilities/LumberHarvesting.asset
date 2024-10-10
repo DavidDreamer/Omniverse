@@ -27,6 +27,8 @@ MonoBehaviour:
   m_Name: LumberHarvesting
   m_EditorClassIdentifier: 
   <Meta>k__BackingField:
+    <Name>k__BackingField: Harvest
+    <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
   <Cast>k__BackingField:
     <Time>k__BackingField: 0

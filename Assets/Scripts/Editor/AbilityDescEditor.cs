@@ -41,6 +41,12 @@ namespace Omniverse.Editor
 
 			if (DrawSectionHeader(meta))
 			{
+				SerializedProperty name = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Name).ToBackingField());
+				EditorGUILayout.PropertyField(name);
+
+				SerializedProperty description = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Description).ToBackingField());
+				EditorGUILayout.PropertyField(description);
+
 				SerializedProperty icon = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Icon).ToBackingField());
 				icon.DrawIcon();
 			}

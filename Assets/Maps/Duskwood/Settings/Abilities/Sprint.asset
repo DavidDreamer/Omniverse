@@ -26,6 +26,8 @@ MonoBehaviour:
   m_Name: Sprint
   m_EditorClassIdentifier: 
   <Meta>k__BackingField:
+    <Name>k__BackingField: Sprint
+    <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 60276a2c19373fa4ab961e75e516260c, type: 3}
   <Cast>k__BackingField:
     <Time>k__BackingField: 0
@@ -39,8 +41,10 @@ MonoBehaviour:
     <Time>k__BackingField: 5
   <Cost>k__BackingField:
   - <PropertyID>k__BackingField: 0
-    <Amount>k__BackingField: 0
-    <Mode>k__BackingField: 0
+    <PropertyModifier>k__BackingField:
+      Operation: 0
+      Mode: 0
+      Value: 0
   <Operation>k__BackingField: {fileID: -4625536503803056052}
 --- !u!114 &1086742633205297327
 MonoBehaviour:
