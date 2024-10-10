@@ -38,7 +38,7 @@ namespace Omniverse.Input
 							foreach (Unit selectedUnit in Selector.SelectedUnits)
 							{
 								var command = new PickUpItemCommand(selectedUnit, item);
-								selectedUnit.AddCommand(command, true);
+								AddCommand(selectedUnit, command);
 							}
 							break;
 					}
@@ -73,10 +73,16 @@ namespace Omniverse.Input
 			foreach (Unit unit in Selector.SelectedUnits)
 			{
 				MoveCommand moveCommand = new(unit, position);
-				unit.AddCommand(moveCommand, true);
+				AddCommand(unit, moveCommand);
 			}
 
 			NavigationPointCreated?.Invoke(position);
+		}
+
+		private void AddCommand(Unit unit, ICommand command)
+		{
+			bool forced = !CommonActions.AdditiveMode.IsPressed();
+			unit.AddCommand(command, forced);
 		}
 	}
 }
