@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
-using Omniverse.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -34,8 +33,6 @@ namespace Omniverse.Units
 		public CancellationToken DeathCancellationToken => DeathCancellationTokenSource.Token;
 
 		public UnitStatus Status { get; private set; }
-
-		public Entity Target { get; set; }
 
 		public Experience Experience { get; private set; }
 
@@ -93,13 +90,7 @@ namespace Omniverse.Units
 
 			UpdateEffects(deltaTime);
 			UpdateProperties();
-
 			ProcessCommands(deltaTime);
-
-			if (Command == null)
-			{
-				ProcessTarget();
-			}
 
 			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
 
@@ -173,38 +164,6 @@ namespace Omniverse.Units
 			}
 
 			CommandsQueue.Clear();
-		}
-
-		public void Stop()
-		{
-			NavMeshAgent.isStopped = true;
-		}
-
-		public void Start()
-		{
-			NavMeshAgent.isStopped = false;
-		}
-
-		private void ProcessTarget()
-		{
-			switch (Target)
-			{
-				case Unit unit:
-					{
-						if (Attack.CanAttack(unit))
-						{
-							Stop();
-							Attack.Perform(unit, default).Forget();
-						}
-						else if (!Attack.InProcess)
-						{
-							Start();
-							NavMeshAgent.destination = unit.transform.position;
-						}
-
-						break;
-					}
-			}
 		}
 
 		private void UpdateEffects(float deltaTime)

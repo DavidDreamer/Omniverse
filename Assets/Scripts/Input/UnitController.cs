@@ -37,7 +37,8 @@ namespace Omniverse.Input
 									}
 									else
 									{
-										selectedUnit.Target = unit;
+										var command = new AttackCommand(selectedUnit, unit);
+										AddCommand(selectedUnit, command);
 									}
 								}
 							}

@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Omniverse.Units
@@ -26,32 +24,38 @@ namespace Omniverse.Units
 			return sqrDistance <= sqrAttackRange;
 		}
 
-		public bool CanAttack(Unit target) => !InProcess && target.IsEnemyFor(Unit) && TargetIsInRange(target);
+		private float attackTime;
 
-		public async UniTaskVoid Perform(Unit target, CancellationToken token)
+		public void BeginAttack()
 		{
+			attackTime = 0;
+			Started?.Invoke();
 			InProcess = true;
+		}
 
+		public void Tick(Unit target, float deltaTime)
+		{
 			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount.Value;
 
 			float time = 1f / attackSpeed;
 			TimeSpan timeSpan = TimeSpan.FromSeconds(time);
 
-			Started?.Invoke();
+			attackTime += deltaTime;
 
-			await UniTask.Delay(timeSpan, cancellationToken: token);
-
-			if (TargetIsInRange(target))
+			if (attackTime >= time)
 			{
-				var modifier = new PropertyModifier
+				if (TargetIsInRange(target))
 				{
-					Value = -Unit.Properties[PropertyID.AttackDamage].Amount,
-				};
+					var modifier = new PropertyModifier
+					{
+						Value = -Unit.Properties[PropertyID.AttackDamage].Amount,
+					};
 
-				target.ModifyProperty(PropertyID.Health, modifier, Unit);
+					target.ModifyProperty(PropertyID.Health, modifier, Unit);
+				}
+
+				InProcess = false;
 			}
-
-			InProcess = false;
 		}
 	}
 }
