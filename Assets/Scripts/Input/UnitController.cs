@@ -33,7 +33,7 @@ namespace Omniverse.Input
 									if (unit.IsAllyFor(selectedUnit))
 									{
 										var command = new FollowCommand(selectedUnit, unit);
-										AddCommand(unit, command);
+										AddCommand(selectedUnit, command);
 									}
 									else
 									{
