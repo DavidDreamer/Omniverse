@@ -30,7 +30,15 @@ namespace Omniverse.Input
 							{
 								if (selectedUnit != unit)
 								{
-									selectedUnit.Target = unit;
+									if (unit.IsAllyFor(selectedUnit))
+									{
+										var command = new FollowCommand(selectedUnit, unit);
+										AddCommand(unit, command);
+									}
+									else
+									{
+										selectedUnit.Target = unit;
+									}
 								}
 							}
 							break;
