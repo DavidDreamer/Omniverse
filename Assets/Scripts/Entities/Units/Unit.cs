@@ -29,8 +29,6 @@ namespace Omniverse.Units
 
 		public bool IsDead { get; private set; }
 
-		public bool Locked { get; set; }
-
 		private CancellationTokenSource DeathCancellationTokenSource { get; set; } = new();
 
 		public CancellationToken DeathCancellationToken => DeathCancellationTokenSource.Token;
@@ -94,16 +92,7 @@ namespace Omniverse.Units
 			}
 
 			UpdateEffects(deltaTime);
-
-			foreach (var property in Properties)
-			{
-				property.Value.FixedTick();
-			}
-
-			if (Locked)
-			{
-				return;
-			}
+			UpdateProperties();
 
 			ProcessCommands(deltaTime);
 
@@ -112,25 +101,33 @@ namespace Omniverse.Units
 				ProcessTarget();
 			}
 
-			if (Properties.TryGetValue(PropertyID.MovementSpeed, out Property prop))
-			{
-				NavMeshAgent.speed = prop.Amount;
-			}
-			else
-			{
-				NavMeshAgent.speed = 0;
-			}
-
-			if (Properties.TryGetValue(PropertyID.RotationSpeed, out prop))
-			{
-				NavMeshAgent.angularSpeed = prop.Amount;
-			}
-			else
-			{
-				NavMeshAgent.angularSpeed = 0;
-			}
-
 			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
+
+			void UpdateProperties()
+			{
+				if (Properties.TryGetValue(PropertyID.MovementSpeed, out Property movementSpeed))
+				{
+					NavMeshAgent.speed = movementSpeed.Amount;
+				}
+				else
+				{
+					NavMeshAgent.speed = 0;
+				}
+
+				if (Properties.TryGetValue(PropertyID.RotationSpeed, out Property rotationSpeed))
+				{
+					NavMeshAgent.angularSpeed = rotationSpeed.Amount;
+				}
+				else
+				{
+					NavMeshAgent.angularSpeed = 0;
+				}
+
+				foreach (var property in Properties)
+				{
+					property.Value.FixedTick(deltaTime);
+				}
+			}
 		}
 
 		private void ProcessCommands(float deltaTime)

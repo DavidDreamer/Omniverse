@@ -36,7 +36,7 @@ namespace Omniverse
 			Vital = desc.Vital;
 		}
 
-		public void FixedTick()
+		public void FixedTick(float deltaTime)
 		{
 			Amount.Value = RawAmount.Value;
 
@@ -45,7 +45,7 @@ namespace Omniverse
 				Amount.Value += propertyModifier.Value;
 			}
 
-			Change(Regeneration.Value * Time.fixedDeltaTime);
+			Change(Regeneration.Value * deltaTime);
 		}
 
 		public void AddModifier(PropertyModifier modifier)
