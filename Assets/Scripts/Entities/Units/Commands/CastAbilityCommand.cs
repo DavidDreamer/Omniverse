@@ -13,6 +13,13 @@ namespace Omniverse.Units
 
 		public override bool Tick(float deltaTime)
 		{
+			AbilityCastError error = Ability.CanBeCasted(Unit);
+
+			if (error is not AbilityCastError.None)
+			{
+				return true;
+			}
+
 			Ability.InProcess = true;
 
 			Ability.CastTime += deltaTime;

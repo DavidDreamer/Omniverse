@@ -240,28 +240,6 @@ namespace Omniverse.Units
 			EffectRemoved?.Invoke(effect);
 		}
 
-		public async UniTaskVoid Cast(Ability ability, CancellationToken token)
-		{
-			ability.InProcess = true;
-
-			//TODO
-			// if (!string.IsNullOrEmpty(Desc.Cast.AnimationTrigger))
-			// {
-			// 	Unit.Presenter.Animator.SetTrigger(AnimatorParameter.Get(Desc.Cast.AnimationTrigger));
-			// }
-
-			await UniTask.Delay(TimeSpan.FromSeconds(ability.Desc.Cast.Time), cancellationToken: token);
-
-			ability.InProcess = false;
-
-			foreach (CostDesc cost in ability.Desc.Cost)
-			{
-				Properties[cost.PropertyID].Modify(cost.PropertyModifier);
-			}
-
-			ability.Cast();
-		}
-
 		internal void Die()
 		{
 			IsDead = true;

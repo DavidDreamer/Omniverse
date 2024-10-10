@@ -71,7 +71,10 @@ namespace Omniverse.Input
 					return;
 				}
 
-				ActiveAbility.OperationContext.Points.Add(cursorWorldPosition.Value);
+				var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
+				ActiveUnit.AddCommand(approachPositionForAbilityCastCommand, true);
+				var castPointTargetAbilityCommand = new CastPointTargetAbilityCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
+				ActiveUnit.AddCommand(castPointTargetAbilityCommand, false);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -91,10 +94,6 @@ namespace Omniverse.Input
 
 				var castDirectionalAbilityCommand = new CastDirectionalAbilityCommand(ActiveUnit, ActiveAbility, direction);
 				ActiveUnit.AddCommand(castDirectionalAbilityCommand, true);
-
-				//TODO
-				Discard();
-				return;
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
@@ -112,27 +111,10 @@ namespace Omniverse.Input
 				ActiveUnit.AddCommand(approachEntityForAbilityCastCommand, true);
 				var castEntityTargetAbilityCommand = new CastEntityTargetAbilityCommand(ActiveUnit, ActiveAbility, target);
 				ActiveUnit.AddCommand(castEntityTargetAbilityCommand, false);
-
-				//TODO
-				Discard();
-				return;
-			}
-
-			AbilityCastError error = ActiveAbility.CanBeCasted(ActiveUnit);
-
-			if (error is not AbilityCastError.None)
-			{
-				ErrorHandler.Hadle(error.ToString());
-			}
-			else
-			{
-				Cast(ActiveUnit, ActiveAbility);
 			}
 
 			Discard();
 		}
-
-		private void Cast(Unit unit, Ability ability) => unit.Cast(ability, default).Forget();
 
 		private void Discard()
 		{
