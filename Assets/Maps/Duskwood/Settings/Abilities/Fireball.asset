@@ -19,7 +19,7 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
     <Type>k__BackingField: 2
-    <Range>k__BackingField: 40
+    <Range>k__BackingField: 20
     <Filter>k__BackingField: 0
     <ResourceSources>k__BackingField: []
   <Cooldown>k__BackingField:

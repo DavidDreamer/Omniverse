@@ -30,7 +30,7 @@ namespace Omniverse.Rendering
 			AbilityController abilityController = Renderer.AbilityController;
 
 			var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix *
-				Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range) *
+				Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Target.Range * 2f) *
 				MatrixUtils.WorldUpRotation;
 
 			var drawMeshParams = config.Range;

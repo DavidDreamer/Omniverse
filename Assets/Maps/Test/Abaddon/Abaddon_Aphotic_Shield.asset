@@ -33,7 +33,7 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
     <Type>k__BackingField: 4
-    <Range>k__BackingField: 10
+    <Range>k__BackingField: 5
     <Filter>k__BackingField: 3
     <ResourceSources>k__BackingField: []
   <Cooldown>k__BackingField:
