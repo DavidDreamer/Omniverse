@@ -85,14 +85,14 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void FixedTick()
+		public void FixedTick(float deltaTime)
 		{
 			if (IsDead)
 			{
 				return;
 			}
 
-			UpdateEffects(Time.fixedDeltaTime);
+			UpdateEffects(deltaTime);
 
 			foreach (var property in Properties)
 			{

@@ -74,6 +74,8 @@ namespace Omniverse.Units
 
 		public void FixedTick()
 		{
+			float deltaTime = Time.fixedDeltaTime;
+
 			for (var i = 0; i < Units.Count; i++)
 			{
 				Unit unit = Units[i];
@@ -85,7 +87,7 @@ namespace Omniverse.Units
 
 				unit.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
 
-				Units[i].FixedTick();
+				Units[i].FixedTick(deltaTime);
 			}
 		}
 
