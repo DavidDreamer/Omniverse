@@ -1,7 +1,6 @@
 ﻿using Omniverse.Items;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 namespace Omniverse.Units
 {
@@ -14,13 +13,6 @@ namespace Omniverse.Units
 		public PickUpItemCommand(Unit unit, Item item) : base(unit)
 		{
 			Item = item;
-		}
-
-		public override void Start()
-		{
-			base.Start();
-
-			NavMeshAgent.isStopped = false;
 		}
 
 		public override bool Tick(float deltaTime)
@@ -41,7 +33,6 @@ namespace Omniverse.Units
 		{
 			base.Cleanup();
 
-			NavMeshAgent.isStopped = true;
 			NavMeshAgent.ResetPath();
 		}
 	}

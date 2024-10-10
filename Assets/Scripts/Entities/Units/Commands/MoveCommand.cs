@@ -18,7 +18,6 @@ namespace Omniverse.Units
 		{
 			base.Start();
 
-			NavMeshAgent.isStopped = false;
 			NavMeshAgent.destination = Position;
 		}
 
@@ -31,7 +30,6 @@ namespace Omniverse.Units
 		{
 			base.Cleanup();
 
-			NavMeshAgent.isStopped = true;
 			NavMeshAgent.ResetPath();
 		}
 	}

@@ -23,7 +23,6 @@ namespace Omniverse.Units
 		{
 			base.Cleanup();
 
-			NavMeshAgent.isStopped = true;
 			NavMeshAgent.ResetPath();
 		}
 	}
