@@ -189,8 +189,6 @@ namespace Omniverse.Units
 		{
 			switch (Target)
 			{
-				case null:
-					return;
 				case Unit unit:
 					{
 						if (Attack.CanAttack(unit))
@@ -202,18 +200,6 @@ namespace Omniverse.Units
 						{
 							Start();
 							NavMeshAgent.destination = unit.transform.position;
-						}
-
-						break;
-					}
-				case Item item:
-					{
-						NavMeshAgent.destination = item.transform.position;
-						if (NavMeshAgent.remainingDistance <= Properties[PropertyID.AttackRange].Amount)
-						{
-							item.gameObject.SetActive(false);
-							Inventory.Add(item);
-							Target = null;
 						}
 
 						break;

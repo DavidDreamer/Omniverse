@@ -26,6 +26,7 @@ namespace Omniverse.Units
 		{
 			return Vector3.Distance(Position, NavMeshAgent.nextPosition) <= NavMeshAgent.stoppingDistance;
 		}
+
 		public override void Cleanup()
 		{
 			base.Cleanup();

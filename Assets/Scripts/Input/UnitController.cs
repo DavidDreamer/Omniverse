@@ -33,14 +33,13 @@ namespace Omniverse.Input
 									selectedUnit.Target = unit;
 								}
 							}
-
 							break;
 						case Item item:
 							foreach (Unit selectedUnit in Selector.SelectedUnits)
 							{
-								selectedUnit.Target = item;
+								var command = new PickUpItemCommand(selectedUnit, item);
+								selectedUnit.AddCommand(command, true);
 							}
-
 							break;
 					}
 				}
