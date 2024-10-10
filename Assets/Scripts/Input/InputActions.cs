@@ -62,6 +62,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stop"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a6623bf-c0d5-46e3-923e-96d994b09cbc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -106,6 +115,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""NextSelectionTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25f49c65-2a13-4a67-9112-d3fe141160da"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Stop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -225,6 +245,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Common_Command = m_Common.FindAction("Command", throwIfNotFound: true);
         m_Common_AdditiveMode = m_Common.FindAction("AdditiveMode", throwIfNotFound: true);
         m_Common_NextSelectionTarget = m_Common.FindAction("NextSelectionTarget", throwIfNotFound: true);
+        m_Common_Stop = m_Common.FindAction("Stop", throwIfNotFound: true);
         // Abilities
         m_Abilities = asset.FindActionMap("Abilities", throwIfNotFound: true);
         m_Abilities__1 = m_Abilities.FindAction("1", throwIfNotFound: true);
@@ -296,6 +317,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Common_Command;
     private readonly InputAction m_Common_AdditiveMode;
     private readonly InputAction m_Common_NextSelectionTarget;
+    private readonly InputAction m_Common_Stop;
     public struct CommonActions
     {
         private @InputActions m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Command => m_Wrapper.m_Common_Command;
         public InputAction @AdditiveMode => m_Wrapper.m_Common_AdditiveMode;
         public InputAction @NextSelectionTarget => m_Wrapper.m_Common_NextSelectionTarget;
+        public InputAction @Stop => m_Wrapper.m_Common_Stop;
         public InputActionMap Get() { return m_Wrapper.m_Common; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -325,6 +348,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @NextSelectionTarget.started += instance.OnNextSelectionTarget;
             @NextSelectionTarget.performed += instance.OnNextSelectionTarget;
             @NextSelectionTarget.canceled += instance.OnNextSelectionTarget;
+            @Stop.started += instance.OnStop;
+            @Stop.performed += instance.OnStop;
+            @Stop.canceled += instance.OnStop;
         }
 
         private void UnregisterCallbacks(ICommonActions instance)
@@ -341,6 +367,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @NextSelectionTarget.started -= instance.OnNextSelectionTarget;
             @NextSelectionTarget.performed -= instance.OnNextSelectionTarget;
             @NextSelectionTarget.canceled -= instance.OnNextSelectionTarget;
+            @Stop.started -= instance.OnStop;
+            @Stop.performed -= instance.OnStop;
+            @Stop.canceled -= instance.OnStop;
         }
 
         public void RemoveCallbacks(ICommonActions instance)
@@ -443,6 +472,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnCommand(InputAction.CallbackContext context);
         void OnAdditiveMode(InputAction.CallbackContext context);
         void OnNextSelectionTarget(InputAction.CallbackContext context);
+        void OnStop(InputAction.CallbackContext context);
     }
     public interface IAbilitiesActions
     {
