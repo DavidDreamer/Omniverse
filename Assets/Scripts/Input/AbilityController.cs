@@ -88,7 +88,13 @@ namespace Omniverse.Input
 				Vector3 direction = cursorWorldPosition.Value - ActiveUnit.transform.position;
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
-				ActiveAbility.OperationContext.Directions.Add(direction);
+
+				var castDirectionalAbilityCommand = new CastDirectionalAbilityCommand(ActiveUnit, ActiveAbility, direction);
+				ActiveUnit.AddCommand(castDirectionalAbilityCommand, true);
+
+				//TODO
+				Discard();
+				return;
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
