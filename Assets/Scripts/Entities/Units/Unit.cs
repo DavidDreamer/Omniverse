@@ -45,6 +45,10 @@ namespace Omniverse.Units
 
 		public Inventory Inventory { get; private set; }
 
+		public Queue<ICommand> CommandsQueue { get; } = new();
+
+		public ICommand Command { get; private set; }
+
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
@@ -101,29 +105,77 @@ namespace Omniverse.Units
 				return;
 			}
 
+			ProcessCommands(deltaTime);
+
+			if (Command == null)
 			{
 				ProcessTarget();
-
-				if (Properties.TryGetValue(PropertyID.MovementSpeed, out Property property))
-				{
-					NavMeshAgent.speed = property.Amount;
-				}
-				else
-				{
-					NavMeshAgent.speed = 0;
-				}
-
-				if (Properties.TryGetValue(PropertyID.RotationSpeed, out property))
-				{
-					NavMeshAgent.angularSpeed = property.Amount;
-				}
-				else
-				{
-					NavMeshAgent.angularSpeed = 0;
-				}
-
-				//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
 			}
+
+			if (Properties.TryGetValue(PropertyID.MovementSpeed, out Property prop))
+			{
+				NavMeshAgent.speed = prop.Amount;
+			}
+			else
+			{
+				NavMeshAgent.speed = 0;
+			}
+
+			if (Properties.TryGetValue(PropertyID.RotationSpeed, out prop))
+			{
+				NavMeshAgent.angularSpeed = prop.Amount;
+			}
+			else
+			{
+				NavMeshAgent.angularSpeed = 0;
+			}
+
+			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
+		}
+
+		private void ProcessCommands(float deltaTime)
+		{
+			if (Command == null)
+			{
+				if (CommandsQueue.Count == 0)
+				{
+					return;
+				}
+				else
+				{
+					Command = CommandsQueue.Dequeue();
+					Command.Start();
+				}
+			}
+
+			Command.Tick(deltaTime);
+
+			if (Command.IsCompleted)
+			{
+				Command.Cleanup();
+				Command = null;
+			}
+		}
+
+		public void AddCommand(ICommand command, bool forced)
+		{
+			if (forced)
+			{
+				ClearCommands();
+			}
+
+			CommandsQueue.Enqueue(command);
+		}
+
+		public void ClearCommands()
+		{
+			if (Command != null)
+			{
+				Command.Cleanup();
+				Command = null;
+			}
+
+			CommandsQueue.Clear();
 		}
 
 		public void Stop()
@@ -134,13 +186,6 @@ namespace Omniverse.Units
 		public void Start()
 		{
 			NavMeshAgent.isStopped = false;
-		}
-
-		public void MoveToPosition(Vector3 position)
-		{
-			Target = null;
-			Start();
-			NavMeshAgent.destination = position;
 		}
 
 		private void ProcessTarget()

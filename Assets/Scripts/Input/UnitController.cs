@@ -52,6 +52,13 @@ namespace Omniverse.Input
 					}
 				}
 			}
+			else if (CommonActions.Stop.WasPerformedThisFrame())
+			{
+				foreach (Unit unit in Selector.SelectedUnits)
+				{
+					unit.ClearCommands();
+				}
+			}
 		}
 
 		public void ProcessNavigationPoint(Vector3 position)
@@ -66,7 +73,8 @@ namespace Omniverse.Input
 		{
 			foreach (Unit unit in Selector.SelectedUnits)
 			{
-				unit.MoveToPosition(position);
+				MoveCommand moveCommand = new(unit, position);
+				unit.AddCommand(moveCommand, true);
 			}
 
 			NavigationPointCreated?.Invoke(position);
