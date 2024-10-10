@@ -1,0 +1,43 @@
+﻿using Omniverse.Abilities;
+
+namespace Omniverse.Units
+{
+	public class CastAbilityCommand : Command
+	{
+		protected Ability Ability { get; }
+
+		public CastAbilityCommand(Unit unit, Ability ability) : base(unit)
+		{
+			Ability = ability;
+		}
+
+		public override bool Tick(float deltaTime)
+		{
+			Ability.InProcess = true;
+
+			Ability.CastTime += deltaTime;
+
+			if (Ability.CastTime < Ability.Desc.Cast.Time)
+			{
+				return false;
+			}
+
+			foreach (CostDesc cost in Ability.Desc.Cost)
+			{
+				Unit.Properties[cost.PropertyID].Modify(cost.PropertyModifier);
+			}
+
+			Ability.Cast();
+
+			return true;
+		}
+
+		public override void Cleanup()
+		{
+			base.Cleanup();
+
+			Ability.InProcess = false;
+			Ability.CastTime = 0;
+		}
+	}
+}

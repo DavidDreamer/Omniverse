@@ -45,7 +45,8 @@ namespace Omniverse.Input
 
 			if (targetType is TargetType.None)
 			{
-				Cast(unit, ability);
+				var command = new CastAbilityCommand(unit, ability);
+				unit.AddCommand(command, true);
 			}
 			else
 			{
@@ -101,7 +102,14 @@ namespace Omniverse.Input
 					return;
 				}
 
-				ActiveAbility.OperationContext.Entities.Add(target);
+				var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
+				ActiveUnit.AddCommand(approachEntityForAbilityCastCommand, true);
+				var castEntityTargetAbilityCommand = new CastEntityTargetAbilityCommand(ActiveUnit, ActiveAbility, target);
+				ActiveUnit.AddCommand(castEntityTargetAbilityCommand, false);
+
+				//TODO
+				Discard();
+				return;
 			}
 
 			AbilityCastError error = ActiveAbility.CanBeCasted(ActiveUnit);

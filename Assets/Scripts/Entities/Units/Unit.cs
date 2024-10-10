@@ -136,12 +136,28 @@ namespace Omniverse.Units
 				}
 			}
 
-			bool completed = Command.Tick(deltaTime);
-
-			if (completed)
+			while (true)
 			{
-				Command.Cleanup();
-				Command = null;
+				bool completed = Command.Tick(deltaTime);
+				if (completed)
+				{
+					Command.Cleanup();
+
+					if (CommandsQueue.Count > 0)
+					{
+						Command = CommandsQueue.Dequeue();
+						Command.Start();
+					}
+					else
+					{
+						Command = null;
+						break;
+					}
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 
@@ -243,7 +259,7 @@ namespace Omniverse.Units
 				Properties[cost.PropertyID].Modify(cost.PropertyModifier);
 			}
 
-			await ability.Cast(this, token);
+			ability.Cast();
 		}
 
 		internal void Die()
