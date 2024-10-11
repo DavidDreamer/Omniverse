@@ -1,4 +1,5 @@
 ﻿using Dreambox.Physics;
+using Omniverse.Abilities;
 using UnityEngine;
 
 namespace Omniverse.Units.Client
@@ -28,6 +29,16 @@ namespace Omniverse.Units.Client
 
 			unit.Died += OnDied;
 			unit.Attack.Started += OnAttackStarted;
+
+			foreach (Ability ability in unit.Abilities)
+			{
+				ability.Casting.Started += OnAbiltiyCastingStarted;
+			}
+		}
+
+		private void OnAbiltiyCastingStarted(Casting casting)
+		{
+			Animator.SetTrigger(AnimatorVariables.Attack);
 		}
 
 		private void Update()

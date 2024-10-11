@@ -30,16 +30,16 @@ MonoBehaviour:
     <Name>k__BackingField: Harvest
     <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
-  <Cast>k__BackingField:
-    <Time>k__BackingField: 0
-    <AnimationTrigger>k__BackingField: 
   <Target>k__BackingField:
     <Type>k__BackingField: 8
-    <Range>k__BackingField: 1
+    <Range>k__BackingField: 2
     <Filter>k__BackingField: 0
     <ResourceSources>k__BackingField:
     - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
+  <Cost>k__BackingField: []
+  <Casting>k__BackingField:
+    <Time>k__BackingField: 0.5
+    <AnimationTrigger>k__BackingField: Attack
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Cost>k__BackingField: []
   <Operation>k__BackingField: {fileID: -8525168635583495473}

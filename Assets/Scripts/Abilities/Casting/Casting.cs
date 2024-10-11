@@ -4,6 +4,9 @@ namespace Omniverse.Abilities
 {
 	public class Casting
 	{
+		//TODO
+		public event System.Action<Casting> Started;
+
 		private CastingDesc Desc { get; }
 
 		public float Time { get; private set; }
@@ -22,6 +25,7 @@ namespace Omniverse.Abilities
 		public void Start()
 		{
 			InProcess = true;
+			Started?.Invoke(this);
 		}
 
 		public void Tick(float deltaTime)
