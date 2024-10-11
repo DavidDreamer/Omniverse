@@ -2,7 +2,7 @@
 using System.Reflection;
 using Dreambox.Rendering;
 using Dreambox.Rendering.Universal;
-using Omniverse.Rendering.FogOfWar;
+using Omniverse.FogOfWar.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

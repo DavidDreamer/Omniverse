@@ -2,7 +2,7 @@ using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 
-namespace Omniverse.Rendering.FogOfWar
+namespace Omniverse.FogOfWar.Rendering
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/FogOfWar")]
 	public class FogOfWarRendererConfig : CustomRendererConfig

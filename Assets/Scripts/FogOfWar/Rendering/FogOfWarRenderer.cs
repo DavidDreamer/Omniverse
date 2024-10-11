@@ -1,12 +1,11 @@
 ﻿using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
-using Omniverse.FogOfWar;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
 
-namespace Omniverse.Rendering.FogOfWar
+namespace Omniverse.FogOfWar.Rendering
 {
 	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
 	{
