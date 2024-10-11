@@ -20,6 +20,9 @@ namespace Omniverse
 		[Inject]
 		public IObjectResolver ObjectResolver { get; private set; }
 
+		[Inject]
+		public ResourceExtractionHadler ResourceExtractionHadler { get; set; }
+
 		public OperationContext(Entity actor)
 		{
 			Actor = actor;

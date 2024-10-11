@@ -30,8 +30,6 @@ namespace Omniverse
 
 			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
-			builder.Register<OperationHandler>(Lifetime.Singleton);
-
 			InputInstaller.Install(builder);
 		}
 	}
