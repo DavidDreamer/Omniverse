@@ -7,7 +7,7 @@ namespace Omniverse.Entities.Units
 	public class UnitSpawner : MonoBehaviour
 	{
 		[Inject]
-		private Manager UnitManager { get; set; }
+		private UnitManager UnitManager { get; set; }
 
 		public UnitDesc UnitDesc;
 

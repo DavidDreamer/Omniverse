@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Omniverse.FogOfWar;
+using Omniverse.Items;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,14 +12,13 @@ using Random = UnityEngine.Random;
 
 namespace Omniverse.Units
 {
-	[UnityEngine.Scripting.Preserve]
-	public class Manager : IFixedTickable, IPostFixedTickable, IDisposable
+	public class UnitManager : IFixedTickable, IPostFixedTickable, IDisposable
 	{
 		[Inject]
 		private PrefabPool<Unit> Pool { get; set; }
 
 		[Inject]
-		private Items.Manager ItemManager { get; set; }
+		private ItemManager ItemManager { get; set; }
 
 		[Inject]
 		private UnitManagerConfig Config { get; set; }

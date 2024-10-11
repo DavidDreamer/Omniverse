@@ -10,7 +10,7 @@ namespace Omniverse.Events
 		private ItemDesc Desc { get; set; }
 
 		[Inject]
-		private Items.Manager ItemsManager { get; set; }
+		private ItemManager ItemsManager { get; set; }
 
 		public void Start()
 		{

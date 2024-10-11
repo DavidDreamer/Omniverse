@@ -3,9 +3,9 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Omniverse
+namespace Omniverse.Editor
 {
-	public static class TerrainUtils
+	public static class TerrainEditorUtils
 	{
 		[MenuItem("Dreambox/Terrain/Export Trees")]
 		public static void ExportTrees()

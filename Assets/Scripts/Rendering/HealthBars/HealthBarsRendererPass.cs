@@ -54,7 +54,7 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, "Health Bars");
 			var commandBuffer = scope.CommandBuffer;
 
-			Manager unitManager = Renderer.UnitManager;
+			UnitManager unitManager = Renderer.UnitManager;
 			var units = unitManager.Units;
 
 			MaterialPropertyBlock.Clear();

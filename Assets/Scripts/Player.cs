@@ -1,8 +1,5 @@
-﻿using UnityEngine.Scripting;
-
-namespace Omniverse
+﻿namespace Omniverse
 {
-	[Preserve]
 	public class Player : IFactious
 	{
 		public int FactionID { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Dreambox.Rendering.Universal;
+using Omniverse.Units;
 using VContainer;
 
 namespace Omniverse.Rendering
@@ -6,7 +7,7 @@ namespace Omniverse.Rendering
 	public class HealthBarsRenderer : CustomRenderer<HealthBarsRendererConfig, HealthBarsRendererPass>
 	{
 		[Inject]
-		public Units.Manager UnitManager { get; private set; }
+		public UnitManager UnitManager { get; private set; }
 
 		[Inject]
 		public Player Player { get; private set; }

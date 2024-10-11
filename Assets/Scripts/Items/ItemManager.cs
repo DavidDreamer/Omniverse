@@ -3,8 +3,7 @@ using VContainer;
 
 namespace Omniverse.Items
 {
-	[UnityEngine.Scripting.Preserve]
-	public class Manager
+	public class ItemManager
 	{
 		[Inject]
 		private PrefabPool<Item> PrefabPool { get; set; }
