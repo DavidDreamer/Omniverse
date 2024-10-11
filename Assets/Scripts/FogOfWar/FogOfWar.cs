@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse
 {
-	public class FogOfWar : IInitializable, IFixedTickable
+	public class FogOfWar : IInitializable
 	{
 		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 
@@ -142,7 +142,7 @@ namespace Omniverse
 			}
 		}
 
-		public void FixedTick()
+		public void Tick()
 		{
 			UpdateAgentPositions();
 			Clear();

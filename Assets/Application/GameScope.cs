@@ -52,6 +52,8 @@ namespace Omniverse
 
 			RenderingInstaller.Install(builder);
 			UIInstaller.Install(builder);
+
+			builder.Register<GameDirector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 		}
 	}
 }

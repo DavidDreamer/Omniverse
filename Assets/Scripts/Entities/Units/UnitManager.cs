@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Omniverse.Units
 {
-	public class UnitManager : IFixedTickable, IPostFixedTickable, IDisposable
+	public class UnitManager : IDisposable
 	{
 		[Inject]
 		private PrefabPool<Unit> Pool { get; set; }
@@ -71,10 +71,8 @@ namespace Omniverse.Units
 			Units.Remove(unit);
 		}
 
-		public void FixedTick()
+		public void Tick(float deltaTime)
 		{
-			float deltaTime = Time.fixedDeltaTime;
-
 			for (var i = 0; i < Units.Count; i++)
 			{
 				Unit unit = Units[i];
@@ -90,7 +88,7 @@ namespace Omniverse.Units
 			}
 		}
 
-		public void PostFixedTick()
+		public void UpdateLivingState()
 		{
 			for (var i = 0; i < Units.Count; i++)
 			{
