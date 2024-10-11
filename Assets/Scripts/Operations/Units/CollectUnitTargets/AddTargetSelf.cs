@@ -1,14 +1,10 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-
-namespace Omniverse.Actions
+﻿namespace Omniverse.Actions
 {
 	public class AddTargetSelf : Action
 	{
-		public override UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			context.Entities.Add(context.Actor);
-			return UniTask.CompletedTask;
 		}
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions
@@ -10,7 +8,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public override UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			foreach (var unit in context.Units())
 			{
@@ -18,8 +16,6 @@ namespace Omniverse.Actions
 
 				unit.ApplyEffect(effect);
 			}
-
-			return UniTask.CompletedTask;
 		}
 	}
 }

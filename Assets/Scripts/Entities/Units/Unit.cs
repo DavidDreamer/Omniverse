@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using Omniverse.Abilities;
 using UnityEngine;
 using UnityEngine.AI;
@@ -179,7 +178,7 @@ namespace Omniverse.Units
 			{
 				var context = new OperationContext(this);
 				context.Points.Add(transform.position);
-				OperationHandler.PerformAsync(effect.Desc.OnRemovedOperation, this, context, default).Forget();
+				OperationHandler.Perform(effect.Desc.OnRemovedOperation, this, context);
 			}
 
 			Effects.RemoveAt(index);

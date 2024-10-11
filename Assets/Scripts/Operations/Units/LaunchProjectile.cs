@@ -1,9 +1,6 @@
 ﻿using System.Linq;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Omniverse.Units;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Omniverse.Actions
 {
@@ -12,18 +9,17 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public ProjectileDesc Projectile { get; private set; }
 
-		public override async UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			//TODO
 			var unit = context.Actor as Unit;
 
 			Vector3 position = context.Actor.transform.position;
-			Projectile projectile = Object.Instantiate(Projectile.Model, position, Quaternion.identity).GetComponent<Projectile>();
+			Projectile projectile = Instantiate(Projectile.Model, position, Quaternion.identity).GetComponent<Projectile>();
 			projectile.Initialize(Projectile);
 			projectile.ChangeFaction(unit.FactionID);
 			Vector3 direction = context.Directions.First();
 			projectile.Direction = direction;
-			await UniTask.CompletedTask;
 		}
 	}
 }

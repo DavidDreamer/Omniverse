@@ -42,7 +42,7 @@ namespace Omniverse.Abilities
 		{
 			Cooldown.Activate();
 
-			OperationHandler.PerformAsync(Desc.Operation, Entity, OperationContext, default).Forget();
+			OperationHandler.Perform(Desc.Operation, Entity, OperationContext);
 
 			Used.TrySetResult();
 

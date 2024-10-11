@@ -1,15 +1,10 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-
-namespace Omniverse.Actions
+﻿namespace Omniverse.Actions
 {
 	public class KillUnits : Action
 	{
-		public override UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			//TODO: insta kill
-
-			return UniTask.CompletedTask;
 		}
 	}
 }

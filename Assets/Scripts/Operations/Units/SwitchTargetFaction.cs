@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Omniverse.Actions
@@ -18,10 +17,8 @@ namespace Omniverse.Actions
 		[field: OperationPicker]
 		public Operation Enemy { get; private set; }
 
-		public override async UniTask<Operation> PerformAsync(OperationContext context, System.Threading.CancellationToken token)
+		public override Operation Perform(OperationContext context)
 		{
-			await UniTask.CompletedTask;
-
 			var unit = context.Units().First();
 			var caster = (IFactious)context.Actor;
 

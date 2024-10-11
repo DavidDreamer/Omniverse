@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using VContainer;
+﻿using VContainer;
 
 namespace Omniverse
 {
@@ -9,25 +7,25 @@ namespace Omniverse
 		[Inject]
 		public IObjectResolver ObjectResolver { get; set; }
 
-		public async UniTask PerformAsync(Operation operation, Entity actor, CancellationToken token)
+		public void Perform(Operation operation, Entity actor)
 		{
 			var context = new OperationContext(actor);
 			ObjectResolver.Inject(context);
 
 			do
 			{
-				operation = await operation.PerformAsync(context, token);
+				operation = operation.Perform(context);
 			}
 			while (operation != null);
 		}
 
-		public async UniTask PerformAsync(Operation operation, Entity actor, OperationContext context, CancellationToken token)
+		public void Perform(Operation operation, Entity actor, OperationContext context)
 		{
 			ObjectResolver.Inject(context);
 
 			do
 			{
-				operation = await operation.PerformAsync(context, token);
+				operation = operation.Perform(context);
 			}
 			while (operation != null);
 		}

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Omniverse.Units;
 using UnityEngine;
 
@@ -13,7 +11,7 @@ namespace Omniverse.Actions
 
 		public abstract IEnumerable<Unit> GetUnits(OperationContext context);
 
-		public override UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			//TODO
 			var source = context.Actor as IFactious;
@@ -30,8 +28,6 @@ namespace Omniverse.Actions
 
 				context.Entities.Add(unit);
 			}
-
-			return UniTask.CompletedTask;
 		}
 	}
 }

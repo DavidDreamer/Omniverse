@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
 
 namespace Omniverse.Units
@@ -27,7 +26,7 @@ namespace Omniverse.Units
 			{
 				var context = new OperationContext(this);
 				context.Entities.Add(Target);
-				OperationHandler.PerformAsync(Desc.HitOperation, this, context, default).Forget();
+				OperationHandler.Perform(Desc.HitOperation, this, context);
 				Destroy(gameObject);
 			}
 		}

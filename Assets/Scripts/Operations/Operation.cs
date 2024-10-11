@@ -1,11 +1,9 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
 	public abstract class Operation : ScriptableObject
 	{
-		public abstract UniTask<Operation> PerformAsync(OperationContext context, CancellationToken token);
+		public abstract Operation Perform(OperationContext context);
 	}
 }

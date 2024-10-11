@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions
@@ -13,14 +11,12 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public PropertyModifier Modifier { get; private set; }
 
-		public override UniTask Perform(OperationContext context, CancellationToken token)
+		public override void PerformTemp(OperationContext context)
 		{
 			foreach (Unit unit in context.Units())
 			{
 				unit.ModifyProperty(Property, Modifier, context.Actor);
 			}
-
-			return UniTask.CompletedTask;
 		}
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
@@ -10,12 +8,12 @@ namespace Omniverse
 		[field: OperationPicker]
 		public Operation Then { get; private set; }
 
-		public override async UniTask<Operation> PerformAsync(OperationContext context, CancellationToken token)
+		public override Operation Perform(OperationContext context)
 		{
-			await Perform(context, token);
+			PerformTemp(context);
 			return Then;
 		}
 
-		public abstract UniTask Perform(OperationContext context, CancellationToken token);
+		public abstract void PerformTemp(OperationContext context);
 	}
 }
