@@ -32,9 +32,14 @@ namespace Omniverse.Abilities
 			OperationContext = new OperationContext(actor);
 		}
 
+		public void Tick(float deltaTime)
+		{
+			Cooldown.Tick(deltaTime);
+		}
+
 		public void Cast()
 		{
-			Cooldown?.ActivateAsync(default);
+			Cooldown.Activate();
 
 			OperationHandler.PerformAsync(Desc.Operation, Entity, OperationContext, default).Forget();
 

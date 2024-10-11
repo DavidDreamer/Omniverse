@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse.Abilities
 {
@@ -12,27 +10,27 @@ namespace Omniverse.Abilities
 
 		public float TimeLeftRatio { get; private set; }
 
-		public bool IsActive { get; private set; }
+		public bool IsActive => TimeLeft > 0f;
 
 		public Cooldown(CooldownDesc desc)
 		{
 			Desc = desc;
 		}
 
-		public async UniTask ActivateAsync(CancellationToken token)
+		public void Tick(float deltaTime)
 		{
-			IsActive = true;
-
-			TimeLeft = Desc.Time;
-
-			while (TimeLeft > 0f)
+			if (TimeLeft == 0f)
 			{
-				await UniTask.NextFrame(cancellationToken: token);
-				TimeLeft = Mathf.Max(0, TimeLeft - Time.deltaTime);
-				TimeLeftRatio = Mathf.Clamp01(TimeLeft / Desc.Time);
+				return;
 			}
 
-			IsActive = false;
+			TimeLeft = Mathf.Max(0, TimeLeft - deltaTime);
+			TimeLeftRatio = Mathf.Clamp01(TimeLeft / Desc.Time);
+		}
+
+		public void Activate()
+		{
+			TimeLeft = Desc.Time;
 		}
 	}
 }

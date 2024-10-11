@@ -88,11 +88,41 @@ namespace Omniverse.Units
 				return;
 			}
 
-			UpdateEffects(deltaTime);
+			UpdateAbilities();
+			UpdateEffects();
 			UpdateProperties();
 			ProcessCommands(deltaTime);
 
 			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
+
+			void UpdateAbilities()
+			{
+				foreach (Ability ability in Abilities)
+				{
+					ability.Tick(deltaTime);
+				}
+			}
+
+			void UpdateEffects()
+			{
+				Status = UnitStatus.None;
+
+				for (var i = 0; i < Effects.Count; ++i)
+				{
+					Effect effect = Effects[i];
+					effect.Tick(deltaTime);
+
+					if (effect.OutOfTime)
+					{
+						RemoveEffect(effect, i);
+						i--;
+					}
+					else
+					{
+						Status |= effect.Desc.UnitStatus;
+					}
+				}
+			}
 
 			void UpdateProperties()
 			{
@@ -180,27 +210,6 @@ namespace Omniverse.Units
 			}
 
 			CommandsQueue.Clear();
-		}
-
-		private void UpdateEffects(float deltaTime)
-		{
-			Status = UnitStatus.None;
-
-			for (var i = 0; i < Effects.Count; ++i)
-			{
-				Effect effect = Effects[i];
-				effect.Tick(deltaTime);
-
-				if (effect.OutOfTime)
-				{
-					RemoveEffect(effect, i);
-					i--;
-				}
-				else
-				{
-					Status |= effect.Desc.UnitStatus;
-				}
-			}
 		}
 
 		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, Entity source)
