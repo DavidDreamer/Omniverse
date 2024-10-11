@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Omniverse
 {
-	public class FogOfWar : IInitializable
+	public partial class FogOfWar : IInitializable
 	{
 		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 
