@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6583641512448765275}
   - component: {fileID: 3288214872313971665}
   - component: {fileID: 643246325075944404}
+  - component: {fileID: 1563260761367285488}
   m_Layer: 0
   m_Name: Tree_Pine_1
   m_TagString: Untagged
@@ -106,10 +107,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.430414
-  m_Height: 7.545759
+  m_Radius: 1
+  m_Height: 10
   m_Direction: 1
-  m_Center: {x: 0.018485546, y: 3.690929, z: -0.11983621}
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!114 &-6583641512448765275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +152,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Renderers>k__BackingField:
   - {fileID: 2216872027575356420}
+--- !u!208 &1563260761367285488
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088653225545430688}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1, y: 5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 5, z: 0}
+  m_TimeToStationary: 0.5
