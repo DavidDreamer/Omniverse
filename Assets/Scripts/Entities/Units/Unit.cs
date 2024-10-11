@@ -9,7 +9,6 @@ using VContainer;
 
 namespace Omniverse.Units
 {
-
 	public class Unit : FactiousEntity<UnitDesc>, IPoolObject
 	{
 		public event Action<Effect> EffectApplied;

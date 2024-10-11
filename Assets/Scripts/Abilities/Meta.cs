@@ -7,7 +7,7 @@ namespace Omniverse.Abilities
 	public class Meta
 	{
 		[field: SerializeField]
-		public string Name{ get; private set; }
+		public string Name { get; private set; }
 
 		[field: SerializeField]
 		public string Description { get; private set; }

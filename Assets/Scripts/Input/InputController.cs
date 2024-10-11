@@ -61,7 +61,7 @@ namespace Omniverse.Input
 					CursorWorldPosition = null;
 				}
 			}
-	
+
 			bool abilityInProcess = AbilityController.ActiveAbility is not null;
 
 			if (abilityInProcess)
