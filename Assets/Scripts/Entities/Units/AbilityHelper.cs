@@ -11,7 +11,7 @@ namespace Omniverse.Units
 				return AbilityCastError.IsOnCooldown;
 			}
 
-			if (ability.InProcess)
+			if (ability.Casting.InProcess)
 			{
 				return AbilityCastError.AlreadyInProcess;
 			}

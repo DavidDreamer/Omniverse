@@ -11,20 +11,25 @@ namespace Omniverse.Units
 			Ability = ability;
 		}
 
+		public override void Start()
+		{
+			base.Start();
+
+			Ability.Casting.Start();
+		}
+
 		public override bool Tick(float deltaTime)
 		{
-			AbilityCastError error = Ability.CanBeCasted(Unit);
+			//AbilityCastError error = Ability.CanBeCasted(Unit);
 
-			if (error is not AbilityCastError.None)
-			{
-				return true;
-			}
+			//if (error is not AbilityCastError.None)
+			//{
+			//	return true;
+			//}
 
-			Ability.InProcess = true;
+			Ability.Casting.Tick(deltaTime);
 
-			Ability.CastTime += deltaTime;
-
-			if (Ability.CastTime < Ability.Desc.Cast.Time)
+			if (!Ability.Casting.Finished)
 			{
 				return false;
 			}
@@ -43,8 +48,7 @@ namespace Omniverse.Units
 		{
 			base.Cleanup();
 
-			Ability.InProcess = false;
-			Ability.CastTime = 0;
+			Ability.Casting.Reset();
 		}
 	}
 }

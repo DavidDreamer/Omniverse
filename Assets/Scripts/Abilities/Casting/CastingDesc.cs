@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace Omniverse.Abilities
 {
+
 	[Serializable]
-	public class Cast
+	public class CastingDesc
 	{
 		[field: SerializeField]
 		public float Time { get; private set; }

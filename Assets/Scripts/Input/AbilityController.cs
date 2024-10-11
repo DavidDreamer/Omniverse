@@ -45,7 +45,7 @@ namespace Omniverse.Input
 
 			if (targetType is TargetType.None)
 			{
-				if (ability.Desc.Cast.Time == 0)
+				if (ability.Desc.Casting.Time == 0)
 				{
 					var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
 					unit.CommandModule.Add(castImmediateAbilityCommand);

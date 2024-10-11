@@ -13,6 +13,9 @@ namespace Omniverse.UI
 		private Image Icon { get; set; }
 
 		[field: SerializeField]
+		private CastingWidget Casting { get; set; }
+
+		[field: SerializeField]
 		private CooldownWidget Cooldown { get; set; }
 
 		[field: SerializeField]
@@ -40,6 +43,8 @@ namespace Omniverse.UI
 			Ability = ability;
 
 			Icon.sprite = ability.Desc.Meta.Icon;
+
+			Casting.Bind(Ability.Casting);
 
 			if (Ability.Cooldown is not null)
 			{
@@ -70,6 +75,8 @@ namespace Omniverse.UI
 		public void Tick()
 		{
 			Activator.enabled = AbilityController.ActiveAbility == Ability;
+
+			Casting.Tick();
 
 			if (Ability.Cooldown is not null)
 			{

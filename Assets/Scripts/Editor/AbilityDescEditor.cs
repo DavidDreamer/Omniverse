@@ -8,14 +8,12 @@ namespace Omniverse.Editor
 	[CustomEditor(typeof(AbilityDesc))]
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
-		private SerializedProperty Cast { get; set; }
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
 		private SerializedProperty Operation { get; set; }
 
 		private void OnEnable()
 		{
-			Cast = serializedObject.FindProperty(nameof(Cast).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 			Operation = serializedObject.FindProperty(nameof(Operation).ToBackingField());
@@ -27,9 +25,9 @@ namespace Omniverse.Editor
 
 			DrawMeta();
 			DrawTarget();
-			DrawSection(Cast);
-			DrawSection(Cooldown);
 			DrawSection(Cost);
+			DrawCasting();
+			DrawSection(Cooldown);
 			DrawAction(Operation);
 
 			serializedObject.ApplyModifiedProperties();
@@ -82,6 +80,12 @@ namespace Omniverse.Editor
 					EditorGUILayout.PropertyField(resourceSources);
 				}
 			}
+		}
+
+		private void DrawCasting()
+		{
+			SerializedProperty casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
+			DrawSection(casting);
 		}
 
 		private void DrawSection(SerializedProperty serializedProperty)

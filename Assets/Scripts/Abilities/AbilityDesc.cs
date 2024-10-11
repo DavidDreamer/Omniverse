@@ -10,16 +10,16 @@ namespace Omniverse.Abilities
 		public Meta Meta { get; private set; }
 
 		[field: SerializeField]
-		public Cast Cast { get; private set; }
-
-		[field: SerializeField]
 		public TargetDesc Target { get; private set; }
 
 		[field: SerializeField]
-		public CooldownDesc Cooldown { get; private set; }
+		public List<CostDesc> Cost { get; private set; }
 
 		[field: SerializeField]
-		public List<CostDesc> Cost { get; private set; }
+		public CastingDesc Casting { get; private set; }
+
+		[field: SerializeField]
+		public CooldownDesc Cooldown { get; private set; }
 
 		[field: SerializeField]
 		[field: OperationPicker]

@@ -8,11 +8,9 @@ namespace Omniverse.Abilities
 
 		public Entity Entity { get; }
 
+		public Casting Casting { get; }
+
 		public Cooldown Cooldown { get; }
-
-		public bool InProcess { get; set; }
-
-		public float CastTime { get; set; }
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
@@ -24,7 +22,10 @@ namespace Omniverse.Abilities
 		{
 			Desc = desc;
 			Entity = actor;
+
+			Casting = new Casting(Desc.Casting);
 			Cooldown = new Cooldown(Desc.Cooldown);
+
 			Used = AutoResetUniTaskCompletionSource.Create();
 
 			OperationHandler = operationHandler;
