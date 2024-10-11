@@ -45,8 +45,17 @@ namespace Omniverse.Input
 
 			if (targetType is TargetType.None)
 			{
-				var command = new CastAbilityCommand(unit, ability);
-				unit.AddCommand(command, true);
+				if (ability.Desc.Cast.Time == 0)
+				{
+					var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
+					unit.AddCommand(castImmediateAbilityCommand);
+
+				}
+				else
+				{
+					var command = new CastAbilityCommand(unit, ability);
+					unit.AddCommand(command, true);
+				}
 			}
 			else
 			{

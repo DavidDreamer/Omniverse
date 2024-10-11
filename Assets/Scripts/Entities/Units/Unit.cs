@@ -41,6 +41,7 @@ namespace Omniverse.Units
 		public Inventory Inventory { get; private set; }
 
 		public Queue<ICommand> CommandsQueue { get; } = new();
+		public Queue<IImmediateCommand> ImmediateCommandsQueue { get; } = new();
 
 		public ICommand Command { get; private set; }
 
@@ -153,6 +154,12 @@ namespace Omniverse.Units
 
 		private void ProcessCommands(float deltaTime)
 		{
+			while (ImmediateCommandsQueue.Count > 0)
+			{
+				IImmediateCommand command = ImmediateCommandsQueue.Dequeue();
+				command.Execute();
+			}
+
 			if (Command == null)
 			{
 				if (CommandsQueue.Count == 0)
@@ -189,6 +196,11 @@ namespace Omniverse.Units
 					break;
 				}
 			}
+		}
+
+		public void AddCommand(IImmediateCommand command)
+		{
+			ImmediateCommandsQueue.Enqueue(command);
 		}
 
 		public void AddCommand(ICommand command, bool forced)
