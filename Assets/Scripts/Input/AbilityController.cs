@@ -48,13 +48,12 @@ namespace Omniverse.Input
 				if (ability.Desc.Cast.Time == 0)
 				{
 					var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
-					unit.AddCommand(castImmediateAbilityCommand);
-
+					unit.CommandModule.Add(castImmediateAbilityCommand);
 				}
 				else
 				{
 					var command = new CastAbilityCommand(unit, ability);
-					unit.AddCommand(command, true);
+					AddCommand(unit, command);
 				}
 			}
 			else
@@ -81,9 +80,9 @@ namespace Omniverse.Input
 				}
 
 				var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				ActiveUnit.AddCommand(approachPositionForAbilityCastCommand, !additiveMode);
+				AddCommand(ActiveUnit, approachPositionForAbilityCastCommand);
 				var castPointTargetAbilityCommand = new CastPointTargetAbilityCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				ActiveUnit.AddCommand(castPointTargetAbilityCommand, false);
+				ActiveUnit.CommandModule.Add(castPointTargetAbilityCommand);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -102,7 +101,7 @@ namespace Omniverse.Input
 				direction.Normalize();
 
 				var castDirectionalAbilityCommand = new CastDirectionalAbilityCommand(ActiveUnit, ActiveAbility, direction);
-				ActiveUnit.AddCommand(castDirectionalAbilityCommand, !additiveMode);
+				AddCommand(ActiveUnit, castDirectionalAbilityCommand);
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
@@ -117,9 +116,9 @@ namespace Omniverse.Input
 				}
 
 				var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
-				ActiveUnit.AddCommand(approachEntityForAbilityCastCommand, !additiveMode);
+				AddCommand(ActiveUnit, approachEntityForAbilityCastCommand);
 				var castEntityTargetAbilityCommand = new CastEntityTargetAbilityCommand(ActiveUnit, ActiveAbility, target);
-				ActiveUnit.AddCommand(castEntityTargetAbilityCommand, false);
+				ActiveUnit.CommandModule.Add(castEntityTargetAbilityCommand);
 			}
 
 			Discard();
@@ -128,6 +127,16 @@ namespace Omniverse.Input
 		private void Discard()
 		{
 			ActiveAbility = null;
+		}
+
+		private void AddCommand(Unit unit, ICommand command)
+		{
+			if (!CommonActions.AdditiveMode.IsPressed())
+			{
+				unit.CommandModule.Reset();
+			}
+
+			unit.CommandModule.Add(command);
 		}
 	}
 }

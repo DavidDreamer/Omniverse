@@ -9,6 +9,7 @@ using VContainer;
 
 namespace Omniverse.Units
 {
+
 	public class Unit : FactiousEntity<UnitDesc>, IPoolObject
 	{
 		public event Action<Effect> EffectApplied;
@@ -40,10 +41,7 @@ namespace Omniverse.Units
 
 		public Inventory Inventory { get; private set; }
 
-		public Queue<ICommand> CommandsQueue { get; } = new();
-		public Queue<IImmediateCommand> ImmediateCommandsQueue { get; } = new();
-
-		public ICommand Command { get; private set; }
+		public CommandModule CommandModule { get; private set; }
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
@@ -70,6 +68,7 @@ namespace Omniverse.Units
 
 			Attack = new Attack(this);
 			Inventory = new Inventory(desc.Inventory);
+			CommandModule = new CommandModule(this);
 		}
 
 		public void Cleanup()
@@ -92,7 +91,7 @@ namespace Omniverse.Units
 			UpdateAbilities();
 			UpdateEffects();
 			UpdateProperties();
-			ProcessCommands(deltaTime);
+			CommandModule.Tick(deltaTime);
 
 			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
 
@@ -150,78 +149,6 @@ namespace Omniverse.Units
 					property.Value.FixedTick(deltaTime);
 				}
 			}
-		}
-
-		private void ProcessCommands(float deltaTime)
-		{
-			while (ImmediateCommandsQueue.Count > 0)
-			{
-				IImmediateCommand command = ImmediateCommandsQueue.Dequeue();
-				command.Execute();
-			}
-
-			if (Command == null)
-			{
-				if (CommandsQueue.Count == 0)
-				{
-					return;
-				}
-				else
-				{
-					Command = CommandsQueue.Dequeue();
-					Command.Start();
-				}
-			}
-
-			while (true)
-			{
-				bool completed = Command.Tick(deltaTime);
-				if (completed)
-				{
-					Command.Cleanup();
-
-					if (CommandsQueue.Count > 0)
-					{
-						Command = CommandsQueue.Dequeue();
-						Command.Start();
-					}
-					else
-					{
-						Command = null;
-						break;
-					}
-				}
-				else
-				{
-					break;
-				}
-			}
-		}
-
-		public void AddCommand(IImmediateCommand command)
-		{
-			ImmediateCommandsQueue.Enqueue(command);
-		}
-
-		public void AddCommand(ICommand command, bool forced)
-		{
-			if (forced)
-			{
-				ClearCommands();
-			}
-
-			CommandsQueue.Enqueue(command);
-		}
-
-		public void ClearCommands()
-		{
-			if (Command != null)
-			{
-				Command.Cleanup();
-				Command = null;
-			}
-
-			CommandsQueue.Clear();
 		}
 
 		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, Entity source)

@@ -64,7 +64,7 @@ namespace Omniverse.Input
 			{
 				foreach (Unit unit in Selector.SelectedUnits)
 				{
-					unit.ClearCommands();
+					unit.CommandModule.Reset();
 				}
 			}
 		}
@@ -90,8 +90,12 @@ namespace Omniverse.Input
 
 		private void AddCommand(Unit unit, ICommand command)
 		{
-			bool forced = !CommonActions.AdditiveMode.IsPressed();
-			unit.AddCommand(command, forced);
+			if (!CommonActions.AdditiveMode.IsPressed())
+			{
+				unit.CommandModule.Reset();
+			}
+
+			unit.CommandModule.Add(command);
 		}
 	}
 }
