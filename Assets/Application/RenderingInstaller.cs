@@ -2,7 +2,6 @@
 using System.Reflection;
 using Dreambox.Rendering;
 using Dreambox.Rendering.Universal;
-using Omniverse.FogOfWar.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -52,7 +51,7 @@ namespace Omniverse.Rendering
 			RegisterRenderer<OutlineRenderer, OutlineRendererConfig>(OutlineRendererConfig);
 			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
-			if (GameSettings.FogOfWarSettings.Enabled)
+			if (GameSettings.FogOfWarConfig.Enabled)
 			{
 				RegisterRenderer<FogOfWarRenderer, FogOfWarRendererConfig>(FogOfWarRendererConfig);
 			}

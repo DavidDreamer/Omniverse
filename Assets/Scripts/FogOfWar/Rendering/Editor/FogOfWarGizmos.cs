@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Omniverse.FogOfWar.Rendering.Editor
+namespace Omniverse.Rendering.Editor
 {
 	public static class FogOfWarGizmos
 	{
@@ -25,20 +25,20 @@ namespace Omniverse.FogOfWar.Rendering.Editor
 				return;
 			}
 
-			float width = fogOfWarRenderer.Manager.Resolution.x;
-			float height = fogOfWarRenderer.Manager.Resolution.y;
+			float width = fogOfWarRenderer.FogOfWar.Resolution.x;
+			float height = fogOfWarRenderer.FogOfWar.Resolution.y;
 
-			var cellVisibilityStates = fogOfWarRenderer.Manager.CellsVisibilityPerFaction[0];
-			var cellsObstacles = fogOfWarRenderer.Manager.CellsObstaclesPerFaction[0];
+			var cellVisibilityStates = fogOfWarRenderer.FogOfWar.CellsVisibilityPerFaction[0];
+			var cellsObstacles = fogOfWarRenderer.FogOfWar.CellsObstaclesPerFaction[0];
 
-			Vector3 size = new Vector3(1, 0, 1) * Manager.Multiplier;
+			Vector3 size = new Vector3(1, 0, 1) * FogOfWar.Multiplier;
 
 			for (int x = 0; x < width; ++x)
 			{
 				for (int y = 0; y < height; ++y)
 				{
-					int index = x * fogOfWarRenderer.Manager.Resolution.y + y;
-					Vector3 position = Manager.CalculateCellCenter(x, y);
+					int index = x * fogOfWarRenderer.FogOfWar.Resolution.y + y;
+					Vector3 position = FogOfWar.CalculateCellCenter(x, y);
 					Color color = cellsObstacles[index] ? Occluded :
 						cellVisibilityStates[index] is CellVisibilityState.Visible ? Visible : Invisible;
 

@@ -4,16 +4,16 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Omniverse.FogOfWar
+namespace Omniverse
 {
-	public class Manager : IInitializable, IFixedTickable
+	public class FogOfWar : IInitializable, IFixedTickable
 	{
 		public static int Multiplier { get; } = (int)Mathf.Pow(2f, 1f);
 
 		public Vector2Int Resolution { get; set; }
 
 		[Inject]
-		public Settings Settings { get; set; }
+		public FogOfWarConfig Config { get; set; }
 
 		[Inject]
 		private MapSettings MapSettings { get; set; }
@@ -28,7 +28,7 @@ namespace Omniverse.FogOfWar
 
 		public bool[][] CellsObstaclesPerFaction { get; set; }
 
-		private HashSet<IAgent> Agents { get; } = new();
+		private HashSet<IFogOfWarAgent> Agents { get; } = new();
 
 		public void Initialize()
 		{
@@ -39,7 +39,7 @@ namespace Omniverse.FogOfWar
 			CellsObstaclesPerFaction = new bool[Factions.Length][];
 
 			CellVisibilityState initialState =
-				Settings.Explored ? CellVisibilityState.Explored : CellVisibilityState.Unexplored;
+				Config.Explored ? CellVisibilityState.Explored : CellVisibilityState.Unexplored;
 
 			for (int i = 0; i < Factions.Length; ++i)
 			{
@@ -82,19 +82,19 @@ namespace Omniverse.FogOfWar
 			return x * Resolution.y + y;
 		}
 
-		public void Register(IAgent agent)
+		public void Register(IFogOfWarAgent agent)
 		{
 			Agents.Add(agent);
 		}
 
-		public void Unregister(IAgent agent)
+		public void Unregister(IFogOfWarAgent agent)
 		{
 			Agents.Remove(agent);
 		}
 
 		private void UpdateAgentPositions()
 		{
-			foreach (IAgent agent in Agents)
+			foreach (IFogOfWarAgent agent in Agents)
 			{
 				agent.CellIndex = CalculateCell(agent.Position);
 			}
@@ -102,7 +102,7 @@ namespace Omniverse.FogOfWar
 
 		private void Clear()
 		{
-			if (Settings.Explored)
+			if (Config.Explored)
 			{
 				foreach (var cells in CellsVisibilityPerFaction)
 				{
@@ -129,7 +129,7 @@ namespace Omniverse.FogOfWar
 
 		private void CalculateVisibility()
 		{
-			foreach (IAgent agent in Agents)
+			foreach (IFogOfWarAgent agent in Agents)
 			{
 				int x0 = (int)agent.Position.x / Multiplier;
 				int y0 = (int)agent.Position.z / Multiplier;

@@ -5,7 +5,7 @@ using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
 
-namespace Omniverse.FogOfWar.Rendering
+namespace Omniverse.Rendering
 {
 	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
 	{
@@ -23,7 +23,7 @@ namespace Omniverse.FogOfWar.Rendering
 		}
 
 		[Inject]
-		public Manager Manager { get; set; }
+		public FogOfWar FogOfWar { get; set; }
 
 		private Material AnimationMaterial { get; set; }
 
@@ -61,7 +61,7 @@ namespace Omniverse.FogOfWar.Rendering
 		{
 			base.Initialize();
 
-			var resolution = new Vector4(Manager.Resolution.x, Manager.Resolution.y);
+			var resolution = new Vector4(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
 			AnimationMaterial = new Material(Config.PreProcessShader);
@@ -74,9 +74,9 @@ namespace Omniverse.FogOfWar.Rendering
 			PropertiesBuffer = new ConstantComputeBuffer<FogOfWarProperties>(ShaderVariables.FogOfWarProperties);
 
 			CellsVisibilityBuffer =
-				new ComputeBuffer(Manager.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
+				new ComputeBuffer(FogOfWar.CellsVisibilityPerFaction[0].Length, sizeof(CellVisibilityState));
 
-			if (Manager.Settings.Explored)
+			if (FogOfWar.Config.Explored)
 			{
 				Shader.EnableKeyword(ShaderVariables.ExploredKeyword);
 			}
@@ -89,7 +89,7 @@ namespace Omniverse.FogOfWar.Rendering
 
 			RenderTexture CreateAnimationRT(string textureName)
 			{
-				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
+				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
 					GraphicsFormat.R16G16_SNorm,
 					GraphicsFormat.None)
 				{
@@ -101,7 +101,7 @@ namespace Omniverse.FogOfWar.Rendering
 
 			RenderTexture CreateBlurRT(string textureName)
 			{
-				return new RenderTexture(Manager.Resolution.x, Manager.Resolution.y,
+				return new RenderTexture(FogOfWar.Resolution.x, FogOfWar.Resolution.y,
 					GraphicsFormat.R16G16_SFloat,
 					GraphicsFormat.None)
 				{
@@ -135,7 +135,7 @@ namespace Omniverse.FogOfWar.Rendering
 			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
 			CommandBuffer commandBuffer = scope.CommandBuffer;
 
-			commandBuffer.SetBufferData(CellsVisibilityBuffer, Manager.CellsVisibilityPerFaction[0]);
+			commandBuffer.SetBufferData(CellsVisibilityBuffer, FogOfWar.CellsVisibilityPerFaction[0]);
 			commandBuffer.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
 			commandBuffer.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);

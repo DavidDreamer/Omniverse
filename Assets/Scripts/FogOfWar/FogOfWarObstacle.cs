@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using VContainer;
 
-namespace Omniverse.FogOfWar
+namespace Omniverse
 {
 	public class FogOfWarObstacle : MonoBehaviour
 	{
@@ -9,7 +9,7 @@ namespace Omniverse.FogOfWar
 		public Vector3 Size { get; private set; }
 
 		[Inject]
-		private Manager FogOfWar { get; set; }
+		private FogOfWar FogOfWar { get; set; }
 
 		private void OnEnable()
 		{

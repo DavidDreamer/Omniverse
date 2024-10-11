@@ -2,7 +2,7 @@
 
 namespace Omniverse.Units
 {
-	public class UnitFogOfWarAgent : FogOfWar.IAgent
+	public class UnitFogOfWarAgent : IFogOfWarAgent
 	{
 		private Unit Unit { get; }
 

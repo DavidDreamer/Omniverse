@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Omniverse.FogOfWar.Rendering
+namespace Omniverse.Rendering
 {
 	public class FogOfWarPass : ScriptableRenderPass, IDisposable
 	{

@@ -2,7 +2,7 @@
 using Dreambox.Math;
 using UnityEngine;
 
-namespace Omniverse.FogOfWar
+namespace Omniverse
 {
 	internal readonly struct BresenhamCircleHandler : IBresenhamCircleHandler
 	{

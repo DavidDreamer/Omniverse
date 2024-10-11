@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.FogOfWar
+namespace Omniverse
 {
-	public interface IAgent
+	public interface IFogOfWarAgent
 	{
 		int FactionID { get; }
 

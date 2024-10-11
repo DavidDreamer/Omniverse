@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.FogOfWar
+namespace Omniverse
 {
 	[Serializable]
-	public class Settings
+	public class FogOfWarConfig
 	{
 		[field: SerializeField]
 		public bool Enabled { get; private set; }

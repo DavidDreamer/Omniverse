@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Omniverse.FogOfWar;
 using Omniverse.Items;
 using UnityEngine;
 using VContainer;
@@ -24,7 +23,7 @@ namespace Omniverse.Units
 		private UnitManagerConfig Config { get; set; }
 
 		[Inject]
-		private FogOfWar.Manager FogOfWarManager { get; set; }
+		private FogOfWar FogOfWar { get; set; }
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
@@ -58,14 +57,14 @@ namespace Omniverse.Units
 
 			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
 			FogOfWarAgents.Add(unit, unitFogOfWarAgent);
-			FogOfWarManager.Register(unitFogOfWarAgent);
+			FogOfWar.Register(unitFogOfWarAgent);
 
 			return unit;
 		}
 
 		public void Despawn(Unit unit)
 		{
-			FogOfWarManager.Unregister(FogOfWarAgents[unit]);
+			FogOfWar.Unregister(FogOfWarAgents[unit]);
 			FogOfWarAgents.Remove(unit);
 
 			Pool.Return(unit);
@@ -83,7 +82,7 @@ namespace Omniverse.Units
 
 				//TODO
 				CellVisibilityState cellVisibilityState =
-					FogOfWarManager.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
+					FogOfWar.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
 
 				unit.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
 
