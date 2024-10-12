@@ -6,7 +6,7 @@ namespace Omniverse.Units
 	public class HomingProjectile : FactiousEntity<HomingProjectileDesc>
 	{
 		[Inject]
-		private ActionHandler OperationHandler { get; set; }
+		private ActionHandler ActionHandler { get; set; }
 
 		public Unit Target { get; set; }
 
@@ -26,7 +26,7 @@ namespace Omniverse.Units
 			{
 				var context = new ActionContext(this);
 				context.Entities.Add(Target);
-				OperationHandler.Perform(Desc.HitOperation, this, context);
+				ActionHandler.Perform(Desc.HitAction, this, context);
 				Destroy(gameObject);
 			}
 		}

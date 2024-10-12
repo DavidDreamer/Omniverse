@@ -16,7 +16,7 @@ namespace Omniverse.Units
 		{
 			base.Start();
 
-			Ability.OperationContext.Directions.Add(Direction);
+			Ability.ActionContext.Directions.Add(Direction);
 		}
 	}
 }

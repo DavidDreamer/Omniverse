@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Omniverse.Editor
 {
+	[CanEditMultipleObjects]
 	[CustomEditor(typeof(AbilityDesc))]
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
-		private SerializedProperty Operation { get; set; }
 
 		private void OnEnable()
 		{
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
-			Operation = serializedObject.FindProperty(nameof(Operation).ToBackingField());
 		}
 
 		public override void OnInspectorGUI()
@@ -28,7 +27,7 @@ namespace Omniverse.Editor
 			DrawSection(Cost);
 			DrawCasting();
 			DrawSection(Cooldown);
-			DrawAction(Operation);
+			DrawAction();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -98,13 +97,32 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void DrawAction(SerializedProperty serializedProperty)
+		private void DrawAction()
 		{
-			DrawSectionHeader(serializedProperty);
+			SerializedProperty action = serializedObject.FindProperty(nameof(AbilityDesc.Action).ToBackingField());
+			DrawSectionHeader(action);
 
-			if (serializedProperty.isExpanded)
+			if (action.isExpanded)
 			{
-				EditorGUILayout.PropertyField(serializedProperty);
+				var actions = action.FindPropertyRelative(nameof(AbilityDesc.Action.Actions).ToBackingField());
+
+				for (int i = 0; i < actions.arraySize; ++i)
+				{
+					EditorGUILayout.PropertyField(actions.GetArrayElementAtIndex(i));
+				}
+
+				using (new EditorGUILayout.HorizontalScope())
+				{
+					if (GUILayout.Button("Add"))
+					{
+						actions.arraySize++;
+					}
+					if (GUILayout.Button("Remove"))
+					{
+						//TODO asset deletion
+						actions.arraySize--;
+					}
+				}
 			}
 		}
 

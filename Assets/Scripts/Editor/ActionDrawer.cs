@@ -1,5 +1,4 @@
-﻿using Dreambox.Core.Editor;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace Omniverse.Editor
 {
@@ -8,22 +7,17 @@ namespace Omniverse.Editor
 	{
 		public override void OnInspectorGUI()
 		{
-			SerializedProperty then = serializedObject.FindProperty(nameof(Action.Then).ToBackingField());
-
 			serializedObject.UpdateIfRequiredOrScript();
 
 			var iterator = serializedObject.GetIterator();
 
-			//Skip script link and 'Then'
-			iterator.NextVisible(true);
+			//Skip script link
 			iterator.NextVisible(true);
 
 			while (iterator.NextVisible(false))
 			{
 				EditorGUILayout.PropertyField(iterator);
 			}
-
-			EditorGUILayout.PropertyField(then);
 
 			serializedObject.ApplyModifiedProperties();
 		}

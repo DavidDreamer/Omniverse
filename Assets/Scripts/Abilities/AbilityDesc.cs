@@ -22,7 +22,6 @@ namespace Omniverse.Abilities
 		public CooldownDesc Cooldown { get; private set; }
 
 		[field: SerializeField]
-		[field: ActionPicker]
-		public Operation Operation { get; private set; }
+		public MultiAction Action { get; private set; }
 	}
 }

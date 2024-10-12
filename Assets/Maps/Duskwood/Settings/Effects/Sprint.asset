@@ -20,5 +20,8 @@ MonoBehaviour:
   <PropertyModifiers>k__BackingField:
   - <ID>k__BackingField: 5
     <Modifier>k__BackingField:
+      Operation: 0
       Mode: 0
       Value: 5
+  <OnRemovedAction>k__BackingField:
+    <Actions>k__BackingField: []

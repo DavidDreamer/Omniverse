@@ -2,10 +2,8 @@
 
 namespace Omniverse
 {
-	public abstract class Action : Operation
+	public abstract class Action : ScriptableObject
 	{
-		[field: SerializeField]
-		[field: ActionPicker]
-		public Operation Then { get; private set; }
+		public abstract void Perform(ActionContext context);
 	}
 }

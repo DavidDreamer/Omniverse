@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFaction : Operation
+	public class SwitchTargetFaction : Action
 	{
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Operation Self { get; private set; }
+		public Action Self { get; private set; }
 
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Operation Ally { get; private set; }
+		public Action Ally { get; private set; }
 
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Operation Enemy { get; private set; }
+		public Action Enemy { get; private set; }
 
 		public override void Perform(ActionContext context)
 		{

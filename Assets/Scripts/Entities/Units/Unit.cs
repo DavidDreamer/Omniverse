@@ -45,7 +45,7 @@ namespace Omniverse.Units
 		private IObjectResolver ObjectResolver { get; set; }
 
 		[Inject]
-		private ActionHandler OperationHandler { get; set; }
+		private ActionHandler ActionHandler { get; set; }
 
 		public override void Initialize(UnitDesc desc)
 		{
@@ -60,7 +60,7 @@ namespace Omniverse.Units
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(abilityDesc, this, OperationHandler);
+				var ability = new Ability(abilityDesc, this, ActionHandler);
 				Abilities.Add(ability);
 			}
 
@@ -174,11 +174,11 @@ namespace Omniverse.Units
 				Properties[desc.ID].RemoveModifier(desc.Modifier);
 			}
 
-			if (effect.Desc.OnRemovedOperation != null)
+			if (effect.Desc.OnRemovedAction != null)
 			{
 				var context = new ActionContext(this);
 				context.Points.Add(transform.position);
-				OperationHandler.Perform(effect.Desc.OnRemovedOperation, this, context);
+				ActionHandler.Perform(effect.Desc.OnRemovedAction, this, context);
 			}
 
 			Effects.RemoveAt(index);

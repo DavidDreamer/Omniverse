@@ -42,4 +42,6 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: Attack
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Operation>k__BackingField: {fileID: -8525168635583495473}
+  <Action>k__BackingField:
+    <Actions>k__BackingField:
+    - {fileID: -8525168635583495473}

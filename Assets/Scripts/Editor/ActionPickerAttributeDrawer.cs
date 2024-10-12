@@ -10,24 +10,24 @@ namespace Omniverse.Editor
 	[CustomPropertyDrawer(typeof(ActionPickerAttribute))]
 	public class ActionPickerAttributeDrawer : PropertyDrawer
 	{
-		private static List<Type> OperationTypes { get; set; }
+		private static List<Type> ActionTypes { get; set; }
 
-		private static GUIContent[] OperationNames { get; set; }
+		private static GUIContent[] ActionNames { get; set; }
 
 		static ActionPickerAttributeDrawer()
 		{
-			OperationTypes = TypeUtils.GetInheritedTypes(typeof(Operation)).ToList();
-			var operationNames = OperationTypes.Select(type => type.Name).ToList();
+			ActionTypes = TypeUtils.GetInheritedTypes(typeof(Action)).ToList();
+			var actionNames = ActionTypes.Select(type => type.Name).ToList();
 
-			OperationTypes.Insert(0, null);
+			ActionTypes.Insert(0, null);
 
-			operationNames.Insert(0, "None");
-			OperationNames = operationNames.Select(name => new GUIContent(name)).ToArray();
+			actionNames.Insert(0, "None");
+			ActionNames = actionNames.Select(name => new GUIContent(name)).ToArray();
 		}
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			ValidateType(position, property, label);
+			ValidateType(position, property);
 
 			if (property.objectReferenceValue != null)
 			{
@@ -38,15 +38,15 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void ValidateType(Rect position, SerializedProperty property, GUIContent label)
+		private void ValidateType(Rect position, SerializedProperty property)
 		{
 			UnityEngine.Object objectReferenceValue = property.objectReferenceValue;
 
-			var typeIndex = objectReferenceValue == null ? 0 : OperationTypes.IndexOf(objectReferenceValue.GetType());
+			var typeIndex = objectReferenceValue == null ? 0 : ActionTypes.IndexOf(objectReferenceValue.GetType());
 
-			int index = EditorGUI.Popup(position, label, typeIndex, OperationNames);
+			int index = EditorGUI.Popup(position, typeIndex, ActionNames);
 
-			var type = OperationTypes[index];
+			var type = ActionTypes[index];
 
 			if (type == null)
 			{

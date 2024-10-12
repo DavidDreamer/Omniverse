@@ -27,7 +27,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
     Operation: 0
@@ -50,7 +49,9 @@ MonoBehaviour:
   <Model>k__BackingField: {fileID: 6508065895015278041, guid: 6f5698ce9fe4c9145999afb9a330bbe9, type: 3}
   <Speed>k__BackingField: 10
   <Radius>k__BackingField: 1
-  <HitOperation>k__BackingField: {fileID: -4694152535952723723}
+  <HitAction>k__BackingField:
+    <Actions>k__BackingField:
+    - {fileID: -4694152535952723723}
 --- !u!114 &2717097104897574702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
     Operation: 1

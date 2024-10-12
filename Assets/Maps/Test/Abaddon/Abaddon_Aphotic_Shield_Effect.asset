@@ -19,6 +19,10 @@ MonoBehaviour:
   <UnitStatus>k__BackingField: 0
   <PropertyModifiers>k__BackingField: []
   <OnRemovedOperation>k__BackingField: {fileID: 6344111629528045953}
+  <OnRemovedAction>k__BackingField:
+    <Actions>k__BackingField:
+    - {fileID: 6344111629528045953}
+    - {fileID: 1602216998758514574}
 --- !u!114 &1602216998758514574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,7 +35,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
   m_Name: ModifyProperty
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
   <Property>k__BackingField: 3
   <Modifier>k__BackingField:
     Operation: 1
@@ -49,6 +52,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1ad762d9504f06a4e4faaf1242b1da, type: 3}
   m_Name: CollectUnitTargetsFromSphere
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 1602216998758514574}
   <Filter>k__BackingField: 4
   <Radius>k__BackingField: 20
