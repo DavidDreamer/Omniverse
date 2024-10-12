@@ -7,7 +7,7 @@ namespace Omniverse.Abilities
 		//TODO
 		public event System.Action<Casting> Started;
 
-		private CastingDesc Desc { get; }
+		public CastingDesc Desc { get; }
 
 		public float Time { get; private set; }
 

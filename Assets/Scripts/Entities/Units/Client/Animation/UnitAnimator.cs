@@ -38,7 +38,14 @@ namespace Omniverse.Units.Client
 
 		private void OnAbiltiyCastingStarted(Casting casting)
 		{
-			Animator.SetTrigger(AnimatorVariables.Attack);
+			string trigger = casting.Desc.AnimationTrigger;
+
+			if (string.IsNullOrEmpty(trigger))
+			{
+				return;
+			}
+
+			Animator.SetTrigger(trigger);
 		}
 
 		private void Update()
