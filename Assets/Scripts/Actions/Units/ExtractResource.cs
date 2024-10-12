@@ -9,7 +9,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public int Amount { get; private set; }
 
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			var resourceSource = (ResourceSource)context.Entities.First();
 			//TODO

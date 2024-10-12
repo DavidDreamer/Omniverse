@@ -8,7 +8,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			foreach (var unit in context.Units())
 			{

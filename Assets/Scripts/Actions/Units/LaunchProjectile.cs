@@ -9,7 +9,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public ProjectileDesc Projectile { get; private set; }
 
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			//TODO
 			var unit = context.Actor as Unit;

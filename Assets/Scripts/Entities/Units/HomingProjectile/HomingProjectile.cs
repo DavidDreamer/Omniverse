@@ -6,7 +6,7 @@ namespace Omniverse.Units
 	public class HomingProjectile : FactiousEntity<HomingProjectileDesc>
 	{
 		[Inject]
-		private OperationHandler OperationHandler { get; set; }
+		private ActionHandler OperationHandler { get; set; }
 
 		public Unit Target { get; set; }
 
@@ -24,7 +24,7 @@ namespace Omniverse.Units
 
 			if (sqrDistanceToTarget <= radius * radius)
 			{
-				var context = new OperationContext(this);
+				var context = new ActionContext(this);
 				context.Entities.Add(Target);
 				OperationHandler.Perform(Desc.HitOperation, this, context);
 				Destroy(gameObject);

@@ -9,9 +9,9 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public abstract IEnumerable<Unit> GetUnits(OperationContext context);
+		public abstract IEnumerable<Unit> GetUnits(ActionContext context);
 
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			//TODO
 			var source = context.Actor as IFactious;

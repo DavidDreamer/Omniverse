@@ -2,7 +2,7 @@
 {
 	public class KillUnits : Action
 	{
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			//TODO: insta kill
 		}

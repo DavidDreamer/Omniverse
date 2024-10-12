@@ -25,7 +25,7 @@ namespace Omniverse.Units
 		public List<PropertyModifierDesc> PropertyModifiers { get; private set; }
 
 		[field: SerializeField]
-		[field: OperationPicker]
+		[field: ActionPicker]
 		public Operation OnRemovedOperation { get; set; }
 	}
 }

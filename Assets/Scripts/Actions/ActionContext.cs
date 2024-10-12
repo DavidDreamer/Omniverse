@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Omniverse
 {
-	public class OperationContext
+	public class ActionContext
 	{
 		public Entity Actor { get; }
 
@@ -23,7 +23,7 @@ namespace Omniverse
 		[Inject]
 		public ResourceExtractionHadler ResourceExtractionHadler { get; set; }
 
-		public OperationContext(Entity actor)
+		public ActionContext(Entity actor)
 		{
 			Actor = actor;
 		}

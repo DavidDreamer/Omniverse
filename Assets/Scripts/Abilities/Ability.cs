@@ -14,11 +14,11 @@ namespace Omniverse.Abilities
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
-		public OperationHandler OperationHandler { get; }
+		public ActionHandler OperationHandler { get; }
 
-		public OperationContext OperationContext { get; }
+		public ActionContext OperationContext { get; }
 
-		public Ability(AbilityDesc desc, Entity actor, OperationHandler operationHandler)
+		public Ability(AbilityDesc desc, Entity actor, ActionHandler operationHandler)
 		{
 			Desc = desc;
 			Entity = actor;
@@ -30,7 +30,7 @@ namespace Omniverse.Abilities
 
 			OperationHandler = operationHandler;
 
-			OperationContext = new OperationContext(actor);
+			OperationContext = new ActionContext(actor);
 		}
 
 		public void Tick(float deltaTime)

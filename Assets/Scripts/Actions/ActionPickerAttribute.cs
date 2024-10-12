@@ -12,7 +12,7 @@ namespace Omniverse
 	{
 		IEnumerable<T> GetTargets();
 	}
-	public class OperationPickerAttribute : PropertyAttribute
+	public class ActionPickerAttribute : PropertyAttribute
 	{
 	}
 }

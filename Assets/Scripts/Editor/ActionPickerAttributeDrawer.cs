@@ -7,14 +7,14 @@ using UnityEngine;
 
 namespace Omniverse.Editor
 {
-	[CustomPropertyDrawer(typeof(OperationPickerAttribute))]
-	public class OperationPickerAttributeDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(ActionPickerAttribute))]
+	public class ActionPickerAttributeDrawer : PropertyDrawer
 	{
 		private static List<Type> OperationTypes { get; set; }
 
 		private static GUIContent[] OperationNames { get; set; }
 
-		static OperationPickerAttributeDrawer()
+		static ActionPickerAttributeDrawer()
 		{
 			OperationTypes = TypeUtils.GetInheritedTypes(typeof(Operation)).ToList();
 			var operationNames = OperationTypes.Select(type => type.Name).ToList();

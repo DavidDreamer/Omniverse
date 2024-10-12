@@ -6,6 +6,6 @@ namespace Omniverse.Actions
 {
 	public static class ActionDescUtils
 	{
-		public static IEnumerable<Unit> Units(this OperationContext context) => context.Entities.OfType<Unit>();
+		public static IEnumerable<Unit> Units(this ActionContext context) => context.Entities.OfType<Unit>();
 	}
 }

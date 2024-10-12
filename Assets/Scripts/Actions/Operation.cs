@@ -4,6 +4,6 @@ namespace Omniverse
 {
 	public abstract class Operation : ScriptableObject
 	{
-		public abstract Operation Perform(OperationContext context);
+		public abstract void Perform(ActionContext context);
 	}
 }

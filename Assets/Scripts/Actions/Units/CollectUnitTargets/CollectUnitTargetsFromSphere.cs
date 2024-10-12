@@ -10,7 +10,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float Radius { get; private set; }
 
-		public override IEnumerable<Unit> GetUnits(OperationContext context)
+		public override IEnumerable<Unit> GetUnits(ActionContext context)
 		{
 			//TODO
 			IFactious caster = context.Actor as IFactious;

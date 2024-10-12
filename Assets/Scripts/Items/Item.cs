@@ -8,7 +8,7 @@ namespace Omniverse.Items
 		public Ability Ability { get; set; }
 
 		[Inject]
-		private OperationHandler OperationHandler { get; set; }
+		private ActionHandler OperationHandler { get; set; }
 
 		public override void Initialize(ItemDesc desc)
 		{

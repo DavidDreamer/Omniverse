@@ -2,7 +2,7 @@
 {
 	public class AddTargetSelf : Action
 	{
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			context.Entities.Add(context.Actor);
 		}

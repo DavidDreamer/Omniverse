@@ -11,7 +11,7 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public PropertyModifier Modifier { get; private set; }
 
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			foreach (Unit unit in context.Units())
 			{

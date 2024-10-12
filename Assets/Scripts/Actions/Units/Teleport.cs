@@ -6,7 +6,7 @@ namespace Omniverse.Actions
 {
 	public class Teleport : Action
 	{
-		public override void PerformTemp(OperationContext context)
+		public override void Perform(ActionContext context)
 		{
 			Vector3 position = context.Points.First();
 

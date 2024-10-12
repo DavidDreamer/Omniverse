@@ -45,7 +45,7 @@ namespace Omniverse.Units
 		private IObjectResolver ObjectResolver { get; set; }
 
 		[Inject]
-		private OperationHandler OperationHandler { get; set; }
+		private ActionHandler OperationHandler { get; set; }
 
 		public override void Initialize(UnitDesc desc)
 		{
@@ -176,7 +176,7 @@ namespace Omniverse.Units
 
 			if (effect.Desc.OnRemovedOperation != null)
 			{
-				var context = new OperationContext(this);
+				var context = new ActionContext(this);
 				context.Points.Add(transform.position);
 				OperationHandler.Perform(effect.Desc.OnRemovedOperation, this, context);
 			}
