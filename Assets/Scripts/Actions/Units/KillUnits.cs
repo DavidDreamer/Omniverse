@@ -1,10 +1,22 @@
-﻿namespace Omniverse.Actions
+﻿using System.Collections.Generic;
+using Omniverse.Units;
+using UnityEngine;
+
+namespace Omniverse.Actions
 {
-	public class KillUnits : Action
+	public class KillUnits : ScriptableObject, IAction<Unit, Unit>, IMultiTargetAction<Unit, Unit>
 	{
-		public override void Perform(ActionContext context)
+		public void Perform(Unit actor, Unit target)
 		{
-			//TODO: insta kill
+			target.Die();
+		}
+
+		public void Perform(Unit actor, IEnumerable<Unit> targets)
+		{
+			foreach (var target in targets)
+			{
+				target.Die();
+			}
 		}
 	}
 }

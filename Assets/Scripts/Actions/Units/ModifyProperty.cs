@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ModifyProperty : Action
+	public class ModifyProperty : ScriptableObject, IAction<Unit, Unit>
 	{
 		[field: SerializeField]
 		public PropertyID Property { get; private set; }
@@ -11,12 +11,9 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public PropertyModifier Modifier { get; private set; }
 
-		public override void Perform(ActionContext context)
+		public void Perform(Unit actor, Unit target)
 		{
-			foreach (Unit unit in context.Units())
-			{
-				unit.ModifyProperty(Property, Modifier, context.Actor);
-			}
+			target.ModifyProperty(Property, Modifier, actor);
 		}
 	}
 }

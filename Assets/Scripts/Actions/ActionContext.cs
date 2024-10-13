@@ -10,9 +10,7 @@ namespace Omniverse
 
 		public List<Entity> Entities { get; } = new();
 
-		public List<Vector3> Points { get; } = new();
-
-		public List<Vector3> Directions { get; } = new();
+		public List<Vector3> Vectors { get; } = new();
 
 		[Inject]
 		public PhysicsService PhysicsService { get; private set; }
@@ -31,8 +29,7 @@ namespace Omniverse
 		public void Clear()
 		{
 			Entities.Clear();
-			Points.Clear();
-			Directions.Clear();
+			Vectors.Clear();
 		}
 	}
 }

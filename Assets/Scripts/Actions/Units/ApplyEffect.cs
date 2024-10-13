@@ -3,19 +3,15 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ApplyEffect : Action
+	public class ApplyEffect : ScriptableObject, IAction<Unit, Unit>
 	{
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public override void Perform(ActionContext context)
+		public void Perform(Unit actor, Unit target)
 		{
-			foreach (var unit in context.Units())
-			{
-				var effect = new Effect(Effect);
-
-				unit.ApplyEffect(effect);
-			}
+			var effect = new Effect(Effect);
+			target.ApplyEffect(effect);
 		}
 	}
 }

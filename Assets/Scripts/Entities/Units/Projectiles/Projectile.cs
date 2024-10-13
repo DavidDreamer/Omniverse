@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Omniverse.Units
 {
-	public class Projectile : FactiousEntity<ProjectileDesc>
+	public class Projectile : Entity<ProjectileDesc>, IFactious
 	{
 		//TODO
 		[Inject]
@@ -13,6 +13,8 @@ namespace Omniverse.Units
 		public Vector3 Direction { get; set; }
 
 		private float Distance { get; set; }
+
+		public int FactionID { get; set; }
 
 		public void FixedUpdate()
 		{

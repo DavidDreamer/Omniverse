@@ -14,7 +14,7 @@ namespace Omniverse.Actions
 		{
 			//TODO
 			IFactious caster = context.Actor as IFactious;
-			Vector3 position = context.Points.First();
+			Vector3 position = context.Vectors.First();
 			return context.PhysicsService.GetEntitiesInSphere<Unit>(position, Radius).Where(unit => Filter.Match(caster, unit));
 		}
 	}

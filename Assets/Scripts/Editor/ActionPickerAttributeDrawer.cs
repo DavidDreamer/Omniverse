@@ -16,7 +16,7 @@ namespace Omniverse.Editor
 
 		static ActionPickerAttributeDrawer()
 		{
-			ActionTypes = TypeUtils.GetInheritedTypes(typeof(Action)).ToList();
+			ActionTypes = TypeUtils.GetInheritedTypes(typeof(IAction)).ToList();
 			var actionNames = ActionTypes.Select(type => type.Name).ToList();
 
 			ActionTypes.Insert(0, null);

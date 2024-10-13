@@ -1,38 +1,41 @@
-﻿using System.Linq;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFaction : Action
+	public class SwitchTargetFaction : ScriptableObject, IAction<Unit, Unit>
 	{
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Action Self { get; private set; }
+		public ScriptableObject Self { get; private set; }
 
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Action Ally { get; private set; }
+		public ScriptableObject Ally { get; private set; }
 
 		[field: SerializeField]
 		[field: ActionPicker]
-		public Action Enemy { get; private set; }
+		public ScriptableObject Enemy { get; private set; }
 
-		public override void Perform(ActionContext context)
+		public void Perform(Unit actor, Unit target)
 		{
-			var unit = context.Units().First();
-			var caster = (IFactious)context.Actor;
+			var action = (IAction<Unit, Unit>)Switch();
+			action.Perform(actor, target);
 
-			if (context.Actor == unit)
+			ScriptableObject Switch()
 			{
-				Self.Perform(context);
-			}
-			else if (caster.IsAllyFor(unit))
-			{
-				Ally.Perform(context);
-			}
-			else
-			{
-				Enemy.Perform(context);
+				if (actor == target)
+				{
+					return Self;
+				}
+				else if (actor.IsAllyFor(target))
+				{
+					return Ally;
+				}
+				else
+				{
+					return Enemy;
+				}
 			}
 		}
 	}

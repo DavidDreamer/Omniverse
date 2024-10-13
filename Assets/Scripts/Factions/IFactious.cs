@@ -2,6 +2,6 @@
 {
 	public interface IFactious
 	{
-		int FactionID { get; }
+		int FactionID { get; set; }
 	}
 }

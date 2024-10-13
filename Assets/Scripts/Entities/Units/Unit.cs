@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Omniverse.Units
 {
-	public class Unit : FactiousEntity<UnitDesc>, IPoolObject
+	public class Unit : Entity<UnitDesc>, IFactious, IPoolObject
 	{
 		public event Action<Effect> EffectApplied;
 
@@ -46,6 +46,11 @@ namespace Omniverse.Units
 
 		[Inject]
 		private ActionHandler ActionHandler { get; set; }
+
+		[Inject]
+		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
+
+		public int FactionID { get; set; }
 
 		public override void Initialize(UnitDesc desc)
 		{
@@ -177,13 +182,39 @@ namespace Omniverse.Units
 			if (effect.Desc.OnRemovedAction != null)
 			{
 				var context = new ActionContext(this);
-				context.Points.Add(transform.position);
+				context.Vectors.Add(transform.position);
 				ActionHandler.Perform(effect.Desc.OnRemovedAction, this, context);
 			}
 
 			Effects.RemoveAt(index);
 
 			EffectRemoved?.Invoke(effect);
+		}
+
+		public void SpawnProjectile(HomingProjectileDesc desc, Unit target)
+		{
+			Vector3 position = transform.position;
+			var homingProjectile = Instantiate(desc.Model, position, Quaternion.identity).GetComponent<HomingProjectile>();
+			homingProjectile.Initialize(desc);
+			homingProjectile.FactionID = FactionID;
+			homingProjectile.Owner = this;
+			ObjectResolver.Inject(homingProjectile);
+			homingProjectile.Target = target;
+		}
+
+		public void SpawnProjectile(ProjectileDesc desc, Vector3 target)
+		{
+			Vector3 position = transform.position;
+			var projectile = Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Projectile>();
+			projectile.Initialize(desc);
+			projectile.FactionID = FactionID;
+			ObjectResolver.Inject(projectile);
+			projectile.Direction = target;
+		}
+
+		public void Extract(ResourceSource resourceSource, int amount)
+		{
+			ResourceExtractionHadler.Extract(resourceSource, amount, FactionID);
 		}
 
 		internal void Die()

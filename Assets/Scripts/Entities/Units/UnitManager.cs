@@ -44,7 +44,7 @@ namespace Omniverse.Units
 			Unit unit = Pool.Take(Config.UnitPrefab);
 			unit.NavMeshAgent.Warp(position);
 			unit.Initialize(desc);
-			unit.ChangeFaction(factionID);
+			unit.FactionID = factionID;
 			Units.Add(unit);
 
 			GameObject model = UnityEngine.Object.Instantiate(desc.Model, unit.transform, false);

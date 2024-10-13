@@ -16,7 +16,7 @@ namespace Omniverse.Units
 		{
 			base.Start();
 
-			Ability.ActionContext.Points.Add(Point);
+			Ability.ActionContext.Vectors.Add(Point);
 		}
 	}
 }

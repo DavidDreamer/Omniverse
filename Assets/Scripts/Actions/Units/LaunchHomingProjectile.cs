@@ -1,27 +1,16 @@
-﻿using System.Linq;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class LaunchHomingProjectile : Action
+	public class LaunchHomingProjectile : ScriptableObject, IAction<Unit, Unit>
 	{
 		[field: SerializeField]
 		public HomingProjectileDesc Projectile { get; private set; }
 
-		public override void Perform(ActionContext context)
+		public void Perform(Unit actor, Unit target)
 		{
-			//TODO
-			var unit = context.Actor as Unit;
-
-			Vector3 position = context.Actor.transform.position;
-			var homingProjectile = Instantiate(Projectile.Model, position, Quaternion.identity).GetComponent<HomingProjectile>();
-			homingProjectile.Initialize(Projectile);
-			homingProjectile.ChangeFaction(unit.FactionID);
-			context.ObjectResolver.Inject(homingProjectile);
-
-			Unit target = context.Units().First();
-			homingProjectile.Target = target;
+			actor.SpawnProjectile(Projectile, target);
 		}
 	}
 }

@@ -1,19 +1,13 @@
-﻿using System.Linq;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class Teleport : Action
+	public class Teleport : ScriptableObject, IAction<Unit, Vector3>
 	{
-		public override void Perform(ActionContext context)
+		public void Perform(Unit unit, Vector3 target)
 		{
-			Vector3 position = context.Points.First();
-
-			foreach (Unit unit in context.Units())
-			{
-				unit.NavMeshAgent.Warp(position);
-			}
+			unit.NavMeshAgent.Warp(target);
 		}
 	}
 }

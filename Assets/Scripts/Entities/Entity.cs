@@ -17,14 +17,4 @@ namespace Omniverse
 			Desc = desc;
 		}
 	}
-
-	public abstract class FactiousEntity<TDesc> : Entity<TDesc>, IFactious where TDesc : EntityDesc
-	{
-		public int FactionID { get; private set; }
-
-		public void ChangeFaction(int factionID)
-		{
-			FactionID = factionID;
-		}
-	}
 }
