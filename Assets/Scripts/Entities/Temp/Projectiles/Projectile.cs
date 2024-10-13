@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
-	public class Projectile : Entity<ProjectileDesc>, IFactious
+	public class Projectile : TempName, IFactious
 	{
 		//TODO
 		[Inject]
@@ -16,10 +17,15 @@ namespace Omniverse.Units
 
 		public int FactionID { get; set; }
 
-		public void FixedUpdate()
-		{
-			float deltaTime = Time.fixedDeltaTime;
+		private ProjectileDesc Desc { get; set; }
 
+		public void Initialize(ProjectileDesc desc)
+		{
+			Desc = desc;
+		}
+
+		public override void Tick(float deltaTime)
+		{
 			float speed = Desc.Speed;
 			float range = Desc.Range;
 			float radius = Desc.Radius;
@@ -32,11 +38,9 @@ namespace Omniverse.Units
 
 			if (Distance == range)
 			{
-				Destroy(gameObject);
-
+				Completed = true;
 				return;
 			}
-
 
 			var filter = FactiousFilter.Enemy;
 
@@ -57,7 +61,7 @@ namespace Omniverse.Units
 
 			if (hit)
 			{
-				Destroy(gameObject);
+				Completed = true;
 			}
 		}
 	}

@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Omniverse.Units;
+using UnityEngine;
 using VContainer;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
-	public class HomingProjectile : Entity<HomingProjectileDesc>, IFactious
+	public class HomingProjectile : TempName, IFactious
 	{
 		[Inject]
 		private ActionHandler ActionHandler { get; set; }
@@ -14,10 +15,15 @@ namespace Omniverse.Units
 
 		public int FactionID { get; set; }
 
-		public void FixedUpdate()
-		{
-			float deltaTime = Time.fixedDeltaTime;
+		private HomingProjectileDesc Desc { get; set; }
 
+		public void Initialize(HomingProjectileDesc desc)
+		{
+			Desc = desc;
+		}
+
+		public override void Tick(float deltaTime)
+		{
 			float speed = Desc.Speed;
 			float radius = Desc.Radius;
 
@@ -31,7 +37,7 @@ namespace Omniverse.Units
 				var context = new ActionContext(Owner);
 				context.Entities.Add(Target);
 				ActionHandler.Perform(Desc.HitAction, this, context);
-				Destroy(gameObject);
+				Completed = true;
 			}
 		}
 	}

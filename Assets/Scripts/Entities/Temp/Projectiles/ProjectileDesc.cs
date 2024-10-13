@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Projectile")]
 	public class ProjectileDesc : EntityDesc

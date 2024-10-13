@@ -50,6 +50,9 @@ namespace Omniverse.Units
 		[Inject]
 		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
 
+		[Inject]
+		private TempNameManager TempNameManager { get; set; }
+
 		public int FactionID { get; set; }
 
 		public override void Initialize(UnitDesc desc)
@@ -193,23 +196,12 @@ namespace Omniverse.Units
 
 		public void SpawnProjectile(HomingProjectileDesc desc, Unit target)
 		{
-			Vector3 position = transform.position;
-			var homingProjectile = Instantiate(desc.Model, position, Quaternion.identity).GetComponent<HomingProjectile>();
-			homingProjectile.Initialize(desc);
-			homingProjectile.FactionID = FactionID;
-			homingProjectile.Owner = this;
-			ObjectResolver.Inject(homingProjectile);
-			homingProjectile.Target = target;
+			TempNameManager.Spawn(desc, transform.position, this, target, FactionID);
 		}
 
 		public void SpawnProjectile(ProjectileDesc desc, Vector3 target)
 		{
-			Vector3 position = transform.position;
-			var projectile = Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Projectile>();
-			projectile.Initialize(desc);
-			projectile.FactionID = FactionID;
-			ObjectResolver.Inject(projectile);
-			projectile.Direction = target;
+			TempNameManager.Spawn(desc, transform.position, target, FactionID);
 		}
 
 		public void Extract(ResourceSource resourceSource, int amount)

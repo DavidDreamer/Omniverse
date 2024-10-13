@@ -11,6 +11,9 @@ namespace Omniverse
 		private FogOfWar FogOfWar { get; set; }
 
 		[Inject]
+		private TempNameManager TempNameManager { get; set; }
+
+		[Inject]
 		private UnitManager UnitManager { get; set; }
 
 		public void FixedTick()
@@ -18,6 +21,7 @@ namespace Omniverse
 			float deltaTime = Time.fixedDeltaTime;
 
 			FogOfWar.Tick();
+			TempNameManager.Tick(deltaTime);
 			UnitManager.Tick(deltaTime);
 			UnitManager.UpdateLivingState();
 		}
