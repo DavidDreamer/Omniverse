@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
+
 	public class LaunchProjectile : ScriptableObject, IAction<Unit, Vector3>
 	{
 		[field: SerializeField]

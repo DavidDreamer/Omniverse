@@ -204,6 +204,11 @@ namespace Omniverse.Units
 			TempNameManager.Spawn(desc, transform.position, target, FactionID);
 		}
 
+		public void SpawnChain(ChainDesc desc, Unit target)
+		{
+			TempNameManager.Spawn(desc, transform.position, this, target, FactionID);
+		}
+
 		public void Extract(ResourceSource resourceSource, int amount)
 		{
 			ResourceExtractionHadler.Extract(resourceSource, amount, FactionID);

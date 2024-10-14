@@ -35,6 +35,18 @@ namespace Omniverse
 			Items.Add(projectile);
 		}
 
+		public void Spawn(ChainDesc desc, Vector3 position, Unit owner, Unit target, int factionID)
+		{
+			var chain = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Chain>();
+			chain.Initialize(desc);
+			chain.Owner = owner;
+			chain.FactionID = factionID;
+			ObjectResolver.Inject(chain);
+			chain.Target = target;
+
+			Items.Add(chain);
+		}
+
 		public void Tick(float deltaTime)
 		{
 			foreach (var item in Items)

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7116624629652093166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedfe9a51d0946be8b1d9cc02297a81a, type: 3}
+  m_Name: ApplyEffect
+  m_EditorClassIdentifier: 
+  <Effect>k__BackingField: {fileID: 0}
+--- !u!114 &-3163654078686936201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
+  m_Name: ModifyProperty
+  m_EditorClassIdentifier: 
+  <Property>k__BackingField: 3
+  <Modifier>k__BackingField:
+    Operation: 1
+    Mode: 0
+    Value: 5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec6fdddb8493994d98f2d3a150052eb, type: 3}
+  m_Name: Zeus_Arc_Lightning_Chain
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <Model>k__BackingField: {fileID: 6533103210621097778, guid: f644b8a497b7a3242959192119218733, type: 3}
+  <Action>k__BackingField:
+    <Actions>k__BackingField:
+    - {fileID: -3163654078686936201}
+  <BounceRange>k__BackingField: 10
+  <BounceInterval>k__BackingField: 0.5
+--- !u!114 &5263899964674884752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
+  m_Name: ModifyProperty
+  m_EditorClassIdentifier: 
+  <Property>k__BackingField: 0
+  <Modifier>k__BackingField:
+    Operation: 0
+    Mode: 0
+    Value: 0
