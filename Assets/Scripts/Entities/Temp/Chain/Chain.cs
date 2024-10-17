@@ -23,7 +23,7 @@ namespace Omniverse
 		[Inject]
 		private PhysicsService PhysicsService { get; set; }
 
-		private HashSet<Unit> Targets { get; } = new();
+		public HashSet<Unit> Targets { get; } = new();
 
 		public void Initialize(ChainDesc desc)
 		{
