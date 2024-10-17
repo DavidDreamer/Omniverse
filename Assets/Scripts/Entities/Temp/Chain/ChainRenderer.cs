@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Omniverse.Units;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -20,12 +21,16 @@ namespace Omniverse
 		private void LateUpdate()
 		{
 			LineRenderer.positionCount = Chain.Targets.Count + 1;
-			LineRenderer.SetPosition(0, Chain.Owner.transform.position);
+
+			var ownerRenderer = Chain.Owner.GetComponentInChildren<RendererComponent<Unit>>();
+			LineRenderer.SetPosition(0, ownerRenderer.Center.position);
 
 			int i = 1;
 			foreach (var target in Chain.Targets)
 			{
-				LineRenderer.SetPosition(i, target.transform.position);
+				var renderer = target.GetComponentInChildren<RendererComponent<Unit>>();
+				Vector3 position = renderer.Center.position;
+				LineRenderer.SetPosition(i, position);
 				i++;
 			}
 		}

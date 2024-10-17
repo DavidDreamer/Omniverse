@@ -49,7 +49,7 @@ MonoBehaviour:
     <Actions>k__BackingField:
     - {fileID: -3163654078686936201}
   <BounceRange>k__BackingField: 10
-  <BounceInterval>k__BackingField: 0.5
+  <BounceInterval>k__BackingField: 0.2
 --- !u!114 &5263899964674884752
 MonoBehaviour:
   m_ObjectHideFlags: 0

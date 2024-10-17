@@ -27,5 +27,8 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public List<Renderer> Renderers { get; private set; }
+
+		[field: SerializeField]
+		public Transform Center { get; private set; }
 	}
 }
