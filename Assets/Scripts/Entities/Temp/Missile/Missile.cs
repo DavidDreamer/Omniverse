@@ -1,0 +1,54 @@
+﻿using Omniverse.Units;
+using UnityEngine;
+using VContainer;
+
+namespace Omniverse
+{
+	public partial class Missile : TempName, IFactious
+	{
+		private MissileDesc Desc { get; set; }
+
+		private Entity Owner { get; set; }
+
+		private Behaviour behaviour { get; set; }
+
+		public int FactionID { get; set; }
+
+		[Inject]
+		private PhysicsService PhysicsService { get; set; }
+
+		[Inject]
+		private ActionHandler ActionHandler { get; set; }
+
+		private void Initialize(MissileDesc desc, Unit owner)
+		{
+			Desc = desc;
+			Owner = owner;
+			FactionID = owner.FactionID;
+		}
+
+		public void Initialize(MissileDesc desc, Unit owner, Vector3 vector)
+		{
+			Initialize(desc, owner);
+			behaviour = new MoveInDirection(this, vector);
+		}
+
+		public void Initialize(MissileDesc desc, Unit owner, Unit target)
+		{
+			Initialize(desc, owner);
+			behaviour = new MoveToTarget(this, target);
+		}
+
+		public override void Tick(float deltaTime)
+		{
+			behaviour.Tick(deltaTime);
+		}
+
+		private void PerformHitAction(Unit target)
+		{
+			var context = new ActionContext(Owner);
+			context.Entities.Add(target);
+			ActionHandler.Perform(Desc.HitAction, context);
+		}
+	}
+}

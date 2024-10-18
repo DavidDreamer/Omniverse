@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6268657944738941042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
-  m_Name: ModifyProperty
-  m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
-  <Property>k__BackingField: 3
-  <Modifier>k__BackingField:
-    Operation: 1
-    Mode: 0
-    Value: 4
---- !u!114 &-5412004965919780713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c18b805fc554b469022680593f59e88, type: 3}
-  m_Name: ClearUnits
-  m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: -5189982066219497978}
---- !u!114 &-5189982066219497978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb54bfd9374b4333be36bf9151e942b2, type: 3}
-  m_Name: AddTargetSelf
-  m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: -6268657944738941042}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,8 +29,8 @@ MonoBehaviour:
     <Time>k__BackingField: 0
   <Action>k__BackingField:
     <Actions>k__BackingField:
-    - {fileID: 983524506882936039}
---- !u!114 &983524506882936039
+    - {fileID: 1847228542362119683}
+--- !u!114 &1847228542362119683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,8 +39,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7443290fe8c774680d5b087e72d39a, type: 3}
-  m_Name: LaunchHomingProjectile
+  m_Script: {fileID: 11500000, guid: 9d6c26875bfe40f9900cc2812a1c7421, type: 3}
+  m_Name: LaunchMissile
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
-  <Projectile>k__BackingField: {fileID: 11400000, guid: 02829142c00378e45bea5055c624b555, type: 2}
+  <Missile>k__BackingField: {fileID: 11400000, guid: 27532c1ec6984ae43b147817c695bd78, type: 2}

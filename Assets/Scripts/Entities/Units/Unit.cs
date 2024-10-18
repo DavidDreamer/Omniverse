@@ -186,7 +186,7 @@ namespace Omniverse.Units
 			{
 				var context = new ActionContext(this);
 				context.Vectors.Add(transform.position);
-				ActionHandler.Perform(effect.Desc.OnRemovedAction, this, context);
+				ActionHandler.Perform(effect.Desc.OnRemovedAction, context);
 			}
 
 			Effects.RemoveAt(index);
@@ -194,14 +194,14 @@ namespace Omniverse.Units
 			EffectRemoved?.Invoke(effect);
 		}
 
-		public void SpawnProjectile(HomingProjectileDesc desc, Unit target)
+		public void SpawnMissile(MissileDesc desc, Unit target)
 		{
-			TempNameManager.Spawn(desc, transform.position, this, target, FactionID);
+			TempNameManager.Spawn(desc, this, transform.position, target);
 		}
 
-		public void SpawnProjectile(ProjectileDesc desc, Vector3 target)
+		public void SpawnMissile(MissileDesc desc, Vector3 target)
 		{
-			TempNameManager.Spawn(desc, transform.position, target, FactionID);
+			TempNameManager.Spawn(desc, this, transform.position, target);
 		}
 
 		public void SpawnChain(ChainDesc desc, Unit target)

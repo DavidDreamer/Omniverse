@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5954523291132724780}
   - component: {fileID: 6204640137361096419}
   - component: {fileID: 1537797267588468247}
-  - component: {fileID: 2294869329001427091}
+  - component: {fileID: 9131325774454062032}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2294869329001427091
+--- !u!114 &9131325774454062032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6508065895015278041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd545615c585f704ea39f2f42e383a9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 520785f836e9f514986ab74bcdfd779d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <HitBox>k__BackingField: {fileID: 0}

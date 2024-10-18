@@ -42,7 +42,7 @@ namespace Omniverse.Abilities
 		{
 			Cooldown.Activate();
 
-			ActionHandler.Perform(Desc.Action, Entity, ActionContext);
+			ActionHandler.Perform(Desc.Action, ActionContext);
 
 			Used.TrySetResult();
 

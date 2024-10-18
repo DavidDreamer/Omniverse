@@ -2,9 +2,12 @@
 
 namespace Omniverse
 {
-	[CreateAssetMenu(menuName = "Omniverse/Desc/Projectile")]
-	public class ProjectileDesc : EntityDesc
+	[CreateAssetMenu(menuName = "Omniverse/Desc/Missile")]
+	public class MissileDesc : EntityDesc
 	{
+		[field: SerializeField]
+		public FactiousFilter Filter { get; private set; }
+
 		[field: SerializeField]
 		public float Range { get; private set; }
 
@@ -13,5 +16,8 @@ namespace Omniverse
 
 		[field: SerializeField]
 		public float Radius { get; private set; }
+
+		[field: SerializeField]
+		public MultiAction HitAction { get; private set; }
 	}
 }

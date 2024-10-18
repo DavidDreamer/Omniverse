@@ -37,7 +37,7 @@ namespace Omniverse
 				Targets.Add(Target);
 				var contex = new ActionContext(Owner);
 				contex.Entities.Add(Target);
-				ActionHandler.Perform(Desc.Action, Owner, contex);
+				ActionHandler.Perform(Desc.Action, contex);
 			}
 
 			Time += deltaTime;

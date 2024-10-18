@@ -7,7 +7,7 @@ namespace Omniverse
 		[Inject]
 		public IObjectResolver ObjectResolver { get; set; }
 
-		public void Perform(MultiAction multiAction, Entity actor, ActionContext context)
+		public void Perform(MultiAction multiAction, ActionContext context)
 		{
 			ObjectResolver.Inject(context);
 			multiAction.Perform(context);

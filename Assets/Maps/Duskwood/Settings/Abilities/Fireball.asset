@@ -42,5 +42,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6c26875bfe40f9900cc2812a1c7421, type: 3}
   m_Name: LaunchProjectile
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
-  <Projectile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}
+  <Missile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}

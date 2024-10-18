@@ -12,27 +12,20 @@ namespace Omniverse
 
 		private List<TempName> Items { get; } = new();
 
-		public void Spawn(HomingProjectileDesc desc, Vector3 position, Unit owner, Unit target, int factionID)
+		public void Spawn(MissileDesc desc, Unit owner, Vector3 position, Vector3 direction) 
 		{
-			var homingProjectile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<HomingProjectile>();
-			homingProjectile.Initialize(desc);
-			homingProjectile.FactionID = factionID;
-			homingProjectile.Owner = owner;
-			ObjectResolver.Inject(homingProjectile);
-			homingProjectile.Target = target;
-
-			Items.Add(homingProjectile);
+			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
+			ObjectResolver.Inject(missile);
+			missile.Initialize(desc, owner, direction);
+			Items.Add(missile);
 		}
 
-		public void Spawn(ProjectileDesc desc, Vector3 position, Vector3 direction, int factionID) 
+		public void Spawn(MissileDesc desc, Unit owner, Vector3 position, Unit target)
 		{
-			var projectile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Projectile>();
-			projectile.Initialize(desc);
-			projectile.FactionID = factionID;
-			ObjectResolver.Inject(projectile);
-			projectile.Direction = direction;
-
-			Items.Add(projectile);
+			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
+			ObjectResolver.Inject(missile);
+			missile.Initialize(desc, owner, target);
+			Items.Add(missile);
 		}
 
 		public void Spawn(ChainDesc desc, Vector3 position, Unit owner, Unit target, int factionID)
