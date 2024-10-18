@@ -39,9 +39,14 @@ namespace Omniverse.Units
 				Unit.Properties[cost.PropertyID].Modify(cost.PropertyModifier);
 			}
 
-			Ability.Cast();
+			Cast();
 
 			return true;
+		}
+
+		protected virtual void Cast()
+		{
+			Ability.Cast();
 		}
 
 		public override void Cleanup()
@@ -49,6 +54,21 @@ namespace Omniverse.Units
 			base.Cleanup();
 
 			Ability.Casting.Reset();
+		}
+	}
+
+	public class CastAbilityCommand<TTarget> : CastAbilityCommand
+	{
+		private TTarget Target { get; }
+
+		public CastAbilityCommand(Unit unit, Ability ability, TTarget target) : base(unit, ability)
+		{
+			Target = target;
+		}
+
+		protected override void Cast()
+		{
+			Ability.Cast(Target);
 		}
 	}
 }

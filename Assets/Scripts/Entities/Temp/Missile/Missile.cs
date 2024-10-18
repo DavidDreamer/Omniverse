@@ -17,9 +17,6 @@ namespace Omniverse
 		[Inject]
 		private PhysicsService PhysicsService { get; set; }
 
-		[Inject]
-		private ActionHandler ActionHandler { get; set; }
-
 		private void Initialize(MissileDesc desc, Unit owner)
 		{
 			Desc = desc;
@@ -46,9 +43,7 @@ namespace Omniverse
 
 		private void PerformHitAction(Unit target)
 		{
-			var context = new ActionContext(Owner);
-			context.Entities.Add(target);
-			ActionHandler.Perform(Desc.HitAction, context);
+			Desc.HitAction.Perform(Owner as Unit, target);
 		}
 	}
 }

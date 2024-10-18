@@ -1,4 +1,5 @@
-﻿using Omniverse.Abilities;
+﻿using System;
+using Omniverse.Abilities;
 using Omniverse.Units;
 using UnityEngine;
 using VContainer;
@@ -81,8 +82,8 @@ namespace Omniverse.Input
 
 				var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
 				AddCommand(ActiveUnit, approachPositionForAbilityCastCommand);
-				var castPointTargetAbilityCommand = new CastPointTargetAbilityCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				ActiveUnit.CommandModule.Add(castPointTargetAbilityCommand);
+				var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
+				ActiveUnit.CommandModule.Add(castAbilityCommand);
 			}
 			else if (targetType is TargetType.Direction)
 			{
@@ -100,8 +101,8 @@ namespace Omniverse.Input
 				direction.Set(direction.x, 0, direction.z);
 				direction.Normalize();
 
-				var castDirectionalAbilityCommand = new CastDirectionalAbilityCommand(ActiveUnit, ActiveAbility, direction);
-				AddCommand(ActiveUnit, castDirectionalAbilityCommand);
+				var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, direction);
+				AddCommand(ActiveUnit, castAbilityCommand);
 			}
 			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
 			{
@@ -117,8 +118,22 @@ namespace Omniverse.Input
 
 				var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
 				AddCommand(ActiveUnit, approachEntityForAbilityCastCommand);
-				var castEntityTargetAbilityCommand = new CastEntityTargetAbilityCommand(ActiveUnit, ActiveAbility, target);
-				ActiveUnit.CommandModule.Add(castEntityTargetAbilityCommand);
+
+				switch (target)
+				{
+					case Unit unit:
+					{
+						var castAbilityCommand = new CastAbilityCommand<Unit>(ActiveUnit, ActiveAbility, unit);
+						ActiveUnit.CommandModule.Add(castAbilityCommand);
+						break;
+					}
+					case ResourceSource resourceSource:
+					{
+						var castAbilityCommand = new CastAbilityCommand<ResourceSource>(ActiveUnit, ActiveAbility, resourceSource);
+						ActiveUnit.CommandModule.Add(castAbilityCommand);
+						break;
+					}
+				}
 			}
 
 			Discard();

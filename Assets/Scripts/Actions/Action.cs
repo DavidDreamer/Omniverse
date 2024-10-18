@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse
@@ -14,6 +15,6 @@ namespace Omniverse
 
 	public abstract class Action : ScriptableObject, IAction
 	{
-		public abstract void Perform(ActionContext context);
+		public abstract void Perform(Unit actor);
 	}
 }

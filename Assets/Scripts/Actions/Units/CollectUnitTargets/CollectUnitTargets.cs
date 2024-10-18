@@ -9,24 +9,22 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public abstract IEnumerable<Unit> GetUnits(ActionContext context);
+		public abstract IEnumerable<Unit> GetUnits(Unit actor);
 
-		public override void Perform(ActionContext context)
+		public override void Perform(Unit actor)
 		{
-			//TODO
-			var source = context.Actor as IFactious;
-
-			foreach (Unit unit in GetUnits(context))
+			foreach (Unit unit in GetUnits(actor))
 			{
-				if (source != null)
+				if (actor != null)
 				{
-					if (!Filter.Match(source, unit))
+					if (!Filter.Match(actor, unit))
 					{
 						continue;
 					}
 				}
 
-				context.Entities.Add(unit);
+				//TODO
+				//context.Entities.Add(unit);
 			}
 		}
 	}

@@ -45,13 +45,13 @@ namespace Omniverse.Units
 		private IObjectResolver ObjectResolver { get; set; }
 
 		[Inject]
-		private ActionHandler ActionHandler { get; set; }
-
-		[Inject]
 		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
 
 		[Inject]
 		private TempNameManager TempNameManager { get; set; }
+
+		[Inject]
+		public PhysicsService PhysicsService { get; set; }
 
 		public int FactionID { get; set; }
 
@@ -68,7 +68,7 @@ namespace Omniverse.Units
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(abilityDesc, this, ActionHandler);
+				var ability = new Ability(abilityDesc, this);
 				Abilities.Add(ability);
 			}
 
@@ -184,9 +184,8 @@ namespace Omniverse.Units
 
 			if (effect.Desc.OnRemovedAction != null)
 			{
-				var context = new ActionContext(this);
-				context.Vectors.Add(transform.position);
-				ActionHandler.Perform(effect.Desc.OnRemovedAction, context);
+				//TODO
+				effect.Desc.OnRemovedAction.Perform(this, this);
 			}
 
 			Effects.RemoveAt(index);

@@ -1,5 +1,4 @@
-﻿
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 
 namespace Omniverse.Units
 {

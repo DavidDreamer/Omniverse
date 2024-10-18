@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Omniverse.Units;
 
 namespace Omniverse.Abilities
 {
@@ -14,11 +15,7 @@ namespace Omniverse.Abilities
 
 		public AutoResetUniTaskCompletionSource Used { get; }
 
-		public ActionHandler ActionHandler { get; }
-
-		public ActionContext ActionContext { get; }
-
-		public Ability(AbilityDesc desc, Entity actor, ActionHandler actionHandler)
+		public Ability(AbilityDesc desc, Entity actor)
 		{
 			Desc = desc;
 			Entity = actor;
@@ -27,10 +24,6 @@ namespace Omniverse.Abilities
 			Cooldown = new Cooldown(Desc.Cooldown);
 
 			Used = AutoResetUniTaskCompletionSource.Create();
-
-			ActionHandler = actionHandler;
-
-			ActionContext = new ActionContext(actor);
 		}
 
 		public void Tick(float deltaTime)
@@ -42,11 +35,18 @@ namespace Omniverse.Abilities
 		{
 			Cooldown.Activate();
 
-			ActionHandler.Perform(Desc.Action, ActionContext);
+			Desc.Action.Perform((Unit)Entity);
 
 			Used.TrySetResult();
+		}
 
-			ActionContext.Clear();
+		public void Cast<TTarget>(TTarget target)
+		{
+			Cooldown.Activate();
+
+			Desc.Action.Perform((Unit)Entity, target);
+
+			Used.TrySetResult();
 		}
 	}
 }

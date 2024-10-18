@@ -10,12 +10,11 @@ namespace Omniverse.Actions
 		[field: SerializeField]
 		public float Radius { get; private set; }
 
-		public override IEnumerable<Unit> GetUnits(ActionContext context)
+		public override IEnumerable<Unit> GetUnits(Unit actor)
 		{
 			//TODO
-			IFactious caster = context.Actor as IFactious;
-			Vector3 position = context.Vectors.First();
-			return context.PhysicsService.GetEntitiesInSphere<Unit>(position, Radius).Where(unit => Filter.Match(caster, unit));
+			Vector3 position = Vector3.zero;// context.Vectors.First();
+			return actor.PhysicsService.GetEntitiesInSphere<Unit>(position, Radius).Where(unit => Filter.Match(actor, unit));
 		}
 	}
 }

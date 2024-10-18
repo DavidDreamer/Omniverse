@@ -18,9 +18,6 @@ namespace Omniverse
 		public int FactionID { get; set; }
 
 		[Inject]
-		private ActionHandler ActionHandler { get; set; }
-
-		[Inject]
 		private PhysicsService PhysicsService { get; set; }
 
 		public HashSet<Unit> Targets { get; } = new();
@@ -35,9 +32,7 @@ namespace Omniverse
 			if (Time == 0)
 			{
 				Targets.Add(Target);
-				var contex = new ActionContext(Owner);
-				contex.Entities.Add(Target);
-				ActionHandler.Perform(Desc.Action, contex);
+				Desc.Action.Perform(Owner, Target);
 			}
 
 			Time += deltaTime;
