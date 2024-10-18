@@ -1,4 +1,3 @@
-using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;

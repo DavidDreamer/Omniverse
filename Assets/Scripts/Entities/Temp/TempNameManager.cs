@@ -12,7 +12,7 @@ namespace Omniverse
 
 		private List<TempName> Items { get; } = new();
 
-		public void Spawn(MissileDesc desc, Unit owner, Vector3 position, Vector3 direction) 
+		public void Spawn(MissileDesc desc, Unit owner, Vector3 position, Vector3 direction)
 		{
 			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
 			ObjectResolver.Inject(missile);

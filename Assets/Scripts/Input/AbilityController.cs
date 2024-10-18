@@ -1,5 +1,4 @@
-﻿using System;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Omniverse.Units;
 using UnityEngine;
 using VContainer;
@@ -122,17 +121,17 @@ namespace Omniverse.Input
 				switch (target)
 				{
 					case Unit unit:
-					{
-						var castAbilityCommand = new CastAbilityCommand<Unit>(ActiveUnit, ActiveAbility, unit);
-						ActiveUnit.CommandModule.Add(castAbilityCommand);
-						break;
-					}
+						{
+							var castAbilityCommand = new CastAbilityCommand<Unit>(ActiveUnit, ActiveAbility, unit);
+							ActiveUnit.CommandModule.Add(castAbilityCommand);
+							break;
+						}
 					case ResourceSource resourceSource:
-					{
-						var castAbilityCommand = new CastAbilityCommand<ResourceSource>(ActiveUnit, ActiveAbility, resourceSource);
-						ActiveUnit.CommandModule.Add(castAbilityCommand);
-						break;
-					}
+						{
+							var castAbilityCommand = new CastAbilityCommand<ResourceSource>(ActiveUnit, ActiveAbility, resourceSource);
+							ActiveUnit.CommandModule.Add(castAbilityCommand);
+							break;
+						}
 				}
 			}
 

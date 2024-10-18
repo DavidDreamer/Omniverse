@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 using UnityEngine;
 
 namespace Omniverse
