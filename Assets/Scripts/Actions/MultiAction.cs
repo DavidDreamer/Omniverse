@@ -49,7 +49,7 @@ namespace Omniverse
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
-				var action = Actions[i] as IAction<Unit, Unit>;
+				var action = Actions[i] as Action<Unit, Unit>;
 				action.Perform(actor, unit);
 			}
 		}
@@ -58,7 +58,7 @@ namespace Omniverse
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
-				var action = Actions[i] as IAction<Unit, Vector3>;
+				var action = Actions[i] as Action<Unit, Vector3>;
 				action.Perform(actor, vector);
 			}
 		}
@@ -67,7 +67,7 @@ namespace Omniverse
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
-				var action = Actions[i] as IAction<Unit, ResourceSource>;
+				var action = Actions[i] as Action<Unit, ResourceSource>;
 				action.Perform(actor, resourceSource);
 			}
 		}
@@ -76,7 +76,7 @@ namespace Omniverse
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
-				var action = Actions[i] as IMultiTargetAction<Unit, Unit>;
+				var action = Actions[i] as Action<Unit, IEnumerable<Unit>>;
 				action.Perform(actor, units);
 			}
 		}

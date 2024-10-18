@@ -7,14 +7,9 @@ namespace Omniverse
 	{
 	}
 
-	public interface IAction<TActor, TTarget> : IAction
+	public abstract class Action<TActor, TTarget> : ScriptableObject, IAction
 	{
-		void Perform(TActor actor, TTarget target);
-	}
-
-	public interface IMultiTargetAction<TActor, TTarget> : IAction
-	{
-		void Perform(TActor actor, IEnumerable<TTarget> targets);
+		public abstract void Perform(TActor actor, TTarget target);
 	}
 
 	public abstract class Action : ScriptableObject, IAction

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFaction : ScriptableObject, IAction<Unit, Unit>
+	public class SwitchTargetFaction : Action<Unit, Unit>
 	{
 		[field: SerializeField]
 		[field: ActionPicker]
@@ -17,9 +17,9 @@ namespace Omniverse.Actions
 		[field: ActionPicker]
 		public ScriptableObject Enemy { get; private set; }
 
-		public void Perform(Unit actor, Unit target)
+		public override void Perform(Unit actor, Unit target)
 		{
-			var action = (IAction<Unit, Unit>)Switch();
+			var action = (Action<Unit, Unit>)Switch();
 			action.Perform(actor, target);
 
 			ScriptableObject Switch()

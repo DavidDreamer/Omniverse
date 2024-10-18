@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class ExtractResource : ScriptableObject, IAction<Unit, ResourceSource>
+	public class ExtractResource : Action<Unit, ResourceSource>
 	{
 		[field: SerializeField]
 		public int Amount { get; private set; }
 
-		public void Perform(Unit actor, ResourceSource target)
+		public override void Perform(Unit actor, ResourceSource target)
 		{
 			actor.Extract(target, Amount);
 		}

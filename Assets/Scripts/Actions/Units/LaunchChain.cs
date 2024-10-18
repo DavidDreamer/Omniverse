@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class LaunchChain : ScriptableObject, IAction<Unit, Unit>
+	public class LaunchChain : Action<Unit, Unit>
 	{
 		[field: SerializeField]
 		public ChainDesc Chain { get; private set; }
 
-		public void Perform(Unit actor, Unit target)
+		public override void Perform(Unit actor, Unit target)
 		{
 			actor.SpawnChain(Chain, target);
 		}
