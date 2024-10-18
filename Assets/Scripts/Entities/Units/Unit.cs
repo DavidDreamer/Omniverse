@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Omniverse.Units
 {
-	public class Unit : Entity<UnitDesc>, IFactious, IPoolObject
+	public class Unit : Entity<UnitDesc>, IPoolObject
 	{
 		public event Action<Effect> EffectApplied;
 
@@ -53,9 +53,7 @@ namespace Omniverse.Units
 		[Inject]
 		public PhysicsService PhysicsService { get; set; }
 
-		public int FactionID { get; set; }
-
-		public override void Initialize(UnitDesc desc)
+		public void Initialize(UnitDesc desc, int factionID)
 		{
 			base.Initialize(desc);
 
@@ -75,6 +73,8 @@ namespace Omniverse.Units
 			Attack = new Attack(this);
 			Inventory = new Inventory(desc.Inventory);
 			CommandModule = new CommandModule(this);
+
+			ChangeFaction(factionID);
 		}
 
 		public void Cleanup()

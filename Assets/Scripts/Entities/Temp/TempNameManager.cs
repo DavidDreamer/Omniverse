@@ -31,9 +31,8 @@ namespace Omniverse
 		public void Spawn(ChainDesc desc, Vector3 position, Unit owner, Unit target, int factionID)
 		{
 			var chain = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Chain>();
-			chain.Initialize(desc);
+			chain.Initialize(desc, factionID);
 			chain.Owner = owner;
-			chain.FactionID = factionID;
 			ObjectResolver.Inject(chain);
 			chain.Target = target;
 

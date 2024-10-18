@@ -4,15 +4,13 @@ using VContainer;
 
 namespace Omniverse
 {
-	public partial class Missile : TempName, IFactious
+	public partial class Missile : TempName
 	{
 		private MissileDesc Desc { get; set; }
 
 		private Entity Owner { get; set; }
 
 		private Behaviour behaviour { get; set; }
-
-		public int FactionID { get; set; }
 
 		[Inject]
 		private PhysicsService PhysicsService { get; set; }
@@ -21,7 +19,7 @@ namespace Omniverse
 		{
 			Desc = desc;
 			Owner = owner;
-			FactionID = owner.FactionID;
+			ChangeFaction(owner.FactionID);
 		}
 
 		public void Initialize(MissileDesc desc, Unit owner, Vector3 vector)

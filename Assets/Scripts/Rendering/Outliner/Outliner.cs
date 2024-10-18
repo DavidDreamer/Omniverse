@@ -41,11 +41,14 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		private int GetOutlineVariant(Entity entity) =>
-			entity switch
+		private int GetOutlineVariant(Entity entity)
+		{
+			if (entity.FactionID == -1)
 			{
-				IFactious factious => factious.FactionID == Player.FactionID ? 0 : 1,
-				_ => 2
-			};
+				return 2;
+			}
+
+			return entity.FactionID == Player.FactionID ? 0 : 1;
+		}
 	}
 }

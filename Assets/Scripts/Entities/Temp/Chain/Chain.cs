@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Omniverse
 {
-	public class Chain : TempName, IFactious
+	public class Chain : TempName
 	{
 		private float Time { get; set; }
 
@@ -15,16 +15,15 @@ namespace Omniverse
 
 		public Unit Owner { get; set; }
 
-		public int FactionID { get; set; }
-
 		[Inject]
 		private PhysicsService PhysicsService { get; set; }
 
 		public HashSet<Unit> Targets { get; } = new();
 
-		public void Initialize(ChainDesc desc)
+		public void Initialize(ChainDesc desc, int factionID)
 		{
 			Desc = desc;
+			ChangeFaction(factionID);
 		}
 
 		public override void Tick(float deltaTime)
