@@ -1,3 +1,4 @@
+using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -99,16 +100,17 @@ namespace Omniverse.Editor
 
 		private void DrawAction()
 		{
-			SerializedProperty action = serializedObject.FindProperty(nameof(AbilityDesc.Action).ToBackingField());
-			DrawSectionHeader(action);
+			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Action).ToBackingField());
+			DrawSectionHeader(operation);
 
-			if (action.isExpanded)
+			if (operation.isExpanded)
 			{
-				var actions = action.FindPropertyRelative(nameof(AbilityDesc.Action.Actions).ToBackingField());
+				var actions = operation.FindPropertyRelative(nameof(AbilityDesc.Action.Actions).ToBackingField());
 
 				for (int i = 0; i < actions.arraySize; ++i)
 				{
-					EditorGUILayout.PropertyField(actions.GetArrayElementAtIndex(i));
+					var action = actions.GetArrayElementAtIndex(i);
+					EditorGUILayout.PropertyField(action);
 				}
 
 				using (new EditorGUILayout.HorizontalScope())
@@ -117,10 +119,15 @@ namespace Omniverse.Editor
 					{
 						actions.arraySize++;
 					}
+
 					if (GUILayout.Button("Remove"))
 					{
-						//TODO asset deletion
-						actions.arraySize--;
+						var action = actions.GetArrayElementAtIndex(actions.arraySize - 1);
+						if (action.objectReferenceValue != null)
+						{
+							AssetDatabase.RemoveObjectFromAsset(action.objectReferenceValue);
+						}
+						actions.DeleteArrayElementAtIndex(actions.arraySize - 1);
 					}
 				}
 			}

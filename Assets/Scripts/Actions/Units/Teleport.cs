@@ -5,9 +5,9 @@ namespace Omniverse.Actions
 {
 	public class Teleport : Action<Unit, Vector3>
 	{
-		public override void Perform(Unit unit, Vector3 target)
+		public override void Perform(Unit actor, Vector3 target)
 		{
-			unit.NavMeshAgent.Warp(target);
+			actor.NavMeshAgent.Warp(target);
 		}
 	}
 }
