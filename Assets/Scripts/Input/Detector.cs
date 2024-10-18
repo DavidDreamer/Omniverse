@@ -4,6 +4,7 @@ using Omniverse.Abilities;
 using Omniverse.Items;
 using Omniverse.Units;
 using UnityEngine;
+using VContainer;
 
 namespace Omniverse.Input
 {
@@ -14,6 +15,9 @@ namespace Omniverse.Input
 		private HashSet<Type> DetectableTypes { get; } = new();
 
 		private FactiousFilter Filter { get; set; }
+
+		[Inject]
+		private PhysicsService PhysicsService { get; set; }
 
 		public void SetDefaultDetectableType()
 		{
@@ -65,25 +69,24 @@ namespace Omniverse.Input
 		{
 			Target = null;
 
-			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
+			var entity = PhysicsService.GetEntity(ray);
+
+			if (entity == null)
 			{
-				if (!hitInfo.collider.TryGetComponent<Entity>(out var entity))
-				{
-					return;
-				}
-
-				if (!DetectableTypes.Contains(entity.GetType()))
-				{
-					return;
-				}
-
-				if (entity is IFactious factious && !Filter.Match(source, factious))
-				{
-					return;
-				}
-
-				Target = entity;
+				return;
 			}
+
+			if (!DetectableTypes.Contains(entity.GetType()))
+			{
+				return;
+			}
+
+			if (entity is IFactious factious && !Filter.Match(source, factious))
+			{
+				return;
+			}
+
+			Target = entity;
 		}
 	}
 }

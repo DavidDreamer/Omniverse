@@ -14,6 +14,16 @@ namespace Omniverse
 			Settings = settings;
 		}
 
+		public Entity GetEntity(Ray ray)
+		{
+			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, Settings.HitboxLayerMask))
+			{
+				return hitInfo.collider.GetComponentInParent<Entity>();
+			}
+
+			return null;
+		}
+
 		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(Vector3 position, float radius) where TEntity : Entity
 		{
 			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, Settings.HitboxLayerMask);

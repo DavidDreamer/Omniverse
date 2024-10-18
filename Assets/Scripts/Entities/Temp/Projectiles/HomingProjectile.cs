@@ -27,10 +27,11 @@ namespace Omniverse
 			float speed = Desc.Speed;
 			float radius = Desc.Radius;
 
-			Vector3 direction = (Target.transform.position - transform.position).normalized;
+			Vector3 targetPosition = Target.HitBox.transform.position;
+			Vector3 direction = (targetPosition - transform.position).normalized;
 			transform.position += direction * speed * deltaTime;
 
-			float sqrDistanceToTarget = Vector3.SqrMagnitude(Target.transform.position - transform.position);
+			float sqrDistanceToTarget = Vector3.SqrMagnitude(targetPosition - transform.position);
 
 			if (sqrDistanceToTarget <= radius * radius)
 			{

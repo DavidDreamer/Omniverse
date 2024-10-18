@@ -46,7 +46,7 @@ namespace Omniverse.Units.Client
 
 		private void OnEffectApplied(Effect effect)
 		{
-			GameObject instance = Instantiate(effect.Desc.Prefab, Center.position, Quaternion.identity, transform);
+			GameObject instance = Instantiate(effect.Desc.Prefab, Entity.HitBox.transform.position, Quaternion.identity, transform);
 			Effects.Add(effect, instance);
 		}
 

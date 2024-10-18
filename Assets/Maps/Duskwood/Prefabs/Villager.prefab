@@ -3328,7 +3328,6 @@ MonoBehaviour:
   - {fileID: 2877096950672005567}
   - {fileID: 6965789964256310765}
   - {fileID: 5546428424902439201}
-  <Center>k__BackingField: {fileID: 563844589912542838}
   <BloodStain>k__BackingField: {fileID: 2705495521907057997, guid: 9e381ceb182d78e47b80f2b0601d1e08, type: 3}
   <MeshFilters>k__BackingField: []
   <AudioSource>k__BackingField: {fileID: 0}
