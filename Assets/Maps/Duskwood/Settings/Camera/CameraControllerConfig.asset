@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HeightRange>k__BackingField:
     <Min>k__BackingField: 5
-    <Max>k__BackingField: 20
+    <Max>k__BackingField: 15
   <DefaultHeight>k__BackingField: 1
-  <Rotation>k__BackingField: {x: 65, y: 0, z: 0}
+  <Rotation>k__BackingField: {x: 60, y: 0, z: 0}
   <XBounds>k__BackingField:
     <Min>k__BackingField: 0
     <Max>k__BackingField: 256
