@@ -16,7 +16,7 @@ namespace Omniverse.UI
 
 		private Unit Unit { get; set; }
 
-		private List<EffectWidget> EffectIndicators { get; } = new();
+		private List<EffectWidget> EffectWdigets { get; } = new();
 
 		public void Bind(Unit unit)
 		{
@@ -28,26 +28,26 @@ namespace Omniverse.UI
 			for (int i = 0; i < Unit.Effects.Count; i++)
 			{
 				Effect effect = Unit.Effects[i];
-				if (EffectIndicators.Count == i)
+				if (EffectWdigets.Count == i)
 				{
-					var effectIndicator = ObjectResolver.Resolve<EffectWidget>();
-					effectIndicator.transform.SetParent(transform, false);
-					EffectIndicators.Add(effectIndicator);
+					var effectWidget = ObjectResolver.Resolve<EffectWidget>();
+					effectWidget.transform.SetParent(transform, false);
+					EffectWdigets.Add(effectWidget);
 				}
 
-				EffectIndicators[i].Bind(effect);
+				EffectWdigets[i].Bind(effect);
 			}
 
-			for (int i = Unit.Effects.Count; i < EffectIndicators.Count; i++)
+			for (int i = Unit.Effects.Count; i < EffectWdigets.Count; i++)
 			{
-				Destroy(EffectIndicators[i].gameObject);
-				EffectIndicators.RemoveAt(i);
+				Destroy(EffectWdigets[i].gameObject);
+				EffectWdigets.RemoveAt(i);
 				i--;
 			}
 
-			foreach (EffectWidget effectIndicator in EffectIndicators)
+			foreach (EffectWidget effectWidget in EffectWdigets)
 			{
-				effectIndicator.Tick();
+				effectWidget.Tick();
 			}
 
 			Holder.ForceLayoutRebuild();

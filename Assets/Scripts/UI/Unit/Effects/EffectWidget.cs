@@ -13,6 +13,9 @@ namespace Omniverse.UI
 		private Image Icon { get; set; }
 
 		[field: SerializeField]
+		private Image Timer { get; set; }
+
+		[field: SerializeField]
 		private Color ColorPositive { get; set; }
 
 		[field: SerializeField]
@@ -30,7 +33,7 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-
+			Timer.fillAmount = Effect.Time / Effect.Desc.Time;
 		}
 	}
 }
