@@ -92,9 +92,16 @@ namespace Omniverse.Units
 			UpdateAbilities();
 			UpdateEffects();
 			UpdateProperties();
-			CommandModule.Tick(deltaTime);
 
-			//NavMeshAgent.isStopped = Status.HasFlag(UnitStatus.Stunned);
+			bool isStunned = Status.HasFlag(UnitStatus.Stunned);
+			NavMeshAgent.isStopped = isStunned;
+			if (isStunned)
+			{
+			}
+			else
+			{
+				CommandModule.Tick(deltaTime);
+			}
 
 			void UpdateAbilities()
 			{

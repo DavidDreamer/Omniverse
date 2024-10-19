@@ -15,6 +15,8 @@ namespace Omniverse.Units.Client
 			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
 
 			public static int AttackSpeed { get; } = Animator.StringToHash(nameof(AttackSpeed));
+
+			public static int Stunned { get; } = Animator.StringToHash(nameof(Stunned));
 		}
 
 		[field: SerializeField]
@@ -63,6 +65,9 @@ namespace Omniverse.Units.Client
 
 			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
 			Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
+
+			bool isStunned = Entity.Status.HasFlag(UnitStatus.Stunned);
+			Animator.SetBool(AnimatorVariables.Stunned, isStunned);
 		}
 
 		private void OnAttackStarted()

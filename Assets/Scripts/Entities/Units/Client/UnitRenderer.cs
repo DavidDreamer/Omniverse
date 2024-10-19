@@ -46,12 +46,22 @@ namespace Omniverse.Units.Client
 
 		private void OnEffectApplied(Effect effect)
 		{
+			if (effect.Desc.Prefab == null)
+			{
+				return;
+			}
+
 			GameObject instance = Instantiate(effect.Desc.Prefab, Entity.HitBox.transform.position, Quaternion.identity, transform);
 			Effects.Add(effect, instance);
 		}
 
 		private void OnEffectRemoved(Effect effect)
 		{
+			if (effect.Desc.Prefab == null)
+			{
+				return;
+			}
+
 			Destroy(Effects[effect]);
 			Effects.Remove(effect);
 		}
