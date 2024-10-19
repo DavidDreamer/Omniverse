@@ -197,17 +197,17 @@ namespace Omniverse.Units
 
 		public void SpawnMissile(MissileDesc desc, Unit target)
 		{
-			TempNameManager.Spawn(desc, this, transform.position, target);
+			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
 
 		public void SpawnMissile(MissileDesc desc, Vector3 target)
 		{
-			TempNameManager.Spawn(desc, this, transform.position, target);
+			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
 
 		public void SpawnChain(ChainDesc desc, Unit target)
 		{
-			TempNameManager.Spawn(desc, transform.position, this, target, FactionID);
+			TempNameManager.Spawn(desc, HitBox.transform.position, this, target, FactionID);
 		}
 
 		public void Extract(ResourceSource resourceSource, int amount)
