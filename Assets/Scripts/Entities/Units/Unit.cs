@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Omniverse.Abilities;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,10 +25,6 @@ namespace Omniverse.Units
 		public List<Effect> Effects { get; } = new();
 
 		public bool IsDead { get; private set; }
-
-		private CancellationTokenSource DeathCancellationTokenSource { get; set; } = new();
-
-		public CancellationToken DeathCancellationToken => DeathCancellationTokenSource.Token;
 
 		public UnitStatus Status { get; private set; }
 
@@ -216,10 +211,6 @@ namespace Omniverse.Units
 		internal void Die()
 		{
 			IsDead = true;
-
-			DeathCancellationTokenSource.Cancel();
-			DeathCancellationTokenSource.Dispose();
-			DeathCancellationTokenSource = null;
 
 			HitBox.enabled = false;
 
