@@ -6,12 +6,18 @@ namespace Omniverse
 	public class ChainDesc : EntityDesc
 	{
 		[field: SerializeField]
-		public MultiAction Action { get; private set; }
+		public FactiousFilter Filter { get; private set; }
+
+		[field: SerializeField]
+		public int MaxTargets{ get; private set; }
 
 		[field: SerializeField]
 		public float BounceRange { get; private set; }
 
 		[field: SerializeField]
 		public float BounceInterval { get; private set; }
+
+		[field: SerializeField]
+		public MultiAction Action { get; private set; }
 	}
 }

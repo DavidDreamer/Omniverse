@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Omniverse.Units;
+using UnityEngine;
 using VContainer;
 
 namespace Omniverse
@@ -38,8 +38,43 @@ namespace Omniverse
 
 			if (Time >= Desc.BounceInterval)
 			{
-				var targets = PhysicsService.GetEntitiesInSphere<Unit>(Target.transform.position, Desc.BounceRange);
-				Target = targets.FirstOrDefault(t => t != Owner && !Targets.Contains(t));
+				if (Targets.Count == Desc.MaxTargets)
+				{
+					Completed = true;
+					return;
+				}
+
+				Vector3 position = Target.transform.position;
+				Target = null;
+				float minDistance = float.MaxValue;
+
+				foreach (var target in PhysicsService.GetEntitiesInSphere<Unit>(position, Desc.BounceRange))
+				{
+					if (target == Owner)
+					{
+						continue;
+					}
+
+					if (Targets.Contains(target))
+					{
+						continue;
+					}
+
+					if (!Desc.Filter.Match(this, target))
+					{
+						continue;
+					}
+
+					float distance = Vector3.SqrMagnitude(target.transform.position - position);
+
+					if (distance >= minDistance)
+					{
+						continue;
+					}
+
+					Target = target;
+					minDistance = distance;
+				}
 
 				if (Target == null)
 				{

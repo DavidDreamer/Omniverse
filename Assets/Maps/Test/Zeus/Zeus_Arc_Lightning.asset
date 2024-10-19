@@ -23,7 +23,7 @@ MonoBehaviour:
     <ResourceSources>k__BackingField: []
   <Cost>k__BackingField: []
   <Casting>k__BackingField:
-    <Time>k__BackingField: 0
+    <Time>k__BackingField: 0.15
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0

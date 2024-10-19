@@ -45,11 +45,13 @@ MonoBehaviour:
   <Name>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <Model>k__BackingField: {fileID: 6533103210621097778, guid: f644b8a497b7a3242959192119218733, type: 3}
+  <Filter>k__BackingField: 4
+  <MaxTargets>k__BackingField: 3
+  <BounceRange>k__BackingField: 10
+  <BounceInterval>k__BackingField: 0.2
   <Action>k__BackingField:
     <Actions>k__BackingField:
     - {fileID: -3163654078686936201}
-  <BounceRange>k__BackingField: 10
-  <BounceInterval>k__BackingField: 0.2
 --- !u!114 &5263899964674884752
 MonoBehaviour:
   m_ObjectHideFlags: 0
