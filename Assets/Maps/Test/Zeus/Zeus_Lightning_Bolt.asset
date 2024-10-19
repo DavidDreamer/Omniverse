@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 725bde4d0ade44deb22801c15b58b07a, type: 3}
-  m_Name: Zeus_Arc_Lightning
+  m_Name: Zeus_Lightning_Bolt
   m_EditorClassIdentifier: 
   <Meta>k__BackingField:
-    <Name>k__BackingField: Arc Lightning
+    <Name>k__BackingField: Lightning Bolt
     <Description>k__BackingField: 
-    <Icon>k__BackingField: {fileID: 21300000, guid: 842146ed02439a640842c018641a8a60, type: 3}
+    <Icon>k__BackingField: {fileID: 21300000, guid: f39fffbfc9f8de74e97f2584f4d94e12, type: 3}
   <Target>k__BackingField:
     <Type>k__BackingField: 4
     <Range>k__BackingField: 10
@@ -23,14 +23,15 @@ MonoBehaviour:
     <ResourceSources>k__BackingField: []
   <Cost>k__BackingField: []
   <Casting>k__BackingField:
-    <Time>k__BackingField: 0.15
+    <Time>k__BackingField: 0.2
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
-    <Time>k__BackingField: 1.6
+    <Time>k__BackingField: 6
   <Action>k__BackingField:
     <Actions>k__BackingField:
-    - {fileID: 1865503040055418530}
---- !u!114 &1865503040055418530
+    - {fileID: 6284247197966396473}
+    - {fileID: 7495184540346665526}
+--- !u!114 &6284247197966396473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,7 +40,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec84e880578b6ce419040fc256458a4a, type: 3}
-  m_Name: LaunchChain
+  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
+  m_Name: ModifyProperty
   m_EditorClassIdentifier: 
-  <Chain>k__BackingField: {fileID: 11400000, guid: ec041e6edf3963a4cba9b9325c35826c, type: 2}
+  <Property>k__BackingField: 3
+  <Modifier>k__BackingField:
+    Operation: 1
+    Mode: 0
+    Value: 20
+--- !u!114 &7495184540346665526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedfe9a51d0946be8b1d9cc02297a81a, type: 3}
+  m_Name: ApplyEffect
+  m_EditorClassIdentifier: 
+  <Effect>k__BackingField: {fileID: 11400000, guid: b870ee7d83ba48041a2a09d8474b66ce, type: 2}
