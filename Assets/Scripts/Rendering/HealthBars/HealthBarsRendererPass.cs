@@ -78,7 +78,7 @@ namespace Omniverse.Rendering
 				SecondColors[i] = colors.SecondColor;
 
 				var healthProperty = unit.Properties[PropertyID.Health];
-				Amounts[i] = healthProperty.Amount.Value / healthProperty.Desc.Range.Max;
+				Amounts[i] = healthProperty.Amount / healthProperty.Desc.Range.Max;
 			}
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);

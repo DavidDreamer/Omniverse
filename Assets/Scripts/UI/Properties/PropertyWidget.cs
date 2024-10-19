@@ -26,14 +26,14 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Value.text = Property.Amount.Value.ToString();
+			Value.text = Property.Amount.ToString();
 			Value.color = GetColor();
 		}
 
 		private Color GetColor()
 		{
-			float rawAmount = Property.RawAmount.Value;
-			float amount = Property.Amount.Value;
+			float rawAmount = Property.RawAmount;
+			float amount = Property.Amount;
 
 			if (amount > rawAmount)
 			{

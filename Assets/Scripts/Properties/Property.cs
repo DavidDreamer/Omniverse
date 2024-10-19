@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Omniverse
@@ -9,17 +8,17 @@ namespace Omniverse
 	{
 		public PropertyDesc Desc { get; }
 
-		public AsyncReactiveProperty<float> RawAmount { get; }
+		public float RawAmount { get; private set; }
 
-		public AsyncReactiveProperty<float> Amount { get; }
+		public float Amount { get; private set; }
 
-		public AsyncReactiveProperty<float> Regeneration { get; }
+		public float Regeneration { get; private set; }
 
 		public bool Vital { get; }
 
 		public bool Invulnerable { get; private set; }
 
-		public bool OutOf => Amount.Value == 0;
+		public bool OutOf => Amount == 0;
 
 		public List<PropertyModifier> Modifiers { get; }
 
@@ -27,9 +26,9 @@ namespace Omniverse
 		{
 			Desc = desc;
 
-			RawAmount = new AsyncReactiveProperty<float>(desc.Default);
-			Amount = new AsyncReactiveProperty<float>(desc.Default);
-			Regeneration = new AsyncReactiveProperty<float>(desc.Regeneration);
+			RawAmount = Desc.Default;
+			Amount = Desc.Default;
+			Regeneration = Desc.Regeneration;
 
 			Modifiers = new List<PropertyModifier>();
 
@@ -38,14 +37,14 @@ namespace Omniverse
 
 		public void FixedTick(float deltaTime)
 		{
-			Amount.Value = RawAmount.Value;
+			Amount = RawAmount;
 
 			foreach (PropertyModifier propertyModifier in Modifiers)
 			{
-				Amount.Value += propertyModifier.Value;
+				Amount += propertyModifier.Value;
 			}
 
-			Change(Regeneration.Value * deltaTime);
+			Change(Regeneration * deltaTime);
 		}
 
 		public void AddModifier(PropertyModifier modifier)
@@ -60,7 +59,7 @@ namespace Omniverse
 
 		public void Restore()
 		{
-			Amount.Value = Desc.Default;
+			Amount = Desc.Default;
 		}
 
 		public void Modify(PropertyModifier modifier)
@@ -99,7 +98,7 @@ namespace Omniverse
 
 		public void Change(float delta)
 		{
-			RawAmount.Value = Mathf.Clamp(RawAmount.Value + delta, Desc.Range.Min, Desc.Range.Max);
+			RawAmount = Mathf.Clamp(RawAmount + delta, Desc.Range.Min, Desc.Range.Max);
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Omniverse.Units
 		public bool TargetIsInRange(Unit target)
 		{
 			float sqrDistance = Vector3.SqrMagnitude(Unit.transform.position - target.transform.position);
-			float attackRange = Unit.Properties[PropertyID.AttackRange].Amount.Value;
+			float attackRange = Unit.Properties[PropertyID.AttackRange].Amount;
 			float sqrAttackRange = attackRange * attackRange;
 			return sqrDistance <= sqrAttackRange;
 		}
@@ -35,7 +35,7 @@ namespace Omniverse.Units
 
 		public void Tick(Unit target, float deltaTime)
 		{
-			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount.Value;
+			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount;
 
 			float time = 1f / attackSpeed;
 			TimeSpan timeSpan = TimeSpan.FromSeconds(time);

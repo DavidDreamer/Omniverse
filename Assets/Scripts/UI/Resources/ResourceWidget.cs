@@ -30,7 +30,7 @@ namespace Omniverse.UI
 		public void LateTick()
 		{
 			Resource resource = FactionManager.Factions[Player.FactionID].Resources[ResourceDesc];
-			Amount.text = resource.Amount.Value.ToString();
+			Amount.text = resource.Amount.ToString();
 		}
 	}
 }

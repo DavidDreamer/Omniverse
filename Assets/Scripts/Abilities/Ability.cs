@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Omniverse.Units;
+﻿using Omniverse.Units;
 
 namespace Omniverse.Abilities
 {
@@ -13,8 +12,6 @@ namespace Omniverse.Abilities
 
 		public Cooldown Cooldown { get; }
 
-		public AutoResetUniTaskCompletionSource Used { get; }
-
 		public Ability(AbilityDesc desc, Entity actor)
 		{
 			Desc = desc;
@@ -22,8 +19,6 @@ namespace Omniverse.Abilities
 
 			Casting = new Casting(Desc.Casting);
 			Cooldown = new Cooldown(Desc.Cooldown);
-
-			Used = AutoResetUniTaskCompletionSource.Create();
 		}
 
 		public void Tick(float deltaTime)
@@ -34,19 +29,13 @@ namespace Omniverse.Abilities
 		public void Cast()
 		{
 			Cooldown.Activate();
-
 			Desc.Action.Perform((Unit)Entity);
-
-			Used.TrySetResult();
 		}
 
 		public void Cast<TTarget>(TTarget target)
 		{
 			Cooldown.Activate();
-
 			Desc.Action.Perform((Unit)Entity, target);
-
-			Used.TrySetResult();
 		}
 	}
 }

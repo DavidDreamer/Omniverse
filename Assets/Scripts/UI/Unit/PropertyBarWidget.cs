@@ -23,7 +23,7 @@ namespace Omniverse.UI
 			Property = unit.Properties[PropertyID];
 
 			Slider.maxValue = Property.Desc.Range.Max;
-			Slider.value = Property.Amount.Value;
+			Slider.value = Property.Amount;
 		}
 
 		public void Unbind()
@@ -38,7 +38,7 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Slider.value = Property.Amount.Value;
+			Slider.value = Property.Amount;
 
 			if (Label != null)
 			{

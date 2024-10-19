@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using Omniverse.Items;
 using UnityEngine;
 using VContainer;
@@ -11,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Omniverse.Units
 {
-	public class UnitManager : IDisposable
+	public class UnitManager
 	{
 		[Inject]
 		private PrefabPool<Unit> Pool { get; set; }
@@ -30,14 +28,7 @@ namespace Omniverse.Units
 
 		public List<Unit> Units { get; } = new();
 
-		private CancellationTokenSource CancellationTokenSource { get; } = new();
-
 		private Dictionary<Unit, UnitFogOfWarAgent> FogOfWarAgents { get; } = new();
-
-		public void Dispose()
-		{
-			CancellationTokenSource.Dispose();
-		}
 
 		public Unit Spawn(UnitDesc desc, int factionID, Vector3 position)
 		{
@@ -117,12 +108,7 @@ namespace Omniverse.Units
 			unit.Die();
 			DropLoot(unit);
 
-			WaitForDespawn(unit, CancellationTokenSource.Token);
-		}
-
-		private async void WaitForDespawn(Unit unit, CancellationToken token)
-		{
-			await UniTask.Delay(TimeSpan.FromSeconds(Config.DespawnDelay), cancellationToken: token);
+			//TODO: Add non-async delay
 			Pool.Return(unit);
 		}
 

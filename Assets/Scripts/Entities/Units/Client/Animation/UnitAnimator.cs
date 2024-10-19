@@ -58,10 +58,10 @@ namespace Omniverse.Units.Client
 			Animator.SetBool(AnimatorVariables.IsMoving,
 				!Entity.NavMeshAgent.isStopped && Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
 
-			float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount.Value;
+			float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount;
 			Animator.SetFloat(AnimatorVariables.MovementSpeed, movementSpeed);
 
-			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount.Value;
+			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
 			Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
 		}
 

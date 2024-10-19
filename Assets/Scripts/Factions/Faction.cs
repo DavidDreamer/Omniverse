@@ -24,7 +24,7 @@ namespace Omniverse
 
 		public void ChangeResource(ResourceDesc desc, int amount)
 		{
-			Resources[desc].Amount.Value += amount;
+			Resources[desc].Amount += amount;
 		}
 	}
 }
