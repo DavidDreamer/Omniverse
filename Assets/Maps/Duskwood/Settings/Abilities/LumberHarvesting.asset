@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0b11ac46a447558c212d4019228ffe, type: 3}
   m_Name: ExtractResource
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
   <Amount>k__BackingField: 10
 --- !u!114 &11400000
 MonoBehaviour:
@@ -31,9 +30,9 @@ MonoBehaviour:
     <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
   <Target>k__BackingField:
-    <Type>k__BackingField: 8
+    <Type>k__BackingField: 4
     <Range>k__BackingField: 2
-    <Filter>k__BackingField: 0
+    <Filter>k__BackingField: -1
     <ResourceSources>k__BackingField:
     - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
   <Cost>k__BackingField: []
