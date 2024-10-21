@@ -5,6 +5,8 @@ namespace Omniverse.Units
 	{
 		void Start();
 
+		bool IsRepeatable { get; }
+
 		bool Tick(float deltaTime);
 
 		void Cleanup();
@@ -13,6 +15,8 @@ namespace Omniverse.Units
 	public abstract class Command : ICommand
 	{
 		protected Unit Unit { get; }
+
+		public virtual bool IsRepeatable => false;
 
 		protected Command(Unit unit)
 		{

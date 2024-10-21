@@ -6,6 +6,8 @@ namespace Omniverse.Units
 	{
 		public Ability Ability { get; }
 
+		public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
+
 		public CastAbilityCommand(Unit unit, Ability ability) : base(unit)
 		{
 			Ability = ability;
@@ -41,15 +43,7 @@ namespace Omniverse.Units
 
 			Cast();
 
-			if (Ability.Desc.Casting.Repetitive)
-			{
-				Ability.Casting.Reset();
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return true;
 		}
 
 		protected virtual void Cast()

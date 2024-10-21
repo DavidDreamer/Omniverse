@@ -45,15 +45,22 @@ namespace Omniverse.Units
 				{
 					Command.Cleanup();
 
-					if (Commands.Count > 0)
+					if (Command.IsRepeatable)
 					{
-						Command = Commands.Dequeue();
 						Command.Start();
-					}
-					else
-					{
-						Command = null;
 						break;
+					}
+					{
+						if (Commands.Count > 0)
+						{
+							Command = Commands.Dequeue();
+							Command.Start();
+						}
+						else
+						{
+							Command = null;
+							break;
+						}
 					}
 				}
 				else
