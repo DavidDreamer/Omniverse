@@ -4,7 +4,7 @@ namespace Omniverse.Units
 {
 	public class CastAbilityCommand : Command
 	{
-		protected Ability Ability { get; }
+		public Ability Ability { get; }
 
 		public CastAbilityCommand(Unit unit, Ability ability) : base(unit)
 		{

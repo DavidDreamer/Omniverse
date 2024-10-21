@@ -10,7 +10,7 @@ namespace Omniverse.Units
 
 		private Queue<IImmediateCommand> ImmediateCommands { get; } = new();
 
-		private ICommand Command { get; set; }
+		public ICommand Command { get; private set; }
 
 		public CommandModule(Unit unit)
 		{

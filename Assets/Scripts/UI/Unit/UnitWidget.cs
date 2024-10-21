@@ -7,6 +7,7 @@ using VContainer.Unity;
 
 namespace Omniverse.UI
 {
+
 	public class UnitWidget : MonoBehaviour, ILateTickable
 	{
 		[field: SerializeField]
@@ -23,6 +24,9 @@ namespace Omniverse.UI
 
 		[field: SerializeField]
 		private EffectsBarWidget EffectsBar { get; set; }
+
+		[field: SerializeField]
+		private ActionBarWidget ActionBar { get; set; }
 
 		public PropertyBarWidget Health;
 
@@ -56,6 +60,9 @@ namespace Omniverse.UI
 
 			Experience.Bind(unit.Experience);
 			Properties.Bind(unit);
+
+			ActionBar.Bind(unit);
+			ActionBar.Tick();
 		}
 	}
 }
