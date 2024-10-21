@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725bde4d0ade44deb22801c15b58b07a, type: 3}
+  m_Name: Bounty_Hunter_Shadow_Walk
+  m_EditorClassIdentifier: 
+  <Meta>k__BackingField:
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
+    <Icon>k__BackingField: {fileID: 0}
+  <Target>k__BackingField:
+    <Type>k__BackingField: 0
+    <Range>k__BackingField: 0
+    <Filter>k__BackingField: 0
+    <ResourceSources>k__BackingField: []
+  <Cost>k__BackingField: []
+  <Casting>k__BackingField:
+    <Time>k__BackingField: 0
+    <Repetitive>k__BackingField: 0
+    <AnimationTrigger>k__BackingField: 
+  <Cooldown>k__BackingField:
+    <Time>k__BackingField: 0
+  <Action>k__BackingField:
+    <Actions>k__BackingField: []

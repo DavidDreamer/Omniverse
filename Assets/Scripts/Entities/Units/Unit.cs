@@ -113,7 +113,7 @@ namespace Omniverse.Units
 
 			void UpdateEffects()
 			{
-				Status = UnitStatus.None;
+				Status = 0;
 
 				for (var i = 0; i < Effects.Count; ++i)
 				{
