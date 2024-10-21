@@ -41,7 +41,15 @@ namespace Omniverse.Units
 
 			Cast();
 
-			return true;
+			if (Ability.Desc.Casting.Repetitive)
+			{
+				Ability.Casting.Reset();
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		protected virtual void Cast()

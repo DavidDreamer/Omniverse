@@ -38,6 +38,7 @@ MonoBehaviour:
   <Cost>k__BackingField: []
   <Casting>k__BackingField:
     <Time>k__BackingField: 0.5
+    <Repetitive>k__BackingField: 1
     <AnimationTrigger>k__BackingField: Attack
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
