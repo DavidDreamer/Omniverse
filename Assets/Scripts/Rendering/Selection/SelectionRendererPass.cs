@@ -2,7 +2,6 @@
 using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using Omniverse.Input;
-using Omniverse.Units;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

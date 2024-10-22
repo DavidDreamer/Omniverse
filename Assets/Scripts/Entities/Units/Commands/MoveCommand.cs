@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class MoveCommand : Command
 	{

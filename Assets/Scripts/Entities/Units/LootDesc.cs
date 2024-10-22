@@ -2,7 +2,7 @@ using System;
 using Omniverse.Items;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[Serializable]
 	public class LootDesc

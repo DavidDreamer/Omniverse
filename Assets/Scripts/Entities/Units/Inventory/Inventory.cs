@@ -2,7 +2,7 @@
 using System.Linq;
 using Omniverse.Items;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class Inventory
 	{

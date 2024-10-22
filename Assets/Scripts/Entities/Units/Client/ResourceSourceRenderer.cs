@@ -1,4 +1,4 @@
-﻿namespace Omniverse.Units.Client
+﻿namespace Omniverse.Client
 {
 	//TODO
 	public class ResourceSourceRenderer : RendererComponent<ResourceSource>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Omniverse.Units.Client
+namespace Omniverse.Client
 {
 	public class UnitRenderer : RendererComponent<Unit>
 	{

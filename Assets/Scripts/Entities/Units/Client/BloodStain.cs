@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace Omniverse.Units.Client
+namespace Omniverse.Client
 {
 	public class BloodStain : MonoBehaviour
 	{

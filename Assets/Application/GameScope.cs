@@ -2,7 +2,6 @@
 using Omniverse.Mapping;
 using Omniverse.Rendering;
 using Omniverse.UI;
-using Omniverse.Units;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

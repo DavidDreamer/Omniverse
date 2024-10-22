@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class Unit : Entity<UnitDesc>, IPoolObject
 	{

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class Attack
 	{

@@ -1,6 +1,4 @@
-﻿using Omniverse.Units;
-
-namespace Omniverse.Actions
+﻿namespace Omniverse.Actions
 {
 	public class KillUnit : Action<Unit, Unit>
 	{

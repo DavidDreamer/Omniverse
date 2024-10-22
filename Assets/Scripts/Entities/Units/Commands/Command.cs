@@ -1,5 +1,5 @@
 ﻿
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public interface ICommand
 	{

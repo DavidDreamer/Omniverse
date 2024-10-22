@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public static class ExperienceUtils
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[CreateAssetMenu(menuName = "Omniverse/Config/Unit Manager", fileName = nameof(UnitManagerConfig))]
 	public class UnitManagerConfig : ScriptableObject

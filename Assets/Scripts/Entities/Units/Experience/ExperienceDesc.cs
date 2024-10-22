@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[Serializable]
 	public class ExperienceDesc

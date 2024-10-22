@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class CommandModule
 	{

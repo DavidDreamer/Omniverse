@@ -1,6 +1,4 @@
-﻿using Omniverse.Units;
-
-namespace Omniverse
+﻿namespace Omniverse
 {
 	public interface ITargetProvider<TTarget>
 	{

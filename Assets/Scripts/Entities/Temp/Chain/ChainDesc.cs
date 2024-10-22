@@ -9,7 +9,7 @@ namespace Omniverse
 		public FactiousFilter Filter { get; private set; }
 
 		[field: SerializeField]
-		public int MaxTargets{ get; private set; }
+		public int MaxTargets { get; private set; }
 
 		[field: SerializeField]
 		public float BounceRange { get; private set; }

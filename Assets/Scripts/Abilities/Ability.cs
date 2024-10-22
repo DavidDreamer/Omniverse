@@ -1,6 +1,4 @@
-﻿using Omniverse.Units;
-
-namespace Omniverse.Abilities
+﻿namespace Omniverse.Abilities
 {
 	public class Ability
 	{

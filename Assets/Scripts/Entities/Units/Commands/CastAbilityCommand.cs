@@ -1,6 +1,6 @@
 ﻿using Omniverse.Abilities;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class CastAbilityCommand : Command
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[Flags]
 	public enum UnitStatus

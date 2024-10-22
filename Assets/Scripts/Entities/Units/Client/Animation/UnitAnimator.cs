@@ -2,7 +2,7 @@
 using Omniverse.Abilities;
 using UnityEngine;
 
-namespace Omniverse.Units.Client
+namespace Omniverse.Client
 {
 	public class UnitAnimator : EntityComponent<Unit>
 	{

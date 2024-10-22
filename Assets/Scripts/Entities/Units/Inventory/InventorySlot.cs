@@ -1,6 +1,6 @@
 ﻿using Omniverse.Items;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class InventorySlot
 	{

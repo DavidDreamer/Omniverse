@@ -2,7 +2,7 @@
 using Omniverse.Abilities;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Unit", fileName = nameof(UnitDesc))]
 	public class UnitDesc : EntityDesc

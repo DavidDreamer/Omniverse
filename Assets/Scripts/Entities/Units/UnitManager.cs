@@ -6,7 +6,7 @@ using VContainer;
 using VContainer.Unity;
 using Random = UnityEngine.Random;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	public class UnitManager
 	{

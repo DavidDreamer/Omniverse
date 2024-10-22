@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Animations;
 
-namespace Omniverse.Units.Client
+namespace Omniverse.Client
 {
 	public class RandomBehaviour : StateMachineBehaviour
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Omniverse.Units
+namespace Omniverse
 {
 	[CreateAssetMenu(menuName = "Omniverse/Desc/Effect")]
 	public class EffectDesc : ScriptableObject
