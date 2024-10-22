@@ -41,6 +41,41 @@ namespace Omniverse
 			}
 		}
 
+		public TEntity GetClosestEntity<TEntity>(Entity source, float radius, FactiousFilter filter) where TEntity : Entity
+		{
+			Vector3 sourcePosition = source.transform.position;
+
+			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, Settings.HitboxLayerMask);
+
+			float minDistance = float.MaxValue;
+			TEntity closestEntity = null;
+
+			for (int i = 0; i < count; ++i)
+			{
+				var entity = Colliders[i].GetComponentInParent<TEntity>();
+
+				if (entity == null)
+				{
+					continue;
+				}
+
+				if (!filter.Match(source, entity))
+				{
+					continue;
+				}
+
+				float distance = Vector3.SqrMagnitude(sourcePosition - entity.transform.position);
+
+				if (distance < minDistance)
+				{
+					minDistance = distance;
+					closestEntity = entity;
+				}
+			}
+
+			return closestEntity;
+		}
+
 		public IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
 			Vector3 position,
 			Vector3 forward,
