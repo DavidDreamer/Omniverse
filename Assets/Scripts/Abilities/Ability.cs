@@ -29,7 +29,7 @@ namespace Omniverse.Abilities
 		public void Cast()
 		{
 			Cooldown.Activate();
-			Desc.Action.Perform((Unit)Entity);
+			Desc.Operation.Perform((Unit)Entity);
 		}
 
 		public void Cast<TTarget>(TTarget target)

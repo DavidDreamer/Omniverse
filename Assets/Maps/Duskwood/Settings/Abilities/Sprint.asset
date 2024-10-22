@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb54bfd9374b4333be36bf9151e942b2, type: 3}
   m_Name: AddTargetSelf
   m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 1086742633205297327}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,24 +41,29 @@ MonoBehaviour:
       Value: 0
   <Casting>k__BackingField:
     <Time>k__BackingField: 0
+    <Repetitive>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 5
   <Action>k__BackingField:
     <Actions>k__BackingField:
     - {fileID: -4625536503803056052}
-    - {fileID: 1086742633205297327}
---- !u!114 &1086742633205297327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bedfe9a51d0946be8b1d9cc02297a81a, type: 3}
-  m_Name: ApplyEffect
-  m_EditorClassIdentifier: 
-  <Then>k__BackingField: {fileID: 0}
-  <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}
+  <Operation>k__BackingField:
+    rid: 4041151032854577174
+  references:
+    version: 2
+    RefIds:
+    - rid: 4041151032854577174
+      type: {class: 'Operation`1[[Omniverse.Units.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetProvider>k__BackingField:
+          rid: 4041151032854577441
+        <Actions>k__BackingField:
+        - rid: 4041151032854577442
+    - rid: 4041151032854577441
+      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
+      data: 
+    - rid: 4041151032854577442
+      type: {class: ApplyEffect, ns: Omniverse, asm: Omniverse}
+      data:
+        <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}

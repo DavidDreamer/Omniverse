@@ -23,5 +23,8 @@ namespace Omniverse.Abilities
 
 		[field: SerializeField]
 		public MultiAction Action { get; private set; }
+
+		[field: SerializeReference]
+		public IOperation Operation { get; private set; }
 	}
 }

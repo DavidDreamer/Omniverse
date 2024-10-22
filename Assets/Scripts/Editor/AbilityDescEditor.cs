@@ -1,5 +1,7 @@
+using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
+using Omniverse.Units;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,6 +30,7 @@ namespace Omniverse.Editor
 			DrawCasting();
 			DrawSection(Cooldown);
 			DrawAction();
+			DrawOperation();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -127,6 +130,48 @@ namespace Omniverse.Editor
 							AssetDatabase.RemoveObjectFromAsset(action.objectReferenceValue);
 						}
 						actions.DeleteArrayElementAtIndex(actions.arraySize - 1);
+					}
+				}
+			}
+		}
+
+		private void DrawOperation()
+		{
+			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Operation).ToBackingField());
+			DrawSectionHeader(operation);
+
+			if (operation.isExpanded)
+			{
+				if (operation.managedReferenceValue == null)
+				{
+					operation.managedReferenceValue = Activator.CreateInstance<Operation<Unit>>();
+				}
+
+				SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
+				targetProvider.DrawVersatile(typeof(ITargetProvider<Unit>));
+
+				SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
+				DrawActions(actions, typeof(IAction<Unit>));
+			}
+
+			void DrawActions(SerializedProperty serializedProperty, Type type)
+			{
+				for (int i = 0; i < serializedProperty.arraySize; ++i)
+				{
+					var action = serializedProperty.GetArrayElementAtIndex(i);
+					action.DrawVersatile(type);
+				}
+
+				using (new EditorGUILayout.HorizontalScope())
+				{
+					if (GUILayout.Button("Add"))
+					{
+						serializedProperty.arraySize++;
+					}
+
+					if (GUILayout.Button("Remove"))
+					{
+						serializedProperty.arraySize--;
 					}
 				}
 			}
