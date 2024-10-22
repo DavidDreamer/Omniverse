@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -12,11 +11,21 @@ namespace Omniverse.Editor
 	[CustomEditor(typeof(AbilityDesc))]
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
+		private SerializedProperty Meta { get; set; }
+		private SerializedProperty MetaName { get; set; }
+		private SerializedProperty MetaDescription { get; set; }
+		private SerializedProperty MetaIcon { get; set; }
+
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
 
 		private void OnEnable()
 		{
+			Meta = serializedObject.FindProperty(nameof(AbilityDesc.Meta).ToBackingField());
+			MetaName = Meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Name).ToBackingField());
+			MetaDescription = Meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Description).ToBackingField());
+			MetaIcon = Meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Icon).ToBackingField());
+
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 		}
@@ -38,18 +47,11 @@ namespace Omniverse.Editor
 
 		private void DrawMeta()
 		{
-			SerializedProperty meta = serializedObject.FindProperty(nameof(AbilityDesc.Meta).ToBackingField());
-
-			if (DrawSectionHeader(meta))
+			if (DrawSectionHeader(Meta))
 			{
-				SerializedProperty name = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Name).ToBackingField());
-				EditorGUILayout.PropertyField(name);
-
-				SerializedProperty description = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Description).ToBackingField());
-				EditorGUILayout.PropertyField(description);
-
-				SerializedProperty icon = meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Icon).ToBackingField());
-				icon.DrawIcon();
+				EditorGUILayout.PropertyField(MetaName);
+				EditorGUILayout.PropertyField(MetaDescription);
+				MetaIcon.DrawIcon();
 			}
 		}
 
