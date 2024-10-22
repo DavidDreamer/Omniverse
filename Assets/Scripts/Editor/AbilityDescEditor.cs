@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -139,19 +141,39 @@ namespace Omniverse.Editor
 			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Operation).ToBackingField());
 			DrawSectionHeader(operation);
 
-			if (operation.isExpanded)
+			if (!operation.isExpanded)
 			{
-				if (operation.managedReferenceValue == null)
-				{
-					operation.managedReferenceValue = Activator.CreateInstance<Operation<Unit>>();
-				}
-
-				SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
-				targetProvider.DrawVersatile(typeof(ITargetProvider<Unit>));
-
-				SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
-				DrawActions(actions, typeof(IAction<Unit>));
+				return;
 			}
+
+			Type[] types = new[]
+			{
+				typeof(Unit),
+				typeof(Vector3)
+			};
+
+			GUIContent[] selectedOptions = types.Select(type => new GUIContent(type.ToString())).ToArray();
+
+			int selectedIndex = operation.managedReferenceValue is null ? 0 : types.ToList().IndexOf(operation.managedReferenceValue.GetType().GetGenericArguments()[0]);
+
+			GUIContent label = new("Target Type");
+			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
+
+			Type genericParameterType = types[selectedIndex];
+			Type operationType = typeof(Operation<>).MakeGenericType(genericParameterType);
+
+			if (operation.managedReferenceValue == null || operation.managedReferenceValue.GetType() != operationType)
+			{
+				operation.managedReferenceValue = Activator.CreateInstance(operationType);
+			}
+
+			SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
+			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(genericParameterType);
+			targetProvider.DrawVersatile(targetProviderType);
+
+			SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
+			Type actionType = typeof(IAction<>).MakeGenericType(genericParameterType);
+			DrawActions(actions, actionType);
 
 			void DrawActions(SerializedProperty serializedProperty, Type type)
 			{
