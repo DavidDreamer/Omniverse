@@ -2,7 +2,7 @@
 {
 	public interface IAction<TTarget>
 	{
-		public void Perform(Unit actor, TTarget target);
+		public void Perform(Entity actor, TTarget target);
 	}
 
 }

@@ -10,7 +10,7 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public Unit Get(Unit actor)
+		public Unit Get(Entity actor)
 		{
 			return actor.PhysicsService.GetClosestEntity<Unit>(actor, Radius, Filter);
 		}

@@ -2,6 +2,6 @@
 {
 	public interface ITargetProvider<TTarget>
 	{
-		TTarget Get(Unit actor);
+		TTarget Get(Entity actor);
 	}
 }

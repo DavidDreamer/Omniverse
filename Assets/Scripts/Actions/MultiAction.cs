@@ -10,21 +10,21 @@ namespace Omniverse
 		[field: ActionPicker]
 		public ScriptableObject[] Actions { get; private set; }
 
-		public void Perform(Unit actor)
+		public void Perform(Entity actor)
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
 				var action = Actions[i] as Action<Unit, Unit>;
-				action.Perform(actor, actor);
+				action.Perform((Unit)actor, (Unit)actor);
 			}
 		}
 
-		public void Perform<TTarget>(Unit actor, TTarget target)
+		public void Perform<TTarget>(Entity actor, TTarget target)
 		{
 			for (int i = 0; i < Actions.Length; ++i)
 			{
 				var action = Actions[i] as Action<Unit, TTarget>;
-				action.Perform(actor, target);
+				action.Perform((Unit)actor, target);
 			}
 		}
 	}

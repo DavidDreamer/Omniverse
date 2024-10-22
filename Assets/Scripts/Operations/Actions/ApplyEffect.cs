@@ -9,7 +9,7 @@ namespace Omniverse
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public void Perform(Unit actor, Unit target)
+		public void Perform(Entity actor, Unit target)
 		{
 			var effect = new Effect(Effect);
 			target.ApplyEffect(effect);

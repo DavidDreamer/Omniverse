@@ -36,18 +36,6 @@ namespace Omniverse
 
 		public CommandModule CommandModule { get; private set; }
 
-		[Inject]
-		private IObjectResolver ObjectResolver { get; set; }
-
-		[Inject]
-		private ResourceExtractionHadler ResourceExtractionHadler { get; set; }
-
-		[Inject]
-		private TempNameManager TempNameManager { get; set; }
-
-		[Inject]
-		public PhysicsService PhysicsService { get; set; }
-
 		public void Initialize(UnitDesc desc, int factionID)
 		{
 			base.Initialize(desc);

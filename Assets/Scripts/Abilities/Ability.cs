@@ -27,13 +27,13 @@
 		public void Cast()
 		{
 			Cooldown.Activate();
-			Desc.Operation.Perform((Unit)Entity);
+			Desc.Operation.Perform(Entity);
 		}
 
 		public void Cast<TTarget>(TTarget target)
 		{
 			Cooldown.Activate();
-			Desc.Action.Perform((Unit)Entity, target);
+			Desc.Action.Perform(Entity, target);
 		}
 	}
 }

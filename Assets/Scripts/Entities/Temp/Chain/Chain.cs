@@ -14,9 +14,6 @@ namespace Omniverse
 
 		public Unit Owner { get; set; }
 
-		[Inject]
-		private PhysicsService PhysicsService { get; set; }
-
 		public HashSet<Unit> Targets { get; } = new();
 
 		public void Initialize(ChainDesc desc, int factionID)

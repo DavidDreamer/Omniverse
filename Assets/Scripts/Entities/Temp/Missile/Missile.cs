@@ -11,9 +11,6 @@ namespace Omniverse
 
 		private Behaviour behaviour { get; set; }
 
-		[Inject]
-		private PhysicsService PhysicsService { get; set; }
-
 		private void Initialize(MissileDesc desc, Unit owner)
 		{
 			Desc = desc;

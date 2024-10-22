@@ -5,7 +5,7 @@ namespace Omniverse
 {
 	public interface IOperation
 	{
-		void Perform(Unit actor);
+		void Perform(Entity actor);
 	}
 
 	[Serializable]
@@ -17,7 +17,7 @@ namespace Omniverse
 		[field: SerializeReference]
 		private IAction<TTarget>[] Actions { get; set; }
 
-		public void Perform(Unit actor)
+		public void Perform(Entity actor)
 		{
 			TTarget target = TargetProvider.Get(actor);
 			for (int i = 0; i < Actions.Length; ++i)
