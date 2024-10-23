@@ -22,6 +22,32 @@ namespace Omniverse.Editor
 			}
 		}
 
+		public static void OperationField(this SerializedProperty operation, Type targetType)
+		{
+			Type[] types = new[]
+		{
+				typeof(Unit),
+				typeof(Vector3)
+			};
+
+			GUIContent[] selectedOptions = types.Select(type => new GUIContent(type.Name)).ToArray();
+
+			int selectedIndex = operation.managedReferenceValue is null ? 0 : types.ToList().IndexOf(operation.managedReferenceValue.GetType().GetGenericArguments()[1]);
+
+			GUIContent label = new("Target Type");
+			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
+
+			Type genericParameterType = types[selectedIndex];
+			Type operationType = typeof(Operation<,>).MakeGenericType(targetType, genericParameterType);
+
+			if (operation.managedReferenceValue == null || operation.managedReferenceValue.GetType() != operationType)
+			{
+				operation.managedReferenceValue = Activator.CreateInstance(operationType);
+			}
+
+			operation.OperationFieldInternal(genericParameterType);
+		}
+
 		public static void OperationField(this SerializedProperty operation)
 		{
 			Type[] types = new[]
@@ -45,12 +71,17 @@ namespace Omniverse.Editor
 				operation.managedReferenceValue = Activator.CreateInstance(operationType);
 			}
 
+			operation.OperationFieldInternal(genericParameterType);
+		}
+
+		private static void OperationFieldInternal(this SerializedProperty operation, Type targetType)
+		{
 			SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
-			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(genericParameterType);
+			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(targetType);
 			targetProvider.DrawVersatile(targetProviderType);
 
 			SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
-			Type actionType = typeof(IAction<>).MakeGenericType(genericParameterType);
+			Type actionType = typeof(IAction<>).MakeGenericType(targetType);
 			DrawActions(actions, actionType);
 
 			void DrawActions(SerializedProperty serializedProperty, Type type)
