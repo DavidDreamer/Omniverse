@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Omniverse.Abilities;
 using UnityEngine;
 using UnityEngine.AI;
-using VContainer;
 
 namespace Omniverse
 {
@@ -172,10 +171,9 @@ namespace Omniverse
 				Properties[desc.ID].RemoveModifier(desc.Modifier);
 			}
 
-			if (effect.Desc.OnRemovedAction != null)
+			if (effect.Desc.OnRemovedOperation != null)
 			{
-				//TODO
-				effect.Desc.OnRemovedAction.Perform(this, this);
+				effect.Desc.OnRemovedOperation.Perform(this);
 			}
 
 			Effects.RemoveAt(index);
