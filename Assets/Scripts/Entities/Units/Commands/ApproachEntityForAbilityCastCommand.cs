@@ -21,7 +21,7 @@ namespace Omniverse
 		public override bool Tick(float deltaTime)
 		{
 			NavMeshAgent.destination = Target.transform.position;
-			return Vector3.Distance(Target.transform.position, NavMeshAgent.nextPosition) <= Ability.Desc.Target.Range;
+			return Vector3.Distance(Target.transform.position, NavMeshAgent.nextPosition) <= Ability.Desc.Casting.Range;
 		}
 
 		public override void Cleanup()

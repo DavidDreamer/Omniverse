@@ -10,9 +10,6 @@ namespace Omniverse.Abilities
 		public TargetType Type { get; private set; }
 
 		[field: SerializeField]
-		public float Range { get; private set; }
-
-		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
 		[field: SerializeField]

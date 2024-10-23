@@ -1,3 +1,4 @@
+using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -16,9 +17,10 @@ namespace Omniverse.Editor
 
 		private SerializedProperty Target { get; set; }
 		private SerializedProperty TargetType { get; set; }
-		private SerializedProperty TargetRange { get; set; }
 		private SerializedProperty TargetFilter { get; set; }
 		private SerializedProperty TargetResourceSources { get; set; }
+
+		private SerializedProperty Casting { get; set; }
 
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
@@ -32,9 +34,10 @@ namespace Omniverse.Editor
 
 			Target = serializedObject.FindProperty(nameof(AbilityDesc.Target).ToBackingField());
 			TargetType = Target.FindPropertyRelative(nameof(AbilityDesc.Target.Type).ToBackingField());
-			TargetRange = Target.FindPropertyRelative(nameof(AbilityDesc.Target.Range).ToBackingField());
 			TargetFilter = Target.FindPropertyRelative(nameof(AbilityDesc.Target.Filter).ToBackingField());
 			TargetResourceSources = Target.FindPropertyRelative(nameof(AbilityDesc.Target.ResourceSources).ToBackingField());
+
+			Casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
 
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
@@ -77,8 +80,6 @@ namespace Omniverse.Editor
 					return;
 				}
 
-				EditorGUILayout.PropertyField(TargetRange);
-
 				if (targetType.HasFlag(Abilities.TargetType.Unit))
 				{
 					EditorGUILayout.PropertyField(TargetFilter);
@@ -93,8 +94,7 @@ namespace Omniverse.Editor
 
 		private void DrawCasting()
 		{
-			SerializedProperty casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
-			DrawSection(casting);
+			DrawSection(Casting);
 		}
 
 		private void DrawSection(SerializedProperty serializedProperty)
