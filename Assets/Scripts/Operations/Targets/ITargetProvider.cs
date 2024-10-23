@@ -1,7 +1,9 @@
-﻿namespace Omniverse
+﻿using System.Collections.Generic;
+
+namespace Omniverse
 {
 	public interface ITargetProvider<TTarget>
 	{
-		TTarget Get(Entity actor);
+		IEnumerable<TTarget> Get(Entity actor);
 	}
 }

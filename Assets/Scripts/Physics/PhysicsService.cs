@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Mono.Cecil;
 using UnityEngine;
 
 namespace Omniverse
@@ -24,15 +25,22 @@ namespace Omniverse
 			return null;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(Vector3 position, float radius) where TEntity : Entity
+		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(Entity source, float radius, FactiousFilter filter) where TEntity : Entity
 		{
-			int count = Physics.OverlapSphereNonAlloc(position, radius, Colliders, Settings.HitboxLayerMask);
+			Vector3 sourcePosition = source.transform.position;
+
+			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, Settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{
 				var entity = Colliders[i].GetComponentInParent<TEntity>();
 
 				if (entity == null)
+				{
+					continue;
+				}
+
+				if (!filter.Match(source, entity))
 				{
 					continue;
 				}
@@ -77,13 +85,15 @@ namespace Omniverse
 		}
 
 		public IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
-			Vector3 position,
+			Entity source,
 			Vector3 forward,
 			float radius,
-			float angle)
+			float angle,
+			FactiousFilter filter)
 			where TEntity : Entity
 		{
-			foreach (TEntity entity in GetEntitiesInSphere<TEntity>(position, radius))
+			Vector3 position = source.transform.position;
+			foreach (TEntity entity in GetEntitiesInSphere<TEntity>(source, radius, filter))
 			{
 				Vector3 direction = (entity.transform.position - position).normalized;
 

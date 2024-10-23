@@ -37,7 +37,7 @@ namespace Omniverse
 				//TODO
 				bool hit = false;
 
-				foreach (var item in Missile.PhysicsService.GetEntitiesInSphere<Unit>(Missile.transform.position, radius).Where(unit => Missile.Desc.Filter.Match(Missile, unit)))
+				foreach (var item in Missile.PhysicsService.GetEntitiesInSphere<Unit>(Missile, radius, Missile.Desc.Filter))
 				{
 					hit = true;
 					Missile.PerformHitAction(item);

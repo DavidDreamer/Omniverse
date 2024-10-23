@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Omniverse
 {
-	public class ClosestUnitProvider : ITargetProvider<Unit>
+	public class UnitsInRadius : ITargetProvider<Unit>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -11,9 +11,6 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<Unit> Get(Entity actor)
-		{
-			yield return actor.PhysicsService.GetClosestEntity<Unit>(actor, Radius, Filter);
-		}
+		public IEnumerable<Unit> Get(Entity actor) => actor.PhysicsService.GetEntitiesInSphere<Unit>(actor, Radius, Filter);
 	}
 }

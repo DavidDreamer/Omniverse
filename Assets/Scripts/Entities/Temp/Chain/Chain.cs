@@ -44,7 +44,7 @@ namespace Omniverse
 				Target = null;
 				float minDistance = float.MaxValue;
 
-				foreach (var target in PhysicsService.GetEntitiesInSphere<Unit>(position, Desc.BounceRange))
+				foreach (var target in PhysicsService.GetEntitiesInSphere<Unit>(Owner, Desc.BounceRange, Desc.Filter))
 				{
 					if (target == Owner)
 					{
@@ -52,11 +52,6 @@ namespace Omniverse
 					}
 
 					if (Targets.Contains(target))
-					{
-						continue;
-					}
-
-					if (!Desc.Filter.Match(this, target))
 					{
 						continue;
 					}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Omniverse
@@ -19,10 +20,16 @@ namespace Omniverse
 
 		public void Perform(Entity actor)
 		{
-			TTarget target = TargetProvider.Get(actor);
+			IEnumerable<TTarget> targets = TargetProvider.Get(actor);
+
 			for (int i = 0; i < Actions.Length; ++i)
 			{
-				Actions[i].Perform(actor, target);
+				IAction<TTarget> action = Actions[i];
+
+				foreach (TTarget target in targets)
+				{
+					action.Perform(actor, target);
+				}
 			}
 		}
 	}
