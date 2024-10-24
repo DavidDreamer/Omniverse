@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Dreambox.Core.Editor;
+using Omniverse.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,14 +26,31 @@ namespace Omniverse.Editor
 		public static void OperationField(this SerializedProperty operation, Type targetType)
 		{
 			Type[] types = new[]
-		{
+			{
 				typeof(Unit),
 				typeof(Vector3)
 			};
 
 			GUIContent[] selectedOptions = types.Select(type => new GUIContent(type.Name)).ToArray();
 
-			int selectedIndex = operation.managedReferenceValue is null ? 0 : types.ToList().IndexOf(operation.managedReferenceValue.GetType().GetGenericArguments()[1]);
+			int selectedIndex = 0;
+			if (operation.managedReferenceValue is null)
+			{
+				selectedIndex = 0;
+			}
+			else
+			{
+				try
+				{
+					Type currentType = operation.managedReferenceValue.GetType().GetGenericArguments()[1];
+					selectedIndex = types.ToList().IndexOf(currentType);
+				}
+				catch
+				{
+					selectedIndex = 0;
+				}
+
+			}
 
 			GUIContent label = new("Target Type");
 			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
@@ -44,6 +62,10 @@ namespace Omniverse.Editor
 			{
 				operation.managedReferenceValue = Activator.CreateInstance(operationType);
 			}
+
+			SerializedProperty targetConverter = operation.FindPropertyRelative("TargetConverter".ToBackingField());
+			Type targetConverterType = typeof(ITargetConverter<,>).MakeGenericType(targetType, genericParameterType);
+			targetConverter.DrawVersatile(targetConverterType);
 
 			operation.OperationFieldInternal(genericParameterType);
 		}
@@ -58,7 +80,16 @@ namespace Omniverse.Editor
 
 			GUIContent[] selectedOptions = types.Select(type => new GUIContent(type.Name)).ToArray();
 
-			int selectedIndex = operation.managedReferenceValue is null ? 0 : types.ToList().IndexOf(operation.managedReferenceValue.GetType().GetGenericArguments()[0]);
+			int selectedIndex = 0;
+			if (operation.managedReferenceValue is null)
+			{
+				selectedIndex = 0;
+			}
+			else
+			{
+				Type currentType = operation.managedReferenceValue.GetType().GetGenericArguments()[0];
+				selectedIndex = types.ToList().IndexOf(currentType);
+			}
 
 			GUIContent label = new("Target Type");
 			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
@@ -71,15 +102,15 @@ namespace Omniverse.Editor
 				operation.managedReferenceValue = Activator.CreateInstance(operationType);
 			}
 
+			SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
+			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(genericParameterType);
+			targetProvider.DrawVersatile(targetProviderType);
+
 			operation.OperationFieldInternal(genericParameterType);
 		}
 
 		private static void OperationFieldInternal(this SerializedProperty operation, Type targetType)
 		{
-			SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
-			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(targetType);
-			targetProvider.DrawVersatile(targetProviderType);
-
 			SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
 			Type actionType = typeof(IAction<>).MakeGenericType(targetType);
 			DrawActions(actions, actionType);

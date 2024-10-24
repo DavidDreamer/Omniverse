@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Omniverse.Abilities;
-using UnityEngine;
 using UnityEngine.AI;
 
 namespace Omniverse
 {
 	public class Unit : Entity<UnitDesc>, IPoolObject
 	{
-		public event Action<Effect> EffectApplied;
-
-		public event Action<Effect> EffectRemoved;
-
 		public event System.Action Died;
 
-		[field: SerializeField]
-		public NavMeshAgent NavMeshAgent { get; private set; }
-
-		public Dictionary<PropertyID, Property> Properties { get; } = new();
-
 		public List<Ability> Abilities { get; } = new();
-
-		public List<Effect> Effects { get; } = new();
 
 		public bool IsDead { get; private set; }
 
@@ -144,61 +131,6 @@ namespace Omniverse
 					property.Value.FixedTick(deltaTime);
 				}
 			}
-		}
-
-		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, Entity source)
-		{
-			Property property = Properties[propertyID];
-			property.Modify(modifier);
-		}
-
-		public void ApplyEffect(Effect effect)
-		{
-			Effects.Add(effect);
-
-			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
-			{
-				Properties[desc.ID].AddModifier(desc.Modifier);
-			}
-
-			EffectApplied?.Invoke(effect);
-		}
-
-		public void RemoveEffect(Effect effect, int index)
-		{
-			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
-			{
-				Properties[desc.ID].RemoveModifier(desc.Modifier);
-			}
-
-			if (effect.Desc.OnRemovedOperation != null)
-			{
-				effect.Desc.OnRemovedOperation.Perform(this);
-			}
-
-			Effects.RemoveAt(index);
-
-			EffectRemoved?.Invoke(effect);
-		}
-
-		public void SpawnMissile(MissileDesc desc, Unit target)
-		{
-			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
-		}
-
-		public void SpawnMissile(MissileDesc desc, Vector3 target)
-		{
-			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
-		}
-
-		public void SpawnChain(ChainDesc desc, Unit target)
-		{
-			TempNameManager.Spawn(desc, HitBox.transform.position, this, target, FactionID);
-		}
-
-		public void Extract(ResourceSource resourceSource, int amount)
-		{
-			ResourceExtractionHadler.Extract(resourceSource, amount, FactionID);
 		}
 
 		internal void Die()

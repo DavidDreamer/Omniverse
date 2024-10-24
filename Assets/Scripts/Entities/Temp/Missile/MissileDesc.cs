@@ -17,7 +17,7 @@ namespace Omniverse
 		[field: SerializeField]
 		public float Radius { get; private set; }
 
-		[field: SerializeField]
-		public MultiAction HitAction { get; private set; }
+		[field: SerializeReference]
+		public IOperation<Unit> HitOperation { get; private set; }
 	}
 }

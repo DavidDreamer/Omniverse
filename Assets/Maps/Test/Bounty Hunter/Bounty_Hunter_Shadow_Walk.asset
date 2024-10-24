@@ -15,18 +15,36 @@ MonoBehaviour:
   <Meta>k__BackingField:
     <Name>k__BackingField: 
     <Description>k__BackingField: 
-    <Icon>k__BackingField: {fileID: 0}
+    <Icon>k__BackingField: {fileID: 21300000, guid: 39201559b79e7494d8793124e07b1806, type: 3}
   <Target>k__BackingField:
     <Type>k__BackingField: 0
-    <Range>k__BackingField: 0
     <Filter>k__BackingField: 0
     <ResourceSources>k__BackingField: []
   <Cost>k__BackingField: []
   <Casting>k__BackingField:
+    <Range>k__BackingField: 0
     <Time>k__BackingField: 0
     <Repetitive>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Action>k__BackingField:
-    <Actions>k__BackingField: []
+  <Operation>k__BackingField:
+    rid: 4041151032854577974
+  <Vector3Operation>k__BackingField:
+    rid: -2
+  <UnitOperation>k__BackingField:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 4041151032854577974
+      type: {class: 'Operation`1[[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetProvider>k__BackingField:
+          rid: 4041151032854577976
+        <Actions>k__BackingField: []
+    - rid: 4041151032854577976
+      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
+      data: 

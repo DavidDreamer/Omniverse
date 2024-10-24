@@ -17,7 +17,7 @@ namespace Omniverse
 		[field: SerializeField]
 		public float BounceInterval { get; private set; }
 
-		[field: SerializeField]
-		public MultiAction Action { get; private set; }
+		[field: SerializeReference]
+		public IOperation<Unit> Operation { get; private set; }
 	}
 }

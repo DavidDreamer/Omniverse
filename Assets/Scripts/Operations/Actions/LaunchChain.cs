@@ -4,15 +4,14 @@ using UnityEngine;
 namespace Omniverse
 {
 	[Serializable]
-	public class ApplyEffect : IAction<Entity>
+	public class LaunchChain : IAction<Entity>
 	{
 		[field: SerializeField]
-		public EffectDesc Effect { get; private set; }
+		public ChainDesc Chain { get; private set; }
 
 		public void Perform(Entity actor, Entity target)
 		{
-			var effect = new Effect(Effect);
-			target.ApplyEffect(effect);
+			actor.SpawnChain(Chain, target);
 		}
 	}
 }

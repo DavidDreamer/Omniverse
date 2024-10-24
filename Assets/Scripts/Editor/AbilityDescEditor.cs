@@ -1,4 +1,3 @@
-using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -52,7 +51,6 @@ namespace Omniverse.Editor
 			DrawSection(Cost);
 			DrawCasting();
 			DrawSection(Cooldown);
-			DrawAction();
 			DrawOperation();
 
 			serializedObject.ApplyModifiedProperties();
@@ -107,41 +105,6 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void DrawAction()
-		{
-			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Action).ToBackingField());
-			DrawSectionHeader(operation);
-
-			if (operation.isExpanded)
-			{
-				var actions = operation.FindPropertyRelative(nameof(AbilityDesc.Action.Actions).ToBackingField());
-
-				for (int i = 0; i < actions.arraySize; ++i)
-				{
-					var action = actions.GetArrayElementAtIndex(i);
-					EditorGUILayout.PropertyField(action);
-				}
-
-				using (new EditorGUILayout.HorizontalScope())
-				{
-					if (GUILayout.Button("Add"))
-					{
-						actions.arraySize++;
-					}
-
-					if (GUILayout.Button("Remove"))
-					{
-						var action = actions.GetArrayElementAtIndex(actions.arraySize - 1);
-						if (action.objectReferenceValue != null)
-						{
-							AssetDatabase.RemoveObjectFromAsset(action.objectReferenceValue);
-						}
-						actions.DeleteArrayElementAtIndex(actions.arraySize - 1);
-					}
-				}
-			}
-		}
-
 		private void DrawOperation()
 		{
 			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Operation).ToBackingField());
@@ -152,7 +115,25 @@ namespace Omniverse.Editor
 				return;
 			}
 
-			operation.OperationField();
+			var targetType = (Abilities.TargetType)TargetType.enumValueIndex;
+			if (targetType == Abilities.TargetType.None)
+			{
+				operation.OperationField();
+			}
+			else
+			{
+				if (targetType is Abilities.TargetType.Point or Abilities.TargetType.Direction)
+				{
+					SerializedProperty vector3Operation = serializedObject.FindProperty(nameof(AbilityDesc.Vector3Operation).ToBackingField());
+					vector3Operation.OperationField(typeof(Vector3));
+				}
+
+				if (targetType is Abilities.TargetType.Unit)
+				{
+					SerializedProperty unitOperation = serializedObject.FindProperty(nameof(AbilityDesc.UnitOperation).ToBackingField());
+					unitOperation.OperationField(typeof(Unit));
+				}
+			}
 		}
 
 		private bool DrawSectionHeader(SerializedProperty serializedProperty)

@@ -6,9 +6,9 @@ namespace Omniverse
 	{
 		private class MoveToTarget : Behaviour
 		{
-			private Unit Target { get; }
+			private Entity Target { get; }
 
-			public MoveToTarget(Missile missile, Unit target) : base(missile)
+			public MoveToTarget(Missile missile, Entity target) : base(missile)
 			{
 				Target = target;
 			}
@@ -26,7 +26,7 @@ namespace Omniverse
 
 				if (sqrDistanceToTarget <= radius * radius)
 				{
-					Missile.PerformHitAction(Target);
+					Missile.PerformHitAction((Unit)Target);
 					Missile.Completed = true;
 				}
 			}

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse
 {
@@ -10,11 +9,11 @@ namespace Omniverse
 
 		private ChainDesc Desc { get; set; }
 
-		public Unit Target { get; set; }
+		public Entity Target { get; set; }
 
-		public Unit Owner { get; set; }
+		public Entity Owner { get; set; }
 
-		public HashSet<Unit> Targets { get; } = new();
+		public HashSet<Entity> Targets { get; } = new();
 
 		public void Initialize(ChainDesc desc, int factionID)
 		{
@@ -27,7 +26,7 @@ namespace Omniverse
 			if (Time == 0)
 			{
 				Targets.Add(Target);
-				Desc.Action.Perform(Owner, Target);
+				Desc.Operation.Perform(Owner, (Unit)Target);
 			}
 
 			Time += deltaTime;

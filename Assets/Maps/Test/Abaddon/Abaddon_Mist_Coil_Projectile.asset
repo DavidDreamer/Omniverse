@@ -1,39 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7501031325502294064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
-  m_Name: ModifyProperty
-  m_EditorClassIdentifier: 
-  <Property>k__BackingField: 3
-  <Modifier>k__BackingField:
-    Operation: 1
-    Mode: 0
-    Value: 10
---- !u!114 &-7489917434402016342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611ace0655314c2da4fe6f3e8cb2f85a, type: 3}
-  m_Name: ModifyProperty
-  m_EditorClassIdentifier: 
-  <Property>k__BackingField: 3
-  <Modifier>k__BackingField:
-    Operation: 0
-    Mode: 0
-    Value: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,9 +19,20 @@ MonoBehaviour:
   <Range>k__BackingField: 0
   <Speed>k__BackingField: 10
   <Radius>k__BackingField: 1
-  <HitAction>k__BackingField:
-    <Actions>k__BackingField:
-    - {fileID: 9113390039758692762}
+  <HitOperation>k__BackingField:
+    rid: 4041151032854578004
+  references:
+    version: 2
+    RefIds:
+    - rid: 4041151032854578004
+      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetConverter>k__BackingField:
+          rid: 4041151032854578005
+        <Actions>k__BackingField: []
+    - rid: 4041151032854578005
+      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+      data: 
 --- !u!114 &9113390039758692762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,5 +46,5 @@ MonoBehaviour:
   m_Name: SwitchTargetFaction
   m_EditorClassIdentifier: 
   <Self>k__BackingField: {fileID: 0}
-  <Ally>k__BackingField: {fileID: -7489917434402016342}
-  <Enemy>k__BackingField: {fileID: -7501031325502294064}
+  <Ally>k__BackingField: {fileID: 0}
+  <Enemy>k__BackingField: {fileID: 0}

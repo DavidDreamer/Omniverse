@@ -1,6 +1,6 @@
 ﻿namespace Omniverse
 {
-	public interface IAction<TTarget>
+	public interface IAction<in TTarget>
 	{
 		public void Perform(Entity actor, TTarget target);
 	}

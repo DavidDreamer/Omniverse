@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public interface ITargetConverter<TTargetIn, TTargetOut>
+	public interface ITargetConverter<in TTargetIn, out TTargetOut>
 	{
 		IEnumerable<TTargetOut> Convert(Entity entity, TTargetIn input);
 	}

@@ -1,4 +1,6 @@
-﻿namespace Omniverse.Abilities
+﻿using UnityEngine;
+
+namespace Omniverse.Abilities
 {
 	public class Ability
 	{
@@ -33,7 +35,16 @@
 		public void Cast<TTarget>(TTarget target)
 		{
 			Cooldown.Activate();
-			Desc.Action.Perform(Entity, target);
+
+			switch (target)
+			{
+				case Vector3 vector:
+					Desc.Vector3Operation.Perform(Entity, vector);
+					break;
+				case Unit unit:
+					Desc.UnitOperation.Perform(Entity, unit);
+					break;
+			}
 		}
 	}
 }

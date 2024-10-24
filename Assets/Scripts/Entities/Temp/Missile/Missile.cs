@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using VContainer;
 
 namespace Omniverse
 {
@@ -11,20 +10,20 @@ namespace Omniverse
 
 		private Behaviour behaviour { get; set; }
 
-		private void Initialize(MissileDesc desc, Unit owner)
+		private void Initialize(MissileDesc desc, Entity owner)
 		{
 			Desc = desc;
 			Owner = owner;
 			ChangeFaction(owner.FactionID);
 		}
 
-		public void Initialize(MissileDesc desc, Unit owner, Vector3 vector)
+		public void Initialize(MissileDesc desc, Entity owner, Vector3 vector)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveInDirection(this, vector);
 		}
 
-		public void Initialize(MissileDesc desc, Unit owner, Unit target)
+		public void Initialize(MissileDesc desc, Entity owner, Entity target)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveToTarget(this, target);
@@ -37,7 +36,7 @@ namespace Omniverse
 
 		private void PerformHitAction(Unit target)
 		{
-			Desc.HitAction.Perform(Owner as Unit, target);
+			Desc.HitOperation.Perform(Owner, target);
 		}
 	}
 }
