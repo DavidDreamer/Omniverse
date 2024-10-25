@@ -34,6 +34,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		private AbilityRendererConfig AbilityRendererConfig { get; set; }
 
+		[field: SerializeField]
+		private CursorRendererConfig CursorRendererConfig { get; set; }
+
 		//TODO INJECT
 		[field: SerializeField]
 		private GameSettings GameSettings { get; set; }
@@ -61,6 +64,8 @@ namespace Omniverse.Rendering
 			RegisterRenderer<SelectionBoxRenderer, SelectionBoxRendererConfig>(SelectionBoxRendererConfig);
 			RegisterRenderer<NavigationRenderer, NavigationRendererConfig>(NavigationRendererConfig);
 			RegisterRenderer<AbilityRenderer, AbilityRendererConfig>(AbilityRendererConfig);
+
+			builder.Register<CursorRendererController>(Lifetime.Singleton).WithParameter(CursorRendererConfig).AsImplementedInterfaces().AsSelf();
 
 			void RegisterRenderer<TRenderer, TConfig>(TConfig config)
 				where TRenderer : MonoBehaviour

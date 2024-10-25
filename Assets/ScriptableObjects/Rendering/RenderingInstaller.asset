@@ -19,4 +19,5 @@ MonoBehaviour:
   <SelectionBoxRendererConfig>k__BackingField: {fileID: 11400000, guid: ea34e54ced1d3464e903ad5d9adba82a, type: 2}
   <NavigationRendererConfig>k__BackingField: {fileID: 11400000, guid: dd2f3226157cb534e927f2f2a5eee438, type: 2}
   <AbilityRendererConfig>k__BackingField: {fileID: 11400000, guid: d64a9f06205c527448f2bfc17f8c77ab, type: 2}
+  <CursorRendererConfig>k__BackingField: {fileID: 11400000, guid: 1722df185b803784c8824718a3f09bad, type: 2}
   <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
