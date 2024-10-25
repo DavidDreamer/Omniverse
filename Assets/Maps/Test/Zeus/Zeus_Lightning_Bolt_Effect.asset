@@ -18,5 +18,10 @@ MonoBehaviour:
   <Time>k__BackingField: 5
   <UnitStatus>k__BackingField: 1
   <PropertyModifiers>k__BackingField: []
-  <OnRemovedAction>k__BackingField:
-    <Actions>k__BackingField: []
+  <OnRemovedOperation>k__BackingField:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

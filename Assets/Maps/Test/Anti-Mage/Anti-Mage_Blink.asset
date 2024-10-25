@@ -50,5 +50,5 @@ MonoBehaviour:
       type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
       data: 
     - rid: 4041151032854577928
-      type: {class: Teleport, ns: Omniverse, asm: Omniverse}
+      type: {class: TeleportAction, ns: Omniverse, asm: Omniverse}
       data: 

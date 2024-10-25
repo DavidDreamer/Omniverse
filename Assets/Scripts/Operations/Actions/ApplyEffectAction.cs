@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
-	public class ApplyEffect : IAction<Entity>
+	public class ApplyEffectAction : IAction<Entity>
 	{
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }

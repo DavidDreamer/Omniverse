@@ -2,7 +2,7 @@
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFaction : IAction<Unit>
+	public class SwitchTargetFactionAction : IAction<Unit>
 	{
 		[field: SerializeReference]
 		public IAction<Unit> Self { get; private set; }

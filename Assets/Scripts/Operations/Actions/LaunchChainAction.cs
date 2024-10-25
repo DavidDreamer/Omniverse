@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
-	public class LaunchChain : IAction<Entity>
+	public class LaunchChainAction : IAction<Entity>
 	{
 		[field: SerializeField]
 		public ChainDesc Chain { get; private set; }

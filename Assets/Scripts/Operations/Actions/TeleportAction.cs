@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
-	public class Teleport : IAction<Vector3>
+	public class TeleportAction : IAction<Vector3>
 	{
 		public void Perform(Entity actor, Vector3 target)
 		{

@@ -50,6 +50,6 @@ MonoBehaviour:
       type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
       data: 
     - rid: 4041151032854577979
-      type: {class: LaunchMissile, ns: Omniverse, asm: Omniverse}
+      type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
       data:
         <Missile>k__BackingField: {fileID: 11400000, guid: 0be8303c946cfcc45905e400a9a8c404, type: 2}

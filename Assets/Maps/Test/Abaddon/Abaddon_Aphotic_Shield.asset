@@ -47,7 +47,7 @@ MonoBehaviour:
         <Actions>k__BackingField:
         - rid: 4041151032854577951
     - rid: 4041151032854577951
-      type: {class: ApplyEffect, ns: Omniverse, asm: Omniverse}
+      type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
       data:
         <Effect>k__BackingField: {fileID: 11400000, guid: 08845be128ffc1044b1d379e92b72961, type: 2}
     - rid: 4041151032854577970

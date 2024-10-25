@@ -23,5 +23,10 @@ MonoBehaviour:
       Operation: 0
       Mode: 0
       Value: 5
-  <OnRemovedAction>k__BackingField:
-    <Actions>k__BackingField: []
+  <OnRemovedOperation>k__BackingField:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

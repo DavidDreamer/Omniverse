@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public class LaunchMissile : IAction<Entity>, IAction<Vector3>
+	public class LaunchMissileAction : IAction<Entity>, IAction<Vector3>
 	{
 		[field: SerializeField]
 		public MissileDesc Missile { get; private set; }

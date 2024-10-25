@@ -55,6 +55,6 @@ MonoBehaviour:
       type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
       data: 
     - rid: 4041151032854577959
-      type: {class: ApplyEffect, ns: Omniverse, asm: Omniverse}
+      type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
       data:
         <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}

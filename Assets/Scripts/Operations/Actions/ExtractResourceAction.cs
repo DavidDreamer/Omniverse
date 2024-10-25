@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public class ExtractResource : IAction<ResourceSource>
+	public class ExtractResourceAction : IAction<ResourceSource>
 	{
 		[field: SerializeField]
 		public int Amount { get; private set; }

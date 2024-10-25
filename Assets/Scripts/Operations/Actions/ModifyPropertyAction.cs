@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
-	[Serializable]
-	public class ModifyProperty : IAction<Entity>
+	public class ModifyPropertyAction : IAction<Entity>
 	{
 		[field: SerializeField]
 		public PropertyID Property { get; private set; }
