@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Omniverse.Editor
 {
-	[CanEditMultipleObjects]
 	[CustomEditor(typeof(AbilityDesc))]
 	public class AbilityDescEditor : UnityEditor.Editor
 	{
