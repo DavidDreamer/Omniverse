@@ -33,18 +33,3 @@ MonoBehaviour:
     - rid: 4041151032854578005
       type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
       data: 
---- !u!114 &9113390039758692762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b30639f65e69048a9ce88af5a3c04a, type: 3}
-  m_Name: SwitchTargetFaction
-  m_EditorClassIdentifier: 
-  <Self>k__BackingField: {fileID: 0}
-  <Ally>k__BackingField: {fileID: 0}
-  <Enemy>k__BackingField: {fileID: 0}
