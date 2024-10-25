@@ -4,5 +4,4 @@
 	{
 		public void Perform(Entity actor, TTarget target);
 	}
-
 }

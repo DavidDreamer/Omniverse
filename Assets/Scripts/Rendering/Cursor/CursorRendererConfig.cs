@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Rendering/Configs/Cursor")]
+	[CreateAssetMenu(menuName = "Omniverse/Configs/Rendering/Cursor")]
 	public class CursorRendererConfig : ScriptableObject
 	{
 		[field: SerializeField]
