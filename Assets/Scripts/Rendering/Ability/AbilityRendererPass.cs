@@ -26,6 +26,12 @@ namespace Omniverse.Rendering
 			using CommandBufferContextScope scope = new(context, "Ability");
 			var commandBuffer = scope.CommandBuffer;
 
+			DrawRange(commandBuffer);
+			DrawDireciton(commandBuffer);
+		}
+
+		public void DrawRange(CommandBuffer commandBuffer)
+		{
 			AbilityRendererConfig config = Renderer.Config;
 			AbilityController abilityController = Renderer.AbilityController;
 
@@ -40,14 +46,13 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.SubmeshIndex,
 				drawMeshParams.ShaderPass);
-
-			DrawDireciton(commandBuffer);
 		}
 
 		private void DrawDireciton(CommandBuffer commandBuffer)
 		{
 			var target = Renderer.AbilityController.ActiveAbility.Desc.Target;
-			if (!target.Type.HasFlag(Abilities.TargetType.Direction))
+
+			if (target.Type != Abilities.TargetType.Direction)
 			{
 				return;
 			}
