@@ -8,13 +8,13 @@ namespace Omniverse.Editor
 {
 	public static class OperationSerializer
 	{
-		public static void OptionalOperationField(this SerializedProperty operation)
+		public static void OptionalOperationField(this SerializedProperty operation, Type inputType)
 		{
 			bool enabled = EditorGUILayout.ToggleLeft(operation.displayName, operation.managedReferenceValue != null);
 
 			if (enabled)
 			{
-				operation.OperationField();
+				operation.OperationField(inputType);
 			}
 			else
 			{
@@ -22,7 +22,7 @@ namespace Omniverse.Editor
 			}
 		}
 
-		public static void OperationField(this SerializedProperty operation, Type targetType)
+		public static void OperationField(this SerializedProperty operation, Type inputType)
 		{
 			Type[] types = new[]
 			{
@@ -55,7 +55,7 @@ namespace Omniverse.Editor
 			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
 
 			Type genericParameterType = types[selectedIndex];
-			Type operationType = typeof(Operation<,>).MakeGenericType(targetType, genericParameterType);
+			Type operationType = typeof(Operation<,>).MakeGenericType(inputType, genericParameterType);
 
 			if (operation.managedReferenceValue == null || operation.managedReferenceValue.GetType() != operationType)
 			{
@@ -63,7 +63,7 @@ namespace Omniverse.Editor
 			}
 
 			SerializedProperty targetConverter = operation.FindPropertyRelative("TargetConverter".ToBackingField());
-			Type targetConverterType = typeof(ITargetConverter<,>).MakeGenericType(targetType, genericParameterType);
+			Type targetConverterType = typeof(ITargetConverter<,>).MakeGenericType(inputType, genericParameterType);
 			targetConverter.DrawVersatile(targetConverterType);
 
 			operation.OperationFieldInternal(genericParameterType);

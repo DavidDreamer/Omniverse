@@ -68,7 +68,7 @@ namespace Omniverse
 
 			if (effect.Desc.OnRemovedOperation != null)
 			{
-				effect.Desc.OnRemovedOperation.Perform(this);
+				effect.Desc.OnRemovedOperation.Perform(this, None.Instance);
 			}
 
 			Effects.RemoveAt(index);

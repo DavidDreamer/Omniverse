@@ -19,18 +19,23 @@ MonoBehaviour:
   <UnitStatus>k__BackingField: 0
   <PropertyModifiers>k__BackingField: []
   <OnRemovedOperation>k__BackingField:
-    rid: 4041151032854577943
+    rid: 4041151032854578102
   references:
     version: 2
     RefIds:
-    - rid: 4041151032854577943
-      type: {class: 'Operation`1[[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+    - rid: 4041151032854578102
+      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
-        <TargetProvider>k__BackingField:
-          rid: 4041151032854577984
+        <TargetConverter>k__BackingField:
+          rid: 4041151032854578104
         <Actions>k__BackingField:
-        - rid: 4041151032854577947
-    - rid: 4041151032854577947
+        - rid: 4041151032854578110
+    - rid: 4041151032854578104
+      type: {class: CollectInRadiusTargetProvider, ns: Omniverse, asm: Omniverse}
+      data:
+        <Radius>k__BackingField: 10
+        <Filter>k__BackingField: 4
+    - rid: 4041151032854578110
       type: {class: ModifyPropertyAction, ns: Omniverse, asm: Omniverse}
       data:
         <Property>k__BackingField: 3
@@ -38,8 +43,3 @@ MonoBehaviour:
           Operation: 1
           Mode: 0
           Value: 10
-    - rid: 4041151032854577984
-      type: {class: CollectInRadiusTargetProvider, ns: Omniverse, asm: Omniverse}
-      data:
-        <Radius>k__BackingField: 10
-        <Filter>k__BackingField: 4

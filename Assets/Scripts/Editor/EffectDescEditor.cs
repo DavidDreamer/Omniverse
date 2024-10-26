@@ -36,7 +36,7 @@ namespace Omniverse.Editor
 			EditorGUILayout.PropertyField(Time);
 			EditorGUILayout.PropertyField(UnitStatus);
 			EditorGUILayout.PropertyField(PropertyModifiers);
-			OnRemovedOperation.OptionalOperationField();
+			OnRemovedOperation.OptionalOperationField(typeof(None));
 
 			serializedObject.ApplyModifiedProperties();
 		}

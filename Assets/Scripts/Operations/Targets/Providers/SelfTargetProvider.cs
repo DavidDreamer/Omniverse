@@ -3,8 +3,13 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class SelfTargetProvider : ITargetProvider<Unit>, ITargetProvider<Vector3>
+	public class SelfTargetProvider : ITargetProvider<Unit>, ITargetProvider<Vector3>, ITargetConverter<None, Unit>
 	{
+		public IEnumerable<Unit> Convert(Entity actor, None input)
+		{
+			yield return (Unit)actor;
+		}
+
 		IEnumerable<Unit> ITargetProvider<Unit>.Get(Entity actor)
 		{
 			yield return (Unit)actor;

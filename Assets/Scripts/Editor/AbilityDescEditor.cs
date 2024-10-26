@@ -115,7 +115,8 @@ namespace Omniverse.Editor
 				return;
 			}
 
-			operation.OperationField();
+			operation.OperationField(typeof(None));
+
 			SerializedProperty vector3Operation = serializedObject.FindProperty(nameof(AbilityDesc.Vector3Operation).ToBackingField());
 			vector3Operation.OperationField(typeof(Vector3));
 
