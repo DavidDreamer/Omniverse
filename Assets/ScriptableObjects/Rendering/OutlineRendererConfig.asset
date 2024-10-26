@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac1024938c34f0da931d27992e0670c, type: 3}
   m_Name: OutlineRendererConfig
   m_EditorClassIdentifier: 
-  <RenderPassEvent>k__BackingField: 450
+  <RenderPassEvent>k__BackingField: 550
   <CameraType>k__BackingField: 3
   <Shader>k__BackingField: {fileID: 4800000, guid: 62aeba9a50974035a3dd879297cde487, type: 3}
   <Variants>k__BackingField:
