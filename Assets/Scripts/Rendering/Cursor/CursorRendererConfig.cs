@@ -9,9 +9,18 @@ namespace Omniverse.Rendering
 		public CursorParams Default { get; private set; }
 
 		[field: SerializeField]
-		public CursorParams Target { get; private set; }
+		public CursorParams HoverAlly { get; private set; }
 
 		[field: SerializeField]
-		public CursorParams UnitTarget { get; private set; }
+		public CursorParams HoverEnemy { get; private set; }
+
+		[field: SerializeField]
+		public CursorParams TargetDefault { get; private set; }
+
+		[field: SerializeField]
+		public CursorParams TargetInvalid { get; private set; }
+
+		[field: SerializeField]
+		public CursorParams TargetUnit { get; private set; }
 	}
 }

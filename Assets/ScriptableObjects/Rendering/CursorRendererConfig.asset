@@ -15,6 +15,12 @@ MonoBehaviour:
   <Default>k__BackingField:
     <Texture>k__BackingField: {fileID: 2800000, guid: 25d261db7df35294b9b318e9fcb51217, type: 3}
     <Hotspot>k__BackingField: {x: 0, y: 0}
+  <HoverAlly>k__BackingField:
+    <Texture>k__BackingField: {fileID: 2800000, guid: be7be28f5adbe0f48bd6b9d6a6033221, type: 3}
+    <Hotspot>k__BackingField: {x: 0, y: 0}
+  <HoverEnemy>k__BackingField:
+    <Texture>k__BackingField: {fileID: 2800000, guid: a737849501dbbc640a97cfd90aefbb34, type: 3}
+    <Hotspot>k__BackingField: {x: 0, y: 0}
   <Target>k__BackingField:
     <Texture>k__BackingField: {fileID: 2800000, guid: 97105b34db12db543ba14371a6bc4a24, type: 3}
     <Hotspot>k__BackingField: {x: 16, y: 16}

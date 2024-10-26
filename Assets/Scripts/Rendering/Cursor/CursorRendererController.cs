@@ -11,6 +11,12 @@ namespace Omniverse.Rendering
 		private CursorRendererConfig Config { get; }
 
 		[Inject]
+		private Player Player { get; set; }
+
+		[Inject]
+		private Detector Detector { get; set; }
+
+		[Inject]
 		private AbilityController AbilityController { get; set; }
 
 		public CursorRendererController(CursorRendererConfig config)
@@ -28,15 +34,29 @@ namespace Omniverse.Rendering
 			{
 				if (AbilityController.ActiveAbility == null)
 				{
+					if (Detector.Target != null)
+					{
+						if (Detector.Target.IsAllyFor(Player))
+						{
+							return Config.HoverAlly;
+						}
+						else
+						{
+							return Config.HoverEnemy;
+						}
+					}
+
 					return Config.Default;
 				}
-
-				switch (AbilityController.ActiveAbility.Desc.Target)
+				else
 				{
-					case UnitTarget:
-						return Config.UnitTarget;
-					default:
-						return Config.Target;
+					switch (AbilityController.ActiveAbility.Desc.Target)
+					{
+						case UnitTarget:
+							return Detector.Target is Unit ? Config.TargetUnit : Config.TargetInvalid;
+						default:
+							return Config.TargetDefault;
+					}
 				}
 			}
 		}
