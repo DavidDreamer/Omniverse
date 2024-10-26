@@ -69,45 +69,6 @@ namespace Omniverse.Editor
 			operation.OperationFieldInternal(genericParameterType);
 		}
 
-		public static void OperationField(this SerializedProperty operation)
-		{
-			Type[] types = new[]
-			{
-				typeof(Unit),
-				typeof(Vector3)
-			};
-
-			GUIContent[] selectedOptions = types.Select(type => new GUIContent(type.Name)).ToArray();
-
-			int selectedIndex = 0;
-			if (operation.managedReferenceValue is null)
-			{
-				selectedIndex = 0;
-			}
-			else
-			{
-				Type currentType = operation.managedReferenceValue.GetType().GetGenericArguments()[0];
-				selectedIndex = types.ToList().IndexOf(currentType);
-			}
-
-			GUIContent label = new("Target Type");
-			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, selectedOptions);
-
-			Type genericParameterType = types[selectedIndex];
-			Type operationType = typeof(Operation<>).MakeGenericType(genericParameterType);
-
-			if (operation.managedReferenceValue == null || operation.managedReferenceValue.GetType() != operationType)
-			{
-				operation.managedReferenceValue = Activator.CreateInstance(operationType);
-			}
-
-			SerializedProperty targetProvider = operation.FindPropertyRelative("TargetProvider".ToBackingField());
-			Type targetProviderType = typeof(ITargetProvider<>).MakeGenericType(genericParameterType);
-			targetProvider.DrawVersatile(targetProviderType);
-
-			operation.OperationFieldInternal(genericParameterType);
-		}
-
 		private static void OperationFieldInternal(this SerializedProperty operation, Type targetType)
 		{
 			SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());

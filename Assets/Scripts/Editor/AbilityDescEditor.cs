@@ -63,19 +63,6 @@ namespace Omniverse.Editor
 				Target.DrawVersatileOptional(typeof(ITarget), true);
 			}
 
-			void DrawNoneTarget()
-			{
-				SerializedProperty operations = Target.FindPropertyRelative("Operations".ToBackingField());
-
-				for (int i = 0; i < operations.arraySize; ++i)
-				{
-					SerializedProperty operation = operations.GetArrayElementAtIndex(i);
-					operation.OperationField();
-				}
-
-				operations.DrawArrayToolbar();
-			}
-
 			void DrawTargetOperations(Type type)
 			{
 				SerializedProperty operations = Target.FindPropertyRelative("Operations".ToBackingField());
