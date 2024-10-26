@@ -11,6 +11,6 @@ namespace Omniverse
 			Ability = ability;
 		}
 
-		public override void Execute() => Ability.Cast();
+		public override void Execute() => Ability.Cast(None.Instance);
 	}
 }

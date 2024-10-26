@@ -26,49 +26,26 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 1.6
-  <Operation>k__BackingField:
-    rid: 4041151032854578125
-  <Vector3Operation>k__BackingField:
-    rid: 4041151032854578083
-  <UnitOperation>k__BackingField:
-    rid: 4041151032854577957
+  <Operations>k__BackingField:
+  - rid: 4041151032854578163
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 4041151032854577957
-      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: 4041151032854577960
-        <Actions>k__BackingField:
-        - rid: 4041151032854578132
-    - rid: 4041151032854577960
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
-      data: 
-    - rid: 4041151032854578083
-      type: {class: 'Operation`2[[UnityEngine.Vector3, UnityEngine.CoreModule],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: -2
-        <Actions>k__BackingField: []
     - rid: 4041151032854578091
       type: {class: UnitTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data:
         <Filter>k__BackingField: 4
-    - rid: 4041151032854578125
-      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+    - rid: 4041151032854578163
+      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 4041151032854578126
-        <Actions>k__BackingField: []
-    - rid: 4041151032854578126
-      type: {class: ClosestTargetProvider, ns: Omniverse, asm: Omniverse}
-      data:
-        <Radius>k__BackingField: 0
-        <Filter>k__BackingField: 0
-    - rid: 4041151032854578132
+          rid: 4041151032854578165
+        <Actions>k__BackingField:
+        - rid: 4041151032854578167
+    - rid: 4041151032854578165
+      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+      data: 
+    - rid: 4041151032854578167
       type: {class: LaunchChainAction, ns: Omniverse, asm: Omniverse}
       data:
         <Chain>k__BackingField: {fileID: 11400000, guid: ec041e6edf3963a4cba9b9325c35826c, type: 2}

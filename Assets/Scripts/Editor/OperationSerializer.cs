@@ -27,6 +27,7 @@ namespace Omniverse.Editor
 			Type[] types = new[]
 			{
 				typeof(Unit),
+				typeof(ResourceSource),
 				typeof(Vector3)
 			};
 
@@ -73,7 +74,13 @@ namespace Omniverse.Editor
 		{
 			SerializedProperty actions = operation.FindPropertyRelative("Actions".ToBackingField());
 			Type actionType = typeof(IAction<>).MakeGenericType(targetType);
-			DrawActions(actions, actionType);
+
+			EditorGUILayout.LabelField("Actions");
+
+			using (new EditorGUI.IndentLevelScope(1))
+			{
+				DrawActions(actions, actionType);
+			}
 
 			void DrawActions(SerializedProperty serializedProperty, Type type)
 			{

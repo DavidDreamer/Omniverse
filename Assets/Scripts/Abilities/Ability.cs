@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System.Linq;
 
 namespace Omniverse.Abilities
 {
@@ -26,24 +26,13 @@ namespace Omniverse.Abilities
 			Cooldown.Tick(deltaTime);
 		}
 
-		public void Cast()
-		{
-			Cooldown.Activate();
-			Desc.Operation.Perform(Entity, None.Instance);
-		}
-
 		public void Cast<TTarget>(TTarget target)
 		{
 			Cooldown.Activate();
 
-			switch (target)
+			foreach (IOperation<TTarget> operation in Desc.Operations.Cast<IOperation<TTarget>>())
 			{
-				case Vector3 vector:
-					Desc.Vector3Operation.Perform(Entity, vector);
-					break;
-				case Unit unit:
-					Desc.UnitOperation.Perform(Entity, unit);
-					break;
+				operation.Perform(Entity, target);
 			}
 		}
 	}

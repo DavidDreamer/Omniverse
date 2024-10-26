@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public interface IOperation<TTarget>
+	public interface IOperation
+	{
+	}
+
+	public interface IOperation<TTarget> : IOperation
 	{
 		void Perform(Entity actor, TTarget target);
 	}

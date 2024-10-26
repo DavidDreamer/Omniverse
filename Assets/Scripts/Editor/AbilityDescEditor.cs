@@ -18,6 +18,7 @@ namespace Omniverse.Editor
 		private SerializedProperty Casting { get; set; }
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
+		private SerializedProperty Operations { get; set; }
 
 		private void OnEnable()
 		{
@@ -30,6 +31,7 @@ namespace Omniverse.Editor
 			Casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
+			Operations = serializedObject.FindProperty(nameof(AbilityDesc.Operations).ToBackingField());
 		}
 
 		public override void OnInspectorGUI()
@@ -41,7 +43,7 @@ namespace Omniverse.Editor
 			DrawSection(Cost);
 			DrawCasting();
 			DrawSection(Cooldown);
-			DrawOperation();
+			DrawOperations();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -92,23 +94,38 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void DrawOperation()
+		private void DrawOperations()
 		{
-			SerializedProperty operation = serializedObject.FindProperty(nameof(AbilityDesc.Operation).ToBackingField());
-			DrawSectionHeader(operation);
-
-			if (!operation.isExpanded)
+			if (DrawSectionHeader(Operations))
 			{
 				return;
 			}
+	
+			Type targetType = GetOperationTagetType();
 
-			operation.OperationField(typeof(None));
+			for (int i = 0; i < Operations.arraySize; ++i)
+			{
+				SerializedProperty op = Operations.GetArrayElementAtIndex(i);
+				op.OperationField(targetType);
+			}
 
-			SerializedProperty vector3Operation = serializedObject.FindProperty(nameof(AbilityDesc.Vector3Operation).ToBackingField());
-			vector3Operation.OperationField(typeof(Vector3));
+			Operations.DrawArrayToolbar();
 
-			SerializedProperty unitOperation = serializedObject.FindProperty(nameof(AbilityDesc.UnitOperation).ToBackingField());
-			unitOperation.OperationField(typeof(Unit));
+			Type GetOperationTagetType()
+			{
+				switch (Target.managedReferenceValue)
+				{
+					case NoneTarget:
+						return typeof(None);
+					case UnitTarget:
+						return typeof(Unit);
+					case ResourceSourceTarget:
+						return typeof(ResourceSource);
+					case VectorTarget:
+						return typeof(Vector3);
+					default: throw new Exception();
+				}
+			}
 		}
 
 		private bool DrawSectionHeader(SerializedProperty serializedProperty)

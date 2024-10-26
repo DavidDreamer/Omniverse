@@ -17,7 +17,7 @@ MonoBehaviour:
     <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: 60276a2c19373fa4ab961e75e516260c, type: 3}
   <Target>k__BackingField:
-    rid: -2
+    rid: 4041151032854578158
   <Cost>k__BackingField:
   - <PropertyID>k__BackingField: 0
     <PropertyModifier>k__BackingField:
@@ -31,43 +31,25 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 5
-  <Operation>k__BackingField:
-    rid: 4041151032854578098
-  <Vector3Operation>k__BackingField:
-    rid: 4041151032854578078
-  <UnitOperation>k__BackingField:
-    rid: 4041151032854578079
+  <Operations>k__BackingField:
+  - rid: 4041151032854578159
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 4041151032854578078
-      type: {class: 'Operation`2[[UnityEngine.Vector3, UnityEngine.CoreModule],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: -2
-        <Actions>k__BackingField: []
-    - rid: 4041151032854578079
-      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: 4041151032854578080
-        <Actions>k__BackingField: []
-    - rid: 4041151032854578080
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+    - rid: 4041151032854578158
+      type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data: 
-    - rid: 4041151032854578098
+    - rid: 4041151032854578159
       type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 4041151032854578100
+          rid: 4041151032854578161
         <Actions>k__BackingField:
-        - rid: 4041151032854578101
-    - rid: 4041151032854578100
+        - rid: 4041151032854578162
+    - rid: 4041151032854578161
       type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
       data: 
-    - rid: 4041151032854578101
+    - rid: 4041151032854578162
       type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
       data:
         <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}

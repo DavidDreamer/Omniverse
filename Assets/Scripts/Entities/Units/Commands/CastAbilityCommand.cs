@@ -48,7 +48,7 @@ namespace Omniverse
 
 		protected virtual void Cast()
 		{
-			Ability.Cast();
+			Ability.Cast(None.Instance);
 		}
 
 		public override void Cleanup()
