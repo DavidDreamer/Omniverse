@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class CollectInRadiusTargetProvider : ITargetProvider<Unit>, ITargetConverter<None, Unit>
+	public class CollectInRadiusTargetProvider : ITargetConverter<None, Unit>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
