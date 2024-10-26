@@ -1,16 +1,17 @@
 using Omniverse.Input;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-
 	public class UnitWidget : MonoBehaviour, ILateTickable
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
+
+		[field: SerializeField]
+		private AvatarWidget Avatar { get; set; }
 
 		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
@@ -29,8 +30,6 @@ namespace Omniverse.UI
 
 		public PropertyBarWidget Health;
 
-		public Image Icon;
-
 		[Inject]
 		private Selector Selector { get; set; }
 
@@ -47,8 +46,7 @@ namespace Omniverse.UI
 
 			Unit unit = Selector.SelectedUnit;
 
-			Icon.sprite = unit.Desc.Icon;
-
+			Avatar.Bind(unit);
 			Health.Bind(unit);
 
 			AbilityBar.Bind(unit);

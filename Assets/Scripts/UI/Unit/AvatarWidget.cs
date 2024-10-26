@@ -1,17 +1,31 @@
 ﻿using Omniverse.Input;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using VContainer;
 
 namespace Omniverse.UI
 {
 	public class AvatarWidget : MonoBehaviour, IPointerClickHandler
 	{
+		[field: SerializeField]
+		private Image Icon { get; set; }
+
+		[field: SerializeField]
+		private TextMeshProUGUI Name { get; set; }
+
 		[Inject]
 		public CameraController CameraController { get; set; }
 
 		[Inject]
 		private Selector Selector { get; set; }
+
+		public void Bind(Unit unit)
+		{
+			Icon.sprite = unit.Desc.Icon;
+			Name.text = unit.Desc.Name;
+		}
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
