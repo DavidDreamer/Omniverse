@@ -1,4 +1,5 @@
-﻿using Omniverse.Input;
+﻿using Omniverse.Abilities;
+using Omniverse.Input;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -30,11 +31,9 @@ namespace Omniverse.Rendering
 					return Config.Default;
 				}
 
-				Abilities.TargetType targetType = AbilityController.ActiveAbility.Desc.Target.Type;
-
-				switch (targetType)
+				switch (AbilityController.ActiveAbility.Desc.Target)
 				{
-					case Abilities.TargetType.Unit:
+					case UnitTarget:
 						return Config.UnitTarget;
 					default:
 						return Config.Target;

@@ -9,8 +9,8 @@ namespace Omniverse.Abilities
 		[field: SerializeField]
 		public Meta Meta { get; private set; }
 
-		[field: SerializeField]
-		public TargetDesc Target { get; private set; }
+		[field: SerializeReference]
+		public ITarget Target { get; private set; }
 
 		[field: SerializeField]
 		public List<CostDesc> Cost { get; private set; }

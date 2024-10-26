@@ -122,18 +122,7 @@ namespace Omniverse.Editor
 					action.DrawVersatile(type);
 				}
 
-				using (new EditorGUILayout.HorizontalScope())
-				{
-					if (GUILayout.Button("Add"))
-					{
-						serializedProperty.arraySize++;
-					}
-
-					if (GUILayout.Button("Remove"))
-					{
-						serializedProperty.arraySize--;
-					}
-				}
+				serializedProperty.DrawArrayToolbar();
 			}
 		}
 	}

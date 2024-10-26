@@ -1,6 +1,7 @@
 ﻿using System;
 using Dreambox.Core;
 using Dreambox.Rendering.Core;
+using Omniverse.Abilities;
 using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -52,7 +53,7 @@ namespace Omniverse.Rendering
 		{
 			var target = Renderer.AbilityController.ActiveAbility.Desc.Target;
 
-			if (target.Type != Abilities.TargetType.Direction)
+			if (target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
 			{
 				return;
 			}

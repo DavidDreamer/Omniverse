@@ -1,3 +1,4 @@
+using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
@@ -14,12 +15,7 @@ namespace Omniverse.Editor
 		private SerializedProperty MetaIcon { get; set; }
 
 		private SerializedProperty Target { get; set; }
-		private SerializedProperty TargetType { get; set; }
-		private SerializedProperty TargetFilter { get; set; }
-		private SerializedProperty TargetResourceSources { get; set; }
-
 		private SerializedProperty Casting { get; set; }
-
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
 
@@ -31,12 +27,7 @@ namespace Omniverse.Editor
 			MetaIcon = Meta.FindPropertyRelative(nameof(AbilityDesc.Meta.Icon).ToBackingField());
 
 			Target = serializedObject.FindProperty(nameof(AbilityDesc.Target).ToBackingField());
-			TargetType = Target.FindPropertyRelative(nameof(AbilityDesc.Target.Type).ToBackingField());
-			TargetFilter = Target.FindPropertyRelative(nameof(AbilityDesc.Target.Filter).ToBackingField());
-			TargetResourceSources = Target.FindPropertyRelative(nameof(AbilityDesc.Target.ResourceSources).ToBackingField());
-
 			Casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
-
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 		}
@@ -69,23 +60,33 @@ namespace Omniverse.Editor
 		{
 			if (DrawSectionHeader(Target))
 			{
-				EditorGUILayout.PropertyField(TargetType);
+				Target.DrawVersatileOptional(typeof(ITarget), true);
+			}
 
-				var targetType = (TargetType)TargetType.enumValueFlag;
-				if (targetType is Abilities.TargetType.None)
+			void DrawNoneTarget()
+			{
+				SerializedProperty operations = Target.FindPropertyRelative("Operations".ToBackingField());
+
+				for (int i = 0; i < operations.arraySize; ++i)
 				{
-					return;
+					SerializedProperty operation = operations.GetArrayElementAtIndex(i);
+					operation.OperationField();
 				}
 
-				if (targetType.HasFlag(Abilities.TargetType.Unit))
+				operations.DrawArrayToolbar();
+			}
+
+			void DrawTargetOperations(Type type)
+			{
+				SerializedProperty operations = Target.FindPropertyRelative("Operations".ToBackingField());
+
+				for (int i = 0; i < operations.arraySize; ++i)
 				{
-					EditorGUILayout.PropertyField(TargetFilter);
+					SerializedProperty operation = operations.GetArrayElementAtIndex(i);
+					operation.OperationField(type);
 				}
 
-				if (targetType.HasFlag(Abilities.TargetType.ResourceSource))
-				{
-					EditorGUILayout.PropertyField(TargetResourceSources);
-				}
+				operations.DrawArrayToolbar();
 			}
 		}
 
@@ -114,25 +115,12 @@ namespace Omniverse.Editor
 				return;
 			}
 
-			var targetType = (Abilities.TargetType)TargetType.enumValueIndex;
-			if (targetType == Abilities.TargetType.None)
-			{
-				operation.OperationField();
-			}
-			else
-			{
-				if (targetType is Abilities.TargetType.Point or Abilities.TargetType.Direction)
-				{
-					SerializedProperty vector3Operation = serializedObject.FindProperty(nameof(AbilityDesc.Vector3Operation).ToBackingField());
-					vector3Operation.OperationField(typeof(Vector3));
-				}
+			operation.OperationField();
+			SerializedProperty vector3Operation = serializedObject.FindProperty(nameof(AbilityDesc.Vector3Operation).ToBackingField());
+			vector3Operation.OperationField(typeof(Vector3));
 
-				if (targetType is Abilities.TargetType.Unit)
-				{
-					SerializedProperty unitOperation = serializedObject.FindProperty(nameof(AbilityDesc.UnitOperation).ToBackingField());
-					unitOperation.OperationField(typeof(Unit));
-				}
-			}
+			SerializedProperty unitOperation = serializedObject.FindProperty(nameof(AbilityDesc.UnitOperation).ToBackingField());
+			unitOperation.OperationField(typeof(Unit));
 		}
 
 		private bool DrawSectionHeader(SerializedProperty serializedProperty)

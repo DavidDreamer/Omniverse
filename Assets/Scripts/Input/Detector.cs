@@ -32,20 +32,17 @@ namespace Omniverse.Input
 		{
 			ClearFilter();
 
-			var target = ability.Desc.Target;
-			var targetType = target.Type;
-
-			if (targetType.HasFlag(TargetType.ResourceSource))
+			switch (ability.Desc.Target)
 			{
-				AddToFilter<ResourceSource>();
+				case UnitTarget unitTarget:
+					AddToFilter<Unit>();
+					Filter = unitTarget.Filter;
+					break;
+				case ResourceSourceTarget resourceSourceTarget:
+					AddToFilter<ResourceSource>();
+					Filter = resourceSourceTarget.Filter;
+					break;
 			}
-
-			if (targetType.HasFlag(TargetType.Unit))
-			{
-				AddToFilter<Unit>();
-			}
-
-			Filter = target.Filter;
 		}
 
 		public void SetFiler<TEntityType>() where TEntityType : Entity

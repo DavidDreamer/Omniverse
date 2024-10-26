@@ -40,9 +40,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			TargetType targetType = ability.Desc.Target.Type;
-
-			if (targetType is TargetType.None)
+			if (ability.Desc.Target is null)
 			{
 				if (ability.Desc.Casting.Time == 0)
 				{
@@ -64,73 +62,71 @@ namespace Omniverse.Input
 
 		public void ProcessAbility(Entity target, Vector3? cursorWorldPosition, bool additiveMode)
 		{
-			TargetType targetType = ActiveAbility.Desc.Target.Type;
-
-			if (targetType is TargetType.Point)
+			switch (ActiveAbility.Desc.Target)
 			{
-				if (!CommonActions.Select.WasPressedThisFrame())
+				case VectorTarget vectorTarget:
 				{
-					return;
+					if (!CommonActions.Select.WasPressedThisFrame())
+					{
+						return;
+					}
+
+					if (!cursorWorldPosition.HasValue)
+					{
+						return;
+					}
+
+					if (vectorTarget.Mode is VectorTargetMode.Direction)
+					{
+						Vector3 direction = cursorWorldPosition.Value - ActiveUnit.transform.position;
+						direction.Set(direction.x, 0, direction.z);
+						direction.Normalize();
+
+						var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, direction);
+						AddCommand(ActiveUnit, castAbilityCommand);
+					}
+					else
+					{
+						var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
+						AddCommand(ActiveUnit, approachPositionForAbilityCastCommand);
+						var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
+						ActiveUnit.CommandModule.Add(castAbilityCommand);
+					}
+					break;
 				}
-
-				if (!cursorWorldPosition.HasValue)
+				case UnitTarget:
+				case ResourceSourceTarget:
 				{
-					return;
-				}
+					if (!CommonActions.Select.WasPressedThisFrame())
+					{
+						return;
+					}
 
-				var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				AddCommand(ActiveUnit, approachPositionForAbilityCastCommand);
-				var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, cursorWorldPosition.Value);
-				ActiveUnit.CommandModule.Add(castAbilityCommand);
-			}
-			else if (targetType is TargetType.Direction)
-			{
-				if (!CommonActions.Select.WasPressedThisFrame())
-				{
-					return;
-				}
+					if (target == null)
+					{
+						return;
+					}
 
-				if (!cursorWorldPosition.HasValue)
-				{
-					return;
-				}
+					var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
+					AddCommand(ActiveUnit, approachEntityForAbilityCastCommand);
 
-				Vector3 direction = cursorWorldPosition.Value - ActiveUnit.transform.position;
-				direction.Set(direction.x, 0, direction.z);
-				direction.Normalize();
-
-				var castAbilityCommand = new CastAbilityCommand<Vector3>(ActiveUnit, ActiveAbility, direction);
-				AddCommand(ActiveUnit, castAbilityCommand);
-			}
-			else if (targetType is TargetType.Unit or TargetType.ResourceSource)
-			{
-				if (!CommonActions.Select.WasPressedThisFrame())
-				{
-					return;
-				}
-
-				if (target == null)
-				{
-					return;
-				}
-
-				var approachEntityForAbilityCastCommand = new ApproachEntityForAbilityCastCommand(ActiveUnit, ActiveAbility, target);
-				AddCommand(ActiveUnit, approachEntityForAbilityCastCommand);
-
-				switch (target)
-				{
-					case Unit unit:
+					switch (target)
+					{
+						case Unit unit:
 						{
 							var castAbilityCommand = new CastAbilityCommand<Unit>(ActiveUnit, ActiveAbility, unit);
 							ActiveUnit.CommandModule.Add(castAbilityCommand);
 							break;
 						}
-					case ResourceSource resourceSource:
+						case ResourceSource resourceSource:
 						{
 							var castAbilityCommand = new CastAbilityCommand<ResourceSource>(ActiveUnit, ActiveAbility, resourceSource);
 							ActiveUnit.CommandModule.Add(castAbilityCommand);
 							break;
 						}
+					}
+
+					break;
 				}
 			}
 
