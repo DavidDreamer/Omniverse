@@ -28,12 +28,9 @@ MonoBehaviour:
       type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 4041151032854578015
+          rid: 4041151032854578129
         <Actions>k__BackingField:
         - rid: 4041151032854578017
-    - rid: 4041151032854578015
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
-      data: 
     - rid: 4041151032854578017
       type: {class: ModifyPropertyAction, ns: Omniverse, asm: Omniverse}
       data:
@@ -42,3 +39,8 @@ MonoBehaviour:
           Operation: 1
           Mode: 0
           Value: 5
+    - rid: 4041151032854578129
+      type: {class: ClosestTargetProvider, ns: Omniverse, asm: Omniverse}
+      data:
+        <Radius>k__BackingField: 10
+        <Filter>k__BackingField: 4
