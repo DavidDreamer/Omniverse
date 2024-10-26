@@ -94,7 +94,7 @@ namespace Omniverse.Input
 				{
 					if (abilityActions[i].WasPressedThisFrame())
 					{
-						if (i <= unit.Abilities.Count)
+						if (i < unit.Abilities.Count)
 						{
 							Ability ability = unit.Abilities[i];
 							AbilityController.Process(unit, ability);

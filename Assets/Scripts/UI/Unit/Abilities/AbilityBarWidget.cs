@@ -67,8 +67,9 @@ namespace Omniverse.UI
 			{
 				while (slotsDelta != 0)
 				{
-					Slots.RemoveAt(0);
-					Destroy(Slots[0].gameObject);
+					int indexToRemove = Slots.Count - 1;
+					Destroy(Slots[indexToRemove].gameObject);
+					Slots.RemoveAt(indexToRemove);
 					slotsDelta++;
 				}
 			}
