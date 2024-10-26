@@ -40,7 +40,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			if (ability.Desc.Target is null)
+			if (ability.Desc.Target is NoneTarget)
 			{
 				if (ability.Desc.Casting.Time == 0)
 				{

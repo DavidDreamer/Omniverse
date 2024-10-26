@@ -60,7 +60,7 @@ namespace Omniverse.Editor
 		{
 			if (DrawSectionHeader(Target))
 			{
-				Target.DrawVersatileOptional(typeof(ITarget), true);
+				Target.DrawVersatile(typeof(ITarget), true);
 			}
 
 			void DrawTargetOperations(Type type)
