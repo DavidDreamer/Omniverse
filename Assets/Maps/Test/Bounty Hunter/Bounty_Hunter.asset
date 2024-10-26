@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a441797ce7b4f648344e4ae4ac99761, type: 3}
-  m_Name: Villager
+  m_Name: Bounty_Hunter
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Villager
+  <Name>k__BackingField: Bounty Hunter
   <Icon>k__BackingField: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
   <Model>k__BackingField: {fileID: 4949059538394060341, guid: e10ac33b971d73845ac8949e0305343a, type: 3}
   <Experience>k__BackingField:
@@ -68,9 +68,7 @@ MonoBehaviour:
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   <Abilities>k__BackingField:
-  - {fileID: 11400000, guid: 5c403545036cd514b9cc1deb7038bdf9, type: 2}
-  - {fileID: 11400000, guid: 13e9998263de9dd488da08da40a829af, type: 2}
-  - {fileID: 11400000, guid: d584e6418f56c3c458397910c61fb9cc, type: 2}
+  - {fileID: 11400000, guid: 56b35f0c3f266cc4496554a8bfafcb63, type: 2}
   <Loot>k__BackingField: []
   <Inventory>k__BackingField:
     <Capacity>k__BackingField: 16
