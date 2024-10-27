@@ -68,8 +68,10 @@ MonoBehaviour:
     <Regeneration>k__BackingField: 0
     <Vital>k__BackingField: 0
   <Abilities>k__BackingField:
-  - {fileID: 11400000, guid: 0fb7b34868bb064428714def902ceee0, type: 2}
   - {fileID: 11400000, guid: c546f71475ff4184bb3abe9f7360de88, type: 2}
+  - {fileID: 11400000, guid: 0fb7b34868bb064428714def902ceee0, type: 2}
+  - {fileID: 11400000, guid: b650cec3c708b6f4e854ecff52bf269d, type: 2}
+  - {fileID: 11400000, guid: e2370b32ad4b00249b2142c7c625946e, type: 2}
   <Loot>k__BackingField: []
   <Inventory>k__BackingField:
     <Capacity>k__BackingField: 16
