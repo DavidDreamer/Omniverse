@@ -2,13 +2,13 @@
 
 namespace Omniverse
 {
-	public class CastAbilityCommand : Command
+	public abstract class CastAbilityCommand : Command
 	{
 		public Ability Ability { get; }
 
 		public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
 
-		public CastAbilityCommand(Unit unit, Ability ability) : base(unit)
+		protected CastAbilityCommand(Unit unit, Ability ability) : base(unit)
 		{
 			Ability = ability;
 		}
@@ -46,10 +46,7 @@ namespace Omniverse
 			return true;
 		}
 
-		protected virtual void Cast()
-		{
-			Ability.Cast(None.Instance);
-		}
+		protected abstract void Cast();
 
 		public override void Cleanup()
 		{

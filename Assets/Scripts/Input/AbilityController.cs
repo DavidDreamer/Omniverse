@@ -49,7 +49,7 @@ namespace Omniverse.Input
 				}
 				else
 				{
-					var command = new CastAbilityCommand(unit, ability);
+					var command = new CastAbilityCommand<None>(unit, ability, None.Instance);
 					AddCommand(unit, command);
 				}
 			}
