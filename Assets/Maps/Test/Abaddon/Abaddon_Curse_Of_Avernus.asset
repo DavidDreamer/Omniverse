@@ -27,9 +27,20 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <Operations>k__BackingField: []
+  <Triggers>k__BackingField:
+  - rid: 2502247201834270778
   references:
     version: 2
     RefIds:
     - rid: 2502247201834270776
       type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data: 
+    - rid: 2502247201834270778
+      type: {class: AfterAttackAbilityTrigger, ns: Omniverse.Abilities, asm: Omniverse}
+      data:
+        <Action>k__BackingField:
+          rid: 2502247201834270780
+    - rid: 2502247201834270780
+      type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
+      data:
+        <Effect>k__BackingField: {fileID: 11400000, guid: 05c8a44bed1cd4d4b86bd12cf34f7231, type: 2}

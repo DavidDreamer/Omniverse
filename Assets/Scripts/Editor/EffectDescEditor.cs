@@ -13,6 +13,8 @@ namespace Omniverse.Editor
 		private SerializedProperty Time { get; set; }
 		private SerializedProperty UnitStatus { get; set; }
 		private SerializedProperty PropertyModifiers { get; set; }
+		private SerializedProperty OnAppliedOperation { get; set; }
+		private SerializedProperty OnTickOperation { get; set; }
 		private SerializedProperty OnRemovedOperation { get; set; }
 
 		private void OnEnable()
@@ -23,6 +25,8 @@ namespace Omniverse.Editor
 			Time = serializedObject.FindProperty(nameof(EffectDesc.Time).ToBackingField());
 			UnitStatus = serializedObject.FindProperty(nameof(EffectDesc.UnitStatus).ToBackingField());
 			PropertyModifiers = serializedObject.FindProperty(nameof(EffectDesc.PropertyModifiers).ToBackingField());
+			OnAppliedOperation = serializedObject.FindProperty(nameof(EffectDesc.OnAppliedOperation).ToBackingField());
+			OnTickOperation = serializedObject.FindProperty(nameof(EffectDesc.OnTickOperation).ToBackingField());
 			OnRemovedOperation = serializedObject.FindProperty(nameof(EffectDesc.OnRemovedOperation).ToBackingField());
 		}
 
@@ -36,6 +40,8 @@ namespace Omniverse.Editor
 			EditorGUILayout.PropertyField(Time);
 			EditorGUILayout.PropertyField(UnitStatus);
 			EditorGUILayout.PropertyField(PropertyModifiers);
+			OnAppliedOperation.OptionalOperationField(typeof(None));
+			OnTickOperation.OptionalOperationField(typeof(None));
 			OnRemovedOperation.OptionalOperationField(typeof(None));
 
 			serializedObject.ApplyModifiedProperties();

@@ -49,9 +49,13 @@ namespace Omniverse
 			property.Modify(modifier);
 		}
 
-		public void ApplyEffect(Effect effect)
+		public void ApplyEffect(EffectDesc effectDesc)
 		{
+			Effect effect = new(this, effectDesc);
+
 			Effects.Add(effect);
+
+			effect.Desc.OnAppliedOperation?.Perform(this, None.Instance);
 
 			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
 			{
@@ -68,10 +72,7 @@ namespace Omniverse
 				Properties[desc.ID].RemoveModifier(desc.Modifier);
 			}
 
-			if (effect.Desc.OnRemovedOperation != null)
-			{
-				effect.Desc.OnRemovedOperation.Perform(this, None.Instance);
-			}
+			effect.Desc.OnRemovedOperation?.Perform(this, None.Instance);
 
 			Effects.RemoveAt(index);
 

@@ -25,6 +25,12 @@ namespace Omniverse
 		public List<PropertyModifierDesc> PropertyModifiers { get; private set; }
 
 		[field: SerializeReference]
+		public IOperation<None> OnAppliedOperation { get; set; }
+
+		[field: SerializeReference]
+		public IOperation<None> OnTickOperation { get; set; }
+
+		[field: SerializeReference]
 		public IOperation<None> OnRemovedOperation { get; set; }
 	}
 }

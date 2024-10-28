@@ -18,6 +18,10 @@ MonoBehaviour:
   <Time>k__BackingField: 5
   <UnitStatus>k__BackingField: 1
   <PropertyModifiers>k__BackingField: []
+  <OnAppliedOperation>k__BackingField:
+    rid: -2
+  <OnTickOperation>k__BackingField:
+    rid: -2
   <OnRemovedOperation>k__BackingField:
     rid: -2
   references:

@@ -39,9 +39,9 @@ namespace Omniverse
 		{
 			Amount = RawAmount;
 
-			foreach (PropertyModifier propertyModifier in Modifiers)
+			foreach (PropertyModifier modifier in Modifiers)
 			{
-				Amount += propertyModifier.Value;
+				Modify(modifier);
 			}
 
 			Change(Regeneration * deltaTime);
@@ -90,7 +90,7 @@ namespace Omniverse
 					case PropertyModifierMode.Absolute:
 						return modifier.Value;
 					case PropertyModifierMode.Percentage:
-						return modifier.Value * Desc.Range.Max;
+						return modifier.Value * RawAmount;
 					default: throw new ArgumentOutOfRangeException(modifier.Mode.ToString());
 				}
 			}
