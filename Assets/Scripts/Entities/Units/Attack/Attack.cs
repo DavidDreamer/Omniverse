@@ -5,21 +5,23 @@ namespace Omniverse
 {
 	public class Attack
 	{
-		public event System.Action Started;
+		public event Action Started;
 
-		private Unit Unit { get; }
+		public event Action<Entity> Performed;
+
+		private Entity Entity { get; }
 
 		public bool InProcess { get; private set; }
 
-		public Attack(Unit unit)
+		public Attack(Entity entity)
 		{
-			Unit = unit;
+			Entity = entity;
 		}
 
 		public bool TargetIsInRange(Unit target)
 		{
-			float sqrDistance = Vector3.SqrMagnitude(Unit.transform.position - target.transform.position);
-			float attackRange = Unit.Properties[PropertyID.AttackRange].Amount;
+			float sqrDistance = Vector3.SqrMagnitude(Entity.transform.position - target.transform.position);
+			float attackRange = Entity.Properties[PropertyID.AttackRange].Amount;
 			float sqrAttackRange = attackRange * attackRange;
 			return sqrDistance <= sqrAttackRange;
 		}
@@ -35,7 +37,7 @@ namespace Omniverse
 
 		public void Tick(Unit target, float deltaTime)
 		{
-			float attackSpeed = Unit.Properties[PropertyID.AttackSpeed].Amount;
+			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
 
 			float time = 1f / attackSpeed;
 			TimeSpan timeSpan = TimeSpan.FromSeconds(time);
@@ -48,11 +50,13 @@ namespace Omniverse
 				{
 					var modifier = new PropertyModifier
 					{
-						Value = -Unit.Properties[PropertyID.AttackDamage].Amount,
+						Value = -Entity.Properties[PropertyID.AttackDamage].Amount,
 					};
 
-					target.ModifyProperty(PropertyID.Health, modifier, Unit);
+					target.ModifyProperty(PropertyID.Health, modifier, Entity);
 				}
+
+				Performed?.Invoke(target);
 
 				InProcess = false;
 			}

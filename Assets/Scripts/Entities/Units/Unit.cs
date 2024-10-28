@@ -16,8 +16,6 @@ namespace Omniverse
 
 		public Experience Experience { get; private set; }
 
-		public Attack Attack { get; private set; }
-
 		public Inventory Inventory { get; private set; }
 
 		public CommandModule CommandModule { get; private set; }
@@ -39,7 +37,6 @@ namespace Omniverse
 				Abilities.Add(ability);
 			}
 
-			Attack = new Attack(this);
 			Inventory = new Inventory(desc.Inventory);
 			CommandModule = new CommandModule(this);
 

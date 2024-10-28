@@ -24,6 +24,8 @@ namespace Omniverse
 
 		public List<Effect> Effects { get; } = new();
 
+		public Attack Attack { get; protected set; }
+
 		[Inject]
 		protected IObjectResolver ObjectResolver { get; set; }
 
@@ -104,6 +106,8 @@ namespace Omniverse
 		public virtual void Initialize(TDesc desc)
 		{
 			Desc = desc;
+
+			Attack = new Attack(this);
 		}
 	}
 }
