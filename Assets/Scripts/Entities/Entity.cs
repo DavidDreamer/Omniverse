@@ -6,7 +6,7 @@ using VContainer;
 
 namespace Omniverse
 {
-	public abstract class Entity : MonoBehaviour, IFactious
+	public abstract partial class Entity : MonoBehaviour, IFactious
 	{
 		public event Action<Effect> EffectApplied;
 
@@ -24,7 +24,7 @@ namespace Omniverse
 
 		public List<Effect> Effects { get; } = new();
 
-		public Attack Attack { get; protected set; }
+		public AttackModule Attack { get; protected set; }
 
 		[Inject]
 		protected IObjectResolver ObjectResolver { get; set; }
@@ -107,7 +107,7 @@ namespace Omniverse
 		{
 			Desc = desc;
 
-			Attack = new Attack(this);
+			Attack = new AttackModule(this);
 		}
 	}
 }

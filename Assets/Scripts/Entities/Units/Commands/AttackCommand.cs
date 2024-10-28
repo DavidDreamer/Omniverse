@@ -1,4 +1,5 @@
 ﻿using UnityEngine.AI;
+using static Omniverse.Entity;
 
 namespace Omniverse
 {
@@ -15,7 +16,7 @@ namespace Omniverse
 
 		public override bool Tick(float deltaTime)
 		{
-			Attack attack = Unit.Attack;
+			AttackModule attack = Unit.Attack;
 
 			if (!attack.InProcess)
 			{
