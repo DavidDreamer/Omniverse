@@ -19,6 +19,7 @@ namespace Omniverse.Editor
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
 		private SerializedProperty Operations { get; set; }
+		private SerializedProperty Triggers { get; set; }
 
 		private void OnEnable()
 		{
@@ -32,6 +33,7 @@ namespace Omniverse.Editor
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
 			Operations = serializedObject.FindProperty(nameof(AbilityDesc.Operations).ToBackingField());
+			Triggers = serializedObject.FindProperty(nameof(AbilityDesc.Triggers).ToBackingField());
 		}
 
 		public override void OnInspectorGUI()
@@ -44,6 +46,7 @@ namespace Omniverse.Editor
 			DrawCasting();
 			DrawSection(Cooldown);
 			DrawOperations();
+			DrawTriggers();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -63,19 +66,6 @@ namespace Omniverse.Editor
 			if (DrawSectionHeader(Target))
 			{
 				Target.DrawVersatile(typeof(ITarget), true);
-			}
-
-			void DrawTargetOperations(Type type)
-			{
-				SerializedProperty operations = Target.FindPropertyRelative("Operations".ToBackingField());
-
-				for (int i = 0; i < operations.arraySize; ++i)
-				{
-					SerializedProperty operation = operations.GetArrayElementAtIndex(i);
-					operation.OperationField(type);
-				}
-
-				operations.DrawArrayToolbar();
 			}
 		}
 
@@ -125,6 +115,20 @@ namespace Omniverse.Editor
 						return typeof(Vector3);
 					default: throw new Exception();
 				}
+			}
+		}
+
+		private void DrawTriggers()
+		{
+			if (DrawSectionHeader(Triggers))
+			{
+				for (int i = 0; i < Triggers.arraySize; ++i)
+				{
+					SerializedProperty trigger = Triggers.GetArrayElementAtIndex(i);
+					trigger.DrawVersatile(typeof(IAbilityTrigger));
+				}
+
+				Triggers.DrawArrayToolbar();
 			}
 		}
 

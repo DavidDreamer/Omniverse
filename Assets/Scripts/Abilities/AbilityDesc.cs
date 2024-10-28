@@ -23,5 +23,8 @@ namespace Omniverse.Abilities
 
 		[field: SerializeReference]
 		public IOperation[] Operations { get; private set; }
+
+		[field: SerializeReference]
+		public IAbilityTrigger[] Triggers { get; private set; }
 	}
 }

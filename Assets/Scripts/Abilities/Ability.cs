@@ -12,13 +12,19 @@ namespace Omniverse.Abilities
 
 		public Cooldown Cooldown { get; }
 
-		public Ability(AbilityDesc desc, Entity actor)
+		public Ability(AbilityDesc desc, Entity entity)
 		{
 			Desc = desc;
-			Entity = actor;
+			Entity = entity;
 
 			Casting = new Casting(Desc.Casting);
 			Cooldown = new Cooldown(Desc.Cooldown);
+
+			for (int i = 0; i < Desc.Triggers.Length; i++)
+			{
+				IAbilityTrigger trigger = Desc.Triggers[i];
+				trigger.Listen(entity);
+			}
 		}
 
 		public void Tick(float deltaTime)
