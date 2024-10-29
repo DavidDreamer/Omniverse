@@ -2,10 +2,10 @@
     "name": "Omniverse.Editor",
     "rootNamespace": "Omniverse.Editor",
     "references": [
+        "GUID:3eae0364be2026648bf74846acb8a731",
         "GUID:7900f524ca37ee847a70422f636ab5c5",
         "GUID:3fb1b789163aee44286c63be4af9384f",
-        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
-        "GUID:c2607f496bdafbd48ab90b2a2689d5e3"
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a"
     ],
     "includePlatforms": [
         "Editor"

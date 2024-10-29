@@ -2,6 +2,7 @@ using System;
 using Dreambox.Core.Editor;
 using Omniverse.Abilities;
 using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Omniverse.Editor
@@ -134,10 +135,9 @@ namespace Omniverse.Editor
 
 		private bool DrawSectionHeader(SerializedProperty serializedProperty)
 		{
-			if (GUILayout.Button(serializedProperty.displayName))
-			{
-				serializedProperty.isExpanded = !serializedProperty.isExpanded;
-			}
+			CoreEditorUtils.DrawSplitter();
+
+			serializedProperty.isExpanded = CoreEditorUtils.DrawHeaderFoldout(serializedProperty.displayName, serializedProperty.isExpanded);
 
 			return serializedProperty.isExpanded;
 		}
