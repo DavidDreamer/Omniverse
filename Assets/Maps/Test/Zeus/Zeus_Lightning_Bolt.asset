@@ -26,27 +26,24 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 6
-  <Operations>k__BackingField:
-  - rid: 4041151032854578168
+  <ActiveOperation>k__BackingField:
+    rid: 2502247249805574949
+  <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 4041151032854578093
-      type: {class: UnitTarget, ns: Omniverse.Abilities, asm: Omniverse}
-      data:
-        <Filter>k__BackingField: 4
-    - rid: 4041151032854578168
+    - rid: 2502247249805574949
       type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 4041151032854578170
+          rid: 2502247249805574951
         <Actions>k__BackingField:
-        - rid: 4041151032854578172
-        - rid: 4041151032854578173
-    - rid: 4041151032854578170
+        - rid: 2502247249805574953
+        - rid: 2502247249805574954
+    - rid: 2502247249805574951
       type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
       data: 
-    - rid: 4041151032854578172
+    - rid: 2502247249805574953
       type: {class: ModifyPropertyAction, ns: Omniverse, asm: Omniverse}
       data:
         <Property>k__BackingField: 3
@@ -54,7 +51,11 @@ MonoBehaviour:
           Operation: 1
           Mode: 0
           Value: 20
-    - rid: 4041151032854578173
+    - rid: 2502247249805574954
       type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
       data:
         <Effect>k__BackingField: {fileID: 11400000, guid: b870ee7d83ba48041a2a09d8474b66ce, type: 2}
+    - rid: 4041151032854578093
+      type: {class: UnitTarget, ns: Omniverse.Abilities, asm: Omniverse}
+      data:
+        <Filter>k__BackingField: 4

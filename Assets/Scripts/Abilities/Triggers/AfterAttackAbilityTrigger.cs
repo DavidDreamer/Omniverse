@@ -1,13 +1,11 @@
-﻿using Dreambox.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse.Abilities
 {
 	public class AfterAttackAbilityTrigger : IAbilityTrigger
 	{
 		[field: SerializeReference]
-		[field: Versatile(typeof(IAction<Entity>))]
-		public IAction<Entity> Action { get; private set; }
+		public IOperation<Unit> Operations { get; private set; }
 
 		private Entity Entity { get; set; }
 
@@ -20,7 +18,7 @@ namespace Omniverse.Abilities
 
 		private void OnAttackPerformed(Entity target)
 		{
-			Action.Perform(Entity, target);
+			Operations.Perform(Entity, (Unit)target);
 		}
 	}
 }

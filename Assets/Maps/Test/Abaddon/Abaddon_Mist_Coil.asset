@@ -26,26 +26,27 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Operations>k__BackingField:
-  - rid: 4041151032854578140
+  <ActiveOperation>k__BackingField:
+    rid: 2502247249805574885
+  <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
+    - rid: 2502247249805574885
+      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetConverter>k__BackingField:
+          rid: 2502247249805574900
+        <Actions>k__BackingField:
+        - rid: 2502247249805574902
+    - rid: 2502247249805574900
+      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+      data: 
+    - rid: 2502247249805574902
+      type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
+      data:
+        <Missile>k__BackingField: {fileID: 11400000, guid: 27532c1ec6984ae43b147817c695bd78, type: 2}
     - rid: 4041151032854578059
       type: {class: UnitTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data:
         <Filter>k__BackingField: 6
-    - rid: 4041151032854578140
-      type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: 4041151032854578142
-        <Actions>k__BackingField:
-        - rid: 4041151032854578144
-    - rid: 4041151032854578142
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
-      data: 
-    - rid: 4041151032854578144
-      type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
-      data:
-        <Missile>k__BackingField: {fileID: 11400000, guid: 27532c1ec6984ae43b147817c695bd78, type: 2}

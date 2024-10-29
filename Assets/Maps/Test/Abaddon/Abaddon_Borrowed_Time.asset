@@ -26,10 +26,21 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Operations>k__BackingField: []
+  <ActiveOperation>k__BackingField:
+    rid: 2502247249805574879
+  <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
     - rid: 2502247201834270777
       type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
+      data: 
+    - rid: 2502247249805574879
+      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetConverter>k__BackingField:
+          rid: 2502247249805574895
+        <Actions>k__BackingField: []
+    - rid: 2502247249805574895
+      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
       data: 

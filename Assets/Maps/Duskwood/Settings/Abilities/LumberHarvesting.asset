@@ -26,26 +26,27 @@ MonoBehaviour:
     <AnimationTrigger>k__BackingField: Attack
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
-  <Operations>k__BackingField:
-  - rid: 4041151137370341376
+  <ActiveOperation>k__BackingField:
+    rid: 2502247249805574933
+  <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
+    - rid: 2502247249805574933
+      type: {class: 'Operation`2[[Omniverse.ResourceSource, Omniverse],[Omniverse.ResourceSource, Omniverse]]', ns: Omniverse, asm: Omniverse}
+      data:
+        <TargetConverter>k__BackingField:
+          rid: 2502247249805574934
+        <Actions>k__BackingField:
+        - rid: 2502247249805574936
+    - rid: 2502247249805574934
+      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+      data: 
+    - rid: 2502247249805574936
+      type: {class: ExtractResourceAction, ns: Omniverse, asm: Omniverse}
+      data:
+        <Amount>k__BackingField: 10
     - rid: 4041151032854578077
       type: {class: ResourceSourceTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data:
         <Filter>k__BackingField: -1
-    - rid: 4041151137370341376
-      type: {class: 'Operation`2[[Omniverse.ResourceSource, Omniverse],[Omniverse.ResourceSource, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: 4041151137370341377
-        <Actions>k__BackingField:
-        - rid: 4041151137370341379
-    - rid: 4041151137370341377
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
-      data: 
-    - rid: 4041151137370341379
-      type: {class: ExtractResourceAction, ns: Omniverse, asm: Omniverse}
-      data:
-        <Amount>k__BackingField: 10

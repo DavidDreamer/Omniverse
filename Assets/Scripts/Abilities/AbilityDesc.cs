@@ -22,7 +22,7 @@ namespace Omniverse.Abilities
 		public CooldownDesc Cooldown { get; private set; }
 
 		[field: SerializeReference]
-		public IOperation[] Operations { get; private set; }
+		public IOperation ActiveOperation { get; private set; }
 
 		[field: SerializeReference]
 		public IAbilityTrigger[] Triggers { get; private set; }

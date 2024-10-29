@@ -19,8 +19,11 @@ namespace Omniverse.Editor
 		private SerializedProperty Casting { get; set; }
 		private SerializedProperty Cooldown { get; set; }
 		private SerializedProperty Cost { get; set; }
-		private SerializedProperty Operations { get; set; }
+
+		private SerializedOperation ActiveOperation { get; set; }
+
 		private SerializedProperty Triggers { get; set; }
+		private SerializedAbilityTriggers TriggersList { get; set; }
 
 		private void OnEnable()
 		{
@@ -33,8 +36,10 @@ namespace Omniverse.Editor
 			Casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
 			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
-			Operations = serializedObject.FindProperty(nameof(AbilityDesc.Operations).ToBackingField());
+			ActiveOperation = new(serializedObject.FindProperty(nameof(AbilityDesc.ActiveOperation).ToBackingField()), typeof(NoneTarget));
+
 			Triggers = serializedObject.FindProperty(nameof(AbilityDesc.Triggers).ToBackingField());
+			TriggersList = new(Triggers, typeof(Unit));
 		}
 
 		public override void OnInspectorGUI()
@@ -87,21 +92,19 @@ namespace Omniverse.Editor
 
 		private void DrawOperations()
 		{
-			if (DrawSectionHeader(Operations))
+			if (DrawSectionHeader(ActiveOperation.SerializedProperty))
 			{
 				return;
 			}
-	
-			Type targetType = GetOperationTagetType();
 
-			for (int i = 0; i < Operations.arraySize; ++i)
+			Type targetType = GetOperationTagetType();
+			if (ActiveOperation is null || ActiveOperation.TargetType != targetType)
 			{
-				SerializedProperty op = Operations.GetArrayElementAtIndex(i);
-				op.OperationField(targetType);
+				ActiveOperation = new(ActiveOperation.SerializedProperty, targetType);
 			}
 
-			Operations.DrawArrayToolbar();
-
+			ActiveOperation.Draw();
+			
 			Type GetOperationTagetType()
 			{
 				switch (Target.managedReferenceValue)
@@ -123,13 +126,7 @@ namespace Omniverse.Editor
 		{
 			if (DrawSectionHeader(Triggers))
 			{
-				for (int i = 0; i < Triggers.arraySize; ++i)
-				{
-					SerializedProperty trigger = Triggers.GetArrayElementAtIndex(i);
-					trigger.VersatileField(typeof(IAbilityTrigger));
-				}
-
-				Triggers.DrawArrayToolbar();
+				TriggersList.Draw();
 			}
 		}
 

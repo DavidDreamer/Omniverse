@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Omniverse.Abilities
+﻿namespace Omniverse.Abilities
 {
 	public class Ability
 	{
@@ -36,10 +34,8 @@ namespace Omniverse.Abilities
 		{
 			Cooldown.Activate();
 
-			foreach (IOperation<TTarget> operation in Desc.Operations.Cast<IOperation<TTarget>>())
-			{
-				operation.Perform(Entity, target);
-			}
+			var operation = (IOperation<TTarget>)Desc.ActiveOperation;
+			operation.Perform(Entity, target);
 		}
 	}
 }

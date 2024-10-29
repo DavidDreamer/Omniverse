@@ -11,7 +11,7 @@ namespace Omniverse.Editor
 		private SerializedProperty Range { get; set; }
 		private SerializedProperty Speed { get; set; }
 		private SerializedProperty Radius { get; set; }
-		private SerializedProperty HitOperation { get; set; }
+		private SerializedOperation HitOperation { get; set; }
 
 		private void OnEnable()
 		{
@@ -19,7 +19,7 @@ namespace Omniverse.Editor
 			Range = serializedObject.FindProperty(nameof(MissileDesc.Range).ToBackingField());
 			Speed = serializedObject.FindProperty(nameof(MissileDesc.Speed).ToBackingField());
 			Radius = serializedObject.FindProperty(nameof(MissileDesc.Radius).ToBackingField());
-			HitOperation = serializedObject.FindProperty(nameof(MissileDesc.HitOperation).ToBackingField());
+			HitOperation = new(serializedObject.FindProperty(nameof(MissileDesc.HitOperation).ToBackingField()), typeof(Unit));
 		}
 
 		public override void OnInspectorGUI()
@@ -30,7 +30,7 @@ namespace Omniverse.Editor
 			EditorGUILayout.PropertyField(Range);
 			EditorGUILayout.PropertyField(Speed);
 			EditorGUILayout.PropertyField(Radius);
-			HitOperation.OperationField(typeof(Unit));
+			HitOperation.Draw();
 
 			serializedObject.ApplyModifiedProperties();
 		}
