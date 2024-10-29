@@ -23,10 +23,10 @@ MonoBehaviour:
     <Hotspot>k__BackingField: {x: 0, y: 0}
   <TargetDefault>k__BackingField:
     <Texture>k__BackingField: {fileID: 2800000, guid: 97105b34db12db543ba14371a6bc4a24, type: 3}
-    <Hotspot>k__BackingField: {x: 0, y: 0}
+    <Hotspot>k__BackingField: {x: 16, y: 16}
   <TargetInvalid>k__BackingField:
     <Texture>k__BackingField: {fileID: 2800000, guid: 30b95923a55798b478181be0d9d8d9b7, type: 3}
-    <Hotspot>k__BackingField: {x: 0, y: 0}
+    <Hotspot>k__BackingField: {x: 16, y: 16}
   <TargetUnit>k__BackingField:
     <Texture>k__BackingField: {fileID: 2800000, guid: 4e36e786de14d5547ab03affa9de6eec, type: 3}
-    <Hotspot>k__BackingField: {x: 0, y: 0}
+    <Hotspot>k__BackingField: {x: 16, y: 16}
