@@ -65,7 +65,7 @@ namespace Omniverse.Editor
 
 			SerializedProperty targetConverter = operation.FindPropertyRelative("TargetConverter".ToBackingField());
 			Type targetConverterType = typeof(ITargetConverter<,>).MakeGenericType(inputType, genericParameterType);
-			targetConverter.DrawVersatile(targetConverterType);
+			targetConverter.VersatileField(targetConverterType);
 
 			operation.OperationFieldInternal(genericParameterType);
 		}
@@ -87,7 +87,7 @@ namespace Omniverse.Editor
 				for (int i = 0; i < serializedProperty.arraySize; ++i)
 				{
 					var action = serializedProperty.GetArrayElementAtIndex(i);
-					action.DrawVersatile(type);
+					action.VersatileField(type);
 				}
 
 				serializedProperty.DrawArrayToolbar();

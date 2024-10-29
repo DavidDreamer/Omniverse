@@ -66,7 +66,7 @@ namespace Omniverse.Editor
 		{
 			if (DrawSectionHeader(Target))
 			{
-				Target.DrawVersatile(typeof(ITarget), true);
+				Target.VersatileField(typeof(ITarget), true);
 			}
 		}
 
@@ -126,7 +126,7 @@ namespace Omniverse.Editor
 				for (int i = 0; i < Triggers.arraySize; ++i)
 				{
 					SerializedProperty trigger = Triggers.GetArrayElementAtIndex(i);
-					trigger.DrawVersatile(typeof(IAbilityTrigger));
+					trigger.VersatileField(typeof(IAbilityTrigger));
 				}
 
 				Triggers.DrawArrayToolbar();
