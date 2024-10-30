@@ -85,8 +85,11 @@ namespace Omniverse.Editor
 				SerializedProperty.managedReferenceValue = Activator.CreateInstance(operationType);
 			}
 
-			SerializedProperty actionsProperty = SerializedProperty.FindPropertyRelative("Actions".ToBackingField());
-			SerializedActions = new SerializedActions(actionsProperty, ProcessedTargetType);
+			if (SerializedActions == null)
+			{
+				SerializedProperty actionsProperty = SerializedProperty.FindPropertyRelative("Actions".ToBackingField());
+				SerializedActions = new SerializedActions(actionsProperty, ProcessedTargetType);
+			}
 		}
 	}
 }
