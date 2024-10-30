@@ -19,6 +19,9 @@ namespace Omniverse.UI
 		private CooldownWidget Cooldown { get; set; }
 
 		[field: SerializeField]
+		private AbilityTooltipWidget Tooltip { get; set; }
+
+		[field: SerializeField]
 		private Image Highlight { get; set; }
 
 		[field: SerializeField]
@@ -50,6 +53,8 @@ namespace Omniverse.UI
 			{
 				Cooldown.Bind(Ability.Cooldown);
 			}
+
+			Tooltip.Bind(Ability);
 		}
 
 		public void OnPointerClick(PointerEventData eventData)
@@ -65,11 +70,15 @@ namespace Omniverse.UI
 		public void OnPointerEnter(PointerEventData eventData)
 		{
 			Highlight.enabled = true;
+
+			Tooltip.gameObject.SetActive(true);
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
 			Highlight.enabled = false;
+
+			Tooltip.gameObject.SetActive(false);
 		}
 
 		public void Tick()
