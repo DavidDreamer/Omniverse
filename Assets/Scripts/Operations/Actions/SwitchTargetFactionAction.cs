@@ -1,24 +1,28 @@
-﻿using UnityEngine;
+﻿using Dreambox.Core;
+using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFactionAction : IAction<Unit>
+	public class SwitchTargetFactionAction : IAction<Entity>
 	{
 		[field: SerializeReference]
-		public IAction<Unit> Self { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Self { get; private set; }
 
 		[field: SerializeReference]
-		public IAction<Unit> Ally { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Ally { get; private set; }
 
 		[field: SerializeReference]
-		public IAction<Unit> Enemy { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Enemy { get; private set; }
 
-		public void Perform(Entity actor, Unit target)
+		public void Perform(Entity actor, Entity target)
 		{
 			var action = Switch();
 			action.Perform(actor, target);
 
-			IAction<Unit> Switch()
+			IAction<Entity> Switch()
 			{
 				if (actor == target)
 				{

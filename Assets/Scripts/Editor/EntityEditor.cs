@@ -67,12 +67,12 @@ namespace Omniverse.Editor
 
 				void UpdateUnits()
 				{
-					Entities = AssetDatabase.FindAssets("t:Unit").Select(AssetDatabase.GUIDToAssetPath).ToList();
+					Entities = AssetDatabase.FindAssets("t:UnitDesc").Select(AssetDatabase.GUIDToAssetPath).ToList();
 				}
 
 				void UpdateAbilities()
 				{
-					Entities = AssetDatabase.FindAssets("t:Ability").Select(AssetDatabase.GUIDToAssetPath).ToList();
+					Entities = AssetDatabase.FindAssets("t:AbilityDesc").Select(AssetDatabase.GUIDToAssetPath).ToList();
 				}
 			}
 		}
@@ -94,7 +94,8 @@ namespace Omniverse.Editor
 
 			void DrawEntitiesList()
 			{
-				using (new EditorGUILayout.VerticalScope())
+				const float width = 200f;
+				using (new EditorGUILayout.VerticalScope(GUILayout.Width(width)))
 				{
 					for (int i = 0; i < Entities.Count; ++i)
 					{
