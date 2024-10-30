@@ -97,7 +97,11 @@ namespace Omniverse.Input
 						if (i < unit.Abilities.Count)
 						{
 							Ability ability = unit.Abilities[i];
-							AbilityController.Process(unit, ability);
+
+							if (ability.Desc.ActiveOperation is not null)
+							{
+								AbilityController.Process(unit, ability);
+							}
 						}
 					}
 				}
