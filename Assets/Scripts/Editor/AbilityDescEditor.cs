@@ -51,7 +51,7 @@ namespace Omniverse.Editor
 			DrawSection(Cost);
 			DrawCasting();
 			DrawSection(Cooldown);
-			DrawOperations();
+			DrawActiveOperation();
 			DrawTriggers();
 
 			serializedObject.ApplyModifiedProperties();
@@ -90,7 +90,7 @@ namespace Omniverse.Editor
 			}
 		}
 
-		private void DrawOperations()
+		private void DrawActiveOperation()
 		{
 			if (DrawSectionHeader(ActiveOperation.SerializedProperty))
 			{

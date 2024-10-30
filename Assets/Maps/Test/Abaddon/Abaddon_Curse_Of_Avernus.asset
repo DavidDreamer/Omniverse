@@ -27,12 +27,14 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <ActiveOperation>k__BackingField:
-    rid: 2502247249805574882
+    rid: -2
   <Triggers>k__BackingField:
   - rid: 2502247201834270778
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2502247201834270776
       type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data: 
@@ -41,15 +43,6 @@ MonoBehaviour:
       data:
         <Operations>k__BackingField:
           rid: 2502247249805574965
-    - rid: 2502247249805574882
-      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
-      data:
-        <TargetConverter>k__BackingField:
-          rid: 2502247249805574898
-        <Actions>k__BackingField: []
-    - rid: 2502247249805574898
-      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
-      data: 
     - rid: 2502247249805574965
       type: {class: 'Operation`2[[Omniverse.Unit, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:

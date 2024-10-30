@@ -27,12 +27,6 @@ namespace Omniverse.Editor
 		{
 			SerializedProperty = serializedProperty;
 			TargetType = targetType;
-
-			int index = GetProcessedTargetTypeIndex();
-			SetProcessTargetType(index);
-
-			SerializedProperty actionsProperty = SerializedProperty.FindPropertyRelative("Actions".ToBackingField());
-			SerializedActions = new SerializedActions(actionsProperty, ProcessedTargetType);
 		}
 
 		public void Draw()
@@ -90,6 +84,9 @@ namespace Omniverse.Editor
 			{
 				SerializedProperty.managedReferenceValue = Activator.CreateInstance(operationType);
 			}
+
+			SerializedProperty actionsProperty = SerializedProperty.FindPropertyRelative("Actions".ToBackingField());
+			SerializedActions = new SerializedActions(actionsProperty, ProcessedTargetType);
 		}
 	}
 }

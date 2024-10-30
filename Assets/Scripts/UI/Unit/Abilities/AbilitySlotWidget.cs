@@ -24,9 +24,11 @@ namespace Omniverse.UI
 		public void Bind(Ability ability)
 		{
 			bool hasAbility = ability is not null;
+			bool isActiveAbility = hasAbility && ability.Desc.ActiveOperation is not null;
+
 			AbilityWidget.gameObject.SetActive(hasAbility);
 			Background.gameObject.SetActive(!hasAbility);
-			Hotkey.gameObject.SetActive(hasAbility);
+			Hotkey.gameObject.SetActive(isActiveAbility);
 
 			if (hasAbility)
 			{
