@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8874503234795583496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 79b20dc83211fc941a93c135bb2b3135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 753f8da6ae0a41a4fa4dfc5c6697b1bf, type: 2}
@@ -116,3 +116,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  <ColorLeftBottom>k__BackingField: {r: 0.1, g: 0.1, b: 0.12, a: 1}
+  <ColorLeftTop>k__BackingField: {r: 0.15, g: 0.15, b: 0.18, a: 1}
+  <ColorRightBottom>k__BackingField: {r: 0.101960786, g: 0.101960786, b: 0.12156863, a: 1}
+  <ColorRightTop>k__BackingField: {r: 0.14901961, g: 0.14901961, b: 0.18039216, a: 1}
