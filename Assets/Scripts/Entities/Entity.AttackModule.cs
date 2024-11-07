@@ -42,7 +42,6 @@ namespace Omniverse
 				float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
 
 				float time = 1f / attackSpeed;
-				TimeSpan timeSpan = TimeSpan.FromSeconds(time);
 
 				attackTime += deltaTime;
 
