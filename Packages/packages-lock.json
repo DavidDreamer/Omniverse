@@ -14,7 +14,7 @@
       "dependencies": {
         "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
       },
-      "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
+      "hash": "69157fed2540627ab3187699983ff952fc178aaa"
     },
     "com.david-dreamer.dreambox.math": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Math",
@@ -40,18 +40,20 @@
       "source": "git",
       "dependencies": {
         "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-        "com.unity.render-pipelines.core": "14.0.10"
+        "com.unity.render-pipelines.core": "14.0.10",
+        "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core"
       },
-      "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
+      "hash": "69157fed2540627ab3187699983ff952fc178aaa"
     },
-    "com.david-dreamer.dreambox.rendering.urp": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/URP",
+    "com.david-dreamer.dreambox.rendering.universal": {
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Universal",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.unity.render-pipelines.universal": "14.0.10"
+        "com.unity.render-pipelines.universal": "14.0.10",
+        "com.david-dreamer.dreambox.rendering.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core"
       },
-      "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
+      "hash": "69157fed2540627ab3187699983ff952fc178aaa"
     },
     "com.david-dreamer.dreambox.ui": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",
@@ -63,7 +65,7 @@
       "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
     },
     "com.unity.ai.navigation": {
-      "version": "2.0.4",
+      "version": "2.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -107,15 +109,6 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.rider": {
-      "version": "3.0.31",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ext.nunit": "1.0.6"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
