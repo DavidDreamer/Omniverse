@@ -1,7 +1,7 @@
 ﻿using System;
-using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
@@ -15,6 +15,10 @@ namespace Omniverse.Rendering
 			public static int SecondColor { get; } = Shader.PropertyToID(nameof(SecondColor));
 
 			public static int Amount { get; } = Shader.PropertyToID(nameof(Amount));
+		}
+
+		private class PassData
+		{
 		}
 
 		private HealthBarsRenderer Renderer { get; }
@@ -48,10 +52,19 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using CommandBufferContextScope scope = new(context, "Health Bars");
-			var commandBuffer = scope.CommandBuffer;
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Health Bars", out var data))
+			{
+				var universalResourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+			}
+		}
+
+		private void Execute(RasterGraphContext context)
+		{
+			RasterCommandBuffer commandBuffer = context.cmd;
 
 			UnitManager unitManager = Renderer.UnitManager;
 			var units = unitManager.Units;

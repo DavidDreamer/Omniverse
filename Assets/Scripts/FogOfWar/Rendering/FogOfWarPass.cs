@@ -1,13 +1,17 @@
 ﻿using System;
-using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
 	public class FogOfWarPass : ScriptableRenderPass, IDisposable
 	{
+		private class PassData
+		{
+		}
+
 		private FogOfWarRenderer Renderer { get; }
 
 		private FogOfWarRendererConfig Config { get; }
@@ -26,13 +30,19 @@ namespace Omniverse.Rendering
 			CoreUtils.Destroy(Material);
 		}
 
-		public override void Execute(
-			ScriptableRenderContext context,
-			ref RenderingData renderingData)
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using var scope = new CommandBufferContextScope(context, "FogOfWar.Apply");
-			CommandBuffer commandBuffer = scope.CommandBuffer;
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("FogOfWar.Apply", out var data))
+			{
+				var universalResourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+			}
+		}
 
+		private void Execute(RasterGraphContext context)
+		{
+			RasterCommandBuffer commandBuffer = context.cmd;
 			CoreUtils.DrawFullScreen(commandBuffer, Material, shaderPassId: 0);
 		}
 	}

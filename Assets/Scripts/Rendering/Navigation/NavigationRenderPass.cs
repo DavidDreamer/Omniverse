@@ -1,8 +1,9 @@
 ﻿using System;
-using Dreambox.Core;
+using System.Collections.Generic;
 using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
@@ -14,9 +15,13 @@ namespace Omniverse.Rendering
 			public static int Lifetime { get; } = Shader.PropertyToID(nameof(Lifetime));
 		}
 
-		private NavigationRenderer RendererFeature { get; }
+		private class PassData
+		{
+		}
 
-		private NavigationRendererConfig Config { get; }
+		private NavigationRendererConfig Config { get; set; }
+
+		private Queue<NavigationPoint> Points { get; }
 
 		private Matrix4x4[] Matrices { get; }
 
@@ -24,13 +29,12 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public NavigationRenderPass(NavigationRenderer rendererFeature)
+		public NavigationRenderPass(NavigationRendererConfig config, Queue<NavigationPoint> poitns)
 		{
-			RendererFeature = rendererFeature;
-			Config = rendererFeature.Config;
-
-			Matrices = new Matrix4x4[rendererFeature.Config.Capacity];
-			Lifetimes = new float[rendererFeature.Config.Capacity];
+			Config = config;
+			Points = poitns;
+			Matrices = new Matrix4x4[config.Capacity];
+			Lifetimes = new float[config.Capacity];
 			MaterialPropertyBlock = new();
 		}
 
@@ -38,24 +42,32 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using CommandBufferContextScope scope = new(context, nameof(NavigationRenderPass));
-			var commandBuffer = scope.CommandBuffer;
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Navigation", out var data))
+			{
+				var universalResourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+			}
+		}
 
-			DrawMeshParams drawMeshParams = Config.DrawMeshParams;
+		private void Execute(RasterGraphContext context)
+		{
+			RasterCommandBuffer commandBuffer = context.cmd;
+
+			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
 
 			float time = Time.time;
-
 			int i = 0;
-			foreach (NavigationPoint navigationPoint in RendererFeature.Points)
+			foreach (NavigationPoint point in Points)
 			{
-				Matrices[i] = Matrix4x4.TRS(navigationPoint.Position, Quaternion.identity, Vector3.one) * MatrixUtils.WorldUpRotation;
-				Lifetimes[i] = Mathf.Clamp01((time - navigationPoint.Time) / Config.Lifetime);
+				Matrices[i] = point.Matrix;
+				Lifetimes[i] = Mathf.Clamp01((time - point.Time) / Config.Lifetime);
 				i++;
 			}
 
-			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
+			DrawMeshParams drawMeshParams = Config.DrawMeshParams;
 
 			commandBuffer.DrawMeshInstanced(
 				drawMeshParams.Mesh,
@@ -63,7 +75,7 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.ShaderPass,
 				Matrices,
-				RendererFeature.Points.Count,
+				Points.Count,
 				MaterialPropertyBlock);
 		}
 	}

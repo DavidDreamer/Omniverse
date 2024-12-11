@@ -14,28 +14,12 @@ Shader "Omniverse/Utility/SelectionBox"
 
         Pass
         {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment Frag
 
-            #include "UnityCG.cginc"
-
-            struct appdata
-            {
-                float4 vertex : POSITION;
-            };
-
-            struct v2f
-            {
-                float4 vertex : SV_POSITION;
-            };
-
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                return o;
-            }
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
             float4 FrameColor;
             float FrameWidth;
@@ -50,9 +34,9 @@ Shader "Omniverse/Utility/SelectionBox"
                 return position.x >= rect.x && position.x <= rect.z && position.y >= rect.y && position.y <= rect.w;
             }
 
-            float4 frag (v2f i) : SV_Target
+             float4 Frag(Varyings input) : SV_Target
             {
-                const float2 position = i.vertex;
+                const float2 position = input.positionCS.xy;
 
                 if (IsPointInsideRect(position, SelectionBox))
                 {
@@ -73,7 +57,7 @@ Shader "Omniverse/Utility/SelectionBox"
                     return 0;
                 }
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

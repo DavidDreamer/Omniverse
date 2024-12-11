@@ -4,6 +4,7 @@ using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
@@ -13,6 +14,10 @@ namespace Omniverse.Rendering
 		private static class ShaderVariables
 		{
 			public static int BaseColor { get; } = Shader.PropertyToID(nameof(BaseColor));
+		}
+
+		private class PassData
+		{
 		}
 
 		private SelectionRenderer Renderer { get; }
@@ -36,10 +41,19 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using CommandBufferContextScope scope = new(context, "Selection");
-			var commandBuffer = scope.CommandBuffer;
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Selection", out var data))
+			{
+				var universalResourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+			}
+		}
+
+		private void Execute(RasterGraphContext context)
+		{
+			RasterCommandBuffer commandBuffer = context.cmd;
 
 			SelectionRendererConfig config = Renderer.Config;
 			Selector selector = Renderer.Selector;
@@ -58,7 +72,7 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
 
-			var drawMeshParams = config.DrawMeshParams;
+			DrawMeshParams drawMeshParams = config.DrawMeshParams;
 			commandBuffer.DrawMeshInstanced(
 				drawMeshParams.Mesh,
 				drawMeshParams.SubmeshIndex,

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dreambox.Core;
 using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
@@ -9,12 +10,12 @@ namespace Omniverse.Rendering
 {
 	public class NavigationRenderer : CustomRenderer<NavigationRendererConfig, NavigationRenderPass>, ILateTickable
 	{
+		private Queue<NavigationPoint> Points { get; } = new();
+
 		[Inject]
 		public UnitController UnitController { get; private set; }
 
-		public Queue<NavigationPoint> Points { get; } = new();
-
-		protected override NavigationRenderPass CreatePass() => new(this);
+		protected override NavigationRenderPass CreatePass() => new(Config, Points);
 
 		protected override bool IsInactive() => Points.Count == 0;
 
@@ -38,9 +39,9 @@ namespace Omniverse.Rendering
 
 			while (Points.Count > 0)
 			{
-				NavigationPoint navigationPoint = Points.Peek();
+				NavigationPoint point = Points.Peek();
 
-				float lifetime = time - navigationPoint.Time;
+				float lifetime = time - point.Time;
 
 				if (lifetime >= Config.Lifetime)
 				{
@@ -57,7 +58,7 @@ namespace Omniverse.Rendering
 		{
 			var navigationPointData = new NavigationPoint
 			{
-				Position = point,
+				Matrix = Matrix4x4.TRS(point, Quaternion.identity, Vector3.one) * MatrixUtils.WorldUpRotation,
 				Time = Time.time
 			};
 

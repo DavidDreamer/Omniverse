@@ -4,7 +4,7 @@ namespace Omniverse.Rendering
 {
 	public struct NavigationPoint
 	{
-		public Vector3 Position;
+		public Matrix4x4 Matrix;
 
 		public float Time;
 	}

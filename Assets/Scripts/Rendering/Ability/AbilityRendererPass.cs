@@ -1,10 +1,10 @@
 ﻿using System;
 using Dreambox.Core;
-using Dreambox.Rendering.Core;
 using Omniverse.Abilities;
 using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
@@ -12,6 +12,10 @@ namespace Omniverse.Rendering
 	public class AbilityRendererPass : ScriptableRenderPass, IDisposable
 	{
 		private AbilityRenderer Renderer { get; }
+
+		private class PassData
+		{
+		}
 
 		public AbilityRendererPass(AbilityRenderer renderer)
 		{
@@ -22,16 +26,25 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using CommandBufferContextScope scope = new(context, "Ability");
-			var commandBuffer = scope.CommandBuffer;
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Ability", out var data))
+			{
+				var universalResourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+			}
+		}
+
+		private void Execute(RasterGraphContext context)
+		{
+			RasterCommandBuffer commandBuffer = context.cmd;
 
 			DrawRange(commandBuffer);
 			DrawDireciton(commandBuffer);
 		}
 
-		public void DrawRange(CommandBuffer commandBuffer)
+		public void DrawRange(RasterCommandBuffer commandBuffer)
 		{
 			AbilityRendererConfig config = Renderer.Config;
 			AbilityController abilityController = Renderer.AbilityController;
@@ -49,7 +62,7 @@ namespace Omniverse.Rendering
 				drawMeshParams.ShaderPass);
 		}
 
-		private void DrawDireciton(CommandBuffer commandBuffer)
+		private void DrawDireciton(RasterCommandBuffer commandBuffer)
 		{
 			var target = Renderer.AbilityController.ActiveAbility.Desc.Target;
 
