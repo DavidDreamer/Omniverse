@@ -1,5 +1,4 @@
-﻿using System;
-using Dreambox.Core;
+﻿using Dreambox.Core;
 using Omniverse.Abilities;
 using Omniverse.Input;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class AbilityRendererPass : ScriptableRenderPass, IDisposable
+	public class AbilityRendererPass : ScriptableRenderPass
 	{
 		private AbilityRenderer Renderer { get; }
 
@@ -20,10 +19,6 @@ namespace Omniverse.Rendering
 		public AbilityRendererPass(AbilityRenderer renderer)
 		{
 			Renderer = renderer;
-		}
-
-		public void Dispose()
-		{
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)

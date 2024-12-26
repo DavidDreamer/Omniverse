@@ -12,7 +12,7 @@ namespace Omniverse.Rendering
 		[Inject]
 		public AbilityController AbilityController { get; private set; }
 
-		protected override AbilityRendererPass CreatePass() => new(this);
+		protected override AbilityRendererPass Setup(AbilityRendererConfig config) => new(this);
 
 		protected override bool IsInactive() => AbilityController.ActiveAbility is null;
 	}

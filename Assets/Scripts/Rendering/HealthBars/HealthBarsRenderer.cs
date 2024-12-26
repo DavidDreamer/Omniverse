@@ -11,7 +11,7 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Player Player { get; private set; }
 
-		protected override HealthBarsRendererPass CreatePass() => new(this);
+		protected override HealthBarsRendererPass Setup(HealthBarsRendererConfig config) => new(this);
 
 		protected override bool IsInactive() => false;
 	}

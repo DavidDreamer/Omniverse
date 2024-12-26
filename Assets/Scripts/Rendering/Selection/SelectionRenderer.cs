@@ -12,7 +12,7 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Player Player { get; private set; }
 
-		protected override SelectionRendererPass CreatePass() => new(this);
+		protected override SelectionRendererPass Setup(SelectionRendererConfig config) => new(this);
 
 		protected override bool IsInactive() => false;
 	}

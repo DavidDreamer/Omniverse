@@ -1,13 +1,15 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
+	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>, IInitializable, IDisposable
 	{
 		private static class ShaderVariables
 		{
@@ -57,10 +59,8 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		public override void Initialize()
+		public void Initialize()
 		{
-			base.Initialize();
-
 			var resolution = new Vector4(FogOfWar.Resolution.x, FogOfWar.Resolution.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
@@ -111,14 +111,12 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		protected override FogOfWarPass CreatePass() => new FogOfWarPass(this);
+		protected override FogOfWarPass Setup(FogOfWarRendererConfig config) => new FogOfWarPass(this);
 
 		protected override bool IsInactive() => false;
 
-		public override void Dispose()
+		public void Dispose()
 		{
-			base.Dispose();
-
 			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);
 
@@ -138,9 +136,12 @@ namespace Omniverse.Rendering
 			commandBuffer.SetBufferData(CellsVisibilityBuffer, FogOfWar.CellsVisibilityPerFaction[0]);
 			commandBuffer.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			commandBuffer.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
-			commandBuffer.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
-			commandBuffer.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
+			Blitter.BlitTexture(commandBuffer, AnimationRT, AnimationRT, AnimationMaterial, 0);
+			Blitter.BlitTexture(commandBuffer, AnimationRT, BlurRT1, BlurMaterial, 0);
+			Blitter.BlitTexture(commandBuffer, BlurRT1, BlurRT2, BlurMaterial, 1);
+			//commandBuffer.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
+			//commandBuffer.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
+			//commandBuffer.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
 			commandBuffer.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
 		}

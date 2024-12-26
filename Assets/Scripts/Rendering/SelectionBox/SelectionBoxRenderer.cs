@@ -9,8 +9,9 @@ namespace Omniverse.Rendering
 		[Inject]
 		public Selector Selector { get; private set; }
 
-		protected override SelectionBoxRendererPass CreatePass() => new(this);
+		protected override SelectionBoxRendererPass Setup(SelectionBoxRendererConfig config) => new(this);
 
 		protected override bool IsInactive() => !Selector.InProcess;
+
 	}
 }

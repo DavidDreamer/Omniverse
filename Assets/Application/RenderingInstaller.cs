@@ -67,6 +67,8 @@ namespace Omniverse.Rendering
 
 			builder.Register<CursorRendererController>(Lifetime.Singleton).WithParameter(CursorRendererConfig).AsImplementedInterfaces().AsSelf();
 
+			builder.RegisterEntryPoint<RenderingEntryPoint>();
+
 			void RegisterRenderer<TRenderer, TConfig>(TConfig config)
 				where TRenderer : MonoBehaviour
 			{
