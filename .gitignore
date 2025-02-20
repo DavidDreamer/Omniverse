@@ -64,5 +64,8 @@ Assets/TEST.meta
 Assets/Local
 Assets/Local.meta
 
+Assets/SceneDependencyCache
+Assets/SceneDependencyCache.meta
+
 # Blender
 *.blend1
