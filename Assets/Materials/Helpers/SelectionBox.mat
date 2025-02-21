@@ -114,14 +114,15 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - FillingColor: {r: 0.2509804, g: 1, b: 0.2509804, a: 0.101960786}
-    - FillingColorBottom: {r: 0.25, g: 1, b: 0.25, a: 0.101960786}
-    - FillingColorTop: {r: 0.25, g: 1, b: 0.25, a: 0.2509804}
-    - FrameColor: {r: 0.25, g: 1, b: 0.25, a: 0.5019608}
+    - FillingColorBottom: {r: 0.24999997, g: 1, b: 0.24999997, a: 0}
+    - FillingColorTop: {r: 0.24999997, g: 1, b: 0.24999997, a: 0.101960786}
+    - FrameColor: {r: 0, g: 1, b: 0, a: 0.5019608}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &28870040855500220
 MonoBehaviour:
   m_ObjectHideFlags: 11

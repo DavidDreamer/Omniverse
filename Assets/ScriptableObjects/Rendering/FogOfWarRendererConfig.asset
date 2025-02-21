@@ -19,7 +19,7 @@ MonoBehaviour:
   <ApplyShader>k__BackingField: {fileID: 4800000, guid: ed80f852988774b4f804b81165de5d39, type: 3}
   <Properties>k__BackingField:
     UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
-    ExploredColor: {r: 0, g: 0, b: 0, a: 0.5019608}
+    ExploredColor: {r: 0, g: 0, b: 0, a: 0.7490196}
     AnimationSpeed: 2.5
     BorderLength: 0.05
   <BlurSettings>k__BackingField:

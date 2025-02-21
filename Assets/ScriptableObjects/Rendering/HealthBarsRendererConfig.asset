@@ -22,8 +22,8 @@ MonoBehaviour:
     <ShaderPass>k__BackingField: 0
   <Offset>k__BackingField: {x: 0, y: 2, z: 0}
   <AllyColors>k__BackingField:
-    <BaseColor>k__BackingField: {r: 0.1254902, g: 0.5019608, b: 0.1254902, a: 1}
-    <SecondColor>k__BackingField: {r: 0.2509804, g: 1, b: 0.2509804, a: 1}
+    <BaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+    <SecondColor>k__BackingField: {r: 0, g: 0.75, b: 0, a: 1}
   <EnemyColors>k__BackingField:
-    <BaseColor>k__BackingField: {r: 0.5019608, g: 0.1254902, b: 0.1254902, a: 1}
-    <SecondColor>k__BackingField: {r: 1, g: 0.25098038, b: 0.25098038, a: 1}
+    <BaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+    <SecondColor>k__BackingField: {r: 0.75, g: 0, b: 0, a: 1}
