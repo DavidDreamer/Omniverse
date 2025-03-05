@@ -1,6 +1,4 @@
-﻿using Omniverse.Mapping;
-using UnityEngine;
-using VContainer;
+﻿using UnityEngine;
 
 namespace Omniverse.UI
 {
@@ -12,8 +10,15 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		public RectTransform RectTransform { get; set; }
 
-		[Inject]
-		private MapRenderer MapRenderer { get; set; }
+		private Map Map { get; set; }
+
+		private void Start()
+		{
+			//TEMP
+			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(Map) });
+			Map = query.GetSingleton<Map>();
+			query.Dispose();
+		}
 
 		private void Update()
 		{
@@ -32,6 +37,8 @@ namespace Omniverse.UI
 
 			Rect parentRect = ParentRectTransform.rect;
 
+			Vector2 mapSize = new(Map.Size.x, Map.Size.y);
+
 			Vector2 mapRelativePosition = ConverCoordinateFromWorldToRectSpace(viewPoint);
 
 			float width = parentRect.width / 2f;
@@ -45,13 +52,13 @@ namespace Omniverse.UI
 
 			Vector2 ConvertWorldSpaceSizeToRectSpace(Vector2 size)
 			{
-				return size * (parentRect.size / MapRenderer.MapSettings.Size);
+				return size * (parentRect.size / mapSize);
 			}
 
 			Vector2 ConverCoordinateFromWorldToRectSpace(Vector3 position)
 			{
-				float mapRelativePositionX = Mathf.InverseLerp(0, MapRenderer.MapSettings.Size.x, position.x);
-				float mapRelativePositionY = Mathf.InverseLerp(0, MapRenderer.MapSettings.Size.y, position.z);
+				float mapRelativePositionX = Mathf.InverseLerp(0, mapSize.x, position.x);
+				float mapRelativePositionY = Mathf.InverseLerp(0, mapSize.y, position.z);
 
 				return new Vector2(mapRelativePositionX, mapRelativePositionY);
 			}

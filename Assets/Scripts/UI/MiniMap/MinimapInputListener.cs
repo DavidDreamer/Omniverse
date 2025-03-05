@@ -1,5 +1,4 @@
 ﻿using Omniverse.Input;
-using Omniverse.Mapping;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -16,19 +15,26 @@ namespace Omniverse.UI
 		private Canvas Canvas { get; set; }
 
 		[Inject]
-		private MapRenderer MapRenderer { get; set; }
-
-		[Inject]
 		private UnitController UnitController { get; set; }
 
 		[Inject]
 		public CameraController CameraController { get; set; }
+
+		private Map Map { get; set; }
 
 		private bool MovingEnabled { get; set; }
 
 		private void OnValidate()
 		{
 			Canvas = GetComponentInParent<Canvas>(true);
+		}
+		
+		private void Start()
+		{
+			//TEMP
+			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(Map) });
+			Map = query.GetSingleton<Map>();
+			query.Dispose();
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
@@ -80,7 +86,8 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(Vector2 position)
 		{
-			Vector2 sizeMultiplier = MapRenderer.MapSettings.Size / (RectTransform.rect.size * Canvas.scaleFactor);
+			Vector2 mapSize = new(Map.Size.x, Map.Size.y);
+			Vector2 sizeMultiplier = mapSize / (RectTransform.rect.size * Canvas.scaleFactor);
 			Vector2 worldSpacePosition = position * sizeMultiplier;
 			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
 		}
