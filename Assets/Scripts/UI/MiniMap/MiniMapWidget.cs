@@ -15,14 +15,14 @@ namespace Omniverse.UI
 		public MiniMapCameraBounds CameraBounds;
 
 		[Inject]
-		private Map Map { get; set; }
+		private MapRenderer MapRenderer { get; set; }
 
 		[Inject]
 		private FogOfWarRenderer FogOfWarRenderer { get; set; }
 
 		public void Initialize()
 		{
-			Image.texture = Map.RenderTexture;
+			Image.texture = MapRenderer.RenderTexture;
 			FogOfWar.texture = FogOfWarRenderer.BlurRT2;
 		}
 	}

@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace Omniverse.Mapping
 {
-	public class Map : MonoBehaviour, IInitializable, IDisposable
+	public class MapRenderer : MonoBehaviour, IInitializable, IDisposable
 	{
 		private static class ShaderVariables
 		{

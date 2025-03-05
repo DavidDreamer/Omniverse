@@ -16,7 +16,7 @@ namespace Omniverse.UI
 		private Canvas Canvas { get; set; }
 
 		[Inject]
-		private Map Map { get; set; }
+		private MapRenderer MapRenderer { get; set; }
 
 		[Inject]
 		private UnitController UnitController { get; set; }
@@ -80,7 +80,7 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(Vector2 position)
 		{
-			Vector2 sizeMultiplier = Map.MapSettings.Size / (RectTransform.rect.size * Canvas.scaleFactor);
+			Vector2 sizeMultiplier = MapRenderer.MapSettings.Size / (RectTransform.rect.size * Canvas.scaleFactor);
 			Vector2 worldSpacePosition = position * sizeMultiplier;
 			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
 		}

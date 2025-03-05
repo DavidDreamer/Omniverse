@@ -13,7 +13,7 @@ namespace Omniverse.UI
 		public RectTransform RectTransform { get; set; }
 
 		[Inject]
-		private Map Map { get; set; }
+		private MapRenderer MapRenderer { get; set; }
 
 		private void Update()
 		{
@@ -45,13 +45,13 @@ namespace Omniverse.UI
 
 			Vector2 ConvertWorldSpaceSizeToRectSpace(Vector2 size)
 			{
-				return size * (parentRect.size / Map.MapSettings.Size);
+				return size * (parentRect.size / MapRenderer.MapSettings.Size);
 			}
 
 			Vector2 ConverCoordinateFromWorldToRectSpace(Vector3 position)
 			{
-				float mapRelativePositionX = Mathf.InverseLerp(0, Map.MapSettings.Size.x, position.x);
-				float mapRelativePositionY = Mathf.InverseLerp(0, Map.MapSettings.Size.y, position.z);
+				float mapRelativePositionX = Mathf.InverseLerp(0, MapRenderer.MapSettings.Size.x, position.x);
+				float mapRelativePositionY = Mathf.InverseLerp(0, MapRenderer.MapSettings.Size.y, position.z);
 
 				return new Vector2(mapRelativePositionX, mapRelativePositionY);
 			}

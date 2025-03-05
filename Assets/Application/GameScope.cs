@@ -14,7 +14,7 @@ namespace Omniverse
 		private GameSettings GameSettings { get; set; }
 
 		[field: SerializeField]
-		private Map Map { get; set; }
+		private MapRenderer MapRenderer { get; set; }
 
 		[field: SerializeField]
 		private UIInstaller UIInstaller { get; set; }
@@ -29,9 +29,9 @@ namespace Omniverse
 			builder.RegisterInstance(GameSettings.Factions);
 			builder.RegisterInstance(GameSettings.Resources);
 
-			if (Map != null)
+			if (MapRenderer != null)
 			{
-				builder.RegisterComponentInNewPrefab(Map, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+				builder.RegisterComponentInNewPrefab(MapRenderer, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			}
 
 			if (GameSettings.FogOfWarConfig.Enabled)
