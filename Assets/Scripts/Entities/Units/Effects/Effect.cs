@@ -4,7 +4,7 @@ namespace Omniverse
 {
 	public class Effect
 	{
-		private Entity Entity { get; }
+		private OmniverseEntity Entity { get; }
 
 		public EffectDesc Desc { get; }
 
@@ -12,7 +12,7 @@ namespace Omniverse
 
 		public bool OutOfTime => Time == 0;
 
-		public Effect(Entity entity, EffectDesc desc)
+		public Effect(OmniverseEntity entity, EffectDesc desc)
 		{
 			Entity = entity;
 			Desc = desc;

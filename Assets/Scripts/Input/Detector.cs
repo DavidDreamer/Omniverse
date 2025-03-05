@@ -9,7 +9,7 @@ namespace Omniverse.Input
 {
 	public class Detector
 	{
-		public Entity Target { get; private set; }
+		public OmniverseEntity Target { get; private set; }
 
 		private HashSet<Type> DetectableTypes { get; } = new();
 
@@ -45,18 +45,18 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void SetFiler<TEntityType>() where TEntityType : Entity
+		public void SetFiler<TEntityType>() where TEntityType : OmniverseEntity
 		{
 			ClearFilter();
 			AddToFilter<TEntityType>();
 		}
 
-		public void AddToFilter<TEntityType>() where TEntityType : Entity
+		public void AddToFilter<TEntityType>() where TEntityType : OmniverseEntity
 		{
 			DetectableTypes.Add(typeof(TEntityType));
 		}
 
-		public void RemoveFromFilter<TEntityType>() where TEntityType : Entity
+		public void RemoveFromFilter<TEntityType>() where TEntityType : OmniverseEntity
 		{
 			DetectableTypes.Remove(typeof(TEntityType));
 		}

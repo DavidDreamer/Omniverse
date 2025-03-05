@@ -10,7 +10,7 @@ namespace Omniverse
 
 	public interface IOperation<TTarget> : IOperation
 	{
-		void Perform(Entity actor, TTarget target);
+		void Perform(OmniverseEntity actor, TTarget target);
 	}
 
 	[Serializable]
@@ -22,7 +22,7 @@ namespace Omniverse
 		[field: SerializeReference]
 		private IAction<TTargetOut>[] Actions { get; set; }
 
-		public void Perform(Entity actor, TTargetIn targetIn)
+		public void Perform(OmniverseEntity actor, TTargetIn targetIn)
 		{
 			IEnumerable<TTargetOut> targets = TargetConverter.Convert(actor, targetIn);
 

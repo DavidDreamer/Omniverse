@@ -21,7 +21,7 @@ namespace Omniverse.Rendering
 		{
 			OutlineRenderer.Clear();
 
-			Entity entity = Detector.Target;
+			OmniverseEntity entity = Detector.Target;
 
 			if (entity == null)
 			{
@@ -41,7 +41,7 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		private int GetOutlineVariant(Entity entity)
+		private int GetOutlineVariant(OmniverseEntity entity)
 		{
 			if (entity.FactionID == -1)
 			{

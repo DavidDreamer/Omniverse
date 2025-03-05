@@ -6,7 +6,7 @@ using VContainer;
 
 namespace Omniverse
 {
-	public abstract partial class Entity : MonoBehaviour, IFactious
+	public abstract partial class OmniverseEntity : MonoBehaviour, IFactious
 	{
 		public event Action<Effect> EffectApplied;
 
@@ -43,7 +43,7 @@ namespace Omniverse
 			FactionID = factionID;
 		}
 
-		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, Entity source)
+		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, OmniverseEntity source)
 		{
 			Property property = Properties[propertyID];
 			property.Modify(modifier);
@@ -79,7 +79,7 @@ namespace Omniverse
 			EffectRemoved?.Invoke(effect);
 		}
 
-		public void SpawnMissile(MissileDesc desc, Entity target)
+		public void SpawnMissile(MissileDesc desc, OmniverseEntity target)
 		{
 			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
@@ -89,7 +89,7 @@ namespace Omniverse
 			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
 
-		public void SpawnChain(ChainDesc desc, Entity target)
+		public void SpawnChain(ChainDesc desc, OmniverseEntity target)
 		{
 			TempNameManager.Spawn(desc, HitBox.transform.position, this, target, FactionID);
 		}
@@ -100,7 +100,7 @@ namespace Omniverse
 		}
 	}
 
-	public abstract class Entity<TDesc> : Entity where TDesc : EntityDesc
+	public abstract class OmniverseEntity<TDesc> : OmniverseEntity where TDesc : EntityDesc
 	{
 		public TDesc Desc { get; set; }
 

@@ -2,6 +2,6 @@
 {
 	public interface IAction<in TTarget>
 	{
-		public void Perform(Entity actor, TTarget target);
+		public void Perform(OmniverseEntity actor, TTarget target);
 	}
 }

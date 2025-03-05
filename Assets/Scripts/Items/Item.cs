@@ -2,7 +2,7 @@
 
 namespace Omniverse.Items
 {
-	public class Item : Entity<ItemDesc>, IPoolObject
+	public class Item : OmniverseEntity<ItemDesc>, IPoolObject
 	{
 		public Ability Ability { get; set; }
 

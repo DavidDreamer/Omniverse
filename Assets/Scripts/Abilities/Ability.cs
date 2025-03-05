@@ -4,13 +4,13 @@
 	{
 		public AbilityDesc Desc { get; }
 
-		public Entity Entity { get; }
+		public OmniverseEntity Entity { get; }
 
 		public Casting Casting { get; }
 
 		public Cooldown Cooldown { get; }
 
-		public Ability(AbilityDesc desc, Entity entity)
+		public Ability(AbilityDesc desc, OmniverseEntity entity)
 		{
 			Desc = desc;
 			Entity = entity;

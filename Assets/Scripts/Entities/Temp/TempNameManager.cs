@@ -11,7 +11,7 @@ namespace Omniverse
 
 		private List<TempName> Items { get; } = new();
 
-		public void Spawn(MissileDesc desc, Entity owner, Vector3 position, Vector3 direction)
+		public void Spawn(MissileDesc desc, OmniverseEntity owner, Vector3 position, Vector3 direction)
 		{
 			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
 			ObjectResolver.Inject(missile);
@@ -19,7 +19,7 @@ namespace Omniverse
 			Items.Add(missile);
 		}
 
-		public void Spawn(MissileDesc desc, Entity owner, Vector3 position, Entity target)
+		public void Spawn(MissileDesc desc, OmniverseEntity owner, Vector3 position, OmniverseEntity target)
 		{
 			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
 			ObjectResolver.Inject(missile);
@@ -27,7 +27,7 @@ namespace Omniverse
 			Items.Add(missile);
 		}
 
-		public void Spawn(ChainDesc desc, Vector3 position, Entity owner, Entity target, int factionID)
+		public void Spawn(ChainDesc desc, Vector3 position, OmniverseEntity owner, OmniverseEntity target, int factionID)
 		{
 			var chain = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Chain>();
 			chain.Initialize(desc, factionID);

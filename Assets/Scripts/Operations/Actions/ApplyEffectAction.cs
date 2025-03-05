@@ -2,11 +2,11 @@
 
 namespace Omniverse
 {
-	public class ApplyEffectAction : IAction<Entity>
+	public class ApplyEffectAction : IAction<OmniverseEntity>
 	{
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public void Perform(Entity actor, Entity target) => target.ApplyEffect(Effect);
+		public void Perform(OmniverseEntity actor, OmniverseEntity target) => target.ApplyEffect(Effect);
 	}
 }

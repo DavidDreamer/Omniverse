@@ -1,5 +1,5 @@
 ﻿using UnityEngine.AI;
-using static Omniverse.Entity;
+using static Omniverse.OmniverseEntity;
 
 namespace Omniverse
 {

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Omniverse
 {
-	public class Unit : Entity<UnitDesc>, IPoolObject
+	public class Unit : OmniverseEntity<UnitDesc>, IPoolObject
 	{
 		public event System.Action Died;
 

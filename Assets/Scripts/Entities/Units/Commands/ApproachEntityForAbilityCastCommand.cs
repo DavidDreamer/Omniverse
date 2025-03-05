@@ -8,11 +8,11 @@ namespace Omniverse
 	{
 		public Ability Ability { get; }
 
-		public Entity Target { get; }
+		public OmniverseEntity Target { get; }
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public ApproachEntityForAbilityCastCommand(Unit unit, Ability ability, Entity target) : base(unit)
+		public ApproachEntityForAbilityCastCommand(Unit unit, Ability ability, OmniverseEntity target) : base(unit)
 		{
 			Ability = ability;
 			Target = target;

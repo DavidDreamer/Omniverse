@@ -6,24 +6,24 @@ namespace Omniverse
 	{
 		private MissileDesc Desc { get; set; }
 
-		private Entity Owner { get; set; }
+		private OmniverseEntity Owner { get; set; }
 
 		private Behaviour behaviour { get; set; }
 
-		private void Initialize(MissileDesc desc, Entity owner)
+		private void Initialize(MissileDesc desc, OmniverseEntity owner)
 		{
 			Desc = desc;
 			Owner = owner;
 			ChangeFaction(owner.FactionID);
 		}
 
-		public void Initialize(MissileDesc desc, Entity owner, Vector3 vector)
+		public void Initialize(MissileDesc desc, OmniverseEntity owner, Vector3 vector)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveInDirection(this, vector);
 		}
 
-		public void Initialize(MissileDesc desc, Entity owner, Entity target)
+		public void Initialize(MissileDesc desc, OmniverseEntity owner, OmniverseEntity target)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveToTarget(this, target);

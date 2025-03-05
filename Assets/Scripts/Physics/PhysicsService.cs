@@ -14,17 +14,17 @@ namespace Omniverse
 			Settings = settings;
 		}
 
-		public Entity GetEntity(Ray ray)
+		public OmniverseEntity GetEntity(Ray ray)
 		{
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, Settings.HitboxLayerMask))
 			{
-				return hitInfo.collider.GetComponentInParent<Entity>();
+				return hitInfo.collider.GetComponentInParent<OmniverseEntity>();
 			}
 
 			return null;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(Entity source, float radius, FactiousFilter filter) where TEntity : Entity
+		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
 		{
 			Vector3 sourcePosition = source.transform.position;
 
@@ -48,7 +48,7 @@ namespace Omniverse
 			}
 		}
 
-		public TEntity GetClosestEntity<TEntity>(Entity source, float radius, FactiousFilter filter) where TEntity : Entity
+		public TEntity GetClosestEntity<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
 		{
 			Vector3 sourcePosition = source.transform.position;
 
@@ -84,12 +84,12 @@ namespace Omniverse
 		}
 
 		public IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
-			Entity source,
+			OmniverseEntity source,
 			Vector3 forward,
 			float radius,
 			float angle,
 			FactiousFilter filter)
-			where TEntity : Entity
+			where TEntity : OmniverseEntity
 		{
 			Vector3 position = source.transform.position;
 			foreach (TEntity entity in GetEntitiesInSphere<TEntity>(source, radius, filter))
@@ -119,7 +119,7 @@ namespace Omniverse
 			return point;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : Entity
+		public IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : OmniverseEntity
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);

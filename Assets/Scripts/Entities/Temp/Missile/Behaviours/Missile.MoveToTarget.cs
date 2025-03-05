@@ -6,9 +6,9 @@ namespace Omniverse
 	{
 		private class MoveToTarget : Behaviour
 		{
-			private Entity Target { get; }
+			private OmniverseEntity Target { get; }
 
-			public MoveToTarget(Missile missile, Entity target) : base(missile)
+			public MoveToTarget(Missile missile, OmniverseEntity target) : base(missile)
 			{
 				Target = target;
 			}

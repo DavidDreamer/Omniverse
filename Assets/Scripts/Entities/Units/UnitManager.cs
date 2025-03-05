@@ -38,7 +38,7 @@ namespace Omniverse
 
 			GameObject model = UnityEngine.Object.Instantiate(desc.Model, unit.transform, false);
 			ObjectResolver.InjectGameObject(model);
-			var components = model.GetComponentsInChildren<EntityComponent<Unit>>();
+			var components = model.GetComponentsInChildren<OmniverseEntityComponent<Unit>>();
 			foreach (var component in components)
 			{
 				component.Initialize(unit);

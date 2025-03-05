@@ -11,12 +11,12 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<Unit> Convert(Entity actor, None input)
+		public IEnumerable<Unit> Convert(OmniverseEntity actor, None input)
 		{
 			yield return actor.PhysicsService.GetClosestEntity<Unit>(actor, Radius, Filter);
 		}
 
-		public IEnumerable<Unit> Convert(Entity actor, Unit input)
+		public IEnumerable<Unit> Convert(OmniverseEntity actor, Unit input)
 		{
 			yield return actor.PhysicsService.GetClosestEntity<Unit>(input, Radius, Filter);
 		}

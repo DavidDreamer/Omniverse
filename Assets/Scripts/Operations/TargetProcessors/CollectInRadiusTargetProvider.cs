@@ -11,8 +11,8 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<Unit> Convert(Entity actor, None input) => actor.PhysicsService.GetEntitiesInSphere<Unit>(actor, Radius, Filter);
+		public IEnumerable<Unit> Convert(OmniverseEntity actor, None input) => actor.PhysicsService.GetEntitiesInSphere<Unit>(actor, Radius, Filter);
 
-		public IEnumerable<Unit> Convert(Entity actor, Unit input) => actor.PhysicsService.GetEntitiesInSphere<Unit>(input, Radius, Filter);
+		public IEnumerable<Unit> Convert(OmniverseEntity actor, Unit input) => actor.PhysicsService.GetEntitiesInSphere<Unit>(input, Radius, Filter);
 	}
 }

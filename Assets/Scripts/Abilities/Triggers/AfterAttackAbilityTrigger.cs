@@ -7,16 +7,16 @@ namespace Omniverse.Abilities
 		[field: SerializeReference]
 		public IOperation<Unit> Operations { get; private set; }
 
-		private Entity Entity { get; set; }
+		private OmniverseEntity Entity { get; set; }
 
-		public void Listen(Entity entity)
+		public void Listen(OmniverseEntity entity)
 		{
 			Entity = entity;
 
 			entity.Attack.Performed += OnAttackPerformed;
 		}
 
-		private void OnAttackPerformed(Entity target)
+		private void OnAttackPerformed(OmniverseEntity target)
 		{
 			Operations.Perform(Entity, (Unit)target);
 		}

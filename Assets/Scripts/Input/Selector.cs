@@ -34,7 +34,7 @@ namespace Omniverse.Input
 
 		public bool InProcess { get; private set; }
 
-		public void Tick(Camera camera, Mouse mouse, Entity target)
+		public void Tick(Camera camera, Mouse mouse, OmniverseEntity target)
 		{
 			InputAction selectAction = CommonActions.Select;
 
@@ -81,7 +81,7 @@ namespace Omniverse.Input
 			UpdateSelectionIndex();
 		}
 
-		private void TrySelectSingleTarget(Entity target)
+		private void TrySelectSingleTarget(OmniverseEntity target)
 		{
 			if (target == null)
 			{

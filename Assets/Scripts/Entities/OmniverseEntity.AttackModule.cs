@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public abstract partial class Entity
+	public abstract partial class OmniverseEntity
 	{
 		public class AttackModule
 		{
 			public event Action Started;
 
-			public event Action<Entity> Performed;
+			public event Action<OmniverseEntity> Performed;
 
-			private Entity Entity { get; }
+			private OmniverseEntity Entity { get; }
 
 			public bool InProcess { get; private set; }
 
-			public AttackModule(Entity entity)
+			public AttackModule(OmniverseEntity entity)
 			{
 				Entity = entity;
 			}

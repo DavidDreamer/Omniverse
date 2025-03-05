@@ -60,7 +60,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		public void ProcessAbility(Entity target, Vector3? cursorWorldPosition, bool additiveMode)
+		public void ProcessAbility(OmniverseEntity target, Vector3? cursorWorldPosition, bool additiveMode)
 		{
 			switch (ActiveAbility.Desc.Target)
 			{

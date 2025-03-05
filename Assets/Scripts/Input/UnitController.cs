@@ -16,7 +16,7 @@ namespace Omniverse.Input
 		[Inject]
 		private Selector Selector { get; set; }
 
-		public void Tick(Entity target, Vector3? position)
+		public void Tick(OmniverseEntity target, Vector3? position)
 		{
 			if (CommonActions.Command.WasReleasedThisFrame())
 			{

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public interface IEntityComponent<in TEntity>
+	public interface IOmniverseEntityComponent<in TEntity>
 	{
 		void Initialize(TEntity entity);
 	}
@@ -13,7 +13,7 @@ namespace Omniverse
 		List<Renderer> Renderers { get; }
 	}
 
-	public abstract class EntityComponent<TEntity> : MonoBehaviour, IEntityComponent<TEntity>
+	public abstract class OmniverseEntityComponent<TEntity> : MonoBehaviour, IOmniverseEntityComponent<TEntity>
 	{
 		public TEntity Entity { get; private set; }
 
@@ -23,7 +23,7 @@ namespace Omniverse
 		}
 	}
 
-	public abstract class RendererComponent<TEntity> : EntityComponent<TEntity>, IRendererComponent
+	public abstract class RendererComponent<TEntity> : OmniverseEntityComponent<TEntity>, IRendererComponent
 	{
 		[field: SerializeField]
 		public List<Renderer> Renderers { get; private set; }

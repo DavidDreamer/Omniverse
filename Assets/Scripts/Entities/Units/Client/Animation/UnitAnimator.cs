@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.Client
 {
-	public class UnitAnimator : EntityComponent<Unit>
+	public class UnitAnimator : OmniverseEntityComponent<Unit>
 	{
 		private static class AnimatorVariables
 		{

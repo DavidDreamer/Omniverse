@@ -4,6 +4,6 @@ namespace Omniverse
 {
 	public interface ITargetConverter<in TTargetIn, out TTargetOut>
 	{
-		IEnumerable<TTargetOut> Convert(Entity actor, TTargetIn input);
+		IEnumerable<TTargetOut> Convert(OmniverseEntity actor, TTargetIn input);
 	}
 }

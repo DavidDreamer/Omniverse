@@ -7,17 +7,17 @@ namespace Omniverse
 	[Serializable]
 	public class NoneTargetConverter : ITargetConverter<Unit, Unit>, ITargetConverter<ResourceSource, ResourceSource>, ITargetConverter<Vector3, Vector3>
 	{
-		public IEnumerable<Unit> Convert(Entity entity, Unit input)
+		public IEnumerable<Unit> Convert(OmniverseEntity entity, Unit input)
 		{
 			yield return input;
 		}
 
-		public IEnumerable<Vector3> Convert(Entity entity, Vector3 input)
+		public IEnumerable<Vector3> Convert(OmniverseEntity entity, Vector3 input)
 		{
 			yield return input;
 		}
 
-		public IEnumerable<ResourceSource> Convert(Entity entity, ResourceSource input)
+		public IEnumerable<ResourceSource> Convert(OmniverseEntity entity, ResourceSource input)
 		{
 			yield return input;
 		}
