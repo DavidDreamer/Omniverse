@@ -14,7 +14,7 @@ namespace Omniverse
 			public override void Bake(MapAuthoring authoring)
 			{
 				var entity = GetEntity(TransformUsageFlags.None);
-
+				
 				AddComponent(entity, new Map
 				{
 					Size = new int2(authoring.MapSettings.Size.x, authoring.MapSettings.Size.y)

@@ -11,6 +11,9 @@ namespace Omniverse
 	public class GameScope : LifetimeScope
 	{
 		[field: SerializeField]
+		private OmniverseInstaller OmniverseInstaller { get; set; }
+
+		[field: SerializeField]
 		private GameSettings GameSettings { get; set; }
 
 		[field: SerializeField]
@@ -24,8 +27,9 @@ namespace Omniverse
 
 		protected override void Configure(IContainerBuilder builder)
 		{
+			OmniverseInstaller.Install(builder);
+
 			builder.RegisterInstance(GameSettings);
-			builder.RegisterInstance(GameSettings.MapSettings);
 			builder.RegisterInstance(GameSettings.Factions);
 			builder.RegisterInstance(GameSettings.Resources);
 

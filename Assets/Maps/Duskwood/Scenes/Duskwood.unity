@@ -212,13 +212,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: 
-  autoRun: 1
+  autoRun: 0
   autoInjectGameObjects:
   - {fileID: 456758839}
-  - {fileID: 0}
   - {fileID: 1996649107}
   - {fileID: 717917620}
   - {fileID: 604717560}
+  <OmniverseInstaller>k__BackingField: {fileID: 11400000, guid: ca47d808eb8c9f3479788eef6023b399, type: 2}
   <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
   <MapRenderer>k__BackingField: {fileID: 5326308378471571449, guid: 067693e730141934183f96269b2ed95f, type: 3}
   <UIInstaller>k__BackingField: {fileID: 456758840}

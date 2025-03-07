@@ -18,9 +18,6 @@ namespace Omniverse
 		public FogOfWarConfig Config { get; set; }
 
 		[Inject]
-		private MapSettings MapSettings { get; set; }
-
-		[Inject]
 		private FactionDesc[] Factions { get; set; }
 
 		[Inject]
@@ -34,7 +31,14 @@ namespace Omniverse
 
 		public void Initialize()
 		{
-			Resolution = MapSettings.Size / Multiplier;
+			//TEMP
+			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(Map) });
+			var map = query.GetSingleton<Map>();
+			query.Dispose();
+
+			var size = map.Size / Multiplier;
+			Resolution = new Vector2Int(size.x, size.y);
+
 			int cellsCount = Resolution.x * Resolution.y;
 
 			CellsVisibilityPerFaction = new CellVisibilityState[Factions.Length][];
