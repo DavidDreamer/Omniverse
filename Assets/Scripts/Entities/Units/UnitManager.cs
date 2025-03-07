@@ -20,14 +20,9 @@ namespace Omniverse
 		private UnitManagerConfig Config { get; set; }
 
 		[Inject]
-		private FogOfWarObsolete FogOfWar { get; set; }
-
-		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
 		public List<Unit> Units { get; } = new();
-
-		private Dictionary<Unit, UnitFogOfWarAgent> FogOfWarAgents { get; } = new();
 
 		public Unit Spawn(UnitDesc desc, int factionID, Vector3 position)
 		{
@@ -36,7 +31,7 @@ namespace Omniverse
 			unit.Initialize(desc, factionID);
 			Units.Add(unit);
 
-			GameObject model = UnityEngine.Object.Instantiate(desc.Model, unit.transform, false);
+			GameObject model = Object.Instantiate(desc.Model, unit.transform, false);
 			ObjectResolver.InjectGameObject(model);
 			var components = model.GetComponentsInChildren<OmniverseEntityComponent<Unit>>();
 			foreach (var component in components)
@@ -44,18 +39,11 @@ namespace Omniverse
 				component.Initialize(unit);
 			}
 
-			var unitFogOfWarAgent = new UnitFogOfWarAgent(unit);
-			FogOfWarAgents.Add(unit, unitFogOfWarAgent);
-			FogOfWar.Register(unitFogOfWarAgent);
-
 			return unit;
 		}
 
 		public void Despawn(Unit unit)
 		{
-			FogOfWar.Unregister(FogOfWarAgents[unit]);
-			FogOfWarAgents.Remove(unit);
-
 			Pool.Return(unit);
 			Units.Remove(unit);
 		}
@@ -65,14 +53,6 @@ namespace Omniverse
 			for (var i = 0; i < Units.Count; i++)
 			{
 				Unit unit = Units[i];
-				UnitFogOfWarAgent fogOfWarAgent = FogOfWarAgents[unit];
-
-				//TODO
-				CellVisibilityState cellVisibilityState =
-					FogOfWar.CellsVisibilityPerFaction[0][fogOfWarAgent.CellIndex];
-
-				unit.gameObject.SetActive(cellVisibilityState is CellVisibilityState.Visible);
-
 				Units[i].FixedTick(deltaTime);
 			}
 		}

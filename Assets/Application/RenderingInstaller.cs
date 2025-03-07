@@ -54,10 +54,7 @@ namespace Omniverse.Rendering
 			RegisterRenderer<OutlineRenderer, OutlineRendererConfig>(OutlineRendererConfig);
 			builder.Register<Outliner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
-			if (GameSettings.FogOfWarConfig.Enabled)
-			{
-				RegisterRenderer<FogOfWarRenderer, FogOfWarRendererConfig>(FogOfWarRendererConfig);
-			}
+			RegisterRenderer<FogOfWarRenderer, FogOfWarRendererConfig>(FogOfWarRendererConfig);
 
 			RegisterRenderer<HealthBarsRenderer, HealthBarsRendererConfig>(HealthBarsRendererConfig);
 			RegisterRenderer<SelectionRenderer, SelectionRendererConfig>(SelectionRendererConfig);

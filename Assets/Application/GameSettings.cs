@@ -10,8 +10,5 @@ namespace Omniverse
 
 		[field: SerializeField]
 		public FactionDesc[] Factions { get; private set; }
-
-		[field: SerializeField]
-		public FogOfWarConfig FogOfWarConfig { get; private set; }
 	}
 }

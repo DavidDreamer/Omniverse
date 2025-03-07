@@ -7,9 +7,6 @@ namespace Omniverse
 	public class GameDirector : IFixedTickable
 	{
 		[Inject]
-		private FogOfWarObsolete FogOfWar { get; set; }
-
-		[Inject]
 		private TempNameManager TempNameManager { get; set; }
 
 		[Inject]
@@ -19,7 +16,6 @@ namespace Omniverse
 		{
 			float deltaTime = Time.fixedDeltaTime;
 
-			FogOfWar.Tick();
 			TempNameManager.Tick(deltaTime);
 			UnitManager.Tick(deltaTime);
 			UnitManager.UpdateLivingState();
