@@ -32,7 +32,7 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Unit unit = Selector.SelectedUnit;
+			UnitObsolete unit = Selector.SelectedUnit;
 
 			UpdateSlotsCount(unit.Inventory.Slots.Count);
 

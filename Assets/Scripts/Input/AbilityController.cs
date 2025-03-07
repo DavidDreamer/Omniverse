@@ -15,11 +15,11 @@ namespace Omniverse.Input
 		[Inject]
 		private Detector EntityDetector { get; set; }
 
-		public Unit ActiveUnit { get; private set; }
+		public UnitObsolete ActiveUnit { get; private set; }
 
 		public Ability ActiveAbility { get; private set; }
 
-		public void Process(Unit unit, Ability ability)
+		public void Process(UnitObsolete unit, Ability ability)
 		{
 			if (ActiveAbility == ability)
 			{
@@ -112,9 +112,9 @@ namespace Omniverse.Input
 
 					switch (target)
 					{
-						case Unit unit:
+						case UnitObsolete unit:
 						{
-							var castAbilityCommand = new CastAbilityCommand<Unit>(ActiveUnit, ActiveAbility, unit);
+							var castAbilityCommand = new CastAbilityCommand<UnitObsolete>(ActiveUnit, ActiveAbility, unit);
 							ActiveUnit.CommandModule.Add(castAbilityCommand);
 							break;
 						}
@@ -138,7 +138,7 @@ namespace Omniverse.Input
 			ActiveAbility = null;
 		}
 
-		private void AddCommand(Unit unit, ICommand command)
+		private void AddCommand(UnitObsolete unit, ICommand command)
 		{
 			if (!CommonActions.AdditiveMode.IsPressed())
 			{

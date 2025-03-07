@@ -36,7 +36,7 @@ namespace Omniverse.UI
 			}
 
 			int i = 0;
-			foreach (Unit unit in selectedUnits)
+			foreach (UnitObsolete unit in selectedUnits)
 			{
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);

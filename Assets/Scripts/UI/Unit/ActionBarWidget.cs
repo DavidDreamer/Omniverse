@@ -11,9 +11,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Slider Slider { get; set; }
 
-		private Unit Unit { get; set; }
+		private UnitObsolete Unit { get; set; }
 
-		public void Bind(Unit unit)
+		public void Bind(UnitObsolete unit)
 		{
 			Unit = unit;
 		}

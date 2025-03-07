@@ -5,11 +5,11 @@ namespace Omniverse
 {
 	public class AttackCommand : Command
 	{
-		private Unit Target { get; }
+		private UnitObsolete Target { get; }
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public AttackCommand(Unit unit, Unit target) : base(unit)
+		public AttackCommand(UnitObsolete unit, UnitObsolete target) : base(unit)
 		{
 			Target = target;
 		}

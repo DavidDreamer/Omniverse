@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class ClosestTargetProvider : ITargetConverter<None, Unit>, ITargetConverter<Unit, Unit>
+	public class ClosestTargetProvider : ITargetConverter<None, UnitObsolete>, ITargetConverter<UnitObsolete, UnitObsolete>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -11,14 +11,14 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<Unit> Convert(OmniverseEntity actor, None input)
+		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, None input)
 		{
-			yield return actor.PhysicsService.GetClosestEntity<Unit>(actor, Radius, Filter);
+			yield return actor.PhysicsService.GetClosestEntity<UnitObsolete>(actor, Radius, Filter);
 		}
 
-		public IEnumerable<Unit> Convert(OmniverseEntity actor, Unit input)
+		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, UnitObsolete input)
 		{
-			yield return actor.PhysicsService.GetClosestEntity<Unit>(input, Radius, Filter);
+			yield return actor.PhysicsService.GetClosestEntity<UnitObsolete>(input, Radius, Filter);
 		}
 	}
 }

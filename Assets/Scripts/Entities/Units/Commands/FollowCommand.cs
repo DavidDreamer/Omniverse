@@ -4,11 +4,11 @@ namespace Omniverse
 {
 	public class FollowCommand : Command
 	{
-		private Unit Target { get; }
+		private UnitObsolete Target { get; }
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public FollowCommand(Unit unit, Unit target) : base(unit)
+		public FollowCommand(UnitObsolete unit, UnitObsolete target) : base(unit)
 		{
 			Target = target;
 		}

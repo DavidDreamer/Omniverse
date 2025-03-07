@@ -39,7 +39,7 @@ namespace Omniverse.Editor
 			ActiveOperation = new(serializedObject.FindProperty(nameof(AbilityDesc.ActiveOperation).ToBackingField()), typeof(NoneTarget));
 
 			Triggers = serializedObject.FindProperty(nameof(AbilityDesc.Triggers).ToBackingField());
-			TriggersList = new(Triggers, typeof(Unit));
+			TriggersList = new(Triggers, typeof(UnitObsolete));
 		}
 
 		public override void OnInspectorGUI()
@@ -112,7 +112,7 @@ namespace Omniverse.Editor
 					case NoneTarget:
 						return typeof(None);
 					case UnitTarget:
-						return typeof(Unit);
+						return typeof(UnitObsolete);
 					case ResourceSourceTarget:
 						return typeof(ResourceSource);
 					case VectorTarget:

@@ -26,7 +26,7 @@ namespace Omniverse
 			if (Time == 0)
 			{
 				Targets.Add(Target);
-				Desc.Operation.Perform(Owner, (Unit)Target);
+				Desc.Operation.Perform(Owner, (UnitObsolete)Target);
 			}
 
 			Time += deltaTime;
@@ -43,7 +43,7 @@ namespace Omniverse
 				Target = null;
 				float minDistance = float.MaxValue;
 
-				foreach (var target in PhysicsService.GetEntitiesInSphere<Unit>(Owner, Desc.BounceRange, Desc.Filter))
+				foreach (var target in PhysicsService.GetEntitiesInSphere<UnitObsolete>(Owner, Desc.BounceRange, Desc.Filter))
 				{
 					if (target == Owner)
 					{

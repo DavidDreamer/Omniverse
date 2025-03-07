@@ -61,7 +61,7 @@ namespace Omniverse.Rendering
 			MaterialPropertyBlock.Clear();
 
 			int i = 0;
-			foreach (Unit unit in selector.SelectedUnits)
+			foreach (UnitObsolete unit in selector.SelectedUnits)
 			{
 				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
 				Colors[i] = Renderer.Player.FactionID == unit.FactionID ?

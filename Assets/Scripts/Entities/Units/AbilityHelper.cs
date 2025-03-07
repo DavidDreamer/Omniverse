@@ -4,7 +4,7 @@ namespace Omniverse
 {
 	public static class AbilityHelper
 	{
-		public static AbilityCastError CanBeCasted(this Ability ability, Unit unit)
+		public static AbilityCastError CanBeCasted(this Ability ability, UnitObsolete unit)
 		{
 			if (ability.Cooldown is not null && ability.Cooldown.IsActive)
 			{

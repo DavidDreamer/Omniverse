@@ -11,11 +11,11 @@ namespace Omniverse.Input
 		public const int Capacity = 16;
 		private const float SelectionBoxTreshold = 16;
 
-		public HashSet<Unit> SelectedUnits { get; } = new();
+		public HashSet<UnitObsolete> SelectedUnits { get; } = new();
 
 		public bool HasSelection => SelectedUnits.Count > 0;
 
-		public Unit SelectedUnit => SelectedUnits.ElementAt(SelectionIndex);
+		public UnitObsolete SelectedUnit => SelectedUnits.ElementAt(SelectionIndex);
 
 		public int SelectionIndex { get; private set; }
 
@@ -62,7 +62,7 @@ namespace Omniverse.Input
 
 				if (Vector2.Distance(StartPosition, EndPosition) > SelectionBoxTreshold)
 				{
-					foreach (Unit unit in PhysicsService.GetEntitiesInScreenRect<Unit>(camera, StartPosition, EndPosition))
+					foreach (UnitObsolete unit in PhysicsService.GetEntitiesInScreenRect<UnitObsolete>(camera, StartPosition, EndPosition))
 					{
 						if (unit.FactionID != Player.FactionID)
 						{
@@ -88,7 +88,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var unit = target as Unit;
+			var unit = target as UnitObsolete;
 			if (unit == null)
 			{
 				return;
@@ -118,7 +118,7 @@ namespace Omniverse.Input
 			}
 		}
 
-		private void TrySelect(Unit unit)
+		private void TrySelect(UnitObsolete unit)
 		{
 			if (SelectedUnits.Contains(unit))
 			{
@@ -133,7 +133,7 @@ namespace Omniverse.Input
 			SelectedUnits.Add(unit);
 		}
 
-		private void RemoveFromSelection(Unit unit)
+		private void RemoveFromSelection(UnitObsolete unit)
 		{
 			SelectedUnits.Remove(unit);
 		}

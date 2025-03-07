@@ -17,7 +17,7 @@ namespace Omniverse.UI
 
 		private List<AbilitySlotWidget> Slots { get; } = new();
 
-		private Unit Unit { get; set; }
+		private UnitObsolete Unit { get; set; }
 
 		[Inject]
 		private InputActions.AbilitiesActions InputActions { get; set; }
@@ -25,7 +25,7 @@ namespace Omniverse.UI
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
-		public void Bind(Unit unit)
+		public void Bind(UnitObsolete unit)
 		{
 			Unit = unit;
 

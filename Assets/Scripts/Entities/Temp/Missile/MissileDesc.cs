@@ -18,6 +18,6 @@ namespace Omniverse
 		public float Radius { get; private set; }
 
 		[field: SerializeReference]
-		public IOperation<Unit> HitOperation { get; private set; }
+		public IOperation<UnitObsolete> HitOperation { get; private set; }
 	}
 }

@@ -34,7 +34,7 @@ namespace Omniverse
 			behaviour.Tick(deltaTime);
 		}
 
-		private void PerformHitAction(Unit target)
+		private void PerformHitAction(UnitObsolete target)
 		{
 			Desc.HitOperation.Perform(Owner, target);
 		}

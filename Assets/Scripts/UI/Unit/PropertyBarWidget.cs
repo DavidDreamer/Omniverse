@@ -17,7 +17,7 @@ namespace Omniverse.UI
 
 		private Property Property { get; set; }
 
-		public void Bind(Unit unit)
+		public void Bind(UnitObsolete unit)
 		{
 			Property = unit.Properties[PropertyID];
 

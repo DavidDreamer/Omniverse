@@ -21,7 +21,7 @@ namespace Omniverse.Input
 		public void SetDefaultDetectableType()
 		{
 			ClearFilter();
-			AddToFilter<Unit>();
+			AddToFilter<UnitObsolete>();
 			AddToFilter<Item>();
 			Filter = (FactiousFilter)~0;
 		}
@@ -35,7 +35,7 @@ namespace Omniverse.Input
 			switch (ability.Desc.Target)
 			{
 				case UnitTarget unitTarget:
-					AddToFilter<Unit>();
+					AddToFilter<UnitObsolete>();
 					Filter = unitTarget.Filter;
 					break;
 				case ResourceSourceTarget resourceSourceTarget:

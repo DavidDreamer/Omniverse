@@ -44,7 +44,7 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Unit unit = Selector.SelectedUnit;
+			UnitObsolete unit = Selector.SelectedUnit;
 
 			Avatar.Bind(unit);
 			Health.Bind(unit);

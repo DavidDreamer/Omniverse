@@ -14,11 +14,11 @@ namespace Omniverse
 
 	public abstract class Command : ICommand
 	{
-		protected Unit Unit { get; }
+		protected UnitObsolete Unit { get; }
 
 		public virtual bool IsRepeatable => false;
 
-		protected Command(Unit unit)
+		protected Command(UnitObsolete unit)
 		{
 			Unit = unit;
 		}

@@ -1,6 +1,6 @@
 ﻿namespace Omniverse.Abilities
 {
-	public class UnitTarget : EntityTarget<Unit>
+	public class UnitTarget : EntityTarget<UnitObsolete>
 	{
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.Client
 {
-	public class UnitAnimator : OmniverseEntityComponent<Unit>
+	public class UnitAnimator : OmniverseEntityComponent<UnitObsolete>
 	{
 		private static class AnimatorVariables
 		{
@@ -25,7 +25,7 @@ namespace Omniverse.Client
 		[field: SerializeField]
 		private Ragdoll Ragdoll { get; set; }
 
-		public override void Initialize(Unit unit)
+		public override void Initialize(UnitObsolete unit)
 		{
 			base.Initialize(unit);
 

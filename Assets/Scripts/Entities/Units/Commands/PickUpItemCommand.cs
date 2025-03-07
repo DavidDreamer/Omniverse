@@ -10,7 +10,7 @@ namespace Omniverse
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public PickUpItemCommand(Unit unit, Item item) : base(unit)
+		public PickUpItemCommand(UnitObsolete unit, Item item) : base(unit)
 		{
 			Item = item;
 		}

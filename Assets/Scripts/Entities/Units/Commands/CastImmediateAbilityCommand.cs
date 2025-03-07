@@ -6,7 +6,7 @@ namespace Omniverse
 	{
 		private Ability Ability { get; }
 
-		public CastImmediateAbilityCommand(Unit unit, Ability ability) : base(unit)
+		public CastImmediateAbilityCommand(UnitObsolete unit, Ability ability) : base(unit)
 		{
 			Ability = ability;
 		}

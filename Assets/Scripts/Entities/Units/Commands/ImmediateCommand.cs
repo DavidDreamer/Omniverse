@@ -7,9 +7,9 @@
 
 	public abstract class ImmediateCommand : IImmediateCommand
 	{
-		protected Unit Unit { get; }
+		protected UnitObsolete Unit { get; }
 
-		public ImmediateCommand(Unit unit)
+		public ImmediateCommand(UnitObsolete unit)
 		{
 			Unit = unit;
 		}

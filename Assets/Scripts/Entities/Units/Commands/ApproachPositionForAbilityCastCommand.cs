@@ -12,7 +12,7 @@ namespace Omniverse
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public ApproachPositionForAbilityCastCommand(Unit unit, Ability ability, Vector3 position) : base(unit)
+		public ApproachPositionForAbilityCastCommand(UnitObsolete unit, Ability ability, Vector3 position) : base(unit)
 		{
 			Ability = ability;
 			Position = position;

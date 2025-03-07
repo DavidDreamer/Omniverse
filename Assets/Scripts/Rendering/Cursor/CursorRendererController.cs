@@ -53,7 +53,7 @@ namespace Omniverse.Rendering
 					switch (AbilityController.ActiveAbility.Desc.Target)
 					{
 						case UnitTarget:
-							return Detector.Target is Unit ? Config.TargetUnit : Config.TargetInvalid;
+							return Detector.Target is UnitObsolete ? Config.TargetUnit : Config.TargetInvalid;
 						default:
 							return Config.TargetDefault;
 					}

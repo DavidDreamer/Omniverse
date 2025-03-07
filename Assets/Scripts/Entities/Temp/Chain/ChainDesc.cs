@@ -18,6 +18,6 @@ namespace Omniverse
 		public float BounceInterval { get; private set; }
 
 		[field: SerializeReference]
-		public IOperation<Unit> Operation { get; private set; }
+		public IOperation<UnitObsolete> Operation { get; private set; }
 	}
 }

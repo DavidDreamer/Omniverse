@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Omniverse
 {
 	[Serializable]
-	public class NoneTargetConverter : ITargetConverter<Unit, Unit>, ITargetConverter<ResourceSource, ResourceSource>, ITargetConverter<Vector3, Vector3>
+	public class NoneTargetConverter : ITargetConverter<UnitObsolete, UnitObsolete>, ITargetConverter<ResourceSource, ResourceSource>, ITargetConverter<Vector3, Vector3>
 	{
-		public IEnumerable<Unit> Convert(OmniverseEntity entity, Unit input)
+		public IEnumerable<UnitObsolete> Convert(OmniverseEntity entity, UnitObsolete input)
 		{
 			yield return input;
 		}

@@ -80,7 +80,7 @@ namespace Omniverse.Rendering
 
 			for (int i = 0; i < count; i++)
 			{
-				Unit unit = units[i];
+				UnitObsolete unit = units[i];
 
 				var matrix = unit.transform.localToWorldMatrix * Matrix4x4.Translate(Config.Offset);
 				Matrices[i] = matrix;

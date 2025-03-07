@@ -26,7 +26,7 @@ namespace Omniverse
 
 				if (sqrDistanceToTarget <= radius * radius)
 				{
-					Missile.PerformHitAction((Unit)Target);
+					Missile.PerformHitAction((UnitObsolete)Target);
 					Missile.Completed = true;
 				}
 			}

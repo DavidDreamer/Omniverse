@@ -19,7 +19,7 @@ namespace Omniverse.Editor
 			Range = serializedObject.FindProperty(nameof(MissileDesc.Range).ToBackingField());
 			Speed = serializedObject.FindProperty(nameof(MissileDesc.Speed).ToBackingField());
 			Radius = serializedObject.FindProperty(nameof(MissileDesc.Radius).ToBackingField());
-			HitOperation = new(serializedObject.FindProperty(nameof(MissileDesc.HitOperation).ToBackingField()), typeof(Unit));
+			HitOperation = new(serializedObject.FindProperty(nameof(MissileDesc.HitOperation).ToBackingField()), typeof(UnitObsolete));
 		}
 
 		public override void OnInspectorGUI()

@@ -13,11 +13,11 @@ namespace Omniverse.UI
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
-		private Unit Unit { get; set; }
+		private UnitObsolete Unit { get; set; }
 
 		private List<EffectWidget> EffectWdigets { get; } = new();
 
-		public void Bind(Unit unit)
+		public void Bind(UnitObsolete unit)
 		{
 			Unit = unit;
 		}

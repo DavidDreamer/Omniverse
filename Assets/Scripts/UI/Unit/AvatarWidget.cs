@@ -21,7 +21,7 @@ namespace Omniverse.UI
 		[Inject]
 		private Selector Selector { get; set; }
 
-		public void Bind(Unit unit)
+		public void Bind(UnitObsolete unit)
 		{
 			Icon.sprite = unit.Desc.Icon;
 			Name.text = unit.Desc.Name;
@@ -32,7 +32,7 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					Unit selectedUnit = Selector.SelectedUnit;
+					UnitObsolete selectedUnit = Selector.SelectedUnit;
 					Vector3 selectedUnitPosition = selectedUnit.transform.position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
 					CameraController.SetViewPoint(viewPoint);

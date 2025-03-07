@@ -4,7 +4,7 @@ namespace Omniverse
 {
 	public class CommandModule
 	{
-		private Unit Unit { get; }
+		private UnitObsolete Unit { get; }
 
 		private Queue<ICommand> Commands { get; } = new();
 
@@ -12,7 +12,7 @@ namespace Omniverse
 
 		public ICommand Command { get; private set; }
 
-		public CommandModule(Unit unit)
+		public CommandModule(UnitObsolete unit)
 		{
 			Unit = unit;
 		}

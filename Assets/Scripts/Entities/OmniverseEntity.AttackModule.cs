@@ -20,7 +20,7 @@ namespace Omniverse
 				Entity = entity;
 			}
 
-			public bool TargetIsInRange(Unit target)
+			public bool TargetIsInRange(UnitObsolete target)
 			{
 				float sqrDistance = Vector3.SqrMagnitude(Entity.transform.position - target.transform.position);
 				float attackRange = Entity.Properties[PropertyID.AttackRange].Amount;
@@ -37,7 +37,7 @@ namespace Omniverse
 				InProcess = true;
 			}
 
-			public void Tick(Unit target, float deltaTime)
+			public void Tick(UnitObsolete target, float deltaTime)
 			{
 				float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
 

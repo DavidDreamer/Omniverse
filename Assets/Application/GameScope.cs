@@ -38,7 +38,7 @@ namespace Omniverse
 				builder.RegisterComponentInNewPrefab(MapRenderer, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 			}
 
-			builder.Register<PrefabPool<Unit>>(Lifetime.Singleton);
+			builder.Register<PrefabPool<UnitObsolete>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<Item>>(Lifetime.Singleton);
 
 			builder.RegisterEntryPoint<ItemManager>().AsSelf();

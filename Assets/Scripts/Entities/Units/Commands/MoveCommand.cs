@@ -9,7 +9,7 @@ namespace Omniverse
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public MoveCommand(Unit unit, Vector3 position) : base(unit)
+		public MoveCommand(UnitObsolete unit, Vector3 position) : base(unit)
 		{
 			Position = position;
 		}

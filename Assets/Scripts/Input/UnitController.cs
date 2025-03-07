@@ -24,8 +24,8 @@ namespace Omniverse.Input
 				{
 					switch (target)
 					{
-						case Unit unit:
-							foreach (Unit selectedUnit in Selector.SelectedUnits)
+						case UnitObsolete unit:
+							foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
 							{
 								if (selectedUnit != unit)
 								{
@@ -43,7 +43,7 @@ namespace Omniverse.Input
 							}
 							break;
 						case Item item:
-							foreach (Unit selectedUnit in Selector.SelectedUnits)
+							foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
 							{
 								var command = new PickUpItemCommand(selectedUnit, item);
 								AddCommand(selectedUnit, command);
@@ -61,7 +61,7 @@ namespace Omniverse.Input
 			}
 			else if (CommonActions.Stop.WasPerformedThisFrame())
 			{
-				foreach (Unit unit in Selector.SelectedUnits)
+				foreach (UnitObsolete unit in Selector.SelectedUnits)
 				{
 					unit.CommandModule.Reset();
 				}
@@ -78,7 +78,7 @@ namespace Omniverse.Input
 
 		private void CreateNavigationPoint(Vector3 position)
 		{
-			foreach (Unit unit in Selector.SelectedUnits)
+			foreach (UnitObsolete unit in Selector.SelectedUnits)
 			{
 				MoveCommand moveCommand = new(unit, position);
 				AddCommand(unit, moveCommand);
@@ -87,7 +87,7 @@ namespace Omniverse.Input
 			NavigationPointCreated?.Invoke(position);
 		}
 
-		private void AddCommand(Unit unit, ICommand command)
+		private void AddCommand(UnitObsolete unit, ICommand command)
 		{
 			if (!CommonActions.AdditiveMode.IsPressed())
 			{

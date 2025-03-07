@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse.Client
 {
-	public class UnitRenderer : RendererComponent<Unit>
+	public class UnitRenderer : RendererComponent<UnitObsolete>
 	{
 		[field: SerializeField]
 		private BloodStain BloodStain { get; set; }
@@ -16,7 +16,7 @@ namespace Omniverse.Client
 
 		private Dictionary<Effect, GameObject> Effects { get; } = new();
 
-		public override void Initialize(Unit unit)
+		public override void Initialize(UnitObsolete unit)
 		{
 			base.Initialize(unit);
 

@@ -11,7 +11,7 @@ namespace Omniverse
 	public class UnitManager
 	{
 		[Inject]
-		private PrefabPool<Unit> Pool { get; set; }
+		private PrefabPool<UnitObsolete> Pool { get; set; }
 
 		[Inject]
 		private ItemManager ItemManager { get; set; }
@@ -22,18 +22,18 @@ namespace Omniverse
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
-		public List<Unit> Units { get; } = new();
+		public List<UnitObsolete> Units { get; } = new();
 
-		public Unit Spawn(UnitDesc desc, int factionID, Vector3 position)
+		public UnitObsolete Spawn(UnitDesc desc, int factionID, Vector3 position)
 		{
-			Unit unit = Pool.Take(Config.UnitPrefab);
+			UnitObsolete unit = Pool.Take(Config.UnitPrefab);
 			unit.NavMeshAgent.Warp(position);
 			unit.Initialize(desc, factionID);
 			Units.Add(unit);
 
 			GameObject model = Object.Instantiate(desc.Model, unit.transform, false);
 			ObjectResolver.InjectGameObject(model);
-			var components = model.GetComponentsInChildren<OmniverseEntityComponent<Unit>>();
+			var components = model.GetComponentsInChildren<OmniverseEntityComponent<UnitObsolete>>();
 			foreach (var component in components)
 			{
 				component.Initialize(unit);
@@ -42,7 +42,7 @@ namespace Omniverse
 			return unit;
 		}
 
-		public void Despawn(Unit unit)
+		public void Despawn(UnitObsolete unit)
 		{
 			Pool.Return(unit);
 			Units.Remove(unit);
@@ -52,7 +52,7 @@ namespace Omniverse
 		{
 			for (var i = 0; i < Units.Count; i++)
 			{
-				Unit unit = Units[i];
+				UnitObsolete unit = Units[i];
 				Units[i].FixedTick(deltaTime);
 			}
 		}
@@ -61,7 +61,7 @@ namespace Omniverse
 		{
 			for (var i = 0; i < Units.Count; i++)
 			{
-				Unit unit = Units[i];
+				UnitObsolete unit = Units[i];
 
 				if (ShouldBeKilled(unit))
 				{
@@ -71,7 +71,7 @@ namespace Omniverse
 				}
 			}
 
-			bool ShouldBeKilled(Unit unit)
+			bool ShouldBeKilled(UnitObsolete unit)
 			{
 				if (unit.IsDead)
 				{
@@ -82,7 +82,7 @@ namespace Omniverse
 			}
 		}
 
-		private void Kill(Unit unit)
+		private void Kill(UnitObsolete unit)
 		{
 			unit.Die();
 			DropLoot(unit);
@@ -91,7 +91,7 @@ namespace Omniverse
 			Pool.Return(unit);
 		}
 
-		private void DropLoot(Unit unit)
+		private void DropLoot(UnitObsolete unit)
 		{
 			foreach (LootDesc loot in unit.Desc.Loot)
 			{

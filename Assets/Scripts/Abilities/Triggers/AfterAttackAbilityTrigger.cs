@@ -5,7 +5,7 @@ namespace Omniverse.Abilities
 	public class AfterAttackAbilityTrigger : IAbilityTrigger
 	{
 		[field: SerializeReference]
-		public IOperation<Unit> Operations { get; private set; }
+		public IOperation<UnitObsolete> Operations { get; private set; }
 
 		private OmniverseEntity Entity { get; set; }
 
@@ -18,7 +18,7 @@ namespace Omniverse.Abilities
 
 		private void OnAttackPerformed(OmniverseEntity target)
 		{
-			Operations.Perform(Entity, (Unit)target);
+			Operations.Perform(Entity, (UnitObsolete)target);
 		}
 	}
 }
