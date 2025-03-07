@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public partial class FogOfWar
+	public partial class FogOfWarObsolete
 	{
 		private readonly struct BresenhamLineHandler : IBresenhamLineHandler
 		{

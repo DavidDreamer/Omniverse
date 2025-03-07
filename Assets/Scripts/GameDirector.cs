@@ -7,7 +7,7 @@ namespace Omniverse
 	public class GameDirector : IFixedTickable
 	{
 		[Inject]
-		private FogOfWar FogOfWar { get; set; }
+		private FogOfWarObsolete FogOfWar { get; set; }
 
 		[Inject]
 		private TempNameManager TempNameManager { get; set; }

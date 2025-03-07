@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public class UnitFogOfWarAgent : IFogOfWarAgent
+	public class UnitFogOfWarAgent : IFogOfWarAgentObsolete
 	{
 		private Unit Unit { get; }
 

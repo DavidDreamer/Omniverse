@@ -25,7 +25,7 @@ namespace Omniverse.Rendering
 		}
 
 		[Inject]
-		public FogOfWar FogOfWar { get; set; }
+		public FogOfWarObsolete FogOfWar { get; set; }
 
 		private Material AnimationMaterial { get; set; }
 
@@ -133,7 +133,12 @@ namespace Omniverse.Rendering
 			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
 			CommandBuffer commandBuffer = scope.CommandBuffer;
 
-			commandBuffer.SetBufferData(CellsVisibilityBuffer, FogOfWar.CellsVisibilityPerFaction[0]);
+			//TODO
+			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(FogOfWar) });
+			var fogOfWar = query.GetSingleton<FogOfWar>();
+			query.Dispose();
+
+			commandBuffer.SetBufferData(CellsVisibilityBuffer, fogOfWar.Visibility);
 			commandBuffer.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
 			Blitter.BlitTexture(commandBuffer, AnimationRT, AnimationRT, AnimationMaterial, 0);

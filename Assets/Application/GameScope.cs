@@ -37,7 +37,7 @@ namespace Omniverse
 			if (GameSettings.FogOfWarConfig.Enabled)
 			{
 				builder.RegisterInstance(GameSettings.FogOfWarConfig);
-				builder.Register<FogOfWar>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+				builder.Register<FogOfWarObsolete>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 			}
 
 			builder.Register<PrefabPool<Unit>>(Lifetime.Singleton);

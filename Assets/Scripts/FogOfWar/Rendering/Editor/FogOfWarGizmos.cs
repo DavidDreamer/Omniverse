@@ -11,8 +11,8 @@ namespace Omniverse.Rendering.Editor
 
 		private static Color Occluded { get; } = Color.black;
 
-		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacle))]
-		private static void DrawObstacle(FogOfWarObstacle obstacle, GizmoType gizmoType)
+		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacleObsolete))]
+		private static void DrawObstacle(FogOfWarObstacleObsolete obstacle, GizmoType gizmoType)
 		{
 			Gizmos.DrawWireCube(obstacle.transform.position, obstacle.Size);
 		}
@@ -31,14 +31,14 @@ namespace Omniverse.Rendering.Editor
 			var cellVisibilityStates = fogOfWarRenderer.FogOfWar.CellsVisibilityPerFaction[0];
 			var cellsObstacles = fogOfWarRenderer.FogOfWar.CellsObstaclesPerFaction[0];
 
-			Vector3 size = new Vector3(1, 0, 1) * FogOfWar.Multiplier;
+			Vector3 size = new Vector3(1, 0, 1) * FogOfWarObsolete.Multiplier;
 
 			for (int x = 0; x < width; ++x)
 			{
 				for (int y = 0; y < height; ++y)
 				{
 					int index = x * fogOfWarRenderer.FogOfWar.Resolution.y + y;
-					Vector3 position = FogOfWar.CalculateCellCenter(x, y);
+					Vector3 position = FogOfWarObsolete.CalculateCellCenter(x, y);
 					Color color = cellsObstacles[index] ? Occluded :
 						cellVisibilityStates[index] is CellVisibilityState.Visible ? Visible : Invisible;
 

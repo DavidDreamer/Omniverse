@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Omniverse
 {
-	public interface IFogOfWarAgent
+	[Obsolete]
+	public interface IFogOfWarAgentObsolete
 	{
 		int FactionID { get; }
 

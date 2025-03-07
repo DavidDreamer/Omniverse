@@ -20,7 +20,7 @@ namespace Omniverse
 		private UnitManagerConfig Config { get; set; }
 
 		[Inject]
-		private FogOfWar FogOfWar { get; set; }
+		private FogOfWarObsolete FogOfWar { get; set; }
 
 		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }

@@ -1,19 +1,10 @@
-﻿using UnityEngine;
-using VContainer;
+﻿using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Omniverse
 {
-	public class FogOfWarObstacle : MonoBehaviour
+	public struct FogOfWarObstacle : IComponentData
 	{
-		[field: SerializeField]
-		public Vector3 Size { get; private set; }
-
-		[Inject]
-		private FogOfWar FogOfWar { get; set; }
-
-		private void OnEnable()
-		{
-			FogOfWar.AddObstacle(this);
-		}
+		public float3 Size;
 	}
 }
