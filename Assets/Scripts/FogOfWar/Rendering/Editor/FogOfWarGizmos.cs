@@ -11,8 +11,8 @@ namespace Omniverse.Rendering.Editor
 
 		private static Color Occluded { get; } = Color.black;
 
-		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacleObsolete))]
-		private static void DrawObstacle(FogOfWarObstacleObsolete obstacle, GizmoType gizmoType)
+		[DrawGizmo(GizmoType.Selected, typeof(FogOfWarObstacleAuthoring))]
+		private static void DrawObstacle(FogOfWarObstacleAuthoring obstacle, GizmoType gizmoType)
 		{
 			Gizmos.DrawWireCube(obstacle.transform.position, obstacle.Size);
 		}

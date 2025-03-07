@@ -63,19 +63,6 @@ namespace Omniverse
 			return new Vector3(x, 0, y) * Multiplier + offset;
 		}
 
-		//TODO
-		public void AddObstacle(FogOfWarObstacleObsolete obstacle)
-		{
-			int x = (int)obstacle.transform.position.x / Multiplier;
-			int y = (int)obstacle.transform.position.z / Multiplier;
-
-			int index = x * Resolution.y + y;
-			foreach (bool[] cells in CellsObstaclesPerFaction)
-			{
-				cells[index] = true;
-			}
-		}
-
 		private int CalculateCell(Vector3 position)
 		{
 			int x = (int)position.x / Multiplier;
