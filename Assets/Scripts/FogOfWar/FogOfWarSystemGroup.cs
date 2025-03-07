@@ -10,16 +10,16 @@ namespace Omniverse
 	[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 	public partial class FogOfWarSystemGroup : ComponentSystemGroup
 	{
-		private const float Multiplier = 2.0f;
-		private static readonly int2 Size = new(128, 128);
+		private const int Multiplier = 2;
 
 		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		public partial struct InitializeSystem : ISystem
+		public partial struct InitializeSystem : ISystem, ISystemStartStop
 		{
-			public void OnCreate(ref SystemState state)
+			public void OnStartRunning(ref SystemState state)
 			{
 				var entityManager = state.EntityManager;
-				var map = new Map() { Size = Size };//TODO: SystemAPI.GetSingleton<Map>();
+				var map = SystemAPI.GetSingleton<Map>();
+				int2 size = map.Size / Multiplier;
 
 				var entity = entityManager.CreateEntity();
 				entityManager.SetName(entity, "Fog Of War");
@@ -27,10 +27,14 @@ namespace Omniverse
 				entityManager.SetComponentData(entity, new FogOfWar()
 				{
 					Explored = true,
-					Size = map.Size,
-					Occlusion = new NativeArray<bool>(map.Size.x * map.Size.y, Allocator.Persistent),
-					Visibility = new NativeArray<CellVisibilityState>(map.Size.x * map.Size.y, Allocator.Persistent)
+					Size = size,
+					Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
+					Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
 				});
+			}
+
+			public void OnStopRunning(ref SystemState state)
+			{
 			}
 		}
 
@@ -81,7 +85,7 @@ namespace Omniverse
 						int x = (int)(transform.ValueRO.Position.x / Multiplier);
 						int y = (int)(transform.ValueRO.Position.z / Multiplier);
 ;
-						int index = x * Size.y + y;
+						int index = x * fogOfWar.ValueRO.Size.y + y;
 						fogOfWar.ValueRW.Occlusion[index] = true;
 					}
 				}
@@ -94,16 +98,19 @@ namespace Omniverse
 		{
 			public void OnUpdate(ref SystemState state)
 			{
-				foreach (var agent in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
+				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
-					float3 position = agent.Item2.ValueRO.Position;
+					foreach (var agent in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
+					{
+						float3 position = agent.Item2.ValueRO.Position;
 
-					int x = (int)(position.x / Multiplier);
-					int y = (int)(position.z / Multiplier);
+						int x = (int)(position.x / Multiplier);
+						int y = (int)(position.z / Multiplier);
 
-					int index = x * 128 + y;
+						int index = x * fogOfWar.ValueRO.Size.y + y;
 
-					agent.Item1.ValueRW.CellIndex = index;
+						agent.Item1.ValueRW.CellIndex = index;
+					}
 				}
 			}
 		}
@@ -126,7 +133,7 @@ namespace Omniverse
 						int radius = (int)(agent.VisionRange / Multiplier);
 						//int factionId = agent.FactionID;
 
-						var circleHandler = new BresenhamCircleHandler(x0, y0, fogOfWar.Visibility, fogOfWar.Occlusion, Size);
+						var circleHandler = new BresenhamCircleHandler(x0, y0, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWar.Size);
 						Bresenham.Circle(x0, y0, radius, circleHandler);
 					}
 				}
