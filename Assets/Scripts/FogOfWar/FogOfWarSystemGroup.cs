@@ -12,35 +12,28 @@ namespace Omniverse
 	{
 		private const int Multiplier = 2;
 
-		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		public partial struct InitializeSystem : ISystem, ISystemStartStop
+		protected override void OnStartRunning()
 		{
-			public void OnStartRunning(ref SystemState state)
+			base.OnStartRunning();
+
+			var map = SystemAPI.GetSingleton<Map>();
+			if (map.FogOfWarType is FogOfWarType.None)
 			{
-				var map = SystemAPI.GetSingleton<Map>();
-				if (map.FogOfWarType is FogOfWarType.None)
-				{
-					return;
-				}
-
-				var entityManager = state.EntityManager;
-				int2 size = map.Size / Multiplier;
-
-				var entity = entityManager.CreateEntity();
-				entityManager.SetName(entity, "Fog Of War");
-				entityManager.AddComponent<FogOfWar>(entity);
-				entityManager.SetComponentData(entity, new FogOfWar()
-				{
-					Explored = map.FogOfWarType is FogOfWarType.Explored,
-					Size = size,
-					Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
-					Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
-				});
+				return;
 			}
 
-			public void OnStopRunning(ref SystemState state)
+			int2 size = map.Size / Multiplier;
+
+			var entity = EntityManager.CreateEntity();
+			EntityManager.SetName(entity, "Fog Of War");
+			EntityManager.AddComponent<FogOfWar>(entity);
+			EntityManager.SetComponentData(entity, new FogOfWar()
 			{
-			}
+				Explored = map.FogOfWarType is FogOfWarType.Explored,
+				Size = size,
+				Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
+				Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
+			});
 		}
 
 		[BurstCompile]
