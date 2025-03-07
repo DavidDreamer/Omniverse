@@ -2,7 +2,6 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 using UnityEngine;
 
 namespace Omniverse
@@ -39,11 +38,9 @@ namespace Omniverse
 		}
 	}
 
-	public readonly struct BresenhamLineHandler : IBresenhamLineHandler
+	public struct BresenhamLineHandler : IBresenhamLineHandler
 	{
-		private NativeArray<CellVisibilityState> CellVisibilityStates { get; }
-		private CellVisibilityState[] CellVisibilityStatesArray { get; }
-
+		private NativeArray<CellVisibilityState> CellVisibilityStates;
 		private NativeArray<bool> CellObstacles { get; }
 
 		private int2 Size { get; }
@@ -54,7 +51,6 @@ namespace Omniverse
 			int2 size)
 		{
 			CellVisibilityStates = cellVisibilityStates;
-			CellVisibilityStatesArray = CellVisibilityStates.ToArray();
 			CellObstacles = cellObstacles;
 			Size = size;
 		}
@@ -63,17 +59,10 @@ namespace Omniverse
 		{
 			int index = x * Size.y + y;
 
-			CellVisibilityStatesArray[index] = CellVisibilityState.Visible;
-			CellVisibilityStates.CopyFrom(CellVisibilityStatesArray);
+			CellVisibilityStates[index] = CellVisibilityState.Visible;
 
 			return CellObstacles[index];
 		}
-	}
-
-	public struct FogOfWarCell
-	{
-		public bool Occluded;
-		public CellVisibilityState State;
 	}
 
 	public struct FogOfWar : IComponentData

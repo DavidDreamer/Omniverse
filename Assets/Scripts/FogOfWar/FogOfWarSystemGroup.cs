@@ -68,6 +68,7 @@ namespace Omniverse
 		[UpdateAfter(typeof(ClearVisibilitySystem))]
 		public partial struct UpdateObstaclesSystem : ISystem
 		{
+			//TODO: Size-dependent algorithm
 			public void OnUpdate(ref SystemState state)
 			{
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
@@ -95,7 +96,6 @@ namespace Omniverse
 			{
 				foreach (var agent in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
 				{
-
 					float3 position = agent.Item2.ValueRO.Position;
 
 					int x = (int)(position.x / Multiplier);
