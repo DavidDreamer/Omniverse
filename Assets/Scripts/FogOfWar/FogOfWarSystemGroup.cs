@@ -17,8 +17,13 @@ namespace Omniverse
 		{
 			public void OnStartRunning(ref SystemState state)
 			{
-				var entityManager = state.EntityManager;
 				var map = SystemAPI.GetSingleton<Map>();
+				if (map.FogOfWarType is FogOfWarType.None)
+				{
+					return;
+				}
+
+				var entityManager = state.EntityManager;
 				int2 size = map.Size / Multiplier;
 
 				var entity = entityManager.CreateEntity();
@@ -26,7 +31,7 @@ namespace Omniverse
 				entityManager.AddComponent<FogOfWar>(entity);
 				entityManager.SetComponentData(entity, new FogOfWar()
 				{
-					Explored = true,
+					Explored = map.FogOfWarType is FogOfWarType.Explored,
 					Size = size,
 					Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
 					Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)

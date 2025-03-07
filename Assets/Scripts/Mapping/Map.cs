@@ -6,5 +6,6 @@ namespace Omniverse
 	public struct Map : IComponentData
 	{
 		public int2 Size;
+		public FogOfWarType FogOfWarType;
 	}
 }

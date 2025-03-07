@@ -1,5 +1,4 @@
-﻿using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
@@ -8,5 +7,8 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public Vector2Int Size { get; private set; }
+
+		[field: SerializeField]
+		public FogOfWarType FogOfWarType { get; private set; }
 	}
 }

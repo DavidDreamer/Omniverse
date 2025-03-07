@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// TEMP for backward compatability.
 /// </summary>
-[UpdateInGroup(typeof(InitializationSystemGroup), OrderLast = true)]
+[UpdateInGroup(typeof(SimulationSystemGroup), OrderLast = true)]
 public partial struct VContainerIntializationSystem : ISystem, ISystemStartStop
 {
 	public void OnStartRunning(ref SystemState state)

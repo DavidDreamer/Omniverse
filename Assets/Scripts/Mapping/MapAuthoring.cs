@@ -17,7 +17,8 @@ namespace Omniverse
 				
 				AddComponent(entity, new Map
 				{
-					Size = new int2(authoring.MapSettings.Size.x, authoring.MapSettings.Size.y)
+					Size = new int2(authoring.MapSettings.Size.x, authoring.MapSettings.Size.y),
+					FogOfWarType = authoring.MapSettings.FogOfWarType
 				});
 			}
 		}
