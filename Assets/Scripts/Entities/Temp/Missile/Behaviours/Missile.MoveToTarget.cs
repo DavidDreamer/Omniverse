@@ -2,13 +2,13 @@
 
 namespace Omniverse
 {
-	public partial class Missile
+	public partial class MissileObsolete
 	{
 		private class MoveToTarget : Behaviour
 		{
 			private OmniverseEntity Target { get; }
 
-			public MoveToTarget(Missile missile, OmniverseEntity target) : base(missile)
+			public MoveToTarget(MissileObsolete missile, OmniverseEntity target) : base(missile)
 			{
 				Target = target;
 			}

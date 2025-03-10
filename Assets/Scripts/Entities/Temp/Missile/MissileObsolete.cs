@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public partial class Missile : TempName
+	public partial class MissileObsolete : TempName
 	{
 		private MissileDesc Desc { get; set; }
 

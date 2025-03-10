@@ -1,12 +1,12 @@
 ﻿namespace Omniverse
 {
-	public partial class Missile
+	public partial class MissileObsolete
 	{
 		private abstract class Behaviour
 		{
-			protected Missile Missile { get; }
+			protected MissileObsolete Missile { get; }
 
-			public Behaviour(Missile missile)
+			public Behaviour(MissileObsolete missile)
 			{
 				Missile = missile;
 			}

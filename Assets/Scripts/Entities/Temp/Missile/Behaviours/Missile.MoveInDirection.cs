@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public partial class Missile
+	public partial class MissileObsolete
 	{
 		private class MoveInDirection : Behaviour
 		{
@@ -10,7 +10,7 @@ namespace Omniverse
 
 			private float Distance { get; set; }
 
-			public MoveInDirection(Missile missile, Vector3 direciton) : base(missile)
+			public MoveInDirection(MissileObsolete missile, Vector3 direciton) : base(missile)
 			{
 				Direction = direciton;
 			}

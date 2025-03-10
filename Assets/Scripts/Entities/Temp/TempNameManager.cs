@@ -13,7 +13,7 @@ namespace Omniverse
 
 		public void Spawn(MissileDesc desc, OmniverseEntity owner, Vector3 position, Vector3 direction)
 		{
-			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
+			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<MissileObsolete>();
 			ObjectResolver.Inject(missile);
 			missile.Initialize(desc, owner, direction);
 			Items.Add(missile);
@@ -21,7 +21,7 @@ namespace Omniverse
 
 		public void Spawn(MissileDesc desc, OmniverseEntity owner, Vector3 position, OmniverseEntity target)
 		{
-			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<Missile>();
+			var missile = Object.Instantiate(desc.Model, position, Quaternion.identity).GetComponent<MissileObsolete>();
 			ObjectResolver.Inject(missile);
 			missile.Initialize(desc, owner, target);
 			Items.Add(missile);
