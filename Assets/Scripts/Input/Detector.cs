@@ -61,7 +61,7 @@ namespace Omniverse.Input
 			DetectableTypes.Remove(typeof(TEntityType));
 		}
 
-		public void Tick(Ray ray, IFactious source)
+		public void Tick(Ray ray, int sourceFactionID)
 		{
 			Target = null;
 
@@ -77,7 +77,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			if (!Filter.Match(source, entity))
+			if (!Filter.Match(sourceFactionID, entity.FactionID))
 			{
 				return;
 			}

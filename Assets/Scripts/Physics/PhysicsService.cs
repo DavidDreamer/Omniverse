@@ -39,7 +39,7 @@ namespace Omniverse
 					continue;
 				}
 
-				if (!filter.Match(source, entity))
+				if (!filter.Match(source.FactionID, entity.FactionID))
 				{
 					continue;
 				}
@@ -66,7 +66,7 @@ namespace Omniverse
 					continue;
 				}
 
-				if (!filter.Match(source, entity))
+				if (!filter.Match(source.FactionID, entity.FactionID))
 				{
 					continue;
 				}

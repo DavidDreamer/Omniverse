@@ -13,8 +13,7 @@ namespace Omniverse.Input
 
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
-		[Inject]
-		private Player Player { get; set; }
+		private Player Player { get; }
 
 		[Inject]
 		private Detector Detector { get; set; }
@@ -38,6 +37,8 @@ namespace Omniverse.Input
 			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
 			CommonActions = inputSystemData.InputActions.Common;
 			AbilitiesActions = inputSystemData.InputActions.Abilities;
+
+			Player = ECSUtils.GetSingleton<Player>();
 		}
 
 		public void LateTick()
@@ -78,8 +79,8 @@ namespace Omniverse.Input
 				Detector.SetDefaultDetectableType();
 			}
 
-			IFactious source = Selector.HasSelection ? Selector.SelectedUnit : Player;
-			Detector.Tick(ray, source);
+			int sourceFactionID = Selector.HasSelection ? Selector.SelectedUnit.FactionID : Player.FactionID;
+			Detector.Tick(ray, sourceFactionID);
 
 			if (abilityInProcess)
 			{

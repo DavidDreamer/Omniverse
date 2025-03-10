@@ -1,7 +1,9 @@
-﻿namespace Omniverse
+﻿using Unity.Entities;
+
+namespace Omniverse
 {
-	public class Player : IFactious
+	public struct Player : IComponentData
 	{
-		public int FactionID { get; set; }
+		public int FactionID;
 	}
 }

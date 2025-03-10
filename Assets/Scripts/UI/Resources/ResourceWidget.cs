@@ -18,13 +18,14 @@ namespace Omniverse.UI
 		[Inject]
 		private FactionManager FactionManager { get; set; }
 
-		[Inject]
 		private Player Player { get; set; }
 
 		public void Initialize(ResourceDesc resourceDesc)
 		{
 			ResourceDesc = resourceDesc;
 			Icon.sprite = resourceDesc.Icon;
+
+			Player = ECSUtils.GetSingleton<Player>();
 		}
 
 		public void LateTick()

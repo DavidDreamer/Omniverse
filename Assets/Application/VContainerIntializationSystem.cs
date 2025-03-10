@@ -2,6 +2,7 @@
 using Omniverse.Entities.Units;
 using Unity.Entities;
 using UnityEngine;
+
 /// <summary>
 /// TEMP for backward compatability.
 /// </summary>

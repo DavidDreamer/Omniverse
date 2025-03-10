@@ -27,8 +27,6 @@ namespace Omniverse
 			builder.Register<PhysicsService>(Lifetime.Singleton).WithParameter(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 
-			builder.Register<Player>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
 			InputInstaller.Install(builder);
 		}
 	}

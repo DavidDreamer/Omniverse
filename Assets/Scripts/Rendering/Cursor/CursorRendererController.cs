@@ -10,8 +10,7 @@ namespace Omniverse.Rendering
 	{
 		private CursorRendererConfig Config { get; }
 
-		[Inject]
-		private Player Player { get; set; }
+		private Player Player { get; }
 
 		[Inject]
 		private Detector Detector { get; set; }
@@ -22,6 +21,7 @@ namespace Omniverse.Rendering
 		public CursorRendererController(CursorRendererConfig config)
 		{
 			Config = config;
+			Player = ECSUtils.GetSingleton<Player>();
 		}
 
 		public void LateTick()
@@ -36,7 +36,7 @@ namespace Omniverse.Rendering
 				{
 					if (Detector.Target != null)
 					{
-						if (Detector.Target.IsAllyFor(Player))
+						if (Detector.Target.FactionID == Player.FactionID)
 						{
 							return Config.HoverAlly;
 						}

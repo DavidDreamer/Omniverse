@@ -19,8 +19,7 @@ namespace Omniverse.Input
 
 		public int SelectionIndex { get; private set; }
 
-		[Inject]
-		private Player Player { get; set; }
+		private Player Player { get; }
 
 		private InputActions.CommonActions CommonActions { get; set; }
 
@@ -37,6 +36,8 @@ namespace Omniverse.Input
 		{
 			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
 			CommonActions = inputSystemData.InputActions.Common;
+
+			Player = ECSUtils.GetSingleton<Player>();
 		}
 
 		public void Tick(Camera camera, Mouse mouse, OmniverseEntity target)

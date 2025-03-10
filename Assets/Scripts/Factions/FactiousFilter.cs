@@ -13,14 +13,9 @@ namespace Omniverse
 
 	public static class FactiousFilterUtils
 	{
-		public static bool Match(this FactiousFilter filter, IFactious source, IFactious target)
+		public static bool Match(this FactiousFilter filter, int source, int target)
 		{
 			if (source == target)
-			{
-				return filter.HasFlag(FactiousFilter.Self);
-			}
-
-			if (source.IsAllyFor(target))
 			{
 				return filter.HasFlag(FactiousFilter.Ally);
 			}
@@ -34,7 +29,7 @@ namespace Omniverse
 		{
 			foreach (IFactious item in items)
 			{
-				if (filter.Match(source, item))
+				if (filter.Match(source.FactionID, item.FactionID))
 				{
 					yield return item;
 				}

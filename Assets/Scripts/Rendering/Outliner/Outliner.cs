@@ -6,9 +6,8 @@ using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class Outliner : ILateTickable
+	public class Outliner : IInitializable, ILateTickable
 	{
-		[Inject]
 		private Player Player { get; set; }
 
 		[Inject]
@@ -16,6 +15,11 @@ namespace Omniverse.Rendering
 
 		[Inject]
 		public OutlineRenderer OutlineRenderer { get; private set; }
+
+		public void Initialize()
+		{
+			Player = ECSUtils.GetSingleton<Player>();
+		}
 
 		public void LateTick()
 		{
