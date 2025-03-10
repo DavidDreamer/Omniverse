@@ -10,11 +10,16 @@ namespace Omniverse.Input
 	{
 		public event Action<Vector3> NavigationPointCreated;
 
-		[Inject]
-		private InputActions.CommonActions CommonActions { get; set; }
+		private InputActions.CommonActions CommonActions { get; }
 
 		[Inject]
 		private Selector Selector { get; set; }
+
+		public UnitController()
+		{
+			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
+			CommonActions = inputSystemData.InputActions.Common;
+		}
 
 		public void Tick(OmniverseEntity target, Vector3? position)
 		{

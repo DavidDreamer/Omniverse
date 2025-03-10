@@ -9,10 +9,8 @@ namespace Omniverse.Input
 {
 	public class InputController : ILateTickable
 	{
-		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
-		[Inject]
 		private InputActions.AbilitiesActions AbilitiesActions { get; set; }
 
 		[Inject]
@@ -34,6 +32,13 @@ namespace Omniverse.Input
 		private AbilityController AbilityController { get; set; }
 
 		public Vector3? CursorWorldPosition { get; private set; }
+
+		private InputController()
+		{
+			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
+			CommonActions = inputSystemData.InputActions.Common;
+			AbilitiesActions = inputSystemData.InputActions.Abilities;
+		}
 
 		public void LateTick()
 		{

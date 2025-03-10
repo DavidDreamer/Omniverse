@@ -6,18 +6,20 @@ namespace Omniverse.Input
 {
 	public class AbilityController
 	{
-		[Inject]
-		private InputActions.CommonActions CommonActions { get; set; }
+		private InputActions.CommonActions CommonActions { get; }
 
 		[Inject]
 		private ErrorHandler ErrorHandler { get; set; }
 
-		[Inject]
-		private Detector EntityDetector { get; set; }
-
 		public UnitObsolete ActiveUnit { get; private set; }
 
 		public Ability ActiveAbility { get; private set; }
+
+		public AbilityController()
+		{
+			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
+			CommonActions = inputSystemData.InputActions.Common;
+		}
 
 		public void Process(UnitObsolete unit, Ability ability)
 		{
@@ -62,10 +64,12 @@ namespace Omniverse.Input
 
 		public void ProcessAbility(OmniverseEntity target, Vector3? cursorWorldPosition, bool additiveMode)
 		{
+
 			switch (ActiveAbility.Desc.Target)
 			{
 				case VectorTarget vectorTarget:
 				{
+
 					if (!CommonActions.Select.WasPressedThisFrame())
 					{
 						return;

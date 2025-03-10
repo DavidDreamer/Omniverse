@@ -9,4 +9,13 @@ public static class ECSUtils
 		query.Dispose();
 		return singleton;
 	}
+
+	public static T GetSingletonManaged<T>() where T : class, IComponentData
+	{
+		var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+		var query = entityManager.CreateEntityQuery(new ComponentType[] { typeof(T) });
+		T singleton = EntityQueryManagedComponentExtensions.GetSingleton<T>(query);
+		query.Dispose();
+		return singleton;
+	}
 }

@@ -22,7 +22,6 @@ namespace Omniverse.Input
 		[Inject]
 		private Player Player { get; set; }
 
-		[Inject]
 		private InputActions.CommonActions CommonActions { get; set; }
 
 		[Inject]
@@ -33,6 +32,12 @@ namespace Omniverse.Input
 		public Vector2 EndPosition { get; private set; }
 
 		public bool InProcess { get; private set; }
+
+		public Selector()
+		{
+			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
+			CommonActions = inputSystemData.InputActions.Common;
+		}
 
 		public void Tick(Camera camera, Mouse mouse, OmniverseEntity target)
 		{

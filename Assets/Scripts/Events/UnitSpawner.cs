@@ -12,7 +12,7 @@ namespace Omniverse.Entities.Units
 
 		public int FactionID;
 
-		public void Start()
+		public void Spawn()
 		{
 			UnitManager.Spawn(UnitDesc, FactionID, transform.position);
 		}

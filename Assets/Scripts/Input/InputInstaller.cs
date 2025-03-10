@@ -12,13 +12,6 @@ namespace Omniverse.Input
 
 		public void Install(IContainerBuilder builder)
 		{
-			var inputActions = new InputActions();
-			builder.RegisterInstance(inputActions.Common);
-			builder.RegisterInstance(inputActions.Abilities);
-
-			inputActions.Abilities.Enable();
-			inputActions.Common.Enable();
-
 			builder.Register<Detector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.RegisterEntryPoint<ErrorHandler>().AsSelf();
