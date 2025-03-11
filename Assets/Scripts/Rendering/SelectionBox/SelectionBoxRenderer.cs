@@ -2,15 +2,20 @@
 using Omniverse.Input;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>
+	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>, IInitializable
 	{
 		[Inject]
 		public Selector Selector { get; private set; }
 
 		private Material Material { get; set; }
+
+		public void Initialize()
+		{
+		}
 
 		protected override SelectionBoxRendererPass Setup(SelectionBoxRendererConfig config)
 		{
