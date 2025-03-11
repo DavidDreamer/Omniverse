@@ -1,5 +1,6 @@
 ﻿using Dreambox.Rendering.Universal;
 using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -10,8 +11,7 @@ namespace Omniverse.Rendering
 	{
 		private Player Player { get; set; }
 
-		[Inject]
-		public Detector Detector { get; private set; }
+		public EntityDetector EntityDetector { get; private set; }
 
 		[Inject]
 		public OutlineRenderer OutlineRenderer { get; private set; }
@@ -19,30 +19,29 @@ namespace Omniverse.Rendering
 		public void Initialize()
 		{
 			Player = ECSUtils.GetSingleton<Player>();
+			EntityDetector = ECSUtils.GetSingleton<EntityDetector>();
 		}
 
 		public void LateTick()
 		{
 			OutlineRenderer.Clear();
 
-			OmniverseEntity entity = Detector.Target;
-
-			if (entity == null)
+			if (EntityDetector.Entity == Entity.Null)
 			{
 				return;
 			}
 
-			//TODO
-			var entityRenderer = entity.GetComponentInChildren<IRendererComponent>();
-			if (entityRenderer != null)
-			{
-				foreach (Renderer renderer in entityRenderer.Renderers)
-				{
-					int variant = GetOutlineVariant(entity);
-					var outlineTarget = new OutlineTarget(renderer, variant);
-					OutlineRenderer.AddTarget(outlineTarget);
-				}
-			}
+			////TODO
+			//var entityRenderer = entity.GetComponentInChildren<IRendererComponent>();
+			//if (entityRenderer != null)
+			//{
+			//	foreach (Renderer renderer in entityRenderer.Renderers)
+			//	{
+			//		int variant = GetOutlineVariant(entity);
+			//		var outlineTarget = new OutlineTarget(renderer, variant);
+			//		OutlineRenderer.AddTarget(outlineTarget);
+			//	}
+			//}
 		}
 
 		private int GetOutlineVariant(OmniverseEntity entity)

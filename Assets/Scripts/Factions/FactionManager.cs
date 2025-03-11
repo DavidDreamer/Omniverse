@@ -7,7 +7,7 @@ namespace Omniverse
 	[UnityEngine.Scripting.Preserve]
 	public class FactionManager : IInitializable
 	{
-		public Dictionary<int, Faction> Factions { get; } = new();
+		public Dictionary<int, FactionObsolete> Factions { get; } = new();
 
 		[Inject]
 		private FactionDesc[] FactionDescs { get; set; }
@@ -20,7 +20,7 @@ namespace Omniverse
 			for (var i = 0; i < FactionDescs.Length; i++)
 			{
 				FactionDesc desc = FactionDescs[i];
-				Factions.Add(i, new Faction(i, desc, ResourceDescs));
+				Factions.Add(i, new FactionObsolete(i, desc, ResourceDescs));
 			}
 		}
 	}

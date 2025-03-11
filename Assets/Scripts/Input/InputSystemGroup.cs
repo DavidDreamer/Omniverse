@@ -10,6 +10,11 @@ namespace Omniverse.Input
 		public InputActions InputActions;
 	}
 
+	public struct EntityDetector : IComponentData
+	{
+		public Entity Entity;
+	}
+
 	public partial class InputSystemGroup : ComponentSystemGroup
 	{
 		protected override void OnCreate()
@@ -33,9 +38,15 @@ namespace Omniverse.Input
 		[UpdateInGroup(typeof(InputSystemGroup))]
 		public partial struct DetectEntity : ISystem
 		{
+			public void OnCreate(ref SystemState state)
+			{
+				state.EntityManager.CreateSingleton<EntityDetector>();
+			}
+
 			public void OnUpdate(ref SystemState state)
 			{
 				var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
+				var entityDetector = SystemAPI.GetSingleton<EntityDetector>();
 				
 				Camera camera = Camera.main;
 
@@ -61,8 +72,14 @@ namespace Omniverse.Input
 
 				if (physicsWorld.CastRay(input, out Unity.Physics.RaycastHit raycastHit))
 				{
-					Debug.Log(raycastHit.Entity.ToString());
+					entityDetector.Entity = raycastHit.Entity;
 				}
+				else
+				{
+					entityDetector.Entity = Entity.Null;
+				}
+
+				SystemAPI.SetSingleton(entityDetector);
 			}
 		}
 	}

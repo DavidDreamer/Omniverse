@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -10,18 +11,12 @@ namespace Omniverse.Rendering
 	{
 		private CursorRendererConfig Config { get; }
 
-		private Player Player { get; }
-
-		[Inject]
-		private Detector Detector { get; set; }
-
 		[Inject]
 		private AbilityController AbilityController { get; set; }
 
 		public CursorRendererController(CursorRendererConfig config)
 		{
 			Config = config;
-			Player = ECSUtils.GetSingleton<Player>();
 		}
 
 		public void LateTick()
@@ -32,18 +27,28 @@ namespace Omniverse.Rendering
 
 			CursorParams GetCursorParams()
 			{
+				var player = ECSUtils.GetSingleton<Player>();
+				var entityDetector = ECSUtils.GetSingleton<EntityDetector>();
+				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+				Entity entity = entityDetector.Entity;
+
 				if (AbilityController.ActiveAbility == null)
 				{
-					if (Detector.Target != null)
+					if (entity != Entity.Null)
 					{
-						if (Detector.Target.FactionID == Player.FactionID)
+						if (entityManager.HasComponent<Faction>(entity))
 						{
-							return Config.HoverAlly;
+							var faction = entityManager.GetComponentData<Faction>(entity);
+							if (faction.ID == player.FactionID)
+							{
+								return Config.HoverAlly;
+							}
+							else
+							{
+								return Config.HoverEnemy;
+							}
 						}
-						else
-						{
-							return Config.HoverEnemy;
-						}
+				
 					}
 
 					return Config.Default;
@@ -53,7 +58,7 @@ namespace Omniverse.Rendering
 					switch (AbilityController.ActiveAbility.Desc.Target)
 					{
 						case UnitTarget:
-							return Detector.Target is UnitObsolete ? Config.TargetUnit : Config.TargetInvalid;
+							return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
 						default:
 							return Config.TargetDefault;
 					}

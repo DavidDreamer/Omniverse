@@ -10,7 +10,7 @@ namespace Omniverse
 		public void Extract(ResourceSource resourceSource, int amount, int factionID)
 		{
 			resourceSource.Extract(ref amount);
-			Faction faction = FactionManager.Factions[factionID];
+			FactionObsolete faction = FactionManager.Factions[factionID];
 			faction.ChangeResource(resourceSource.Desc.Resource, amount);
 		}
 	}
