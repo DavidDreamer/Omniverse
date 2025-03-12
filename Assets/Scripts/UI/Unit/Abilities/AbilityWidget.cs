@@ -3,7 +3,6 @@ using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -33,12 +32,6 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Material OnCooldownMaterial { get; set; }
 
-		[Inject]
-		private AbilityController AbilityController { get; set; }
-
-		[Inject]
-		private Selector Selector { get; set; }
-
 		private Ability Ability { get; set; }
 
 		public void Bind(Ability ability)
@@ -62,7 +55,9 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					AbilityController.Process(Selector.SelectedUnit, Ability);
+					var selection = ECSUtils.GetSingleton<Selection>();
+					//TODO ECS
+					//AbilityController.Process(selection.Entity, Ability);
 					break;
 			}
 		}
@@ -83,7 +78,8 @@ namespace Omniverse.UI
 
 		public void Tick()
 		{
-			Activator.enabled = AbilityController.ActiveAbility == Ability;
+			//TODO ECS
+			//Activator.enabled = AbilityController.ActiveAbility == Ability;
 
 			Casting.Tick();
 

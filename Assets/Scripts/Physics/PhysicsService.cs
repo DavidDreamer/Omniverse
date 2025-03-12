@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Physics;
 using UnityEngine;
 
 namespace Omniverse
 {
 	public static class PhysicsService
 	{
-		private static Collider[] Colliders { get; } = new Collider[128];
+		private static UnityEngine.Collider[] Colliders { get; } = new UnityEngine.Collider[128];
 
-		public static OmniverseEntity GetEntity(Ray ray)
+		public static OmniverseEntity GetEntity(UnityEngine.Ray ray)
 		{
 			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
 
-			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, settings.HitboxLayerMask))
+			if (Physics.Raycast(ray, out UnityEngine.RaycastHit hitInfo, float.MaxValue, settings.HitboxLayerMask))
 			{
 				return hitInfo.collider.GetComponentInParent<OmniverseEntity>();
 			}
@@ -108,7 +111,7 @@ namespace Omniverse
 
 		public static Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
 		{
-			Ray ray = camera.ScreenPointToRay(screenPosition);
+			UnityEngine.Ray ray = camera.ScreenPointToRay(screenPosition);
 			Vector3 worldPlaneNormal = Vector3.up;
 			Vector3 projection = Vector3.ProjectOnPlane(ray.direction, worldPlaneNormal);
 			float angle = Vector3.Angle(ray.direction, projection) * Mathf.Deg2Rad;
@@ -118,7 +121,7 @@ namespace Omniverse
 			return point;
 		}
 
-		public static IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : OmniverseEntity
+		public static IEnumerable<Entity> GetEntitiesInScreenRect(Camera camera, Vector3 start, Vector3 end)
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);
@@ -131,21 +134,24 @@ namespace Omniverse
 
 			Vector3 halfExtens = new(width, height, length);
 
+			var physicsWorldSingleton = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
 			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
 
-			int count = Physics.OverlapBoxNonAlloc(center, halfExtens, Colliders, Quaternion.identity, settings.HitboxLayerMask);
-
-			for (int i = 0; i < count; ++i)
+			var hits = new NativeList<DistanceHit>(Allocator.Temp);
+			var filter = new CollisionFilter()
 			{
-				var entity = Colliders[i].GetComponentInParent<TEntity>();
+				BelongsTo = ~0u,
+				CollidesWith = ~0u,
+			};
 
-				if (entity == null)
-				{
-					continue;
-				}
+			physicsWorldSingleton.OverlapBox(center, Quaternion.identity, halfExtens, ref hits, filter);
 
-				yield return entity;
+			foreach (DistanceHit hit in hits)
+			{
+				yield return hit.Entity;
 			}
+
+			hits.Dispose();
 		}
 	}
 }

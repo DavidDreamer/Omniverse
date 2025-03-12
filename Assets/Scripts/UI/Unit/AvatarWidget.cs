@@ -1,9 +1,10 @@
 ﻿using Omniverse.Input;
 using TMPro;
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -15,13 +16,13 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Name { get; set; }
 
-		[Inject]
-		private Selector Selector { get; set; }
-
-		public void Bind(UnitObsolete unit)
+		public void Bind(Entity entity)
 		{
-			Icon.sprite = unit.Desc.Icon;
-			Name.text = unit.Desc.Name;
+			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var metaData = entityManager.GetComponentData<MetaData>(entity);
+
+			Icon.sprite = metaData.GetIcon();
+			Name.text = metaData.Name.ToString();
 		}
 
 		public void OnPointerClick(PointerEventData eventData)
@@ -29,8 +30,10 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					UnitObsolete selectedUnit = Selector.SelectedUnit;
-					Vector3 selectedUnitPosition = selectedUnit.transform.position;
+					var selection = ECSUtils.GetSingleton<Selection>();
+					Entity selectedUnit = selection.Entity;
+					var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+					Vector3 selectedUnitPosition = entityManager.GetComponentData<LocalToWorld>(selectedUnit).Position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
 					Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 					break;

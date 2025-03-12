@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -20,27 +21,27 @@ namespace Omniverse.UI
 		public List<InventorySlotWidget> Slots { get; } = new();
 
 		[Inject]
-		private Selector Selector { get; set; }
-
-		[Inject]
 		private IObjectResolver ObjectResolver { get; set; }
 
 		public void LateUpdate()
 		{
-			if (Selector.HasSelection is false)
+			var selection = ECSUtils.GetSingleton<Selection>();
+
+			if (selection.HasSelection is false)
 			{
 				return;
 			}
 
-			UnitObsolete unit = Selector.SelectedUnit;
+			Entity unit = selection.Entity;
 
-			UpdateSlotsCount(unit.Inventory.Slots.Count);
+			//TODO ECS
+			//UpdateSlotsCount(unit.Inventory.Slots.Count);
 
-			for (var i = 0; i < unit.Inventory.Slots.Count; i++)
-			{
-				InventorySlot inventorySlot = unit.Inventory.Slots[i];
-				Slots[i].Bind(inventorySlot);
-			}
+			//for (var i = 0; i < unit.Inventory.Slots.Count; i++)
+			//{
+			//	InventorySlot inventorySlot = unit.Inventory.Slots[i];
+			//	Slots[i].Bind(inventorySlot);
+			//}
 		}
 
 		private void UpdateSlotsCount(int count)

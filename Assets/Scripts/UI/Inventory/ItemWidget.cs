@@ -3,7 +3,6 @@ using Omniverse.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -15,12 +14,6 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Image Highlight { get; set; }
 
-		[Inject]
-		private AbilityController AbilityController { get; set; }
-
-		[Inject]
-		private Selector Selector { get; set; }
-
 		private Item Item { get; set; }
 
 		public void Bind(Item item)
@@ -31,12 +24,15 @@ namespace Omniverse.UI
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
+			var selection = ECSUtils.GetSingleton<Selection>();
+
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
 					if (Item.Ability is not null)
 					{
-						AbilityController.Process(Selector.SelectedUnit, Item.Ability);
+						//TODO ECS
+						//AbilityController.Process(selection.Entity, Item.Ability);
 					}
 					break;
 			}

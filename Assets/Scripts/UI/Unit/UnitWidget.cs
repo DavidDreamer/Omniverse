@@ -1,11 +1,11 @@
 using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class UnitWidget : MonoBehaviour, ILateTickable
+	public class UnitWidget : MonoBehaviour, IInitializable
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
@@ -30,12 +30,15 @@ namespace Omniverse.UI
 
 		public PropertyBarWidget Health;
 
-		[Inject]
-		private Selector Selector { get; set; }
-
-		public void LateTick()
+		public void Initialize()
 		{
-			bool hasSelection = Selector.SelectedUnits.Count > 0;
+		}
+
+		public void LateUpdate()
+		{
+			var selection = ECSUtils.GetSingleton<Selection>();
+
+			bool hasSelection = selection.HasSelection;
 
 			Canvas.enabled = hasSelection;
 
@@ -44,22 +47,23 @@ namespace Omniverse.UI
 				return;
 			}
 
-			UnitObsolete unit = Selector.SelectedUnit;
+			Entity unit = selection.Entity;
 
 			Avatar.Bind(unit);
-			Health.Bind(unit);
+			//TODO ECS
+			//Health.Bind(unit);
 
-			AbilityBar.Bind(unit);
-			AbilityBar.Tick();
+			//AbilityBar.Bind(unit);
+			//AbilityBar.Tick();
 
-			EffectsBar.Bind(unit);
-			EffectsBar.Tick();
+			//EffectsBar.Bind(unit);
+			//EffectsBar.Tick();
 
-			Experience.Bind(unit.Experience);
-			Properties.Bind(unit);
+			//Experience.Bind(unit.Experience);
+			//Properties.Bind(unit);
 
-			ActionBar.Bind(unit);
-			ActionBar.Tick();
+			//ActionBar.Bind(unit);
+			//ActionBar.Tick();
 		}
 	}
 }

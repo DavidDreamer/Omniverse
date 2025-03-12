@@ -2,6 +2,8 @@
 using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using Omniverse.Input;
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
@@ -32,8 +34,8 @@ namespace Omniverse.Rendering
 		{
 			Renderer = renderer;
 
-			Matrices = new Matrix4x4[Selector.Capacity];
-			Colors = new Vector4[Selector.Capacity];
+			Matrices = new Matrix4x4[Selection.Capacity];
+			Colors = new Vector4[Selection.Capacity];
 			MaterialPropertyBlock = new MaterialPropertyBlock();
 		}
 
@@ -56,16 +58,21 @@ namespace Omniverse.Rendering
 			RasterCommandBuffer commandBuffer = context.cmd;
 
 			SelectionRendererConfig config = Renderer.Config;
-			Selector selector = Renderer.Selector;
 
+			Player player = ECSUtils.GetSingleton<Player>();
+			Selection selection = ECSUtils.GetSingleton<Selection>();
+			
 			MaterialPropertyBlock.Clear();
 
 			int i = 0;
-			foreach (UnitObsolete unit in selector.SelectedUnits)
+			foreach (Entity entity in selection.Entities)
 			{
-				Matrices[i] = unit.transform.localToWorldMatrix * MatrixUtils.WorldUpRotation;
-				Colors[i] = Renderer.Player.FactionID == unit.FactionID ?
-					selector.SelectedUnit == unit ? config.MainSelectionColor : config.AllyColor :
+				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
+				var faction = entityManager.GetComponentData<Faction>(entity);
+				Matrices[i] = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
+				Colors[i] = player.FactionID == faction.ID ?
+					selection.Entity == entity ? config.MainSelectionColor : config.AllyColor :
 					config.EnemyColor;
 				i++;
 			}
@@ -79,7 +86,7 @@ namespace Omniverse.Rendering
 				drawMeshParams.Material,
 				drawMeshParams.ShaderPass,
 				Matrices,
-				selector.SelectedUnits.Count,
+				selection.Entities.Length,
 				MaterialPropertyBlock);
 		}
 	}

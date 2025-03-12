@@ -1,16 +1,12 @@
 ﻿using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
 	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>, IInitializable
 	{
-		[Inject]
-		public Selector Selector { get; private set; }
-
 		private Material Material { get; set; }
 
 		public void Initialize()
@@ -24,37 +20,39 @@ namespace Omniverse.Rendering
 			return pass;
 		}
 
-		protected override bool IsInactive() => !Selector.InProcess;
+		protected override bool IsInactive() => !ECSUtils.GetSingleton<Selection>().InProcess;
 
 		private void LateUpdate()
 		{
-			if (!Selector.InProcess)
+			var selection = ECSUtils.GetSingleton<Selection>();
+
+			if (!selection.InProcess)
 			{
 				return;
 			}
 
 			float x, z, y, w;
 
-			if (Selector.StartPosition.x > Selector.EndPosition.x)
+			if (selection.StartPosition.x > selection.EndPosition.x)
 			{
-				x = Selector.EndPosition.x;
-				z = Selector.StartPosition.x;
+				x = selection.EndPosition.x;
+				z = selection.StartPosition.x;
 			}
 			else
 			{
-				x = Selector.StartPosition.x;
-				z = Selector.EndPosition.x;
+				x = selection.StartPosition.x;
+				z = selection.EndPosition.x;
 			}
 
-			if (Selector.StartPosition.y > Selector.EndPosition.y)
+			if (selection.StartPosition.y > selection.EndPosition.y)
 			{
-				y = Selector.EndPosition.y;
-				w = Selector.StartPosition.y;
+				y = selection.EndPosition.y;
+				w = selection.StartPosition.y;
 			}
 			else
 			{
-				y = Selector.StartPosition.y;
-				w = Selector.EndPosition.y;
+				y = selection.StartPosition.y;
+				w = selection.EndPosition.y;
 			}
 
 			Vector4 selectionBox = new(x, y, z, w);

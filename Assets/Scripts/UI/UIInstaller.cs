@@ -37,8 +37,7 @@ namespace Omniverse.UI
 
 			void RegisterWidget<T>(T component) where T : Component
 			{
-				builder.RegisterComponentInNewPrefab(component, Lifetime.Singleton).UnderTransform(transform)
-					.AsImplementedInterfaces().AsSelf();
+				builder.RegisterComponentInNewPrefab(component, Lifetime.Singleton).UnderTransform(transform).AsSelf().AsImplementedInterfaces();
 			}
 		}
 	}

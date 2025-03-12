@@ -1,11 +1,10 @@
 ﻿using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class UnitSelectorWidget : MonoBehaviour, ILateTickable
+	public class UnitSelectorWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
@@ -13,20 +12,19 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private UnitSelectorItem[] Items { get; set; }
 
-		[Inject]
-		private Selector Selector { get; set; }
-
 		private void OnValidate()
 		{
 			Items = GetComponentsInChildren<UnitSelectorItem>();
 		}
 
-		public void LateTick()
+		public void LateUpdate()
 		{
-			var selectedUnits = Selector.SelectedUnits;
-			int selectedUnitsCount = selectedUnits.Count;
+			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var selection = ECSUtils.GetSingleton<Selection>();
+			var entities = selection.Entities;
+			int selectedEntitiesCount = entities.Length;
 
-			bool multipleUnitsSelected = selectedUnitsCount > 1;
+			bool multipleUnitsSelected = selectedEntitiesCount > 1;
 
 			Canvas.enabled = multipleUnitsSelected;
 
@@ -36,11 +34,12 @@ namespace Omniverse.UI
 			}
 
 			int i = 0;
-			foreach (UnitObsolete unit in selectedUnits)
+			foreach (Entity entity in entities)
 			{
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);
-				item.Icon.sprite = unit.Desc.Icon;
+				var metaData = entityManager.GetComponentData<MetaData>(entity);
+				item.Icon.sprite = metaData.GetIcon();
 				i++;
 			}
 

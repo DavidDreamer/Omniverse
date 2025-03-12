@@ -1,8 +1,7 @@
-﻿using Omniverse.Abilities;
+﻿using System;
 using Omniverse.Input;
 using Unity.Entities;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.Rendering
@@ -10,9 +9,6 @@ namespace Omniverse.Rendering
 	public class CursorRendererController : ILateTickable
 	{
 		private CursorRendererConfig Config { get; }
-
-		[Inject]
-		private AbilityController AbilityController { get; set; }
 
 		public CursorRendererController(CursorRendererConfig config)
 		{
@@ -28,11 +24,13 @@ namespace Omniverse.Rendering
 			CursorParams GetCursorParams()
 			{
 				var player = ECSUtils.GetSingleton<Player>();
-				var entityDetector = ECSUtils.GetSingleton<EntityDetector>();
+				var entityDetector = ECSUtils.GetSingleton<Pointer>();
+				var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
+
 				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 				Entity entity = entityDetector.Entity;
 
-				if (AbilityController.ActiveAbility == null)
+				if (abilityInput.Ability == Entity.Null)
 				{
 					if (entity != Entity.Null)
 					{
@@ -55,13 +53,16 @@ namespace Omniverse.Rendering
 				}
 				else
 				{
-					switch (AbilityController.ActiveAbility.Desc.Target)
-					{
-						case UnitTarget:
-							return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
-						default:
-							return Config.TargetDefault;
-					}
+					return Config.TargetDefault;
+
+					//TODO ECS
+					//switch (AbilityController.ActiveAbility.Desc.Target)
+					//{
+					//	case UnitTarget:
+					//		return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
+					//	default:
+					//		return Config.TargetDefault;
+					//}
 				}
 			}
 		}

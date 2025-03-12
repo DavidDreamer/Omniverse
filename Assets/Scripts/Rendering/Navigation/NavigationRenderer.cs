@@ -4,7 +4,6 @@ using Dreambox.Core;
 using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Omniverse.Rendering
@@ -13,21 +12,18 @@ namespace Omniverse.Rendering
 	{
 		private Queue<NavigationPoint> Points { get; } = new();
 
-		[Inject]
-		public UnitController UnitController { get; private set; }
-
 		protected override NavigationRenderPass Setup(NavigationRendererConfig config) => new(config, Points);
 
 		protected override bool IsInactive() => Points.Count == 0;
 
 		public void Initialize()
 		{
-			UnitController.NavigationPointCreated += OnNavigationPointCreated;
+			ProcessCommandInputSystem.NavigationPointCreated += OnNavigationPointCreated;
 		}
 
 		public void Dispose()
 		{
-			UnitController.NavigationPointCreated -= OnNavigationPointCreated;
+			ProcessCommandInputSystem.NavigationPointCreated -= OnNavigationPointCreated;
 		}
 
 		public void LateTick()

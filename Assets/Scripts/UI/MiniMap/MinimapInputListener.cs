@@ -14,9 +14,6 @@ namespace Omniverse.UI
 		[field: HideInInspector]
 		private Canvas Canvas { get; set; }
 
-		[Inject]
-		private UnitController UnitController { get; set; }
-
 		private bool MovingEnabled { get; set; }
 
 		private void OnValidate()
@@ -65,7 +62,8 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Right:
 					{
 						Vector3 position = TransformPosition(eventData.position);
-						UnitController.ProcessNavigationPoint(position);
+						//TODO ECS
+						//UnitController.ProcessNavigationPoint(position);
 						break;
 					}
 			}

@@ -23,8 +23,11 @@ namespace Omniverse.Input
 			Cursor.lockState = CursorLockMode.Confined;
 		}
 
-		public void Tick(Mouse mouse, float deltaTime)
+		public void Tick()
 		{
+			Mouse mouse = Mouse.current;
+			float deltaTime = Time.deltaTime;
+
 			Vector3 position = Camera.transform.position;
 
 			ProcessSnapping(ref position);
