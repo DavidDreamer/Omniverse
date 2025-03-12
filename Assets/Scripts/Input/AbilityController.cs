@@ -1,15 +1,11 @@
 ﻿using Omniverse.Abilities;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse.Input
 {
 	public class AbilityController
 	{
 		private InputActions.CommonActions CommonActions { get; }
-
-		[Inject]
-		private ErrorHandler ErrorHandler { get; set; }
 
 		public UnitObsolete ActiveUnit { get; private set; }
 
@@ -38,7 +34,6 @@ namespace Omniverse.Input
 
 			if (error is not AbilityCastError.None)
 			{
-				ErrorHandler.Hadle(error.ToString());
 				return;
 			}
 
