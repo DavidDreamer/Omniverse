@@ -13,12 +13,12 @@ namespace Omniverse
 
 		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, None input)
 		{
-			yield return actor.PhysicsService.GetClosestEntity<UnitObsolete>(actor, Radius, Filter);
+			yield return PhysicsService.GetClosestEntity<UnitObsolete>(actor, Radius, Filter);
 		}
 
 		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, UnitObsolete input)
 		{
-			yield return actor.PhysicsService.GetClosestEntity<UnitObsolete>(input, Radius, Filter);
+			yield return PhysicsService.GetClosestEntity<UnitObsolete>(input, Radius, Filter);
 		}
 	}
 }

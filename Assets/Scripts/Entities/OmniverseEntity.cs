@@ -35,9 +35,6 @@ namespace Omniverse
 		[Inject]
 		protected TempNameManager TempNameManager { get; set; }
 
-		[Inject]
-		public PhysicsService PhysicsService { get; private set; }
-
 		public void ChangeFaction(int factionID)
 		{
 			FactionID = factionID;

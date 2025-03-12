@@ -3,20 +3,15 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class PhysicsService
+	public static class PhysicsService
 	{
-		private PhysicsSettings Settings { get; }
+		private static Collider[] Colliders { get; } = new Collider[128];
 
-		private Collider[] Colliders { get; } = new Collider[128];
-
-		public PhysicsService(PhysicsSettings settings)
+		public static OmniverseEntity GetEntity(Ray ray)
 		{
-			Settings = settings;
-		}
+			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
 
-		public OmniverseEntity GetEntity(Ray ray)
-		{
-			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, Settings.HitboxLayerMask))
+			if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, settings.HitboxLayerMask))
 			{
 				return hitInfo.collider.GetComponentInParent<OmniverseEntity>();
 			}
@@ -24,11 +19,13 @@ namespace Omniverse
 			return null;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
+		public static IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
 		{
 			Vector3 sourcePosition = source.transform.position;
 
-			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, Settings.HitboxLayerMask);
+			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+
+			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{
@@ -48,11 +45,13 @@ namespace Omniverse
 			}
 		}
 
-		public TEntity GetClosestEntity<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
+		public static TEntity GetClosestEntity<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
 		{
 			Vector3 sourcePosition = source.transform.position;
 
-			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, Settings.HitboxLayerMask);
+			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+
+			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, settings.HitboxLayerMask);
 
 			float minDistance = float.MaxValue;
 			TEntity closestEntity = null;
@@ -83,7 +82,7 @@ namespace Omniverse
 			return closestEntity;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
+		public static IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
 			OmniverseEntity source,
 			Vector3 forward,
 			float radius,
@@ -107,7 +106,7 @@ namespace Omniverse
 			}
 		}
 
-		public Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
+		public static Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
 		{
 			Ray ray = camera.ScreenPointToRay(screenPosition);
 			Vector3 worldPlaneNormal = Vector3.up;
@@ -119,7 +118,7 @@ namespace Omniverse
 			return point;
 		}
 
-		public IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : OmniverseEntity
+		public static IEnumerable<TEntity> GetEntitiesInScreenRect<TEntity>(Camera camera, Vector3 start, Vector3 end) where TEntity : OmniverseEntity
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);
@@ -132,7 +131,9 @@ namespace Omniverse
 
 			Vector3 halfExtens = new(width, height, length);
 
-			int count = Physics.OverlapBoxNonAlloc(center, halfExtens, Colliders, Quaternion.identity, Settings.HitboxLayerMask);
+			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+
+			int count = Physics.OverlapBoxNonAlloc(center, halfExtens, Colliders, Quaternion.identity, settings.HitboxLayerMask);
 
 			for (int i = 0; i < count; ++i)
 			{

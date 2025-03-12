@@ -9,9 +9,6 @@ namespace Omniverse
 	public class OmniverseInstaller : ScriptableObject, IInstaller
 	{
 		[field: SerializeField]
-		private PhysicsSettings PhysicsSettings { get; set; }
-
-		[field: SerializeField]
 		private UnitManagerConfig UnitManagerConfig { get; set; }
 
 		[field: SerializeField]
@@ -19,7 +16,6 @@ namespace Omniverse
 
 		public void Install(IContainerBuilder builder)
 		{
-			builder.Register<PhysicsService>(Lifetime.Singleton).WithParameter(PhysicsSettings);
 			builder.RegisterInstance(UnitManagerConfig);
 
 			InputInstaller.Install(builder);

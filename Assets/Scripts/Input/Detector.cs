@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Omniverse.Abilities;
 using Omniverse.Items;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse.Input
 {
@@ -14,9 +13,6 @@ namespace Omniverse.Input
 		private HashSet<Type> DetectableTypes { get; } = new();
 
 		private FactiousFilter Filter { get; set; }
-
-		[Inject]
-		private PhysicsService PhysicsService { get; set; }
 
 		public void SetDefaultDetectableType()
 		{

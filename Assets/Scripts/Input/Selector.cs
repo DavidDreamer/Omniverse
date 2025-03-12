@@ -2,7 +2,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
 
 namespace Omniverse.Input
 {
@@ -22,9 +21,6 @@ namespace Omniverse.Input
 		private Player Player { get; }
 
 		private InputActions.CommonActions CommonActions { get; set; }
-
-		[Inject]
-		private PhysicsService PhysicsService { get; set; }
 
 		public Vector2 StartPosition { get; private set; }
 
