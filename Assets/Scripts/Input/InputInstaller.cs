@@ -7,9 +7,6 @@ namespace Omniverse.Input
 	[CreateAssetMenu(menuName = "Omniverse/Installer/Input")]
 	public class InputInstaller : ScriptableObject, IInstaller
 	{
-		[field: SerializeField]
-		private CameraControllerConfig CameraControllerConfig { get; set; }
-
 		public void Install(IContainerBuilder builder)
 		{
 			builder.Register<Detector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
@@ -19,9 +16,6 @@ namespace Omniverse.Input
 			builder.Register<Selector>(Lifetime.Singleton).AsSelf();
 			builder.Register<UnitController>(Lifetime.Singleton).AsSelf();
 			builder.RegisterEntryPoint<AbilityController>().AsSelf();
-
-			builder.RegisterInstance(CameraControllerConfig);
-			builder.Register<CameraController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
 			builder.Register<InputController>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 		}

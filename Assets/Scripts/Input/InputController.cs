@@ -22,9 +22,6 @@ namespace Omniverse.Input
 		private Selector Selector { get; set; }
 
 		[Inject]
-		private CameraController CameraController { get; set; }
-
-		[Inject]
 		private UnitController UnitController { get; set; }
 
 		[Inject]
@@ -117,7 +114,7 @@ namespace Omniverse.Input
 
 			if (!Selector.InProcess)
 			{
-				CameraController.Tick(mouse, deltaTime);
+				Object.FindFirstObjectByType<CameraController>().Tick(mouse, deltaTime);
 			}
 		}
 	}

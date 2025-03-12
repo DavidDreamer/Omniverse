@@ -1,21 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.Input
 {
-	public class CameraController : IInitializable
+	public class CameraController : MonoBehaviour
 	{
-		[Inject]
+		[field: SerializeField]
 		private Camera Camera { get; set; }
 
-		[Inject]
+		[field: SerializeField]
 		private CameraControllerConfig Config { get; set; }
 
 		private float CurrentHeight { get; set; }
 
-		public void Initialize()
+		public void Start()
 		{
 			CurrentHeight = Config.HeightRange.Evaluate(Config.DefaultHeight);
 

@@ -17,9 +17,6 @@ namespace Omniverse.UI
 		[Inject]
 		private UnitController UnitController { get; set; }
 
-		[Inject]
-		public CameraController CameraController { get; set; }
-
 		private bool MovingEnabled { get; set; }
 
 		private void OnValidate()
@@ -86,7 +83,7 @@ namespace Omniverse.UI
 		private void MoveCameraToPointerPosition(PointerEventData eventData)
 		{
 			Vector3 viewPoint = TransformPosition(eventData.position);
-			CameraController.SetViewPoint(viewPoint);
+			Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 		}
 	}
 }

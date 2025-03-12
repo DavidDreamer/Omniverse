@@ -16,9 +16,6 @@ namespace Omniverse.UI
 		private TextMeshProUGUI Name { get; set; }
 
 		[Inject]
-		public CameraController CameraController { get; set; }
-
-		[Inject]
 		private Selector Selector { get; set; }
 
 		public void Bind(UnitObsolete unit)
@@ -35,7 +32,7 @@ namespace Omniverse.UI
 					UnitObsolete selectedUnit = Selector.SelectedUnit;
 					Vector3 selectedUnitPosition = selectedUnit.transform.position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
-					CameraController.SetViewPoint(viewPoint);
+					Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 					break;
 			}
 		}
