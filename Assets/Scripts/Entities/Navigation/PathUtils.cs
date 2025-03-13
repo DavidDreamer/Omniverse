@@ -19,7 +19,7 @@
 // The original source code has been modified by Unity Technologies.
 
 // The source code as modified by Unity Technologies has been modified by Reese Schultz.
-
+#pragma warning disable 612, 618
 using System;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -236,3 +236,4 @@ public static class PathUtils
 		return PathQueryStatus.Success;
 	}
 }
+#pragma warning restore 612, 618

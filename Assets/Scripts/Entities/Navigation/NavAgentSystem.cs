@@ -6,6 +6,7 @@ using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 
+#pragma warning disable 612, 618
 namespace Omniverse
 {
 	[BurstCompile]
@@ -134,3 +135,4 @@ namespace Omniverse
 		}
 	}
 }
+#pragma warning restore 612, 618
