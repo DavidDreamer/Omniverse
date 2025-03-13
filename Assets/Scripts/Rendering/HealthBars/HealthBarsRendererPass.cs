@@ -1,4 +1,7 @@
 ﻿using System;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
@@ -66,31 +69,37 @@ namespace Omniverse.Rendering
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
 
-			UnitManager unitManager = Renderer.UnitManager;
-			var units = unitManager.Units;
+			var player = ECSUtils.GetSingleton<Player>();
+
+			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var query = entityManager.CreateEntityQuery(typeof(Health));
+			var entities = query.ToEntityArray(Allocator.Temp);
 
 			MaterialPropertyBlock.Clear();
 
-			int count = Mathf.Min(units.Count, Config.MaxCount);
+			int count = Mathf.Min(entities.Length, Config.MaxCount);
 
 			if (count == 0)
 			{
 				return;
 			}
 
-			for (int i = 0; i < count; i++)
+			for (int i = 0; i < entities.Length; i++)
 			{
-				UnitObsolete unit = units[i];
+				Entity entity = entities[i];
 
-				var matrix = unit.transform.localToWorldMatrix * Matrix4x4.Translate(Config.Offset);
+				var health = entityManager.GetComponentData<Health>(entity);
+				var faction = entityManager.GetComponentData<Faction>(entity);
+				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
+
+				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);
 				Matrices[i] = matrix;
 
-				HealthBarColors colors = Renderer.Player.FactionID == unit.FactionID ? Config.AllyColors : Config.EnemyColors;
+				HealthBarColors colors = player.FactionID == faction.ID ? Config.AllyColors : Config.EnemyColors;
 				BaseColors[i] = colors.BaseColor;
 				SecondColors[i] = colors.SecondColor;
 
-				var healthProperty = unit.Properties[PropertyID.Health];
-				Amounts[i] = healthProperty.Amount / healthProperty.Desc.Range.Max;
+				Amounts[i] = health.Current / health.Maximum;
 			}
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);

@@ -3,18 +3,29 @@ using UnityEngine;
 
 namespace Omniverse
 {
-
 	public class UnitAuthoring : MonoBehaviour
 	{
 		[field: SerializeField]
 		public UnitDesc UnitDesc { get; set; }
+
+		public int FactionID;
 
 		private class Baker : Baker<UnitAuthoring>
 		{
 			public override void Bake(UnitAuthoring authoring)
 			{
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-				AddComponent(entity, new Faction());
+
+				AddComponent(entity, new Faction()
+				{
+					ID = authoring.FactionID
+				});
+
+				AddComponent(entity, new Health()
+				{
+					Maximum = 100,
+					Current = 100
+				});
 			}
 		}
 	}
