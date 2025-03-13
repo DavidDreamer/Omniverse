@@ -4,7 +4,7 @@ namespace Omniverse.Items
 {
 	public class Item : OmniverseEntity<ItemDesc>, IPoolObject
 	{
-		public Ability Ability { get; set; }
+		public AbilityObsolete Ability { get; set; }
 
 		public override void Initialize(ItemDesc desc)
 		{
@@ -12,7 +12,7 @@ namespace Omniverse.Items
 
 			if (desc.Ability is not null)
 			{
-				Ability = new Ability(desc.Ability, this);
+				Ability = new AbilityObsolete(desc.Ability, this);
 			}
 		}
 

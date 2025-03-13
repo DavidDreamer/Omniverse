@@ -6,13 +6,13 @@ namespace Omniverse
 {
 	public class ApproachPositionForAbilityCastCommand : Command
 	{
-		public Ability Ability { get; }
+		public AbilityObsolete Ability { get; }
 
 		public Vector3 Position { get; }
 
 		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
 
-		public ApproachPositionForAbilityCastCommand(UnitObsolete unit, Ability ability, Vector3 position) : base(unit)
+		public ApproachPositionForAbilityCastCommand(UnitObsolete unit, AbilityObsolete ability, Vector3 position) : base(unit)
 		{
 			Ability = ability;
 			Position = position;

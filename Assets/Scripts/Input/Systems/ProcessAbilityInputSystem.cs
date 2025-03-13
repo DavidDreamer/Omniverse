@@ -58,7 +58,7 @@ namespace Omniverse.Input
 
 		}
 
-		public void Process(Entity unit, Ability ability)
+		public void Process(Entity unit, AbilityObsolete ability)
 		{
 			//TODO ECS
 			//if (ActiveAbility == ability)

@@ -38,16 +38,19 @@ namespace Omniverse.UI
 		{
 			Ability = ability;
 
-			Icon.sprite = ability.Desc.Meta.Icon;
+			ability.Icon.LoadAsync();
+			ability.Icon.WaitForCompletion();
+			Icon.sprite = ability.Icon.Result;
 
-			Casting.Bind(Ability.Casting);
+			//TODO ECS
+			//Casting.Bind(Ability.Casting);
 
-			if (Ability.Cooldown is not null)
-			{
-				Cooldown.Bind(Ability.Cooldown);
-			}
+			//if (Ability.Cooldown is not null)
+			//{
+			//	Cooldown.Bind(Ability.Cooldown);
+			//}
 
-			Tooltip.Bind(Ability);
+			//Tooltip.Bind(Ability);
 		}
 
 		public void OnPointerClick(PointerEventData eventData)
@@ -81,13 +84,13 @@ namespace Omniverse.UI
 			//TODO ECS
 			//Activator.enabled = AbilityController.ActiveAbility == Ability;
 
-			Casting.Tick();
+			//Casting.Tick();
 
-			if (Ability.Cooldown is not null)
-			{
-				Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
-				Cooldown.Tick();
-			}
+			//if (Ability.Cooldown is not null)
+			//{
+			//	Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
+			//	Cooldown.Tick();
+			//}
 		}
 	}
 }

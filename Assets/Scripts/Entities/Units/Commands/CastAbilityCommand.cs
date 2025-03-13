@@ -4,11 +4,11 @@ namespace Omniverse
 {
 	public abstract class CastAbilityCommand : Command
 	{
-		public Ability Ability { get; }
+		public AbilityObsolete Ability { get; }
 
 		public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
 
-		protected CastAbilityCommand(UnitObsolete unit, Ability ability) : base(unit)
+		protected CastAbilityCommand(UnitObsolete unit, AbilityObsolete ability) : base(unit)
 		{
 			Ability = ability;
 		}
@@ -60,7 +60,7 @@ namespace Omniverse
 	{
 		private TTarget Target { get; }
 
-		public CastAbilityCommand(UnitObsolete unit, Ability ability, TTarget target) : base(unit, ability)
+		public CastAbilityCommand(UnitObsolete unit, AbilityObsolete ability, TTarget target) : base(unit, ability)
 		{
 			Target = target;
 		}

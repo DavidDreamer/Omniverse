@@ -8,7 +8,7 @@ namespace Omniverse
 	{
 		public event System.Action Died;
 
-		public List<Ability> Abilities { get; } = new();
+		public List<AbilityObsolete> Abilities { get; } = new();
 
 		public bool IsDead { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Omniverse
 
 			foreach (AbilityDesc abilityDesc in Desc.Abilities)
 			{
-				var ability = new Ability(abilityDesc, this);
+				var ability = new AbilityObsolete(abilityDesc, this);
 				Abilities.Add(ability);
 			}
 
@@ -76,7 +76,7 @@ namespace Omniverse
 
 			void UpdateAbilities()
 			{
-				foreach (Ability ability in Abilities)
+				foreach (AbilityObsolete ability in Abilities)
 				{
 					ability.Tick(deltaTime);
 				}

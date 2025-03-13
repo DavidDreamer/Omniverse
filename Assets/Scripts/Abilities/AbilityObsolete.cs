@@ -1,6 +1,18 @@
-﻿namespace Omniverse.Abilities
+﻿using Unity.Collections;
+using Unity.Entities;
+using Unity.Entities.Content;
+using UnityEngine;
+
+namespace Omniverse.Abilities
 {
-	public class Ability
+	public struct Ability : IBufferElementData
+	{
+		public FixedString32Bytes Name;
+
+		public WeakObjectReference<Sprite> Icon;
+	}
+
+	public class AbilityObsolete
 	{
 		public AbilityDesc Desc { get; }
 
@@ -10,7 +22,7 @@
 
 		public Cooldown Cooldown { get; }
 
-		public Ability(AbilityDesc desc, OmniverseEntity entity)
+		public AbilityObsolete(AbilityDesc desc, OmniverseEntity entity)
 		{
 			Desc = desc;
 			Entity = entity;

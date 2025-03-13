@@ -9,7 +9,7 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Name { get; set; }
 
-		public void Bind(Ability ability)
+		public void Bind(AbilityObsolete ability)
 		{
 			Name.text = ability.Desc.Meta.Name.ToUpper();
 		}

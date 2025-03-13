@@ -4,9 +4,9 @@ namespace Omniverse
 {
 	public class CastImmediateAbilityCommand : ImmediateCommand
 	{
-		private Ability Ability { get; }
+		private AbilityObsolete Ability { get; }
 
-		public CastImmediateAbilityCommand(UnitObsolete unit, Ability ability) : base(unit)
+		public CastImmediateAbilityCommand(UnitObsolete unit, AbilityObsolete ability) : base(unit)
 		{
 			Ability = ability;
 		}

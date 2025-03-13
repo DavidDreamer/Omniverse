@@ -47,14 +47,14 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Entity unit = selection.Entity;
+			Entity entity = selection.Entity;
 
-			Avatar.Bind(unit);
+			Avatar.Bind(entity);
 			//TODO ECS
 			//Health.Bind(unit);
 
-			//AbilityBar.Bind(unit);
-			//AbilityBar.Tick();
+			AbilityBar.Bind(entity);
+			AbilityBar.Tick();
 
 			//EffectsBar.Bind(unit);
 			//EffectsBar.Tick();

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Omniverse.Abilities;
 using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {
@@ -18,21 +17,21 @@ namespace Omniverse.UI
 
 		private List<AbilitySlotWidget> Slots { get; } = new();
 
-		private UnitObsolete Unit { get; set; }
+		private Entity Entity { get; set; }
 
-		[Inject]
-		private IObjectResolver ObjectResolver { get; set; }
-
-		public void Bind(UnitObsolete unit)
+		public void Bind(Entity entity)
 		{
-			Unit = unit;
+			Entity = entity;
 
-			int count = unit.Abilities.Count;
-			UpdateSlotsCount(unit.Desc.Abilities.Count);
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			DynamicBuffer<Ability> abilities = entityManager.GetBuffer<Ability>(entity);
+
+			int count = abilities.Length;
+			UpdateSlotsCount(count);
 
 			for (int i = 0; i < count; ++i)
 			{
-				Ability ability = unit.Abilities[i];
+				Ability ability = abilities[i];
 				Slots[i].Bind(ability);
 			}
 		}
@@ -56,7 +55,7 @@ namespace Omniverse.UI
 			{
 				while (slotsDelta != 0)
 				{
-					AbilitySlotWidget slot = ObjectResolver.Instantiate(AbilitySlotWidgetPrefab, Holder);
+					AbilitySlotWidget slot = Instantiate(AbilitySlotWidgetPrefab, Holder);
 					int slotIndex = Slots.Count;
 					InputAction inputAction = abilityActions.Get().actions[slotIndex];
 					slot.Initialize(inputAction);

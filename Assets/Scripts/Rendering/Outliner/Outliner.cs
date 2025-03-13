@@ -1,6 +1,7 @@
 ﻿using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using Unity.Entities;
+using Unity.Rendering;
 using UnityEngine;
 
 namespace Omniverse.Rendering
@@ -15,37 +16,37 @@ namespace Omniverse.Rendering
 
 			var player = ECSUtils.GetSingleton<Player>();
 			var entityDetector = ECSUtils.GetSingleton<Pointer>();
+			var entity = entityDetector.Entity;
 
-			if (entityDetector.Entity == Entity.Null)
+			if (entity == Entity.Null)
 			{
 				return;
 			}
 
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			//var materialMeshInfo = entityManager.GetComponentData<MaterialMeshInfo>(entityDetector.Entity);
 
-			//EnEntity
-			////TODO
-			//var entityRenderer = entity.GetComponentInChildren<IRendererComponent>();
-			//if (entityRenderer != null)
-			//{
-			//	foreach (Renderer renderer in entityRenderer.Renderers)
-			//	{
-			//		int variant = GetOutlineVariant(entity);
-			//		var outlineTarget = new OutlineTarget(renderer, variant);
-			//		outlinerRenderer.AddTarget(outlineTarget);
-			//	}
-			//}
+			if (entityManager.HasComponent<MaterialMeshInfo>(entity))
+			{
+				var materialMeshInfo = entityManager.GetComponentData<MaterialMeshInfo>(entityDetector.Entity);
 
-			//int GetOutlineVariant(OmniverseEntity entity)
-			//{
-			//	if (entity.FactionID == -1)
-			//	{
-			//		return 2;
-			//	}
+				int outlineVariant = 0;
+				if (entityManager.HasComponent<Faction>(entity))
+				{
+					var faction = entityManager.GetComponentData<Faction>(entity);
+					outlineVariant = faction.ID == player.FactionID ? 0 : 1;
+				}
+				else
+				{
+					outlineVariant = -2;
+				}
 
-			//	return entity.FactionID == player.FactionID ? 0 : 1;
-			//}
+				//TODO ECS
+				//foreach (Renderer renderer in entityRenderer.Renderers)
+				//{
+				//	var outlineTarget = new OutlineTarget(renderer, variant);
+				//	outlinerRenderer.AddTarget(outlineTarget);
+				//}
+			}
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace Omniverse.Client
 			unit.Died += OnDied;
 			unit.Attack.Started += OnAttackStarted;
 
-			foreach (Ability ability in unit.Abilities)
+			foreach (AbilityObsolete ability in unit.Abilities)
 			{
 				ability.Casting.Started += OnAbiltiyCastingStarted;
 			}
