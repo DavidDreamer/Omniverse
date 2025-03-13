@@ -26,6 +26,13 @@ namespace Omniverse
 					Maximum = 100,
 					Current = 100
 				});
+
+				AddComponent(entity, new NavAgentComponent
+				{
+					moveSpeed = 5
+				});
+
+				AddBuffer<WaypointBuffer>(entity);
 			}
 		}
 	}

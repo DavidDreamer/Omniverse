@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static InputActions;
 
 namespace Omniverse.Input
@@ -16,50 +17,50 @@ namespace Omniverse.Input
 		public void OnUpdate(ref SystemState state)
 		{
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
+			var pointer = SystemAPI.GetSingleton<Pointer>();
 			CommonActions commonActions = inputSystemData.InputActions.Common;
 
-			//TODO ECS
-			//if (commonActions.Command.WasReleasedThisFrame())
-			//{
-			//	if (target != null)
-			//	{
-			//		switch (target)
-			//		{
-			//			case UnitObsolete unit:
-			//				foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
-			//				{
-			//					if (selectedUnit != unit)
-			//					{
-			//						if (unit.IsAllyFor(selectedUnit))
-			//						{
-			//							var command = new FollowCommand(selectedUnit, unit);
-			//							AddCommand(selectedUnit, command);
-			//						}
-			//						else
-			//						{
-			//							var command = new AttackCommand(selectedUnit, unit);
-			//							AddCommand(selectedUnit, command);
-			//						}
-			//					}
-			//				}
-			//				break;
-			//			case Item item:
-			//				foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
-			//				{
-			//					var command = new PickUpItemCommand(selectedUnit, item);
-			//					AddCommand(selectedUnit, command);
-			//				}
-			//				break;
-			//		}
-			//	}
-			//	else
-			//	{
-			//		if (position.HasValue)
-			//		{
-			//			CreateNavigationPoint(position.Value);
-			//		}
-			//	}
-			//}
+			if (commonActions.Command.WasReleasedThisFrame())
+			{
+				switch (pointer.TargetType)
+				{
+					//case PointerTargetType.Entity:
+					//foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
+					//{
+					//	if (selectedUnit != unit)
+					//	{
+					//		if (unit.IsAllyFor(selectedUnit))
+					//		{
+					//			var command = new FollowCommand(selectedUnit, unit);
+					//			AddCommand(selectedUnit, command);
+					//		}
+					//		else
+					//		{
+					//			var command = new AttackCommand(selectedUnit, unit);
+					//			AddCommand(selectedUnit, command);
+					//		}
+					//	}
+					//}
+					//break;
+					//case Item item:
+					//	foreach (UnitObsolete selectedUnit in Selector.SelectedUnits)
+					//	{
+					//		var command = new PickUpItemCommand(selectedUnit, item);
+					//		AddCommand(selectedUnit, command);
+					//	}
+					//	break;
+					case PointerTargetType.World:
+						var selection = SystemAPI.GetSingleton<Selection>();
+						foreach (Entity entity in selection.Entities)
+						{
+							var agent = SystemAPI.GetComponent<NavAgentComponent>(entity);
+							agent.targetPosition = pointer.WorldPosition;
+							SystemAPI.SetComponent(entity, agent);
+						}
+						NavigationPointCreated?.Invoke(pointer.WorldPosition);
+						break;
+				}
+			}
 			//else if (commonActions.Stop.WasPerformedThisFrame())
 			//{
 			//	foreach (UnitObsolete unit in Selector.SelectedUnits)
@@ -94,6 +95,8 @@ namespace Omniverse.Input
 			//	MoveCommand moveCommand = new(unit, position);
 			//	AddCommand(unit, moveCommand);
 			//}
+
+		
 
 			//NavigationPointCreated?.Invoke(position);
 		}

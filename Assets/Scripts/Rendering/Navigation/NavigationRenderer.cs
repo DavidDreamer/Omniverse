@@ -49,7 +49,7 @@ namespace Omniverse.Rendering
 		{
 			var navigationPointData = new NavigationPoint
 			{
-				Matrix = Matrix4x4.TRS(point, Quaternion.identity, Vector3.one) * MatrixUtils.WorldUpRotation,
+				Matrix = Matrix4x4.TRS(point, Quaternion.identity, Vector3.one) * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f),
 				Time = Time.time
 			};
 
