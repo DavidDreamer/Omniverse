@@ -1,12 +1,10 @@
-using System;
 using Dreambox.Rendering.Core;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
-using VContainer.Unity;
 
 namespace Omniverse.Mapping
 {
-	public class MapRenderer : MonoBehaviour, IInitializable, IDisposable
+	public class MapRenderer : MonoBehaviour
 	{
 		private static class ShaderVariables
 		{
@@ -14,18 +12,15 @@ namespace Omniverse.Mapping
 		}
 
 		[field: SerializeField]
-		private UnityEngine.Camera Camera { get; set; }
+		private Camera Camera { get; set; }
 
 		public RenderTexture RenderTexture { get; private set; }
 
 		private ConstantComputeBuffer<MapShaderProperties> PropertiesBuffer { get; set; }
 
-		public void Initialize()
+		public void OnEnable()
 		{
-			//TEMP
-			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(Map) });
-			var map = query.GetSingleton<Map>();
-			query.Dispose();
+			var map = ECSUtils.GetSingleton<Map>();
 
 			RenderTexture = new RenderTexture(
 				map.Size.x,
@@ -51,7 +46,7 @@ namespace Omniverse.Mapping
 			PropertiesBuffer.SetData(mapShaderProperties);
 		}
 
-		public void Dispose()
+		public void OnDisable()
 		{
 			if (Camera != null)
 			{

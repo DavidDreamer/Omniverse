@@ -1,6 +1,5 @@
 ﻿using Omniverse.Items;
 using Omniverse.Mapping;
-using Omniverse.Rendering;
 using Omniverse.UI;
 using UnityEngine;
 using VContainer;
@@ -17,13 +16,7 @@ namespace Omniverse
 		private GameSettings GameSettings { get; set; }
 
 		[field: SerializeField]
-		private MapRenderer MapRenderer { get; set; }
-
-		[field: SerializeField]
 		private UIInstaller UIInstaller { get; set; }
-
-		[field: SerializeField]
-		private RenderingInstaller RenderingInstaller { get; set; }
 
 		protected override void Configure(IContainerBuilder builder)
 		{
@@ -32,11 +25,6 @@ namespace Omniverse
 			builder.RegisterInstance(GameSettings);
 			builder.RegisterInstance(GameSettings.Factions);
 			builder.RegisterInstance(GameSettings.Resources);
-
-			if (MapRenderer != null)
-			{
-				builder.RegisterComponentInNewPrefab(MapRenderer, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-			}
 
 			builder.Register<PrefabPool<UnitObsolete>>(Lifetime.Singleton);
 			builder.Register<PrefabPool<Item>>(Lifetime.Singleton);
@@ -48,7 +36,6 @@ namespace Omniverse
 			builder.RegisterEntryPoint<FactionManager>().AsSelf();
 			builder.RegisterEntryPoint<ResourceExtractionHadler>().AsSelf();
 
-			RenderingInstaller.Install(builder);
 			UIInstaller.Install(builder);
 
 			builder.Register<GameDirector>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();

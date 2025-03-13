@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -12,23 +11,24 @@ namespace Omniverse.Client
 
 		public void BeginAnimation()
 		{
-			AnimateAsync(destroyCancellationToken).Forget();
+			//TODO ASYNC
+			//AnimateAsync(destroyCancellationToken).Forget();
 
-			async UniTaskVoid AnimateAsync(CancellationToken token)
-			{
-				float time = 0;
+			//async UniTaskVoid AnimateAsync(CancellationToken token)
+			//{
+			//	float time = 0;
 
-				const float animationTime = 1f;
+			//	const float animationTime = 1f;
 
-				while (time < animationTime)
-				{
-					await UniTask.Yield(PlayerLoopTiming.Update, token);
-					time += Time.deltaTime;
-					time = Mathf.Min(time, animationTime);
-					float animation = time / animationTime;
-					DecalProjector.material.SetFloat("_Animation", animation);
-				}
-			}
+			//	while (time < animationTime)
+			//	{
+			//		await UniTask.Yield(PlayerLoopTiming.Update, token);
+			//		time += Time.deltaTime;
+			//		time = Mathf.Min(time, animationTime);
+			//		float animation = time / animationTime;
+			//		DecalProjector.material.SetFloat("_Animation", animation);
+			//	}
+			//}
 		}
 	}
 }

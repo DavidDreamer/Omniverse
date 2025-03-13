@@ -1,21 +1,16 @@
 ﻿using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>, IInitializable
+	public class SelectionBoxRenderer : CustomRenderer<SelectionBoxRendererConfig, SelectionBoxRendererPass>
 	{
 		private Material Material { get; set; }
 
-		public void Initialize()
+		protected override SelectionBoxRendererPass Setup()
 		{
-		}
-
-		protected override SelectionBoxRendererPass Setup(SelectionBoxRendererConfig config)
-		{
-			Material = config.Material;
+			Material = Config.Material;
 			var pass = new SelectionBoxRendererPass(Material);
 			return pass;
 		}

@@ -1,14 +1,12 @@
-﻿using System;
-using Dreambox.Rendering.Core;
+﻿using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
-using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>, IInitializable, IDisposable
+	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
 	{
 		private static class ShaderVariables
 		{
@@ -57,7 +55,7 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		public void Initialize()
+		public void Start()
 		{
 			FogOfWar = ECSUtils.GetSingleton<FogOfWar>();
 
@@ -110,11 +108,11 @@ namespace Omniverse.Rendering
 			}
 		}
 
-		protected override FogOfWarPass Setup(FogOfWarRendererConfig config) => new FogOfWarPass(this);
+		protected override FogOfWarPass Setup() => new FogOfWarPass(this);
 
 		protected override bool IsInactive() => false;
 
-		public void Dispose()
+		public void OnDestroy()
 		{
 			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);

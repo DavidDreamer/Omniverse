@@ -1,20 +1,17 @@
 ﻿using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using Unity.Entities;
-using Unity.Rendering;
-using VContainer;
-using VContainer.Unity;
+using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	public class Outliner : ILateTickable
+	public class Outliner : MonoBehaviour
 	{
-		[Inject]
-		public OutlineRenderer OutlineRenderer { get; private set; }
-
-		public void LateTick()
+		public void LateUpdate()
 		{
-			OutlineRenderer.Clear();
+			var outlinerRenderer = Object.FindFirstObjectByType<OutlineRenderer>();
+
+			outlinerRenderer.Clear();
 
 			var player = ECSUtils.GetSingleton<Player>();
 			var entityDetector = ECSUtils.GetSingleton<Pointer>();
@@ -36,7 +33,7 @@ namespace Omniverse.Rendering
 			//	{
 			//		int variant = GetOutlineVariant(entity);
 			//		var outlineTarget = new OutlineTarget(renderer, variant);
-			//		OutlineRenderer.AddTarget(outlineTarget);
+			//		outlinerRenderer.AddTarget(outlineTarget);
 			//	}
 			//}
 

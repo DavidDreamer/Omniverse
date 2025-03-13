@@ -1,32 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dreambox.Core;
 using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class NavigationRenderer : CustomRenderer<NavigationRendererConfig, NavigationRenderPass>, IInitializable, IDisposable, ILateTickable
+	public class NavigationRenderer : CustomRenderer<NavigationRendererConfig, NavigationRenderPass>
 	{
 		private Queue<NavigationPoint> Points { get; } = new();
 
-		protected override NavigationRenderPass Setup(NavigationRendererConfig config) => new(config, Points);
+		protected override NavigationRenderPass Setup() => new(Config, Points);
 
 		protected override bool IsInactive() => Points.Count == 0;
 
-		public void Initialize()
+		public void Awake()
 		{
 			ProcessCommandInputSystem.NavigationPointCreated += OnNavigationPointCreated;
 		}
 
-		public void Dispose()
+		public void OnDestroy()
 		{
 			ProcessCommandInputSystem.NavigationPointCreated -= OnNavigationPointCreated;
 		}
 
-		public void LateTick()
+		private void LateUpdate()
 		{
 			float time = Time.time;
 

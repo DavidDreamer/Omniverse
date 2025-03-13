@@ -1,21 +1,15 @@
-﻿using System;
-using Omniverse.Input;
+﻿using Omniverse.Input;
 using Unity.Entities;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Omniverse.Rendering
 {
-	public class CursorRendererController : ILateTickable
+	public class CursorRendererController : MonoBehaviour
 	{
-		private CursorRendererConfig Config { get; }
+		[field: SerializeField]
+		private CursorRendererConfig Config { get; set; }
 
-		public CursorRendererController(CursorRendererConfig config)
-		{
-			Config = config;
-		}
-
-		public void LateTick()
+		public void LateUpdate()
 		{
 			CursorParams cursorTexture = GetCursorParams();
 
