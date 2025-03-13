@@ -36,6 +36,8 @@ namespace Omniverse.UI
 
 		public void LateUpdate()
 		{
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
 			var selection = ECSUtils.GetSingleton<Selection>();
 
 			bool hasSelection = selection.HasSelection;
@@ -50,20 +52,20 @@ namespace Omniverse.UI
 			Entity entity = selection.Entity;
 
 			Avatar.Bind(entity);
+
+			var health = entityManager.GetComponentData<Health>(entity);
+			Health.Tick(health);
+
+			AbilityBar.Tick(entity);
+
 			//TODO ECS
-			//Health.Bind(unit);
-
-			AbilityBar.Bind(entity);
-			AbilityBar.Tick();
-
 			//EffectsBar.Bind(unit);
 			//EffectsBar.Tick();
 
 			//Experience.Bind(unit.Experience);
 			//Properties.Bind(unit);
 
-			//ActionBar.Bind(unit);
-			//ActionBar.Tick();
+			ActionBar.Tick(entity);
 		}
 	}
 }

@@ -7,37 +7,15 @@ namespace Omniverse.UI
 	public class PropertyBarWidget : MonoBehaviour
 	{
 		[field: SerializeField]
-		public PropertyID PropertyID { get; private set; }
-
-		[field: SerializeField]
 		private Slider Slider { get; set; }
 
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
 
-		private Property Property { get; set; }
-
-		public void Bind(UnitObsolete unit)
+		public void Tick(Health health)
 		{
-			Property = unit.Properties[PropertyID];
-
-			Slider.maxValue = Property.Desc.Range.Max;
-			Slider.value = Property.Amount;
-		}
-
-		public void Unbind()
-		{
-			Property = null;
-		}
-
-		protected virtual void LateUpdate()
-		{
-			if (Property is null)
-			{
-				return;
-			}
-
-			Slider.value = Property.Amount;
+			Slider.maxValue = health.Maximum;
+			Slider.value = health.Current;
 
 			if (Label != null)
 			{

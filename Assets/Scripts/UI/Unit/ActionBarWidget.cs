@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Omniverse.UI
@@ -11,20 +12,15 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Slider Slider { get; set; }
 
-		private UnitObsolete Unit { get; set; }
-
-		public void Bind(UnitObsolete unit)
+		//TODO ECS
+		public void Tick(Entity entity)
 		{
-			Unit = unit;
-		}
+			CastAbilityCommand castAbilityCommand = null;// entity.CommandModule.Command as CastAbilityCommand;
 
-		public void Tick()
-		{
-			var castAbilityCommand = Unit.CommandModule.Command as CastAbilityCommand;
+			bool isCastAbilityCommand = false;// castAbilityCommand != null;
+			gameObject.SetActive(isCastAbilityCommand);
 
-			gameObject.SetActive(castAbilityCommand != null);
-
-			if (castAbilityCommand == null)
+			if (!isCastAbilityCommand)
 			{
 				return;
 			}

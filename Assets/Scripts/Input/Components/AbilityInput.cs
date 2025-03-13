@@ -9,5 +9,7 @@ namespace Omniverse.Input
 		public Entity Entity;
 
 		public Entity Ability;
+
+		public bool InProcess;
 	}
 }

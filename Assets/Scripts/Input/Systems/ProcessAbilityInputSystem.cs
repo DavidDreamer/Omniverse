@@ -18,6 +18,7 @@ namespace Omniverse.Input
 		public void OnUpdate(ref SystemState state)
 		{
 			var selection = SystemAPI.GetSingleton<Selection>();
+			var abilityInput = SystemAPI.GetSingleton<AbilityInput>();
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 			CommonActions commonActions = inputSystemData.InputActions.Common;
 			AbilitiesActions abilitiesActions = inputSystemData.InputActions.Abilities;
@@ -28,26 +29,62 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var entitiy = selection.Entity;
+			var entity = selection.Entity;
+			var abilities = SystemAPI.GetBuffer<Ability>(entity);
 
 			var abilityActions = abilitiesActions.Get().actions;
 
-			//TODO ECS
-			//for (int i = 0; i < abilityActions.Count; ++i)
-			//{
-			//	if (abilityActions[i].WasPressedThisFrame())
-			//	{
-			//		if (i < entitiy.Abilities.Count)
-			//		{
-			//			Ability ability = entitiy.Abilities[i];
+			for (int i = 0; i < abilityActions.Count; ++i)
+			{
+				if (abilityActions[i].WasPressedThisFrame())
+				{
+					if (i < abilities.Length)
+					{
+						Ability ability = abilities[i];
 
-			//			if (ability.Desc.ActiveOperation is not null)
-			//			{
-			//				AbilityController.Process(entitiy, ability);
-			//			}
-			//		}
-			//	}
-			//}
+						//if (ability.Desc.ActiveOperation is not null)
+						//{
+						//	if (ActiveAbility == ability)
+						//	{
+						//		Discard();
+						//		return;
+						//	}
+
+						//	if (ActiveAbility is not null)
+						//	{
+						//		Discard();
+						//	}
+
+							//TODO ECS
+							//AbilityCastError error = ability.CanBeCasted(unit);
+
+							//if (error is not AbilityCastError.None)
+							//{
+							//	return;
+							//}
+
+							//if (ability.Desc.Target is NoneTarget)
+							//{
+							//	if (ability.Desc.Casting.Time == 0)
+							//	{
+							//		var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
+							//		unit.CommandModule.Add(castImmediateAbilityCommand);
+							//	}
+							//	else
+							//	{
+							//		var command = new CastAbilityCommand<None>(unit, ability, None.Instance);
+							//		AddCommand(unit, command);
+							//	}
+							//}
+							//else
+							//{
+							//	ActiveUnit = unit;
+							//	ActiveAbility = ability;
+							//}
+						//}
+					}
+				}
+			}
 
 			//bool abilityInProcess = AbilityController.ActiveAbility is not null;
 
@@ -56,47 +93,10 @@ namespace Omniverse.Input
 			//	//AbilityController.ProcessAbility(entityDetector.Entity, CursorWorldPosition, additiveMode);
 			//}
 
-		}
-
-		public void Process(Entity unit, AbilityObsolete ability)
-		{
-			//TODO ECS
-			//if (ActiveAbility == ability)
-			//{
-			//	Discard();
-			//	return;
-			//}
-
-			//if (ActiveAbility is not null)
-			//{
-			//	Discard();
-			//}
-
-			//AbilityCastError error = ability.CanBeCasted(unit);
-
-			//if (error is not AbilityCastError.None)
-			//{
-			//	return;
-			//}
-
-			//if (ability.Desc.Target is NoneTarget)
-			//{
-			//	if (ability.Desc.Casting.Time == 0)
-			//	{
-			//		var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
-			//		unit.CommandModule.Add(castImmediateAbilityCommand);
-			//	}
-			//	else
-			//	{
-			//		var command = new CastAbilityCommand<None>(unit, ability, None.Instance);
-			//		AddCommand(unit, command);
-			//	}
-			//}
-			//else
-			//{
-			//	ActiveUnit = unit;
-			//	ActiveAbility = ability;
-			//}
+			void Discard()
+			{
+				abilityInput.InProcess = false;
+			}
 		}
 
 		//public void ProcessAbility(OmniverseEntity target, Vector3? cursorWorldPosition, bool additiveMode)
@@ -171,11 +171,6 @@ namespace Omniverse.Input
 		//	}
 
 		//	Discard();
-		//}
-
-		//private void Discard()
-		//{
-		//	ActiveAbility = null;
 		//}
 
 		//private void AddCommand(UnitObsolete unit, ICommand command)

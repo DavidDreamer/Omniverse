@@ -323,7 +323,6 @@ MonoBehaviour:
   - {fileID: 456758839}
   - {fileID: 717917620}
   - {fileID: 604717560}
-  <OmniverseInstaller>k__BackingField: {fileID: 11400000, guid: ca47d808eb8c9f3479788eef6023b399, type: 2}
   <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
   <UIInstaller>k__BackingField: {fileID: 456758840}
 --- !u!4 &77597338
@@ -4150,7 +4149,6 @@ SceneRoots:
   - {fileID: 1730663420}
   - {fileID: 456758838}
   - {fileID: 717917623}
-  - {fileID: 1514917083}
   - {fileID: 1911415045}
   - {fileID: 604717561}
   - {fileID: 268684011}
@@ -4166,5 +4164,6 @@ SceneRoots:
   - {fileID: 1775395030}
   - {fileID: 2373914206762086166}
   - {fileID: 621679006}
+  - {fileID: 1514917083}
   - {fileID: 1006554786}
   - {fileID: 1427105949}

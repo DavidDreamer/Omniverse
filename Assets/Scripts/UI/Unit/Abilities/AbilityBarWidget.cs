@@ -17,12 +17,8 @@ namespace Omniverse.UI
 
 		private List<AbilitySlotWidget> Slots { get; } = new();
 
-		private Entity Entity { get; set; }
-
-		public void Bind(Entity entity)
+		public void Tick(Entity entity)
 		{
-			Entity = entity;
-
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			DynamicBuffer<Ability> abilities = entityManager.GetBuffer<Ability>(entity);
 
@@ -34,10 +30,7 @@ namespace Omniverse.UI
 				Ability ability = abilities[i];
 				Slots[i].Bind(ability);
 			}
-		}
 
-		public void Tick()
-		{
 			foreach (AbilitySlotWidget slot in Slots)
 			{
 				slot.Tick();
