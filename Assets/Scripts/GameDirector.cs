@@ -9,16 +9,11 @@ namespace Omniverse
 		[Inject]
 		private TempNameManager TempNameManager { get; set; }
 
-		[Inject]
-		private UnitManager UnitManager { get; set; }
-
 		public void FixedTick()
 		{
 			float deltaTime = Time.fixedDeltaTime;
 
 			TempNameManager.Tick(deltaTime);
-			UnitManager.Tick(deltaTime);
-			UnitManager.UpdateLivingState();
 		}
 	}
 }
