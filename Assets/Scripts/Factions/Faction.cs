@@ -4,7 +4,7 @@ using Unity.Entities;
 namespace Omniverse
 {
 	[BurstCompile]
-	public struct Faction : IComponentData
+	public struct Faction : ISharedComponentData
 	{
 		public int ID;
 	}

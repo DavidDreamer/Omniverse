@@ -32,7 +32,7 @@ namespace Omniverse.Rendering
 				int outlineVariant = 0;
 				if (entityManager.HasComponent<Faction>(entity))
 				{
-					var faction = entityManager.GetComponentData<Faction>(entity);
+					var faction = entityManager.GetSharedComponent<Faction>(entity);
 					outlineVariant = faction.ID == player.FactionID ? 0 : 1;
 				}
 				else

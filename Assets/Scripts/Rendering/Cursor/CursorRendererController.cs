@@ -30,7 +30,7 @@ namespace Omniverse.Rendering
 					{
 						if (entityManager.HasComponent<Faction>(entity))
 						{
-							var faction = entityManager.GetComponentData<Faction>(entity);
+							var faction = entityManager.GetSharedComponent<Faction>(entity);
 							if (faction.ID == player.FactionID)
 							{
 								return Config.HoverAlly;
