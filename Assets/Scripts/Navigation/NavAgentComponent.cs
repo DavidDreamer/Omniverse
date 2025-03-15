@@ -7,9 +7,7 @@ namespace Omniverse
 	{
 		public Entity targetEntity;
 		public float3 targetPosition;
-		public bool pathCalculated;
 		public int currentWaypoint;
 		public float moveSpeed;
-		public float nextPathCalculateTime;
 	}
 }

@@ -19,16 +19,8 @@ namespace Omniverse
 			{
 				DynamicBuffer<WaypointBuffer> waypointBuffer = state.EntityManager.GetBuffer<WaypointBuffer>(entity);
 
-				if (navAgent.ValueRO.nextPathCalculateTime < SystemAPI.Time.ElapsedTime)
-				{
-					navAgent.ValueRW.nextPathCalculateTime += 1;
-					navAgent.ValueRW.pathCalculated = false;
-					CalculatePath(navAgent, transform, waypointBuffer, ref state);
-				}
-				else
-				{
-					Move(navAgent, transform, waypointBuffer, ref state);
-				}
+				CalculatePath(navAgent, transform, waypointBuffer, ref state);
+				Move(navAgent, transform, waypointBuffer, ref state);
 			}
 		}
 
@@ -123,7 +115,6 @@ namespace Omniverse
 							}
 
 							navAgent.ValueRW.currentWaypoint = 0;
-							navAgent.ValueRW.pathCalculated = true;
 						}
 						straightPathFlag.Dispose();
 						polygonIds.Dispose();
