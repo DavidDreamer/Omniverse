@@ -15,7 +15,9 @@ namespace Omniverse
 		[BurstCompile]
 		private void OnUpdate(ref SystemState state)
 		{
-			foreach (var (navAgent, transform, entity) in SystemAPI.Query<RefRW<NavAgentComponent>, RefRW<LocalTransform>>().WithEntityAccess())
+			float deltaTime = SystemAPI.Time.DeltaTime;
+
+			foreach (var (navAgent, movementSpeed, transform, entity) in SystemAPI.Query<RefRW<NavAgentComponent>, RefRW<MovementSpeed>, RefRW<LocalTransform>>().WithEntityAccess())
 			{
 				DynamicBuffer<WaypointBuffer> waypointBuffer = state.EntityManager.GetBuffer<WaypointBuffer>(entity);
 
@@ -113,9 +115,9 @@ namespace Omniverse
 					transform.ValueRW.Rotation = math.slerp(
 									transform.ValueRW.Rotation,
 									quaternion.Euler(new float3(0, angle, 0)),
-									SystemAPI.Time.DeltaTime);
+									deltaTime);
 
-					transform.ValueRW.Position += math.normalize(direciton) * SystemAPI.Time.DeltaTime * navAgent.ValueRO.moveSpeed;
+					transform.ValueRW.Position += math.normalize(direciton) * deltaTime * movementSpeed.ValueRO.Current;
 				}
 			}
 

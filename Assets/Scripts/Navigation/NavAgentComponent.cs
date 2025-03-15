@@ -8,6 +8,5 @@ namespace Omniverse
 		public Entity targetEntity;
 		public float3 targetPosition;
 		public int currentWaypoint;
-		public float moveSpeed;
 	}
 }

@@ -29,10 +29,12 @@ namespace Omniverse
 					Current = 100
 				});
 
-				AddComponent(entity, new NavAgentComponent
+				AddComponent(entity, new MovementSpeed()
 				{
-					moveSpeed = 5
+					Current = 5
 				});
+
+				AddComponent(entity, new NavAgentComponent());
 
 				AddBuffer<WaypointBuffer>(entity);
 
