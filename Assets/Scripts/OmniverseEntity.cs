@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AI;
-using VContainer;
 
 namespace Omniverse
 {
@@ -26,12 +24,6 @@ namespace Omniverse
 		public List<Effect> Effects { get; } = new();
 
 		public AttackModule Attack { get; protected set; }
-
-		[Inject]
-		protected IObjectResolver ObjectResolver { get; set; }
-
-		[Inject]
-		protected TempNameManager TempNameManager { get; set; }
 
 		public void ChangeFaction(int factionID)
 		{
@@ -76,17 +68,20 @@ namespace Omniverse
 
 		public void SpawnMissile(MissileDesc desc, OmniverseEntity target)
 		{
-			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
+			//TODO ECS
+			//TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
 
 		public void SpawnMissile(MissileDesc desc, Vector3 target)
 		{
-			TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
+			//TODO ECS
+			//TempNameManager.Spawn(desc, this, HitBox.transform.position, target);
 		}
 
 		public void SpawnChain(ChainDesc desc, OmniverseEntity target)
 		{
-			TempNameManager.Spawn(desc, HitBox.transform.position, this, target, FactionID);
+			//TODO ECS
+			//TempNameManager.Spawn(desc, HitBox.transform.position, this, target, FactionID);
 		}
 
 		public void Extract(ResourceSource resourceSource, int amount)

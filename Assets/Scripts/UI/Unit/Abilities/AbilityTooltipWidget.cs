@@ -1,5 +1,4 @@
-﻿using Omniverse.Abilities;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Omniverse.UI
@@ -9,9 +8,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Name { get; set; }
 
-		public void Bind(AbilityObsolete ability)
+		public void Bind(Ability ability)
 		{
-			Name.text = ability.Desc.Meta.Name.ToUpper();
+			Name.text = ability.Name.ToString().ToUpper();
 		}
 	}
 }

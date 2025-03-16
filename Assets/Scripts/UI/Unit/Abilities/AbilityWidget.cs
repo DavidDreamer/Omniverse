@@ -45,13 +45,7 @@ namespace Omniverse.UI
 			//Casting.Bind(Ability.Casting);
 
 			Cooldown.Tick(ability);
-
-			//if (Ability.Cooldown is not null)
-			//{
-			//	Cooldown.Bind(Ability.Cooldown);
-			//}
-
-			//Tooltip.Bind(Ability);
+			Tooltip.Bind(ability);
 		}
 
 		public void OnPointerClick(PointerEventData eventData)

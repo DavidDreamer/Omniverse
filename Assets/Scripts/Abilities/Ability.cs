@@ -8,19 +8,21 @@ namespace Omniverse
 {
 	public partial struct UpdateAbilityCooldownSystem : ISystem
 	{
-		public void OnUpdate()
+		public void OnUpdate(ref SystemState state)
 		{
-			//foreach (var buffer in SystemAPI.Query<DynamicBuffer<Ability>>())
-			//{
-			//	for (int i = 0; i < buffer.Length; ++i)
-			//	{
-			//		Ability ability = buffer[i];
+			foreach (var buffer in SystemAPI.Query<DynamicBuffer<Ability>>())
+			{
+				var bufferCopy = buffer;
 
-			//		ability.ActiveCooldown = Unity.Mathematics.math.max(0f, ability.ActiveCooldown - SystemAPI.Time.DeltaTime);
+				for (int i = 0; i < buffer.Length; ++i)
+				{
+					Ability ability = buffer[i];
 
-			//		buffer[i] = ability;
-			//	}
-			//}
+					ability.ActiveCooldown = math.max(0f, ability.ActiveCooldown - SystemAPI.Time.DeltaTime);
+
+					bufferCopy[i] = ability;
+				}
+			}
 		}
 	}
 
