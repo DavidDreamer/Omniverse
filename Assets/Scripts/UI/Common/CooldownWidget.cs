@@ -12,18 +12,12 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
 
-		private Abilities.Cooldown Cooldown { get; set; }
-
-		public void Bind(Abilities.Cooldown cooldown)
+		public void Tick(Ability ability)
 		{
-			Cooldown = cooldown;
-		}
-
-		public void Tick()
-		{
-			Image.fillAmount = Cooldown.TimeLeftRatio;
-			Label.enabled = Cooldown.IsActive;
-			Label.text = Mathf.CeilToInt(Cooldown.TimeLeft).ToString();
+			Image.enabled = ability.IsOnCooldown;
+			Image.fillAmount = ability.ActiveCooldownRatio;
+			Label.enabled = ability.IsOnCooldown;
+			Label.text = Mathf.CeilToInt(ability.ActiveCooldown).ToString();
 		}
 	}
 }

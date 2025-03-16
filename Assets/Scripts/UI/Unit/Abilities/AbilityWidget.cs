@@ -1,5 +1,4 @@
-﻿using Omniverse.Abilities;
-using Omniverse.Input;
+﻿using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -44,6 +43,8 @@ namespace Omniverse.UI
 
 			//TODO ECS
 			//Casting.Bind(Ability.Casting);
+
+			Cooldown.Tick(ability);
 
 			//if (Ability.Cooldown is not null)
 			//{

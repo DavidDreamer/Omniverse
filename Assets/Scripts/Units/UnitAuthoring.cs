@@ -1,5 +1,4 @@
-﻿using Omniverse.Abilities;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Entities.Content;
 using UnityEngine;
 
@@ -40,12 +39,13 @@ namespace Omniverse
 
 				DynamicBuffer<Ability> abilities = AddBuffer<Ability>(entity);
 
-				foreach (var abilityDesc in authoring.UnitDesc.Abilities)
+				foreach (var desc in authoring.UnitDesc.Abilities)
 				{
 					Ability ability = new Ability()
 					{
-						Name = abilityDesc.Meta.Name,
-						Icon = new WeakObjectReference<Sprite>(abilityDesc.Meta.Icon),
+						Name = desc.Meta.Name,
+						Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
+						Cooldown = desc.Cooldown.Time
 					};
 
 					abilities.Add(ability);

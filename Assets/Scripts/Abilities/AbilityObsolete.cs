@@ -1,17 +1,5 @@
-﻿using Unity.Collections;
-using Unity.Entities;
-using Unity.Entities.Content;
-using UnityEngine;
-
-namespace Omniverse.Abilities
+﻿namespace Omniverse.Abilities
 {
-	public struct Ability : IBufferElementData
-	{
-		public FixedString32Bytes Name;
-
-		public WeakObjectReference<Sprite> Icon;
-	}
-
 	public class AbilityObsolete
 	{
 		public AbilityDesc Desc { get; }
