@@ -319,12 +319,7 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 0
-  autoInjectGameObjects:
-  - {fileID: 456758839}
-  - {fileID: 717917620}
-  - {fileID: 604717560}
-  <GameSettings>k__BackingField: {fileID: 11400000, guid: 7158ee3a23acf6944b59ca273e43f5fb, type: 2}
-  <UIInstaller>k__BackingField: {fileID: 456758840}
+  autoInjectGameObjects: []
 --- !u!4 &77597338
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,7 +1032,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3829597521418972361, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
       propertyPath: m_Name
-      value: UIInstaller
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 7195954740644838148, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
       propertyPath: m_Pivot.x
@@ -1119,27 +1114,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6965639104836241582, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
---- !u!1 &456758839 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3829597521418972361, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
-  m_PrefabInstance: {fileID: 456758838}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &456758840 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6965639104836241582, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
-  m_PrefabInstance: {fileID: 456758838}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456758839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e444c37d9e35420b80409c70aeb2232b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &461360032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2066295242856250328, guid: 2437d3db753a1e94abbcffbb54e10136, type: 3}

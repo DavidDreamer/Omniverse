@@ -4470,7 +4470,7 @@ GameObject:
   - component: {fileID: 396197906}
   - component: {fileID: 396197907}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Game Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4500,10 +4500,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 396197905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5aec14d62aca6f4ea4a8b112fa0d66f, type: 3}
+  m_Script: {fileID: 11500000, guid: 20c0563cccc6d5441b68453aebc0f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapSettings>k__BackingField: {fileID: 11400000, guid: ddc732f160381bb40ac14ba20f5ed8c6, type: 2}
+  <GameOptions>k__BackingField:
+    MapSize:
+      x: 256
+      y: 256
+    FogOfWarType: 1
+    Resources:
+    - {fileID: 11400000, guid: f02e271383beedf4cb6ae87f31095902, type: 2}
+    - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
+    Factions:
+    - <Name>k__BackingField: Village
+      <Color>k__BackingField: {r: 0.6273585, g: 0.35887682, b: 0.22194287, a: 1}
+    - <Name>k__BackingField: Undead
+      <Color>k__BackingField: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
 --- !u!1001 &396664918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21943,8 +21955,8 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 933303173}
   - {fileID: 396197906}
+  - {fileID: 933303173}
   - {fileID: 1247025974}
   - {fileID: 3836709509154289973}
   - {fileID: 1480515154}

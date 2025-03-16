@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using VContainer;
 
 namespace Omniverse.UI
 {
 	public class InventoryButton : MonoBehaviour, IPointerClickHandler
 	{
-		[Inject]
+		[field: SerializeField]
 		private InventoryWidget InventoryWidget { get; set; }
 
 		public void OnPointerClick(PointerEventData eventData)

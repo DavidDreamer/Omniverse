@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -28,9 +29,6 @@ namespace Omniverse
 
 		[Inject]
 		protected IObjectResolver ObjectResolver { get; set; }
-
-		[Inject]
-		public ResourceExtractionHadler ResourceExtractionHadler { get; private set; }
 
 		[Inject]
 		protected TempNameManager TempNameManager { get; set; }
@@ -93,7 +91,11 @@ namespace Omniverse
 
 		public void Extract(ResourceSource resourceSource, int amount)
 		{
-			ResourceExtractionHadler.Extract(resourceSource, amount, FactionID);
+			//TODO ECS
+			//var factionsData = ECSUtils.GetSingleton<FactionsData>();
+			//resourceSource.Extract(ref amount);
+			//FactionObsolete faction = factionsData[factionID];
+			//faction.ChangeResource(resourceSource.Desc.Resource, amount);
 		}
 	}
 

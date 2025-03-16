@@ -16,20 +16,20 @@ namespace Omniverse
 		{
 			base.OnStartRunning();
 
-			var map = SystemAPI.GetSingleton<Map>();
-			if (map.FogOfWarType is FogOfWarType.None)
+			var gameOptions = SystemAPI.ManagedAPI.GetSingleton<GameOptions>();
+			if (gameOptions.FogOfWarType is FogOfWarType.None)
 			{
 				return;
 			}
 
-			int2 size = map.Size / Multiplier;
+			int2 size = gameOptions.MapSize / Multiplier;
 
 			var entity = EntityManager.CreateEntity();
 			EntityManager.SetName(entity, "Fog Of War");
 			EntityManager.AddComponent<FogOfWar>(entity);
 			EntityManager.SetComponentData(entity, new FogOfWar()
 			{
-				Explored = map.FogOfWarType is FogOfWarType.Explored,
+				Explored = gameOptions.FogOfWarType is FogOfWarType.Explored,
 				Size = size,
 				Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
 				Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)

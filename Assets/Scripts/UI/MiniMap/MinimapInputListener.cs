@@ -1,7 +1,6 @@
 ﻿using Omniverse.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -71,8 +70,8 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(Vector2 position)
 		{
-			var map = ECSUtils.GetSingleton<Map>();
-			Vector2 mapSize = new(map.Size.x, map.Size.y);
+			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			Vector2 mapSize = new(gameOptions.MapSize.x, gameOptions.MapSize.y);
 			Vector2 sizeMultiplier = mapSize / (RectTransform.rect.size * Canvas.scaleFactor);
 			Vector2 worldSpacePosition = position * sizeMultiplier;
 			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);

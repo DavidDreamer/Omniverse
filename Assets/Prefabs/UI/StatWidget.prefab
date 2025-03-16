@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Value>k__BackingField: {fileID: 7419708261719063089}
+  <Style>k__BackingField: {fileID: 11400000, guid: c4f009b8df5fca5409d7d289f23d9747, type: 2}
 --- !u!222 &7619186093144754647
 CanvasRenderer:
   m_ObjectHideFlags: 0

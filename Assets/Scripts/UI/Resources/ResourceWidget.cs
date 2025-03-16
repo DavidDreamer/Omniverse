@@ -1,7 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -15,23 +14,22 @@ namespace Omniverse.UI
 
 		private ResourceDesc ResourceDesc { get; set; }
 
-		[Inject]
-		private FactionManager FactionManager { get; set; }
+		private int Index { get; set; }
 
-		private Player Player { get; set; }
-
-		public void Initialize(ResourceDesc resourceDesc)
+		public void Initialize(ResourceDesc resourceDesc, int index)
 		{
 			ResourceDesc = resourceDesc;
 			Icon.sprite = resourceDesc.Icon;
-
-			Player = ECSUtils.GetSingleton<Player>();
+			Index = index;
 		}
 
 		public void LateTick()
 		{
-			Resource resource = FactionManager.Factions[Player.FactionID].Resources[ResourceDesc];
-			Amount.text = resource.Amount.ToString();
+			var player = ECSUtils.GetSingleton<Player>();
+			var factionsData = ECSUtils.GetSingleton<FactionsData>();
+
+			int amount = factionsData.Resources[player.FactionID][Index];
+			Amount.text = amount.ToString();
 		}
 	}
 }

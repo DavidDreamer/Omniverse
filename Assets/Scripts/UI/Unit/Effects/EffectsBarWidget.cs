@@ -1,17 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class EffectsBarWidget : MonoBehaviour, ITickable
+	public class EffectsBarWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private RectTransform Holder { get; set; }
 
-		[Inject]
-		private IObjectResolver ObjectResolver { get; set; }
+		[field: SerializeField]
+		private EffectWidget EffectWidget{ get; set; }
 
 		private UnitObsolete Unit { get; set; }
 
@@ -22,14 +20,19 @@ namespace Omniverse.UI
 			Unit = unit;
 		}
 
-		public void Tick()
+		public void LateUpdate()
 		{
+			if (Unit == null)
+			{
+				return;
+			}
+
 			for (int i = 0; i < Unit.Effects.Count; i++)
 			{
 				Effect effect = Unit.Effects[i];
 				if (EffectWdigets.Count == i)
 				{
-					var effectWidget = ObjectResolver.Resolve<EffectWidget>();
+					var effectWidget = Instantiate(EffectWidget);
 					effectWidget.transform.SetParent(transform, false);
 					EffectWdigets.Add(effectWidget);
 				}

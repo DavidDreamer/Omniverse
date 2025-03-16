@@ -2,8 +2,6 @@
 using Omniverse.Input;
 using Unity.Entities;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {
@@ -19,9 +17,6 @@ namespace Omniverse.UI
 		private Transform SlotsHolder { get; set; }
 
 		public List<InventorySlotWidget> Slots { get; } = new();
-
-		[Inject]
-		private IObjectResolver ObjectResolver { get; set; }
 
 		public void LateUpdate()
 		{
@@ -52,7 +47,7 @@ namespace Omniverse.UI
 			{
 				while (slotsDelta != 0)
 				{
-					InventorySlotWidget slot = ObjectResolver.Instantiate(InventorySlotPrefab, SlotsHolder);
+					InventorySlotWidget slot = Instantiate(InventorySlotPrefab, SlotsHolder);
 					Slots.Add(slot);
 					slotsDelta--;
 				}

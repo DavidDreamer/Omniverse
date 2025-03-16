@@ -1,11 +1,10 @@
 using Omniverse.Input;
 using Unity.Entities;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Omniverse.UI
 {
-	public class UnitWidget : MonoBehaviour, IInitializable
+	public class UnitWidget : MonoBehaviour
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
@@ -29,10 +28,6 @@ namespace Omniverse.UI
 		private ActionBarWidget ActionBar { get; set; }
 
 		public PropertyBarWidget Health;
-
-		public void Initialize()
-		{
-		}
 
 		public void LateUpdate()
 		{

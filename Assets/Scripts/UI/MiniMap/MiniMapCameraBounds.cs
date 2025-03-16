@@ -10,19 +10,11 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		public RectTransform RectTransform { get; set; }
 
-		private Map Map { get; set; }
-
-		private void Start()
-		{
-			//TEMP
-			var query = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new Unity.Entities.ComponentType[] { typeof(Map) });
-			Map = query.GetSingleton<Map>();
-			query.Dispose();
-		}
-
 		private void Update()
 		{
-			UnityEngine.Camera mainCamera = UnityEngine.Camera.main;
+			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+
+			Camera mainCamera = Camera.main;
 			Transform cameraTransform = mainCamera.transform;
 
 			float distanceToViewPoint = 25f / Mathf.Sin(Mathf.Deg2Rad * cameraTransform.eulerAngles.x);
@@ -37,7 +29,7 @@ namespace Omniverse.UI
 
 			Rect parentRect = ParentRectTransform.rect;
 
-			Vector2 mapSize = new(Map.Size.x, Map.Size.y);
+			Vector2 mapSize = new(gameOptions.MapSize.x, gameOptions.MapSize.y);
 
 			Vector2 mapRelativePosition = ConverCoordinateFromWorldToRectSpace(viewPoint);
 

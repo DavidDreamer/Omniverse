@@ -20,11 +20,11 @@ namespace Omniverse.Mapping
 
 		public void OnEnable()
 		{
-			var map = ECSUtils.GetSingleton<Map>();
+			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
 
 			RenderTexture = new RenderTexture(
-				map.Size.x,
-				map.Size.y,
+				gameOptions.MapSize.x,
+				gameOptions.MapSize.y,
 				GraphicsFormat.R16G16B16A16_SFloat,
 				GraphicsFormat.D16_UNorm)
 			{
@@ -33,13 +33,13 @@ namespace Omniverse.Mapping
 
 			Camera.targetTexture = RenderTexture;
 
-			Camera.orthographicSize = map.Size.x / 2f;
+			Camera.orthographicSize = gameOptions.MapSize.x / 2f;
 
-			Camera.transform.position = new Vector3(map.Size.x / 2f, Camera.transform.position.y, map.Size.y / 2f);
+			Camera.transform.position = new Vector3(gameOptions.MapSize.x / 2f, Camera.transform.position.y, gameOptions.MapSize.y / 2f);
 
 			var mapShaderProperties = new MapShaderProperties
 			{
-				MapSize = new Vector4(map.Size.x, map.Size.y, 0, 0)
+				MapSize = new Vector4(gameOptions.MapSize.x, gameOptions.MapSize.y, 0, 0)
 			};
 
 			PropertiesBuffer = new ConstantComputeBuffer<MapShaderProperties>(ShaderVariables.MapProperties);

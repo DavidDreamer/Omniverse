@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace Omniverse.UI
 {
@@ -9,10 +8,10 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		public TextMeshProUGUI Value { get; private set; }
 
-		private Property Property { get; set; }
+		[field: SerializeField]
+		public UIStyle Style { get; private set; }
 
-		[Inject]
-		private UIStyle Style { get; set; }
+		private Property Property { get; set; }
 
 		public void Bind(Property property)
 		{
