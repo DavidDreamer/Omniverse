@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace Omniverse
 {
-	public abstract partial class OmniverseEntity : MonoBehaviour, IFactious
+	public abstract partial class OmniverseEntity : MonoBehaviour
 	{
 		public event Action<Effect> EffectApplied;
 
@@ -17,18 +17,11 @@ namespace Omniverse
 		[field: SerializeField]
 		public NavMeshAgent NavMeshAgent { get; private set; }
 
-		public int FactionID { get; private set; } = -1;
-
 		public Dictionary<PropertyID, Property> Properties { get; } = new();
 
 		public List<Effect> Effects { get; } = new();
 
 		public AttackModule Attack { get; protected set; }
-
-		public void ChangeFaction(int factionID)
-		{
-			FactionID = factionID;
-		}
 
 		public void ModifyProperty(PropertyID propertyID, PropertyModifier modifier, OmniverseEntity source)
 		{

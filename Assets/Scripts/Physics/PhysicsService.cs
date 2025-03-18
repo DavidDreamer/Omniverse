@@ -10,18 +10,6 @@ namespace Omniverse
 	{
 		private static UnityEngine.Collider[] Colliders { get; } = new UnityEngine.Collider[128];
 
-		public static OmniverseEntity GetEntity(UnityEngine.Ray ray)
-		{
-			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
-
-			if (Physics.Raycast(ray, out UnityEngine.RaycastHit hitInfo, float.MaxValue, settings.HitboxLayerMask))
-			{
-				return hitInfo.collider.GetComponentInParent<OmniverseEntity>();
-			}
-
-			return null;
-		}
-
 		public static IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
 		{
 			Vector3 sourcePosition = source.transform.position;
@@ -35,11 +23,6 @@ namespace Omniverse
 				var entity = Colliders[i].GetComponentInParent<TEntity>();
 
 				if (entity == null)
-				{
-					continue;
-				}
-
-				if (!filter.Match(source.FactionID, entity.FactionID))
 				{
 					continue;
 				}
@@ -64,11 +47,6 @@ namespace Omniverse
 				var entity = Colliders[i].GetComponentInParent<TEntity>();
 
 				if (entity == null)
-				{
-					continue;
-				}
-
-				if (!filter.Match(source.FactionID, entity.FactionID))
 				{
 					continue;
 				}

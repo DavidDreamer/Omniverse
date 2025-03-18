@@ -25,11 +25,11 @@ namespace Omniverse
 			}
 		}
 
-		public static IEnumerable<IFactious> Match(this IEnumerable<IFactious> items, IFactious source, FactiousFilter filter)
+		public static IEnumerable<Faction> Match(this IEnumerable<Faction> items, Faction source, FactiousFilter filter)
 		{
-			foreach (IFactious item in items)
+			foreach (Faction item in items)
 			{
-				if (filter.Match(source.FactionID, item.FactionID))
+				if (filter.Match(source.ID, item.ID))
 				{
 					yield return item;
 				}

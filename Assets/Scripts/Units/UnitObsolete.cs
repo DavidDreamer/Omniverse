@@ -20,7 +20,7 @@ namespace Omniverse
 
 		public CommandModule CommandModule { get; private set; }
 
-		public void Initialize(UnitDesc desc, int factionID)
+		public override void Initialize(UnitDesc desc)
 		{
 			base.Initialize(desc);
 
@@ -39,8 +39,6 @@ namespace Omniverse
 
 			Inventory = new Inventory(desc.Inventory);
 			CommandModule = new CommandModule(this);
-
-			ChangeFaction(factionID);
 		}
 
 		public void Cleanup()

@@ -14,7 +14,6 @@ namespace Omniverse
 		{
 			Desc = desc;
 			Owner = owner;
-			ChangeFaction(owner.FactionID);
 		}
 
 		public void Initialize(MissileDesc desc, OmniverseEntity owner, Vector3 vector)

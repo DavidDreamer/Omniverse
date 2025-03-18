@@ -28,14 +28,15 @@ namespace Omniverse.Actions
 				{
 					return Self;
 				}
-				else if (actor.IsAllyFor(target))
-				{
+				//TODO ECS
+				//else if (actor.IsAllyFor(target))
+				//{
 					return Ally;
-				}
-				else
-				{
-					return Enemy;
-				}
+				//}
+				//else
+				//{
+					//return Enemy;
+				//}
 			}
 		}
 	}

@@ -15,10 +15,9 @@ namespace Omniverse
 
 		public HashSet<OmniverseEntity> Targets { get; } = new();
 
-		public void Initialize(ChainDesc desc, int factionID)
+		public void Initialize(ChainDesc desc)
 		{
 			Desc = desc;
-			ChangeFaction(factionID);
 		}
 
 		public override void Tick(float deltaTime)
