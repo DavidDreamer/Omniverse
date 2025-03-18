@@ -139,7 +139,10 @@ namespace Omniverse.Input
 
 								//if (ability.Desc.Target is NoneTarget)
 								{
-									ability.ActiveCooldown = ability.Cooldown;
+									var cooldown = ability.Cooldown;
+									cooldown.TimeLeft = cooldown.Time;
+									ability.Cooldown = cooldown;
+
 									abilities[i] = ability;
 									//if (ability.Desc.Casting.Time == 0)
 									//{

@@ -44,7 +44,7 @@ namespace Omniverse.UI
 			//TODO ECS
 			//Casting.Bind(Ability.Casting);
 
-			Cooldown.Tick(ability);
+			Cooldown.Tick(ability.Cooldown);
 			Tooltip.Bind(ability);
 		}
 

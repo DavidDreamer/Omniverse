@@ -45,7 +45,10 @@ namespace Omniverse
 					{
 						Name = desc.Meta.Name,
 						Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
-						Cooldown = desc.Cooldown.Time
+						Cooldown = new Cooldown
+						{
+							Time = desc.Cooldown.Time
+						}
 					};
 
 					abilities.Add(ability);

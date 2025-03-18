@@ -8,15 +8,12 @@
 
 		public Casting Casting { get; }
 
-		public Cooldown Cooldown { get; }
-
 		public AbilityObsolete(AbilityDesc desc, OmniverseEntity entity)
 		{
 			Desc = desc;
 			Entity = entity;
 
 			Casting = new Casting(Desc.Casting);
-			Cooldown = new Cooldown(Desc.Cooldown);
 
 			for (int i = 0; i < Desc.Triggers.Length; i++)
 			{
@@ -25,15 +22,8 @@
 			}
 		}
 
-		public void Tick(float deltaTime)
-		{
-			Cooldown.Tick(deltaTime);
-		}
-
 		public void Cast<TTarget>(TTarget target)
 		{
-			Cooldown.Activate();
-
 			var operation = (IOperation<TTarget>)Desc.ActiveOperation;
 			operation.Perform(Entity, target);
 		}

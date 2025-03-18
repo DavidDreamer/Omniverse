@@ -60,7 +60,6 @@ namespace Omniverse
 				return;
 			}
 
-			UpdateAbilities();
 			UpdateEffects();
 			UpdateProperties();
 
@@ -72,14 +71,6 @@ namespace Omniverse
 			else
 			{
 				CommandModule.Tick(deltaTime);
-			}
-
-			void UpdateAbilities()
-			{
-				foreach (AbilityObsolete ability in Abilities)
-				{
-					ability.Tick(deltaTime);
-				}
 			}
 
 			void UpdateEffects()

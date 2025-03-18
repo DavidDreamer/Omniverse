@@ -17,8 +17,10 @@ namespace Omniverse
 				for (int i = 0; i < buffer.Length; ++i)
 				{
 					Ability ability = buffer[i];
+					Cooldown cooldown = ability.Cooldown;
 
-					ability.ActiveCooldown = math.max(0f, ability.ActiveCooldown - SystemAPI.Time.DeltaTime);
+					cooldown.TimeLeft = math.max(0f, cooldown.TimeLeft - SystemAPI.Time.DeltaTime);
+					ability.Cooldown = cooldown;
 
 					bufferCopy[i] = ability;
 				}
@@ -32,12 +34,6 @@ namespace Omniverse
 
 		public WeakObjectReference<Sprite> Icon;
 
-		public float Cooldown;
-
-		public float ActiveCooldown;
-
-		public bool IsOnCooldown => ActiveCooldown > 0f;
-
-		public float ActiveCooldownRatio => math.saturate(ActiveCooldown / Cooldown);
+		public Cooldown Cooldown;
 	}
 }
