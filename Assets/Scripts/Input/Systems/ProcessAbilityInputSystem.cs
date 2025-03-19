@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using Omniverse.Abilities;
+using Unity.Burst;
 using Unity.Entities;
 using static InputActions;
 
@@ -130,12 +131,12 @@ namespace Omniverse.Input
 								//	Discard();
 								//}
 
-								//AbilityCastError error = ability.CanBeCasted(unit);
+								AbilityCastError error = ability.CanBeCasted(entity);
 
-								//if (error is not AbilityCastError.None)
-								//{
-								//	return;
-								//}
+								if (error is not AbilityCastError.None)
+								{
+									return;
+								}
 
 								//if (ability.Desc.Target is NoneTarget)
 								{
