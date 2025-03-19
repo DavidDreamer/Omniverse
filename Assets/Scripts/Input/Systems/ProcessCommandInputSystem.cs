@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 using static InputActions;
 
 namespace Omniverse.Input
@@ -53,9 +52,9 @@ namespace Omniverse.Input
 						var selection = SystemAPI.GetSingleton<Selection>();
 						foreach (Entity entity in selection.Entities)
 						{
-							var agent = SystemAPI.GetComponent<NavAgentComponent>(entity);
-							agent.targetPosition = pointer.WorldPosition;
-							SystemAPI.SetComponent(entity, agent);
+							var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
+							var command = new MoveCommand(selection.Entity, pointer.WorldPosition);
+							AddCommand(ref state, commandModule, command);
 						}
 						NavigationPointCreated?.Invoke(pointer.WorldPosition);
 						break;
@@ -69,14 +68,14 @@ namespace Omniverse.Input
 			//	}
 			//}
 
-			void AddCommand(UnitObsolete unit, ICommand command)
+			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
 			{
 				if (!commonActions.AdditiveMode.IsPressed())
 				{
-					unit.CommandModule.Reset();
+					commandModule.Reset(ref state);
 				}
 
-				unit.CommandModule.Add(command);
+				commandModule.Add(command);
 			}
 		}
 

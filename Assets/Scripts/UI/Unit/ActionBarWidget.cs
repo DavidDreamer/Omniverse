@@ -25,10 +25,10 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Icon.sprite = castAbilityCommand.Ability.Desc.Meta.Icon;
+			//Icon.sprite = castAbilityCommand.Ability.Meta.Icon;
 			Slider.minValue = 0f;
-			Slider.maxValue = castAbilityCommand.Ability.Desc.Casting.Time;
-			Slider.value = castAbilityCommand.Ability.Casting.Time;
+			//Slider.maxValue = castAbilityCommand.Ability.Casting.Time;
+			//Slider.value = castAbilityCommand.Ability.Casting.Time;
 		}
 	}
 }

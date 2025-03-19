@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
+﻿using Unity.Entities;
+using Unity.Transforms;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -7,30 +8,37 @@ namespace Omniverse
 	{
 		public Vector3 Position { get; }
 
-		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
-
-		public MoveCommand(UnitObsolete unit, Vector3 position) : base(unit)
+		public MoveCommand(Entity entity, Vector3 position) : base(entity)
 		{
 			Position = position;
 		}
 
-		public override void Start()
+		public override void Start(ref SystemState state)
 		{
-			base.Start();
+			base.Start(ref state);
 
-			NavMeshAgent.destination = Position;
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);	
+
+			navAgent.IsActive = true;
+			navAgent.targetPosition = Position;
+
+			state.EntityManager.SetComponentData(Entity, navAgent);
 		}
 
-		public override bool Tick(float deltaTime)
+		public override bool Tick(ref SystemState state)
 		{
-			return Vector3.Distance(Position, NavMeshAgent.nextPosition) <= NavMeshAgent.stoppingDistance;
+			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
+			return Vector3.Distance(Position, transform.Position) <= 0.1f;
 		}
 
-		public override void Cleanup()
+		public override void Cleanup(ref SystemState state)
 		{
-			base.Cleanup();
+			base.Cleanup(ref state);
 
-			NavMeshAgent.ResetPath();
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.IsActive = false;
+
+			state.EntityManager.SetComponentData(Entity, navAgent);
 		}
 	}
 }

@@ -1,39 +1,46 @@
-﻿using Omniverse.Items;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using Unity.Entities;
 
 namespace Omniverse
 {
 	public class PickUpItemCommand : Command
 	{
-		private Item Item { get; }
+		private Entity Item { get; }
 
-		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
-
-		public PickUpItemCommand(UnitObsolete unit, Item item) : base(unit)
+		public PickUpItemCommand(Entity entity, Entity item) : base(entity)
 		{
 			Item = item;
 		}
 
-		public override bool Tick(float deltaTime)
+		public override void Start(ref SystemState state)
 		{
-			NavMeshAgent.destination = Item.transform.position;
+			base.Start(ref state);
 
-			if (Vector3.Distance(Item.transform.position, NavMeshAgent.nextPosition) <= NavMeshAgent.stoppingDistance)
-			{
-				Item.gameObject.SetActive(false);
-				Unit.Inventory.Add(Item);
-				return true;
-			}
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.targetEntity = Item;
+			navAgent.IsActive = true;
+		}
+
+		public override bool Tick(ref SystemState state)
+		{
+			//if (Vector3.Distance(Item.transform.position, NavMeshAgent.nextPosition) <= 0.1f)
+			//{
+			//	TODO ECS
+
+			//	Item.gameObject.SetActive(false);
+
+			//	Unit.Inventory.Add(Item);
+			//	return true;
+			//}
 
 			return false;
 		}
 
-		public override void Cleanup()
+		public override void Cleanup(ref SystemState state)
 		{
-			base.Cleanup();
+			base.Cleanup(ref state);
 
-			NavMeshAgent.ResetPath();
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.IsActive = false;
 		}
 	}
 }

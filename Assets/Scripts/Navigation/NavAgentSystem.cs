@@ -19,6 +19,11 @@ namespace Omniverse
 			
 			foreach (var (navAgent, movementSpeed, transform, entity) in SystemAPI.Query<RefRW<NavAgentComponent>, RefRW<MovementSpeed>, RefRW<LocalTransform>>().WithEntityAccess())
 			{
+				if (!navAgent.ValueRW.IsActive)
+				{
+					continue;
+				}
+
 				DynamicBuffer<WaypointBuffer> waypointBuffer = state.EntityManager.GetBuffer<WaypointBuffer>(entity);
 
 				CalculatePath();

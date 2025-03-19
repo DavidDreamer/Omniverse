@@ -167,14 +167,14 @@ namespace Omniverse.Input
 				}
 			}
 
-			void AddCommand(UnitObsolete unit, ICommand command)
+			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
 			{
 				if (!commonActions.AdditiveMode.IsPressed())
 				{
-					unit.CommandModule.Reset();
+					commandModule.Reset(ref state);
 				}
 
-				unit.CommandModule.Add(command);
+				commandModule.Add(command);
 			}
 
 			void Discard()

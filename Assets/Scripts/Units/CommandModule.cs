@@ -1,23 +1,28 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 
 namespace Omniverse
 {
-	public class CommandModule
+	public partial struct ProcessCommandsSystem : ISystem
 	{
-		private UnitObsolete Unit { get; }
+		public void OnUpdate(ref SystemState state)
+		{
+			foreach (var commandModule in SystemAPI.Query<CommandModule>())
+			{
+				commandModule.Tick(ref state);
+			}
+		}
+	}
 
+	public class CommandModule : IComponentData
+	{
 		private Queue<ICommand> Commands { get; } = new();
 
 		private Queue<IImmediateCommand> ImmediateCommands { get; } = new();
 
 		public ICommand Command { get; private set; }
 
-		public CommandModule(UnitObsolete unit)
-		{
-			Unit = unit;
-		}
-
-		public void Tick(float deltaTime)
+		public void Tick(ref SystemState state)
 		{
 			while (ImmediateCommands.Count > 0)
 			{
@@ -34,27 +39,27 @@ namespace Omniverse
 				else
 				{
 					Command = Commands.Dequeue();
-					Command.Start();
+					Command.Start(ref state);
 				}
 			}
 
 			while (true)
 			{
-				bool completed = Command.Tick(deltaTime);
+				bool completed = Command.Tick(ref state);
 				if (completed)
 				{
-					Command.Cleanup();
+					Command.Cleanup(ref state);
 
 					if (Command.IsRepeatable)
 					{
-						Command.Start();
+						Command.Start(ref state);
 						break;
 					}
 					{
 						if (Commands.Count > 0)
 						{
 							Command = Commands.Dequeue();
-							Command.Start();
+							Command.Start(ref state);
 						}
 						else
 						{
@@ -74,11 +79,11 @@ namespace Omniverse
 
 		public void Add(ICommand command) => Commands.Enqueue(command);
 
-		public void Reset()
+		public void Reset(ref SystemState state)
 		{
 			if (Command != null)
 			{
-				Command.Cleanup();
+				Command.Cleanup(ref state);
 				Command = null;
 			}
 

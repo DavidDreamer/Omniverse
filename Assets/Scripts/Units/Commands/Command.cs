@@ -1,38 +1,39 @@
-﻿
+﻿using Unity.Entities;
+
 namespace Omniverse
 {
 	public interface ICommand
 	{
-		void Start();
+		void Start(ref SystemState state);
 
 		bool IsRepeatable { get; }
 
-		bool Tick(float deltaTime);
+		bool Tick(ref SystemState state);
 
-		void Cleanup();
+		void Cleanup(ref SystemState state);
 	}
 
 	public abstract class Command : ICommand
 	{
-		protected UnitObsolete Unit { get; }
+		protected Entity Entity { get; }
 
 		public virtual bool IsRepeatable => false;
 
-		protected Command(UnitObsolete unit)
+		protected Command(Entity entity)
 		{
-			Unit = unit;
+			Entity = entity;
 		}
 
-		public virtual void Start()
+		public virtual void Start(ref SystemState state)
 		{
 		}
 
-		public virtual bool Tick(float deltaTime)
+		public virtual bool Tick(ref SystemState state)
 		{
 			return false;
 		}
 
-		public virtual void Cleanup()
+		public virtual void Cleanup(ref SystemState state)
 		{
 		}
 	}

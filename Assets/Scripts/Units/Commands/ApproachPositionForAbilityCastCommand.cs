@@ -1,40 +1,44 @@
-﻿using Omniverse.Abilities;
+﻿using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Omniverse
 {
 	public class ApproachPositionForAbilityCastCommand : Command
 	{
-		public AbilityObsolete Ability { get; }
+		public Ability Ability { get; }
 
 		public Vector3 Position { get; }
 
-		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
-
-		public ApproachPositionForAbilityCastCommand(UnitObsolete unit, AbilityObsolete ability, Vector3 position) : base(unit)
+		public ApproachPositionForAbilityCastCommand(Entity entity, Ability ability, Vector3 position) : base(entity)
 		{
 			Ability = ability;
 			Position = position;
 		}
 
-		public override void Start()
+		public override void Start(ref SystemState state)
 		{
-			base.Start();
+			base.Start(ref state);
 
-			NavMeshAgent.destination = Position;
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+
+			navAgent.IsActive = true;
+			navAgent.targetPosition = Position;
 		}
 
-		public override bool Tick(float deltaTime)
+		public override bool Tick(ref SystemState state)
 		{
-			return Vector3.Distance(Position, NavMeshAgent.nextPosition) <= Ability.Desc.Casting.Range;
+			var localTransform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
+
+			return Vector3.Distance(Position, localTransform.Position) <= Ability.CastRange;
 		}
 
-		public override void Cleanup()
+		public override void Cleanup(ref SystemState state)
 		{
-			base.Cleanup();
+			base.Cleanup(ref state);
 
-			NavMeshAgent.ResetPath();
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.IsActive = false;
 		}
 	}
 }

@@ -1,29 +1,29 @@
-﻿using UnityEngine.AI;
+﻿using Unity.Entities;
 
 namespace Omniverse
 {
 	public class FollowCommand : Command
 	{
-		private UnitObsolete Target { get; }
+		private Entity Target { get; }
 
-		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
-
-		public FollowCommand(UnitObsolete unit, UnitObsolete target) : base(unit)
+		public FollowCommand(Entity entity, Entity target) : base(entity)
 		{
 			Target = target;
 		}
 
-		public override bool Tick(float deltaTime)
+		public override bool Tick(ref SystemState state)
 		{
-			NavMeshAgent.destination = Target.NavMeshAgent.nextPosition;
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.targetEntity = Target;
 			return false;
 		}
 
-		public override void Cleanup()
+		public override void Cleanup(ref SystemState state)
 		{
-			base.Cleanup();
+			base.Cleanup(ref state);
 
-			NavMeshAgent.ResetPath();
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.IsActive = false;
 		}
 	}
 }

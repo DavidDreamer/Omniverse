@@ -1,49 +1,47 @@
-﻿using UnityEngine.AI;
-using static Omniverse.OmniverseEntity;
+﻿using Unity.Entities;
 
 namespace Omniverse
 {
 	public class AttackCommand : Command
 	{
-		private UnitObsolete Target { get; }
+		private Entity Target { get; }
 
-		private NavMeshAgent NavMeshAgent => Unit.NavMeshAgent;
-
-		public AttackCommand(UnitObsolete unit, UnitObsolete target) : base(unit)
+		public AttackCommand(Entity entity, Entity target) : base(entity)
 		{
 			Target = target;
 		}
 
-		public override bool Tick(float deltaTime)
+		public override bool Tick(ref SystemState state)
 		{
-			AttackModule attack = Unit.Attack;
+			//AttackModule attack = Unit.Attack;
 
-			if (!attack.InProcess)
-			{
-				if (attack.TargetIsInRange(Target))
-				{
-					NavMeshAgent.ResetPath();
-					attack.BeginAttack();
-				}
-			}
+			//if (!attack.InProcess)
+			//{
+			//	if (attack.TargetIsInRange(Target))
+			//	{
+			//		NavMeshAgent.ResetPath();
+			//		attack.BeginAttack();
+			//	}
+			//}
 
-			if (attack.InProcess)
-			{
-				attack.Tick(Target, deltaTime);
-			}
-			else
-			{
-				NavMeshAgent.destination = Target.NavMeshAgent.nextPosition;
-			}
+			//if (attack.InProcess)
+			//{
+			//	attack.Tick(Target, deltaTime);
+			//}
+			//else
+			//{
+			//	NavMeshAgent.destination = Target.NavMeshAgent.nextPosition;
+			//}
 
 			return false;
 		}
 
-		public override void Cleanup()
+		public override void Cleanup(ref SystemState state)
 		{
-			base.Cleanup();
+			base.Cleanup(ref state);
 
-			NavMeshAgent.ResetPath();
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			navAgent.IsActive = false;
 		}
 	}
 }

@@ -34,6 +34,7 @@ namespace Omniverse
 				});
 
 				AddComponent(entity, new NavAgentComponent());
+				AddComponentObject(entity, new CommandModule());
 
 				AddBuffer<WaypointBuffer>(entity);
 

@@ -18,8 +18,6 @@ namespace Omniverse
 
 		public Inventory Inventory { get; private set; }
 
-		public CommandModule CommandModule { get; private set; }
-
 		public override void Initialize(UnitDesc desc)
 		{
 			base.Initialize(desc);
@@ -38,7 +36,6 @@ namespace Omniverse
 			}
 
 			Inventory = new Inventory(desc.Inventory);
-			CommandModule = new CommandModule(this);
 		}
 
 		public void Cleanup()
@@ -63,13 +60,6 @@ namespace Omniverse
 
 			bool isStunned = Status.HasFlag(UnitStatus.Stunned);
 			NavMeshAgent.isStopped = isStunned;
-			if (isStunned)
-			{
-			}
-			else
-			{
-				CommandModule.Tick(deltaTime);
-			}
 
 			void UpdateEffects()
 			{
