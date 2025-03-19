@@ -102,16 +102,16 @@ namespace Omniverse
 			{
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
-					foreach (var agent in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
+					foreach ((var agent, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
 					{
-						float3 position = agent.Item2.ValueRO.Position;
+						float3 position = localTransform.ValueRO.Position;
 
 						int x = (int)(position.x / Multiplier);
 						int y = (int)(position.z / Multiplier);
 
 						int index = x * fogOfWar.ValueRO.Size.y + y;
 
-						agent.Item1.ValueRW.CellIndex = index;
+						agent.ValueRW.CellIndex = index;
 					}
 				}
 			}
@@ -184,17 +184,27 @@ namespace Omniverse
 			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
+				if (SystemAPI.HasSingleton<Player>() is false)
+				{
+					return;
+				}
+
+				var player = SystemAPI.GetSingleton<Player>();
+
 				foreach (var fogOfWar in SystemAPI.Query<FogOfWar>())
 				{
-					foreach (var item in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
+					foreach ((var agent, var faction, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, Faction, RefRO<LocalTransform>>())
 					{
-						FogOfWarAgent agent = item.Item1.ValueRO;
-						float3 position = item.Item2.ValueRO.Position;
+						if (faction.ID != player.FactionID)
+						{
+							continue;
+						}
+
+						float3 position = localTransform.ValueRO.Position;
 
 						int x0 = (int)(position.x / Multiplier);
 						int y0 = (int)(position.z / Multiplier);
-						int radius = (int)(agent.VisionRange / Multiplier);
-						//int factionId = agent.FactionID;
+						int radius = (int)(agent.ValueRW.VisionRange / Multiplier);
 
 						var circleHandler = new BresenhamCircleHandler(x0, y0, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWar.Size);
 						Bresenham.Circle(x0, y0, radius, circleHandler);
