@@ -48,7 +48,8 @@ namespace Omniverse
 						Cooldown = new Cooldown
 						{
 							Time = desc.Cooldown.Time
-						}
+						},
+						CastRange = desc.Casting.Range
 					};
 
 					abilities.Add(ability);

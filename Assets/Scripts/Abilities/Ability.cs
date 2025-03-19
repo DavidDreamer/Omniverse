@@ -35,5 +35,7 @@ namespace Omniverse
 		public WeakObjectReference<Sprite> Icon;
 
 		public Cooldown Cooldown;
+
+		public float CastRange;
 	}
 }
