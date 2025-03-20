@@ -41,14 +41,10 @@ namespace Omniverse.UI
 
 			Activator.enabled = abilityInput.Ability == ability;
 
-			ability.Icon.LoadAsync();
-			ability.Icon.WaitForCompletion();
-			Icon.sprite = ability.Icon.Result;
+			Icon.sprite = ability.Icon;
 			Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
 
-			//TODO ECS
-			//Casting.Bind(Ability.Casting);
-			//Casting.Tick();
+			Casting.Tick(Ability.Casting);
 
 			Cooldown.Tick(ability.Cooldown);
 			Tooltip.Bind(ability);

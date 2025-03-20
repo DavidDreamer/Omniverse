@@ -37,7 +37,6 @@ namespace Omniverse.Input
 				{
 					case VectorTarget vectorTarget:
 					{
-
 						if (!commonActions.Select.WasPressedThisFrame())
 						{
 							return;
@@ -137,12 +136,12 @@ namespace Omniverse.Input
 
 							if (ability.Target is NoneTarget)
 							{
-								//if (ability.Desc.Casting.Time == 0)
-								//{
-								//	var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
-								//	unit.CommandModule.Add(castImmediateAbilityCommand);
-								//}
-								//else
+								if (ability.Casting.Time == 0)
+								{
+									var command = new CastImmediateAbilityCommand(entity, ability);
+									commandModule.Add(command);
+								}
+								else
 								{
 									var command = new CastAbilityCommand<None>(entity, ability, None.Instance);
 									AddCommand(ref state, commandModule, command);

@@ -1,4 +1,6 @@
-﻿namespace Omniverse
+﻿using Unity.Entities;
+
+namespace Omniverse
 {
 	public interface IImmediateCommand
 	{
@@ -7,11 +9,11 @@
 
 	public abstract class ImmediateCommand : IImmediateCommand
 	{
-		protected UnitObsolete Unit { get; }
+		protected Entity Entity { get; }
 
-		public ImmediateCommand(UnitObsolete unit)
+		public ImmediateCommand(Entity entity)
 		{
-			Unit = unit;
+			Entity = entity;
 		}
 
 		public abstract void Execute();

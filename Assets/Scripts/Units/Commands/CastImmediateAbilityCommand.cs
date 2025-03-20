@@ -1,16 +1,16 @@
-﻿using Omniverse.Abilities;
+﻿using Unity.Entities;
 
 namespace Omniverse
 {
 	public class CastImmediateAbilityCommand : ImmediateCommand
 	{
-		private AbilityObsolete Ability { get; }
+		private Ability Ability { get; }
 
-		public CastImmediateAbilityCommand(UnitObsolete unit, AbilityObsolete ability) : base(unit)
+		public CastImmediateAbilityCommand(Entity entity, Ability ability) : base(entity)
 		{
 			Ability = ability;
 		}
 
-		public override void Execute() => Ability.Cast(None.Instance);
+		public override void Execute() => Ability.Cast(Entity, None.Instance);
 	}
 }

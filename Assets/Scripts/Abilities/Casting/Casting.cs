@@ -2,43 +2,32 @@
 
 namespace Omniverse.Abilities
 {
-	public class Casting
+	public struct Casting
 	{
-		//TODO
-		public event System.Action<Casting> Started;
+		public float Time;
 
-		public CastingDesc Desc { get; }
+		public float CurrentTime;
 
-		public float Time { get; private set; }
+		public bool InProcess;
+		
+		public float Factor => Mathf.Min(1f, CurrentTime / Time);
 
-		public float Factor { get; private set; }
-
-		public bool InProcess { get; private set; }
-
-		public bool Finished { get; private set; }
-
-		public Casting(CastingDesc desc)
-		{
-			Desc = desc;
-		}
+		public bool Finished => Factor == 1f;
 
 		public void Start()
 		{
 			InProcess = true;
-			Started?.Invoke(this);
 		}
 
 		public void Tick(float deltaTime)
 		{
-			Time += deltaTime;
-			Factor = Mathf.Min(1f, Time / Desc.Time);
-			Finished = Factor == 1f;
+			CurrentTime += deltaTime;
 		}
 
 		public void Reset()
 		{
 			InProcess = false;
-			Time = 0;
+			CurrentTime = 0;
 		}
 	}
 }

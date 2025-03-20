@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Omniverse.Abilities
 {
-
 	[Serializable]
 	public class CastingDesc
 	{

@@ -6,14 +6,10 @@
 
 		public OmniverseEntity Entity { get; }
 
-		public Casting Casting { get; }
-
 		public AbilityObsolete(AbilityDesc desc, OmniverseEntity entity)
 		{
 			Desc = desc;
 			Entity = entity;
-
-			Casting = new Casting(Desc.Casting);
 
 			for (int i = 0; i < Desc.Triggers.Length; i++)
 			{

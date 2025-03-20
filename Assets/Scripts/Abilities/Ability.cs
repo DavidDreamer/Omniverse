@@ -35,9 +35,11 @@ namespace Omniverse
 	{
 		public string Name;
 
-		public WeakObjectReference<Sprite> Icon;
+		public Sprite Icon;
 
 		public Cooldown Cooldown;
+
+		public Casting Casting;
 
 		public ITarget Target;
 

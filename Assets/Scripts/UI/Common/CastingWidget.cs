@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Omniverse.Abilities;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Omniverse.UI
@@ -8,21 +9,14 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Image Image { get; set; }
 
-		private Abilities.Casting Casting { get; set; }
-
-		public void Bind(Abilities.Casting casting)
+		public void Tick(Casting casting)
 		{
-			Casting = casting;
-		}
-
-		public void Tick()
-		{
-			bool inProcess = Casting.InProcess;
+			bool inProcess = casting.InProcess;
 			Image.enabled = inProcess;
 
 			if (inProcess)
 			{
-				Image.fillAmount = Casting.Factor;
+				Image.fillAmount = casting.Factor;
 			}
 		}
 	}

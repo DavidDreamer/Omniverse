@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Omniverse.Abilities;
+using Unity.Entities;
 
 namespace Omniverse
 {
@@ -14,47 +15,48 @@ namespace Omniverse
 			Ability = ability;
 		}
 
-		//public override void Start()
-		//{
-		//	base.Start();
+		public override void Start(ref SystemState state)
+		{
+			base.Start(ref state);
 
-		//	Ability.Casting.Start();
-		//}
+			Ability.Casting.Start();
+		}
 
 		public override bool Tick(ref SystemState state)
 		{
-			//AbilityCastError error = Ability.CanBeCasted(Unit);
+			AbilityCastError error = Ability.CanBeCasted(Entity);
 
-			//if (error is not AbilityCastError.None)
-			//{
-			//	return true;
-			//}
+			if (error is not AbilityCastError.None)
+			{
+				return true;
+			}
 
-			//Ability.Casting.Tick(deltaTime);
+			Ability.Casting.Tick(state.EntityManager.World.Time.DeltaTime);
 
-			//if (!Ability.Casting.Finished)
-			//{
-			//	return false;
-			//}
-
-			//foreach (CostDesc cost in Ability.Desc.Cost)
-			//{
-			//	Unit.Properties[cost.PropertyID].Modify(cost.PropertyModifier);
-			//}
+			if (!Ability.Casting.Finished)
+			{
+				return false;
+			}
 
 			Cast();
 
 			return true;
 		}
 
-		protected abstract void Cast();
+		protected virtual void Cast()
+		{
+			//foreach (CostDesc cost in Ability.Desc.Cost)
+			//{
+			//	Unit.Properties[cost.PropertyID].Modify(cost.PropertyModifier);
+			//}
+		}
 
-		//public override void Cleanup()
-		//{
-		//	base.Cleanup();
+		public override void Cleanup(ref SystemState state)
+		{
+			base.Cleanup(ref state);
 
-		//	Ability.Casting.Reset();
-		//}
+			Ability.Casting.Reset();
+		}
 	}
 
 	public class CastAbilityCommand<TTarget> : CastAbilityCommand
@@ -68,6 +70,8 @@ namespace Omniverse
 
 		protected override void Cast()
 		{
+			base.Cast();
+
 			Ability.Cast(Entity, Target);
 		}
 	}

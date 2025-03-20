@@ -12,12 +12,14 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Slider Slider { get; set; }
 
-		//TODO ECS
 		public void Tick(Entity entity)
 		{
-			CastAbilityCommand castAbilityCommand = null;// entity.CommandModule.Command as CastAbilityCommand;
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var commandModule = entityManager.GetComponentObject<CommandModule>(entity);
 
-			bool isCastAbilityCommand = false;// castAbilityCommand != null;
+			CastAbilityCommand castAbilityCommand = commandModule.Command as CastAbilityCommand;
+
+			bool isCastAbilityCommand = castAbilityCommand != null;
 			gameObject.SetActive(isCastAbilityCommand);
 
 			if (!isCastAbilityCommand)
@@ -25,10 +27,10 @@ namespace Omniverse.UI
 				return;
 			}
 
-			//Icon.sprite = castAbilityCommand.Ability.Meta.Icon;
+			Icon.sprite = castAbilityCommand.Ability.Icon;
 			Slider.minValue = 0f;
-			//Slider.maxValue = castAbilityCommand.Ability.Casting.Time;
-			//Slider.value = castAbilityCommand.Ability.Casting.Time;
+			Slider.maxValue = castAbilityCommand.Ability.Casting.Time;
+			Slider.value = castAbilityCommand.Ability.Casting.CurrentTime;
 		}
 	}
 }

@@ -45,10 +45,14 @@ namespace Omniverse
 					Ability ability = new()
 					{
 						Name = desc.Meta.Name,
-						Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
+						Icon = desc.Meta.Icon,
 						Cooldown = new Cooldown
 						{
 							Time = desc.Cooldown.Time
+						},
+						Casting = new Abilities.Casting()
+						{
+							Time = desc.Casting.Time
 						},
 						Target = desc.Target,
 						CastRange = desc.Casting.Range
