@@ -1,6 +1,6 @@
-﻿using Unity.Collections;
-using Omniverse;
+﻿using Omniverse;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 
 [BurstCompile]

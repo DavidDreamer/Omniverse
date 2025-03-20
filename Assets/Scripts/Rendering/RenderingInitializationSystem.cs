@@ -1,7 +1,7 @@
 ﻿using Omniverse.Mapping;
 using Unity.Entities;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Omniverse.Rendering
 {

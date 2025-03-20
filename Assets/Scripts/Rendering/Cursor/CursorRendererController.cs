@@ -40,7 +40,7 @@ namespace Omniverse.Rendering
 								return Config.HoverEnemy;
 							}
 						}
-				
+
 					}
 
 					return Config.Default;

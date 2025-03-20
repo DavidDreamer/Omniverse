@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Omniverse.Abilities
+﻿namespace Omniverse.Abilities
 {
 	public interface IAbilityTrigger
 	{

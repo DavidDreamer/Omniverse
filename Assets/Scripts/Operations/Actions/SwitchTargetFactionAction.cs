@@ -31,11 +31,11 @@ namespace Omniverse.Actions
 				//TODO ECS
 				//else if (actor.IsAllyFor(target))
 				//{
-					return Ally;
+				return Ally;
 				//}
 				//else
 				//{
-					//return Enemy;
+				//return Enemy;
 				//}
 			}
 		}

@@ -84,7 +84,7 @@ namespace Omniverse
 
 						int x = (int)(transform.ValueRO.Position.x / Multiplier);
 						int y = (int)(transform.ValueRO.Position.z / Multiplier);
-;
+						
 						int index = x * fogOfWar.ValueRO.Size.y + y;
 						fogOfWar.ValueRW.Occlusion[index] = true;
 					}

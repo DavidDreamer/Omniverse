@@ -17,7 +17,7 @@ namespace Omniverse
 		{
 			base.Start(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);	
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 
 			navAgent.IsActive = true;
 			navAgent.targetPosition = Position;

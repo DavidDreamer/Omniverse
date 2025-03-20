@@ -19,17 +19,17 @@ namespace Omniverse.UI
 		{
 			Canvas = GetComponentInParent<Canvas>(true);
 		}
-		
+
 		public void OnPointerDown(PointerEventData eventData)
 		{
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					{
-						MovingEnabled = true;
-						MoveCameraToPointerPosition(eventData);
-						break;
-					}
+				{
+					MovingEnabled = true;
+					MoveCameraToPointerPosition(eventData);
+					break;
+				}
 			}
 		}
 
@@ -38,14 +38,14 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
+				{
+					if (MovingEnabled)
 					{
-						if (MovingEnabled)
-						{
-							MoveCameraToPointerPosition(eventData);
-						}
-
-						break;
+						MoveCameraToPointerPosition(eventData);
 					}
+
+					break;
+				}
 			}
 		}
 
@@ -54,17 +54,17 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					{
-						MovingEnabled = false;
-						break;
-					}
+				{
+					MovingEnabled = false;
+					break;
+				}
 				case PointerEventData.InputButton.Right:
-					{
-						Vector3 position = TransformPosition(eventData.position);
-						//TODO ECS
-						//UnitController.ProcessNavigationPoint(position);
-						break;
-					}
+				{
+					Vector3 position = TransformPosition(eventData.position);
+					//TODO ECS
+					//UnitController.ProcessNavigationPoint(position);
+					break;
+				}
 			}
 		}
 

@@ -1,9 +1,8 @@
-﻿using Unity.Mathematics;
-using Unity.Entities;
-using Unity.Entities.Content;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Omniverse.Abilities;
+using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
 
 namespace Omniverse
 {

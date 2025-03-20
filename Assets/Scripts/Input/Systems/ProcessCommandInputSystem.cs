@@ -95,7 +95,7 @@ namespace Omniverse.Input
 			//	AddCommand(unit, moveCommand);
 			//}
 
-		
+
 
 			//NavigationPointCreated?.Invoke(position);
 		}

@@ -9,7 +9,7 @@ namespace Omniverse.UI
 		private RectTransform Holder { get; set; }
 
 		[field: SerializeField]
-		private EffectWidget EffectWidget{ get; set; }
+		private EffectWidget EffectWidget { get; set; }
 
 		private UnitObsolete Unit { get; set; }
 

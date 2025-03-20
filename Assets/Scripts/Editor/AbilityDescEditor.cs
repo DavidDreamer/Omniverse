@@ -104,7 +104,7 @@ namespace Omniverse.Editor
 			}
 
 			ActiveOperation.Draw();
-			
+
 			Type GetOperationTagetType()
 			{
 				switch (Target.managedReferenceValue)

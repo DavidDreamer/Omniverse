@@ -9,7 +9,7 @@ namespace Omniverse.Abilities
 		public float CurrentTime;
 
 		public bool InProcess;
-		
+
 		public float Factor => Mathf.Min(1f, CurrentTime / Time);
 
 		public bool Finished => Factor == 1f;

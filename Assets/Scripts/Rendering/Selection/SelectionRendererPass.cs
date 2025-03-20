@@ -61,7 +61,7 @@ namespace Omniverse.Rendering
 
 			Player player = ECSUtils.GetSingleton<Player>();
 			Selection selection = ECSUtils.GetSingleton<Selection>();
-			
+
 			MaterialPropertyBlock.Clear();
 
 			int i = 0;

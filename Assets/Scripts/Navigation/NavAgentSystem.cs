@@ -16,7 +16,7 @@ namespace Omniverse
 		private void OnUpdate(ref SystemState state)
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
-			
+
 			foreach (var (navAgent, movementSpeed, transform, entity) in SystemAPI.Query<RefRW<NavAgentComponent>, RefRW<MovementSpeed>, RefRW<LocalTransform>>().WithEntityAccess())
 			{
 				if (!navAgent.ValueRW.IsActive)
