@@ -50,6 +50,7 @@ namespace Omniverse
 						{
 							Time = desc.Cooldown.Time
 						},
+						Target = desc.Target,
 						CastRange = desc.Casting.Range
 					};
 

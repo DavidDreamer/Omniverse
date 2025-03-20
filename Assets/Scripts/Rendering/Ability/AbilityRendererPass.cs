@@ -1,6 +1,8 @@
 ﻿using Dreambox.Core;
 using Omniverse.Abilities;
 using Omniverse.Input;
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
@@ -35,67 +37,67 @@ namespace Omniverse.Rendering
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
 
-			DrawRange(commandBuffer);
-			DrawDireciton(commandBuffer);
-		}
-
-		public void DrawRange(RasterCommandBuffer commandBuffer)
-		{
-			AbilityRendererConfig config = Renderer.Config;
+			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
 
-			//TODO ECS
-			//var matrix = abilityController.ActiveUnit.transform.localToWorldMatrix *
-			//	Matrix4x4.Scale(Vector3.one * abilityController.ActiveAbility.Desc.Casting.Range * 2f) *
-			//	MatrixUtils.WorldUpRotation;
+			var transform = entityManager.GetComponentData<LocalTransform>(abilityInput.Entity);
+			var localToWorld = entityManager.GetComponentData<LocalToWorld>(abilityInput.Entity);
+			var abilityModule = entityManager.GetComponentObject<AbilityModule>(abilityInput.Entity);
+			var ability = abilityModule.Abilities[abilityInput.AbilityIndex];
 
-			//var drawMeshParams = config.Range;
-			//commandBuffer.DrawMesh(
-			//	drawMeshParams.Mesh,
-			//	matrix,
-			//	drawMeshParams.Material,
-			//	drawMeshParams.SubmeshIndex,
-			//	drawMeshParams.ShaderPass);
-		}
+			DrawRange();
+			DrawDireciton();
 
-		private void DrawDireciton(RasterCommandBuffer commandBuffer)
-		{
-			//TODO ECS
-			//var target = Renderer.AbilityController.ActiveAbility.Desc.Target;
+			void DrawRange()
+			{
+				AbilityRendererConfig config = Renderer.Config;
 
-			//if (target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
-			//{
-			//	return;
-			//}
+				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * ability.CastRange * 2f) * MatrixUtils.WorldUpRotation;
 
-			//AbilityDirectionRendererData config = Renderer.Config.Direction;
-			//AbilityController abilityController = Renderer.AbilityController;
+				var drawMeshParams = config.Range;
+				commandBuffer.DrawMesh(
+					drawMeshParams.Mesh,
+					matrix,
+					drawMeshParams.Material,
+					drawMeshParams.SubmeshIndex,
+					drawMeshParams.ShaderPass);
+			}
 
-			//var pointer = ECSUtils.GetSingleton<Pointer>();
+			void DrawDireciton()
+			{
+				if (ability.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
+				{
+					return;
+				}
 
-			//if (pointer.TargetType is not PointerTargetType.World)
-			//{
-			//	return;
-			//}
+				AbilityDirectionRendererData config = Renderer.Config.Direction;
 
-			//Vector3 activeUnitPosition = abilityController.ActiveUnit.transform.position;
-			//Vector3 direction = (Vector3)pointer.WorldPosition - activeUnitPosition;
-			//direction.Set(direction.x, 0, direction.z);
-			//direction.Normalize();
+				var pointer = ECSUtils.GetSingleton<Pointer>();
 
-			//Vector3 position = activeUnitPosition + direction * config.Scale.y * 0.5f;
-			//Quaternion rotation = Quaternion.LookRotation(Vector3.down, direction);
-			//Vector3 scale = config.Scale;
+				if (pointer.TargetType is not PointerTargetType.World)
+				{
+					return;
+				}
 
-			//var matrix = Matrix4x4.TRS(position, rotation, scale);
+				Vector3 activeUnitPosition = transform.Position;
+				Vector3 direction = (Vector3)pointer.WorldPosition - activeUnitPosition;
+				direction.Set(direction.x, 0, direction.z);
+				direction.Normalize();
 
-			//var drawMeshParams = config.DrawMeshParams;
-			//commandBuffer.DrawMesh(
-			//	drawMeshParams.Mesh,
-			//	matrix,
-			//	drawMeshParams.Material,
-			//	drawMeshParams.SubmeshIndex,
-			//	drawMeshParams.ShaderPass);
+				Vector3 position = activeUnitPosition + direction * config.Scale.y * 0.5f;
+				Quaternion rotation = Quaternion.LookRotation(Vector3.down, direction);
+				Vector3 scale = config.Scale;
+
+				var matrix = Matrix4x4.TRS(position, rotation, scale);
+
+				var drawMeshParams = config.DrawMeshParams;
+				commandBuffer.DrawMesh(
+					drawMeshParams.Mesh,
+					matrix,
+					drawMeshParams.Material,
+					drawMeshParams.SubmeshIndex,
+					drawMeshParams.ShaderPass);
+			}
 		}
 	}
 }

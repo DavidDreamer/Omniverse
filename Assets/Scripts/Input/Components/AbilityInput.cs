@@ -8,7 +8,7 @@ namespace Omniverse.Input
 	{
 		public Entity Entity;
 
-		public Entity Ability;
+		public int AbilityIndex;
 
 		public bool InProcess;
 	}

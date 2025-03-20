@@ -8,6 +8,6 @@ namespace Omniverse.Rendering
 	{
 		protected override AbilityRendererPass Setup() => new(this);
 
-		protected override bool IsInactive() => ECSUtils.GetSingleton<AbilityInput>().Ability == Entity.Null;
+		protected override bool IsInactive() => !ECSUtils.GetSingleton<AbilityInput>().InProcess;
 	}
 }

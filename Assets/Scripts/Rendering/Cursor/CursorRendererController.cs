@@ -24,7 +24,7 @@ namespace Omniverse.Rendering
 				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 				Entity entity = entityDetector.Entity;
 
-				if (abilityInput.Ability == Entity.Null)
+				if (!abilityInput.InProcess)
 				{
 					if (entity != Entity.Null)
 					{

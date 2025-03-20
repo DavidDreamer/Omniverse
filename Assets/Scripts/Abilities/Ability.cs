@@ -5,6 +5,7 @@ using Unity.Entities.Content;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Omniverse.Abilities;
 
 namespace Omniverse
 {
@@ -39,6 +40,8 @@ namespace Omniverse
 		public WeakObjectReference<Sprite> Icon;
 
 		public Cooldown Cooldown;
+
+		public ITarget Target;
 
 		public float CastRange;
 
