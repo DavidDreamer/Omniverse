@@ -39,12 +39,12 @@ namespace Omniverse.Input
 					{
 						if (!commonActions.Select.WasPressedThisFrame())
 						{
-							return;
+							break;
 						}
 
 						if (pointer.TargetType is not PointerTargetType.World)
 						{
-							return;
+							break;
 						}
 
 						if (vectorTarget.Mode is VectorTargetMode.Direction)
@@ -72,12 +72,12 @@ namespace Omniverse.Input
 					{
 						if (!commonActions.Select.WasPressedThisFrame())
 						{
-							return;
+							break;
 						}
 
 						if (pointer.Entity == Entity.Null)
 						{
-							return;
+							break;
 						}
 
 						//TODO ECS
@@ -119,11 +119,14 @@ namespace Omniverse.Input
 						{
 							if (abilityInput.InProcess)
 							{
-								Discard();
-
 								if (abilityInput.Entity == entity && abilityInput.Ability == ability)
 								{
+									Discard();
 									return;
+								}
+								else
+								{
+									Discard();
 								}
 							}
 
