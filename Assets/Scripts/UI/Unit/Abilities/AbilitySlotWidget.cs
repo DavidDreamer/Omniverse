@@ -1,6 +1,4 @@
-﻿using Omniverse.Abilities;
-using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -22,11 +20,11 @@ namespace Omniverse.UI
 			Hotkey.Set(inputAction);
 		}
 
-		public void Bind(Ability ability)
+		public void Tick(Ability ability)
 		{
+			bool hasAbility = ability is not null;
 			//TODO ECS
-			bool hasAbility = true;
-			bool isActiveAbility = true;// hasAbility && ability.Desc.ActiveOperation is not null;
+			bool isActiveAbility = true;// ability.ActiveOperation is not null;
 
 			AbilityWidget.gameObject.SetActive(hasAbility);
 			Background.gameObject.SetActive(!hasAbility);
@@ -34,13 +32,8 @@ namespace Omniverse.UI
 
 			if (hasAbility)
 			{
-				AbilityWidget.Bind(ability);
+				AbilityWidget.Tick(ability);
 			}
-		}
-
-		public void Tick()
-		{
-			AbilityWidget.Tick();
 		}
 	}
 }

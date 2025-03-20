@@ -33,16 +33,22 @@ namespace Omniverse.UI
 
 		private Ability Ability { get; set; }
 
-		public void Bind(Ability ability)
+		public void Tick(Ability ability)
 		{
 			Ability = ability;
+
+			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
+
+			Activator.enabled = abilityInput.Ability == ability;
 
 			ability.Icon.LoadAsync();
 			ability.Icon.WaitForCompletion();
 			Icon.sprite = ability.Icon.Result;
+			Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
 
 			//TODO ECS
 			//Casting.Bind(Ability.Casting);
+			//Casting.Tick();
 
 			Cooldown.Tick(ability.Cooldown);
 			Tooltip.Bind(ability);
@@ -72,20 +78,6 @@ namespace Omniverse.UI
 			Highlight.enabled = false;
 
 			Tooltip.gameObject.SetActive(false);
-		}
-
-		public void Tick()
-		{
-			//TODO ECS
-			//Activator.enabled = AbilityController.ActiveAbility == Ability;
-
-			//Casting.Tick();
-
-			//if (Ability.Cooldown is not null)
-			//{
-			//	Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
-			//	Cooldown.Tick();
-			//}
 		}
 	}
 }

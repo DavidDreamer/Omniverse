@@ -8,6 +8,6 @@ namespace Omniverse.Input
 
 		public Ability Ability;
 
-		public bool InProcess;
+		public bool InProcess => Ability != null;
 	}
 }

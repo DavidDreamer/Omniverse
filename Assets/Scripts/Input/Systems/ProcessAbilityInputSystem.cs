@@ -150,7 +150,6 @@ namespace Omniverse.Input
 							}
 							else
 							{
-								abilityInput.InProcess = true;
 								abilityInput.Entity = entity;
 								abilityInput.Ability = ability;
 							}
@@ -171,7 +170,7 @@ namespace Omniverse.Input
 
 			void Discard()
 			{
-				abilityInput.InProcess = false;
+				abilityInput.Ability = null;
 			}
 		}
 	}

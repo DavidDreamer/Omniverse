@@ -28,12 +28,7 @@ namespace Omniverse.UI
 			for (int i = 0; i < count; ++i)
 			{
 				Ability ability = abilities[i];
-				Slots[i].Bind(ability);
-			}
-
-			foreach (AbilitySlotWidget slot in Slots)
-			{
-				slot.Tick();
+				Slots[i].Tick(ability);
 			}
 		}
 
