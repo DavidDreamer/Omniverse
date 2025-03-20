@@ -1,25 +1,18 @@
 ﻿using Omniverse.Abilities;
-using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using static InputActions;
 
 namespace Omniverse.Input
 {
-	[BurstCompile]
 	[UpdateInGroup(typeof(InputSystemGroup))]
 	public partial struct ProcessAbilityInputSystem : ISystem
 	{
-		public void OnCreate(ref SystemState state)
-		{
-			state.EntityManager.CreateSingleton<AbilityInput>();
-		}
-
 		public void OnUpdate(ref SystemState state)
 		{
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingleton<Selection>();
-			var abilityInput = SystemAPI.GetSingletonRW<AbilityInput>();
+			var abilityInput = SystemAPI.ManagedAPI.GetSingleton<AbilityInput>();
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 
 			CommonActions commonActions = inputSystemData.InputActions.Common;
@@ -36,9 +29,9 @@ namespace Omniverse.Input
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 
-			if (abilityInput.ValueRW.InProcess)
+			if (abilityInput.InProcess)
 			{
-				Ability ability = abilityModule.Abilities[abilityInput.ValueRW.AbilityIndex];
+				Ability ability = abilityInput.Ability;
 
 				switch (ability.Target)
 				{
@@ -125,11 +118,11 @@ namespace Omniverse.Input
 
 						//if (ability.ActiveOperation is not null)
 						{
-							if (abilityInput.ValueRW.InProcess)
+							if (abilityInput.InProcess)
 							{
 								Discard();
 
-								if (abilityInput.ValueRW.Entity == entity && abilityInput.ValueRW.AbilityIndex == i)
+								if (abilityInput.Entity == entity && abilityInput.Ability == ability)
 								{
 									return;
 								}
@@ -157,9 +150,9 @@ namespace Omniverse.Input
 							}
 							else
 							{
-								abilityInput.ValueRW.InProcess = true;
-								abilityInput.ValueRW.Entity = entity;
-								abilityInput.ValueRW.AbilityIndex = i;
+								abilityInput.InProcess = true;
+								abilityInput.Entity = entity;
+								abilityInput.Ability = ability;
 							}
 						}
 					}
@@ -178,7 +171,7 @@ namespace Omniverse.Input
 
 			void Discard()
 			{
-				abilityInput.ValueRW.InProcess = false;
+				abilityInput.InProcess = false;
 			}
 		}
 	}

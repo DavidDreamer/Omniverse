@@ -13,6 +13,8 @@ namespace Omniverse.Input
 		{
 			base.OnCreate();
 
+			//TODO ECS: It's strange, but that's the only way managed singletons work
+
 			var entity = EntityManager.CreateEntity();
 			EntityManager.AddComponent<InputSystemData>(entity);
 
@@ -25,6 +27,16 @@ namespace Omniverse.Input
 			inputSystemData.InputActions.Abilities.Enable();
 
 			EntityManager.SetComponentData(entity, inputSystemData);
+
+			CreateManagedSingleton<AbilityInput>();
+
+			void CreateManagedSingleton<T>() where T : class, new()
+			{
+				var entity = EntityManager.CreateEntity();
+				EntityManager.AddComponent<T>(entity);
+				var component = new AbilityInput();
+				EntityManager.SetComponentData(entity, component);
+			}
 		}
 	}
 }

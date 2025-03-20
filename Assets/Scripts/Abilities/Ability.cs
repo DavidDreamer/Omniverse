@@ -1,10 +1,8 @@
-﻿using Unity.Collections;
-using Unity.Mathematics;
+﻿using Unity.Mathematics;
 using Unity.Entities;
 using Unity.Entities.Content;
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 using Omniverse.Abilities;
 
 namespace Omniverse
@@ -35,7 +33,7 @@ namespace Omniverse
 
 	public class Ability
 	{
-		public FixedString32Bytes Name;
+		public string Name;
 
 		public WeakObjectReference<Sprite> Icon;
 

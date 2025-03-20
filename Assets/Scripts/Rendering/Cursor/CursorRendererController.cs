@@ -19,7 +19,7 @@ namespace Omniverse.Rendering
 			{
 				var player = ECSUtils.GetSingleton<Player>();
 				var entityDetector = ECSUtils.GetSingleton<Pointer>();
-				var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
+				var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
 
 				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 				Entity entity = entityDetector.Entity;

@@ -38,12 +38,12 @@ namespace Omniverse.Rendering
 			RasterCommandBuffer commandBuffer = context.cmd;
 
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
+			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
 
 			var transform = entityManager.GetComponentData<LocalTransform>(abilityInput.Entity);
 			var localToWorld = entityManager.GetComponentData<LocalToWorld>(abilityInput.Entity);
 			var abilityModule = entityManager.GetComponentObject<AbilityModule>(abilityInput.Entity);
-			var ability = abilityModule.Abilities[abilityInput.AbilityIndex];
+			var ability = abilityInput.Ability;
 
 			DrawRange();
 			DrawDireciton();

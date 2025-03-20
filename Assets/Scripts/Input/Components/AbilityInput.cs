@@ -1,14 +1,12 @@
-﻿using Unity.Burst;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace Omniverse.Input
 {
-	[BurstCompile]
-	public struct AbilityInput : IComponentData
+	public class AbilityInput : IComponentData
 	{
 		public Entity Entity;
 
-		public int AbilityIndex;
+		public Ability Ability;
 
 		public bool InProcess;
 	}
