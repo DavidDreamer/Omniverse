@@ -38,11 +38,11 @@ namespace Omniverse
 
 				AddBuffer<WaypointBuffer>(entity);
 
-				DynamicBuffer<Ability> abilities = AddBuffer<Ability>(entity);
+				var abilityModule = new AbilityModule();
 
 				foreach (var desc in authoring.UnitDesc.Abilities)
 				{
-					Ability ability = new Ability()
+					Ability ability = new()
 					{
 						Name = desc.Meta.Name,
 						Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
@@ -53,8 +53,10 @@ namespace Omniverse
 						CastRange = desc.Casting.Range
 					};
 
-					abilities.Add(ability);
+					abilityModule.Abilities.Add(ability);
 				}
+
+				AddComponentObject(entity, abilityModule);
 			}
 		}
 	}

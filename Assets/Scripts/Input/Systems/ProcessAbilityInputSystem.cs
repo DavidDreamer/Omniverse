@@ -30,9 +30,9 @@ namespace Omniverse.Input
 			{
 				return;
 			}
-
+			 
 			var entity = selection.Entity;
-			var abilities = SystemAPI.GetBuffer<Ability>(entity);
+			var abilityModule = SystemAPI.ManagedAPI.GetComponent<AbilityModule>(entity);
 
 			if (abilityInput.InProcess)
 			{
@@ -113,9 +113,9 @@ namespace Omniverse.Input
 				{
 					if (abilityActions[i].WasPressedThisFrame())
 					{
-						if (i < abilities.Length)
+						if (i < abilityModule.Abilities.Count)
 						{
-							Ability ability = abilities[i];
+							Ability ability = abilityModule.Abilities[i];
 
 							//TODO ECS
 							//if (ability.Desc.ActiveOperation is not null)
@@ -140,21 +140,17 @@ namespace Omniverse.Input
 
 								//if (ability.Desc.Target is NoneTarget)
 								{
-									var cooldown = ability.Cooldown;
-									cooldown.TimeLeft = cooldown.Time;
-									ability.Cooldown = cooldown;
-
-									abilities[i] = ability;
+									var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 									//if (ability.Desc.Casting.Time == 0)
 									//{
 									//	var castImmediateAbilityCommand = new CastImmediateAbilityCommand(unit, ability);
 									//	unit.CommandModule.Add(castImmediateAbilityCommand);
 									//}
 									//else
-									//{
-									//	var command = new CastAbilityCommand<None>(unit, ability, None.Instance);
-									//	AddCommand(unit, command);
-									//}
+									{
+										var command = new CastAbilityCommand<None>(entity, ability, None.Instance);
+										AddCommand(ref state, commandModule, command);
+									}
 								}
 								//else
 								//{

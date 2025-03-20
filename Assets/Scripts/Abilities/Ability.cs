@@ -3,6 +3,8 @@ using Unity.Mathematics;
 using Unity.Entities;
 using Unity.Entities.Content;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 namespace Omniverse
 {
@@ -10,25 +12,27 @@ namespace Omniverse
 	{
 		public void OnUpdate(ref SystemState state)
 		{
-			foreach (var buffer in SystemAPI.Query<DynamicBuffer<Ability>>())
+			foreach (var abilityModule in SystemAPI.Query<AbilityModule>())
 			{
-				var bufferCopy = buffer;
-
-				for (int i = 0; i < buffer.Length; ++i)
-				{
-					Ability ability = buffer[i];
-					Cooldown cooldown = ability.Cooldown;
-
-					cooldown.TimeLeft = math.max(0f, cooldown.TimeLeft - SystemAPI.Time.DeltaTime);
-					ability.Cooldown = cooldown;
-
-					bufferCopy[i] = ability;
-				}
+				abilityModule.Update(SystemAPI.Time.DeltaTime);
 			}
 		}
 	}
 
-	public struct Ability : IBufferElementData
+	public class AbilityModule : IComponentData
+	{
+		public List<Ability> Abilities = new();
+
+		public void Update(float deltaTime)
+		{
+			foreach (Ability ability in Abilities)
+			{
+				ability.Update(deltaTime);
+			}
+		}
+	}
+
+	public class Ability
 	{
 		public FixedString32Bytes Name;
 
@@ -37,5 +41,20 @@ namespace Omniverse
 		public Cooldown Cooldown;
 
 		public float CastRange;
+
+		public IOperation ActiveOperation;
+
+		public void Update(float deltaTime)
+		{
+			Cooldown.TimeLeft = math.max(0f, Cooldown.TimeLeft - deltaTime);
+		}
+
+		public void Cast<TTarget>(Entity entity, TTarget target)
+		{
+			Cooldown.TimeLeft = Cooldown.Time;
+
+			//var operation = (IOperation<TTarget>)ActiveOperation;
+			//operation.Perform(entity, target);
+		}
 	}
 }

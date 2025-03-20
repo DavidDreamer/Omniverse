@@ -1,5 +1,4 @@
-﻿using Omniverse.Abilities;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace Omniverse
 {
@@ -69,7 +68,7 @@ namespace Omniverse
 
 		protected override void Cast()
 		{
-			//Ability.Cast(Target);
+			Ability.Cast(Entity, Target);
 		}
 	}
 }

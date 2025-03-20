@@ -19,9 +19,10 @@ namespace Omniverse.UI
 		public void Tick(Entity entity)
 		{
 			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			DynamicBuffer<Ability> abilities = entityManager.GetBuffer<Ability>(entity);
+			var abilityModule = entityManager.GetComponentObject<AbilityModule>(entity);
+			var abilities = abilityModule.Abilities;
 
-			int count = abilities.Length;
+			int count = abilities.Count;
 			UpdateSlotsCount(count);
 
 			for (int i = 0; i < count; ++i)
