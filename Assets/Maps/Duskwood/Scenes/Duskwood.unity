@@ -4382,30 +4382,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595171027}
   m_CullTransparentMesh: 1
---- !u!1 &1618266728 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5781006993733738982, guid: b591d5d62d7ba2742ac061e48e520be4, type: 3}
-  m_PrefabInstance: {fileID: 1730663420}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &1618266731 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 7411296199030597836, guid: b591d5d62d7ba2742ac061e48e520be4, type: 3}
-  m_PrefabInstance: {fileID: 1730663420}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1618266733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618266728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4520968a4735fa84dac6645d8de85538, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Camera>k__BackingField: {fileID: 1618266731}
-  <Config>k__BackingField: {fileID: 11400000, guid: c9aea26e1f595a446a80d01750702e3c, type: 2}
 --- !u!4 &1665157447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2066295242856250328, guid: 2437d3db753a1e94abbcffbb54e10136, type: 3}
@@ -4676,10 +4652,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5781006993733738982, guid: b591d5d62d7ba2742ac061e48e520be4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1618266733}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b591d5d62d7ba2742ac061e48e520be4, type: 3}
 --- !u!1 &1775395029
 GameObject:
