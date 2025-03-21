@@ -1,49 +1,35 @@
 {
   "dependencies": {
-    "com.cysharp.unitask": {
-      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "9e2163616b9c527fa9461544e2bcc5f93fd12d83"
-    },
     "com.david-dreamer.dreambox.core": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core",
       "depth": 0,
       "source": "git",
-      "dependencies": {
-        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
-      },
-      "hash": "69157fed2540627ab3187699983ff952fc178aaa"
+      "dependencies": {},
+      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
     },
     "com.david-dreamer.dreambox.math": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Math",
       "depth": 0,
       "source": "git",
-      "dependencies": {
-        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
-      },
-      "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
+      "dependencies": {},
+      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
     },
     "com.david-dreamer.dreambox.physics": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Physics",
       "depth": 0,
       "source": "git",
-      "dependencies": {
-        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
-      },
-      "hash": "9d050e6f2848b3d523eaf1e2feb0c65a1a4e7cff"
+      "dependencies": {},
+      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
     },
     "com.david-dreamer.dreambox.rendering.core": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
         "com.unity.render-pipelines.core": "14.0.10",
         "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core"
       },
-      "hash": "23185655ae1ce4eb7c2e9b075eb9df49387c95b3"
+      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
     },
     "com.david-dreamer.dreambox.rendering.universal": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Universal",
@@ -59,10 +45,8 @@
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",
       "depth": 0,
       "source": "git",
-      "dependencies": {
-        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
-      },
-      "hash": "69157fed2540627ab3187699983ff952fc178aaa"
+      "dependencies": {},
+      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
     },
     "com.unity.ai.navigation": {
       "version": "2.0.6",
