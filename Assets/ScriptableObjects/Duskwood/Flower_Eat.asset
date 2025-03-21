@@ -27,20 +27,22 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 0
   <ActiveOperation>k__BackingField:
-    rid: 2502247249805574928
+    rid: 1727845630730830053
   <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 2502247249805574928
-      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.Unit, Omniverse]]', ns: Omniverse, asm: Omniverse}
+    - rid: 1727845630730830053
+      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.UnitObsolete, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 2502247249805574930
+          rid: 1727845630730830054
         <Actions>k__BackingField: []
-    - rid: 2502247249805574930
-      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
-      data: 
+    - rid: 1727845630730830054
+      type: {class: ClosestTargetProvider, ns: Omniverse, asm: Omniverse}
+      data:
+        <Radius>k__BackingField: 0
+        <Filter>k__BackingField: 0
     - rid: 4041151032854578157
       type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data: 
