@@ -17,12 +17,6 @@ namespace Omniverse.Input
 		public Vector3 Rotation { get; private set; }
 
 		[field: SerializeField]
-		public FloatRange XBounds { get; private set; }
-
-		[field: SerializeField]
-		public FloatRange ZBounds { get; private set; }
-
-		[field: SerializeField]
 		public float Speed { get; private set; }
 	}
 }

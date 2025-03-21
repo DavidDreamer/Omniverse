@@ -17,10 +17,4 @@ MonoBehaviour:
     <Max>k__BackingField: 15
   <DefaultHeight>k__BackingField: 1
   <Rotation>k__BackingField: {x: 60, y: 0, z: 0}
-  <XBounds>k__BackingField:
-    <Min>k__BackingField: 0
-    <Max>k__BackingField: 32
-  <ZBounds>k__BackingField:
-    <Min>k__BackingField: 0
-    <Max>k__BackingField: 32
   <Speed>k__BackingField: 100

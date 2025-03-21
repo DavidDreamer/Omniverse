@@ -27,6 +27,7 @@ namespace Omniverse.Input
 		{
 			Mouse mouse = Mouse.current;
 			float deltaTime = Time.deltaTime;
+			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
 
 			Vector3 position = Camera.transform.position;
 
@@ -64,8 +65,8 @@ namespace Omniverse.Input
 
 			void ProcessBounds(ref Vector3 position)
 			{
-				float clampedX = Config.XBounds.Clamp(position.x);
-				float clampedZ = Config.ZBounds.Clamp(position.z);
+				float clampedX = Mathf.Clamp(position.x, 0, gameOptions.MapSize.x);
+				float clampedZ = Mathf.Clamp(position.z, 0, gameOptions.MapSize.y);
 				position = new Vector3(clampedX, position.y, clampedZ);
 			}
 		}
