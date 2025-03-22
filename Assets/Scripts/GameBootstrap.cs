@@ -63,7 +63,10 @@ namespace Omniverse
 		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
-			var prefab = SystemAPI.GetSingleton<UnitSpawner>().Unit;
+			var spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
+			var spawnerLocalTransform = SystemAPI.GetComponent<LocalTransform>(spawnerEntity);
+			var spawner = SystemAPI.GetSingleton<UnitSpawner>();
+			var prefab = spawner.Unit;
 
 			var worldName = state.WorldUnmanaged.Name;
 
@@ -79,13 +82,8 @@ namespace Omniverse
 				UnityEngine.Debug.Log($"'{worldName}' setting connection '{networkId.Value}' to in game");
 
 				var unit = commandBuffer.Instantiate(prefab);
-				var localTransform = new LocalTransform
-				{
-					Position = new float3(16, 0, 16),
-					Rotation = quaternion.identity,
-					Scale = 1
-				};
-				commandBuffer.SetComponent(unit, localTransform);
+				commandBuffer.SetComponent(unit, spawnerLocalTransform);
+
 				var ghostOwner = new GhostOwner
 				{
 					NetworkId = networkId.Value
