@@ -1,4 +1,5 @@
-﻿using Omniverse.Input;
+﻿using Omniverse.Abilities;
+using Omniverse.Input;
 using Unity.Entities;
 using UnityEngine;
 
@@ -18,45 +19,48 @@ namespace Omniverse.Rendering
 			CursorParams GetCursorParams()
 			{
 				var player = ECSUtils.GetSingleton<Player>();
-				var entityDetector = ECSUtils.GetSingleton<Pointer>();
+				var pointer = ECSUtils.GetSingleton<Pointer>();
 				var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
 
 				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-				Entity entity = entityDetector.Entity;
+				Entity entity = pointer.Entity;
 
-				if (!abilityInput.InProcess)
+				if (abilityInput.InProcess)
 				{
-					if (entity != Entity.Null)
+					switch (abilityInput.Ability.Target)
 					{
-						if (entityManager.HasComponent<Faction>(entity))
-						{
-							var faction = entityManager.GetSharedComponent<Faction>(entity);
-							if (faction.ID == player.FactionID)
-							{
-								return Config.HoverAlly;
-							}
-							else
-							{
-								return Config.HoverEnemy;
-							}
-						}
-
+						case UnitTarget:
+							return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
+						default:
+							return Config.TargetDefault;
 					}
-
-					return Config.Default;
 				}
 				else
 				{
-					return Config.TargetDefault;
-
-					//TODO ECS
-					//switch (AbilityController.ActiveAbility.Desc.Target)
-					//{
-					//	case UnitTarget:
-					//		return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
-					//	default:
-					//		return Config.TargetDefault;
-					//}
+					switch (pointer.TargetType)
+					{
+						case PointerTargetType.Entity:
+						{
+							if (entityManager.HasComponent<Faction>(entity))
+							{
+								var faction = entityManager.GetSharedComponent<Faction>(entity);
+								if (faction.ID == player.FactionID)
+								{
+									return Config.HoverAlly;
+								}
+								else
+								{
+									return Config.HoverEnemy;
+								}
+							}
+							else
+							{
+								return Config.Default;
+							}
+						}
+						default:
+							return Config.Default;
+					}
 				}
 			}
 		}
