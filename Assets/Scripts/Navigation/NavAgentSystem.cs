@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
@@ -10,6 +11,7 @@ using UnityEngine.Experimental.AI;
 namespace Omniverse
 {
 	[BurstCompile]
+	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial struct NavAgentSystem : ISystem
 	{
 		[BurstCompile]

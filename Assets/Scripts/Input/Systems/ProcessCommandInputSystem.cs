@@ -1,6 +1,7 @@
 ﻿using System;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.NetCode;
 using UnityEngine;
 using UnityEngine.AI;
 using static InputActions;
@@ -8,7 +9,7 @@ using static InputActions;
 namespace Omniverse.Input
 {
 	[BurstCompile]
-	[UpdateInGroup(typeof(InputSystemGroup))]
+	[UpdateInGroup(typeof(GhostInputSystemGroup))]
 	public partial struct ProcessCommandInputSystem : ISystem
 	{
 		public static event Action<Vector3> NavigationPointCreated;

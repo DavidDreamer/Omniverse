@@ -1,9 +1,10 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 
 namespace Omniverse
 {
-	public struct NavAgentComponent : IComponentData
+	public struct NavAgentComponent : IInputComponentData
 	{
 		public Entity targetEntity;
 		public float3 targetPosition;
