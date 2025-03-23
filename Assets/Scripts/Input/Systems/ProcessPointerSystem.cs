@@ -45,6 +45,7 @@ namespace Omniverse.Input
 			else
 			{
 				var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
+				var physicsSettings = SystemAPI.GetSingleton<PhysicsSettings>();
 
 				Camera camera = Camera.main;
 
@@ -64,7 +65,7 @@ namespace Omniverse.Input
 					Filter = new CollisionFilter()
 					{
 						BelongsTo = ~0u,
-						CollidesWith = ~0u,
+						CollidesWith = (uint)physicsSettings.HitboxLayerMask.value,
 					}
 				};
 

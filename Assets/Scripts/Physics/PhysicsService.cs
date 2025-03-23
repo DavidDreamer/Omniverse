@@ -119,7 +119,7 @@ namespace Omniverse
 			var filter = new CollisionFilter()
 			{
 				BelongsTo = ~0u,
-				CollidesWith = ~0u,
+				CollidesWith = (uint)settings.HitboxLayerMask.value,
 			};
 
 			physicsWorldSingleton.OverlapBox(center, Quaternion.identity, halfExtens, ref hits, filter);

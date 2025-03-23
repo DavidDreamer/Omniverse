@@ -1752,6 +1752,10 @@ MonoBehaviour:
       <Color>k__BackingField: {r: 0.6273585, g: 0.35887682, b: 0.22194287, a: 1}
     - <Name>k__BackingField: Undead
       <Color>k__BackingField: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+  <HitboxLayer>k__BackingField: 6
+  <HitboxLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1741888129
 Transform:
   m_ObjectHideFlags: 0

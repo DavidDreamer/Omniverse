@@ -28,5 +28,14 @@ public partial struct GameInitializationSystem : ISystem
 		state.EntityManager.CreateSingleton(factionsData);
 
 		state.EntityManager.CreateSingleton<Player>(nameof(Player));
+
+
+		var physicsSettings = new PhysicsSettings()
+		{
+			HitboxLayer = auth.HitboxLayer,
+			HitboxLayerMask = auth.HitboxLayerMask
+		};
+
+		state.EntityManager.CreateSingleton(physicsSettings);
 	}
 }
