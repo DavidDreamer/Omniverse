@@ -5,6 +5,7 @@ using UnityEngine.UI;
 namespace Omniverse.Rendering
 {
 	[UpdateInGroup(typeof(PresentationSystemGroup), OrderLast = true)]
+	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 	public partial struct RenderingInitializationSystem : ISystem, ISystemStartStop
 	{
 		public void OnStartRunning(ref SystemState state)

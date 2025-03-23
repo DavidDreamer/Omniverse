@@ -10,6 +10,7 @@ namespace Omniverse.Input
 {
 	[BurstCompile]
 	[UpdateInGroup(typeof(GhostInputSystemGroup))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 	public partial struct ProcessCommandInputSystem : ISystem
 	{
 		public static event Action<Vector3> NavigationPointCreated;

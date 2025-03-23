@@ -14,7 +14,7 @@ namespace Omniverse.UI
 
 		public void Tick(Entity entity)
 		{
-			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 			var commandModule = entityManager.GetComponentObject<CommandModule>(entity);
 
 			CastAbilityCommand castAbilityCommand = commandModule.Command as CastAbilityCommand;

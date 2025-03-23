@@ -71,7 +71,7 @@ namespace Omniverse.Rendering
 
 			var player = ECSUtils.GetSingleton<Player>();
 
-			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var entityManager = ECSUtils.ClientWorld.EntityManager;
 			var query = entityManager.CreateEntityQuery(typeof(Health));
 			var entities = query.ToEntityArray(Allocator.Temp);
 

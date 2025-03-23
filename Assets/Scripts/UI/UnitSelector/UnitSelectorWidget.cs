@@ -19,7 +19,7 @@ namespace Omniverse.UI
 
 		public void LateUpdate()
 		{
-			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var entityManager = ECSUtils.ClientWorld.EntityManager;
 			var selection = ECSUtils.GetSingleton<Selection>();
 			var entities = selection.Entities;
 			int selectedEntitiesCount = entities.Length;

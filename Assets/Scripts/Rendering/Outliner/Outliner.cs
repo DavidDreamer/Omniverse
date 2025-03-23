@@ -23,7 +23,7 @@ namespace Omniverse.Rendering
 				return;
 			}
 
-			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 
 			if (entityManager.HasComponent<MaterialMeshInfo>(entity))
 			{

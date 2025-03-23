@@ -18,7 +18,7 @@ namespace Omniverse.UI
 
 		public void Tick(Entity entity)
 		{
-			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 			var abilityModule = entityManager.GetComponentObject<AbilityModule>(entity);
 			var abilities = abilityModule.Abilities;
 

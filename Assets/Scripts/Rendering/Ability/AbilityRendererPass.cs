@@ -37,7 +37,7 @@ namespace Omniverse.Rendering
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
 
-			EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
 
 			var transform = entityManager.GetComponentData<LocalTransform>(abilityInput.Entity);

@@ -18,7 +18,7 @@ namespace Omniverse.UI
 
 		public void Bind(Entity entity)
 		{
-			var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+			var entityManager = ECSUtils.ClientWorld.EntityManager;
 			var metaData = entityManager.GetComponentData<MetaData>(entity);
 
 			Icon.sprite = metaData.GetIcon();
@@ -32,7 +32,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 					var selection = ECSUtils.GetSingleton<Selection>();
 					Entity selectedUnit = selection.Entity;
-					var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+					var entityManager = ECSUtils.ClientWorld.EntityManager;
 					Vector3 selectedUnitPosition = entityManager.GetComponentData<LocalToWorld>(selectedUnit).Position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
 					Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);

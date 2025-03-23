@@ -18,7 +18,7 @@ public class DebugFactionWidget : MonoBehaviour
 
 	private void ChangeFaction(int faction)
 	{
-		var query = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(new ComponentType[] { typeof(Player) });
+		var query = ECSUtils.ClientWorld.EntityManager.CreateEntityQuery(new ComponentType[] { typeof(Player) });
 		var player = query.GetSingleton<Player>();
 		player.FactionID = faction;
 		query.SetSingleton(player);

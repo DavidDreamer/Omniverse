@@ -67,7 +67,7 @@ namespace Omniverse.Rendering
 			int i = 0;
 			foreach (Entity entity in selection.Entities)
 			{
-				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
 				var faction = entityManager.GetSharedComponent<Faction>(entity);
 				Matrices[i] = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);

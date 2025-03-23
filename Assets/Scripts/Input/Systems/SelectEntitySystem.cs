@@ -10,6 +10,7 @@ namespace Omniverse.Input
 	[BurstCompile]
 	[UpdateInGroup(typeof(InputSystemGroup))]
 	[UpdateAfter(typeof(ProcessPointerSystem))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 	public partial struct SelectEntitySystem : ISystem
 	{
 		[BurstCompile]

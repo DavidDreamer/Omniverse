@@ -22,7 +22,7 @@ namespace Omniverse.Rendering
 				var pointer = ECSUtils.GetSingleton<Pointer>();
 				var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
 
-				EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				Entity entity = pointer.Entity;
 
 				if (abilityInput.InProcess)
