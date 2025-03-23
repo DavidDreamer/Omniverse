@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb91cf1f333e884cbcea6e5210a5b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkipFrames: 1000
 --- !u!1 &218554914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1710,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1741888127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741888129}
+  - component: {fileID: 1741888128}
+  m_Layer: 0
+  m_Name: Game Options
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1741888128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741888127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c0563cccc6d5441b68453aebc0f9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameOptions>k__BackingField:
+    MapSize:
+      x: 32
+      y: 32
+    FogOfWarType: 1
+    Resources:
+    - {fileID: 11400000, guid: f02e271383beedf4cb6ae87f31095902, type: 2}
+    - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}
+    Factions:
+    - <Name>k__BackingField: Village
+      <Color>k__BackingField: {r: 0.6273585, g: 0.35887682, b: 0.22194287, a: 1}
+    - <Name>k__BackingField: Undead
+      <Color>k__BackingField: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+--- !u!4 &1741888129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741888127}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1936379506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2662,6 +2718,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7205387010489676021, guid: 0b639e714261d264ebdd806c41231520, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7544276808104931717, guid: 0b639e714261d264ebdd806c41231520, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2718,5 +2778,6 @@ SceneRoots:
   - {fileID: 1471525493}
   - {fileID: 38947831}
   - {fileID: 2106785057}
+  - {fileID: 1741888129}
   - {fileID: 151821221}
   - {fileID: 277384918}

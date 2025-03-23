@@ -4,11 +4,15 @@ using Unity.Collections;
 using Unity.Entities;
 
 [BurstCompile]
-public partial struct PlayerInitializationSystem : ISystem, ISystemStartStop
+public partial struct GameInitializationSystem : ISystem
 {
-	public void OnStartRunning(ref SystemState state)
+	public void OnCreate(ref SystemState state)
 	{
-		var gameOptions = SystemAPI.ManagedAPI.GetSingleton<GameOptions>();
+		var auth = UnityEngine.Object.FindAnyObjectByType<GameOptionsAuthoring>();
+
+		GameOptions gameOptions = auth.GameOptions;
+
+		state.EntityManager.CreateSingleton(gameOptions);
 
 		var factionsData = new FactionsData()
 		{
@@ -24,9 +28,5 @@ public partial struct PlayerInitializationSystem : ISystem, ISystemStartStop
 		state.EntityManager.CreateSingleton(factionsData);
 
 		state.EntityManager.CreateSingleton<Player>(nameof(Player));
-	}
-
-	public void OnStopRunning(ref SystemState state)
-	{
 	}
 }
