@@ -1,7 +1,6 @@
 ﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
 
@@ -83,6 +82,10 @@ namespace Omniverse
 
 				var unit = commandBuffer.Instantiate(prefab);
 				commandBuffer.SetComponent(unit, spawnerLocalTransform);
+				commandBuffer.SetSharedComponent(unit, new Faction
+				{
+					ID = networkId.Value - 1
+				});
 
 				var ghostOwner = new GhostOwner
 				{
