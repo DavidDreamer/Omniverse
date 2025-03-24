@@ -1,19 +1,19 @@
 {
-    "name": "Omniverse.Client.UI",
-    "rootNamespace": "Omniverse.Client.UI",
+    "name": "Omniverse.Network",
+    "rootNamespace": "Omniverse.Network",
     "references": [
+        "GUID:2665a8d13d1b3f18800f46e256720795",
         "GUID:e0cd26848372d4e5c891c569017e11f1",
         "GUID:d8b63aba1907145bea998dd612889d6b",
         "GUID:a5baed0c9693541a5bd947d336ec7659",
+        "GUID:63afb046c8423dd448ae7aba042ea63d",
         "GUID:734d92eba21c94caba915361bd5ac177",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:8819f35a0fc84499b990e90a4ca1911f",
+        "GUID:953adc2a6b8b4e3c8df5b728bcd546e9",
         "GUID:7900f524ca37ee847a70422f636ab5c5",
-        "GUID:52b66ecdce8fc0344be17b519768f3f4",
-        "GUID:18f3a18bf9983ff488e6cb8707086a7a",
-        "GUID:973c4429531b82843bd0cf18e1cc6ed7",
-        "GUID:982fb07580c14034db6e6f7e0a2e08f4",
-        "GUID:4259d55fa6014ff4eb8d5219db0e7a02"
+        "GUID:27955ab605692424a85f77ff6cf21d7d",
+        "GUID:b582d1c6099b0904a917f0be28dd1018",
+        "GUID:18f3a18bf9983ff488e6cb8707086a7a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
