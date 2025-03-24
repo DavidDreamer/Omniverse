@@ -9,7 +9,6 @@ namespace Omniverse.Input
 {
 	[BurstCompile]
 	[UpdateInGroup(typeof(InputSystemGroup))]
-	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 	public partial struct ProcessPointerSystem : ISystem
 	{
 		[BurstCompile]

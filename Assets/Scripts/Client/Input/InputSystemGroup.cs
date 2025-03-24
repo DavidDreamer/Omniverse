@@ -7,7 +7,7 @@ namespace Omniverse.Input
 		public InputActions InputActions;
 	}
 
-	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
+	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation, WorldSystemFilterFlags.ClientSimulation)]
 	public partial class InputSystemGroup : ComponentSystemGroup
 	{
 		protected override void OnCreate()

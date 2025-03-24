@@ -6,7 +6,6 @@ using static InputActions;
 namespace Omniverse.Input
 {
 	[UpdateInGroup(typeof(InputSystemGroup))]
-	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 	public partial struct ProcessAbilityInputSystem : ISystem
 	{
 		public void OnUpdate(ref SystemState state)
