@@ -21,6 +21,8 @@ namespace Omniverse.Input
 			};
 
 			state.EntityManager.CreateSingleton(selection);
+
+			state.RequireForUpdate<Player>();
 		}
 
 		public void OnUpdate(ref SystemState state)

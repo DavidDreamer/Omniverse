@@ -8,6 +8,7 @@ using Unity.Transforms;
 namespace Omniverse
 {
 	[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation, WorldSystemFilterFlags.ClientSimulation)]
 	public partial class FogOfWarSystemGroup : ComponentSystemGroup
 	{
 		private const int Multiplier = 2;
@@ -181,14 +182,14 @@ namespace Omniverse
 				}
 			}
 
+			public void OnCreate(ref SystemState state)
+			{
+				state.RequireForUpdate<Player>();
+			}
+
 			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
-				if (SystemAPI.HasSingleton<Player>() is false)
-				{
-					return;
-				}
-
 				var player = SystemAPI.GetSingleton<Player>();
 
 				foreach (var fogOfWar in SystemAPI.Query<FogOfWar>())

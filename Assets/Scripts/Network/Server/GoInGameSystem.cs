@@ -37,9 +37,16 @@ namespace Omniverse.Network.Server
 
 			foreach (var (receiver, requestEntity) in SystemAPI.Query<RefRO<ReceiveRpcCommandRequest>>().WithAll<GoInGameRequestCommand>().WithEntityAccess())
 			{
-				commandBuffer.AddComponent<NetworkStreamInGame>(receiver.ValueRO.SourceConnection);
+				Entity networkEntity = receiver.ValueRO.SourceConnection;
+				NetworkId networkId = networkIdFromEntity[networkEntity];
+				int factionId = networkId.Value - 1;
 
-				var networkId = networkIdFromEntity[receiver.ValueRO.SourceConnection];
+				commandBuffer.AddComponent(networkEntity, new Player
+				{
+					FactionID = factionId
+				});
+
+				commandBuffer.AddComponent<NetworkStreamInGame>(networkEntity);
 
 				UnityEngine.Debug.Log($"'{worldName}' setting connection '{networkId.Value}' to in game");
 
@@ -47,7 +54,7 @@ namespace Omniverse.Network.Server
 				commandBuffer.SetComponent(unit, spawnerLocalTransform);
 				commandBuffer.SetComponent(unit, new Faction
 				{
-					ID = networkId.Value - 1
+					ID = factionId
 				});
 				var ghostOwner = new GhostOwner
 				{

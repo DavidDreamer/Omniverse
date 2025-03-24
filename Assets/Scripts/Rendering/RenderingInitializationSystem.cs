@@ -6,16 +6,17 @@ namespace Omniverse.Rendering
 {
 	[UpdateInGroup(typeof(PresentationSystemGroup), OrderLast = true)]
 	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
-	public partial struct RenderingInitializationSystem : ISystem, ISystemStartStop
+	public partial struct RenderingInitializationSystem : ISystem
 	{
-		public void OnStartRunning(ref SystemState state)
+		public void OnUpdate(ref SystemState state)
 		{
-			Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include).gameObject.SetActive(true);
-			Object.FindFirstObjectByType<CanvasScaler>(FindObjectsInactive.Include).gameObject.SetActive(true);
-		}
+			if (SystemAPI.HasSingleton<Player>())
+			{
+				Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include).gameObject.SetActive(true);
+				Object.FindFirstObjectByType<CanvasScaler>(FindObjectsInactive.Include).gameObject.SetActive(true);
 
-		public void OnStopRunning(ref SystemState state)
-		{
+				state.Enabled = false;
+			}
 		}
 	}
 }

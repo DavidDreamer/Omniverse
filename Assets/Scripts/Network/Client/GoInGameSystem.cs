@@ -23,8 +23,14 @@ namespace Omniverse.Network.Client
 		public void OnUpdate(ref SystemState state)
 		{
 			var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-			foreach (var (id, entity) in SystemAPI.Query<RefRO<NetworkId>>().WithEntityAccess().WithNone<NetworkStreamInGame>())
+			foreach (var (networkId, entity) in SystemAPI.Query<RefRO<NetworkId>>().WithEntityAccess().WithNone<NetworkStreamInGame>())
 			{
+				var player = new Player
+				{
+					FactionID = networkId.ValueRO.Value - 1
+				};
+
+				commandBuffer.AddComponent(entity, player);
 				commandBuffer.AddComponent<NetworkStreamInGame>(entity);
 				Entity requestEntity = commandBuffer.CreateEntity();
 				commandBuffer.AddComponent<GoInGameRequestCommand>(requestEntity);
