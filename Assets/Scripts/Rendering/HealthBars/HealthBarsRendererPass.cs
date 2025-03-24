@@ -89,7 +89,7 @@ namespace Omniverse.Rendering
 				Entity entity = entities[i];
 
 				var health = entityManager.GetComponentData<Health>(entity);
-				var faction = entityManager.GetSharedComponent<Faction>(entity);
+				var faction = entityManager.GetComponentData<Faction>(entity);
 				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
 
 				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);

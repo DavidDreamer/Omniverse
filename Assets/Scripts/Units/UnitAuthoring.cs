@@ -16,7 +16,7 @@ namespace Omniverse
 			{
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-				AddSharedComponent(entity, new Faction()
+				AddComponent(entity, new Faction()
 				{
 					ID = authoring.FactionID
 				});

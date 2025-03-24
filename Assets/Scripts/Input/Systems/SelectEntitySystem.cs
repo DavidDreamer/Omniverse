@@ -67,7 +67,7 @@ namespace Omniverse.Input
 
 					foreach (Entity entity in PhysicsService.GetEntitiesInScreenRect(camera, start, end))
 					{
-						var faction = entityManager.GetSharedComponent<Faction>(entity);
+						var faction = entityManager.GetComponentData<Faction>(entity);
 
 						if (faction.ID != player.FactionID)
 						{

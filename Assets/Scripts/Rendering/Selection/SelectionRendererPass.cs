@@ -69,7 +69,7 @@ namespace Omniverse.Rendering
 			{
 				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
-				var faction = entityManager.GetSharedComponent<Faction>(entity);
+				var faction = entityManager.GetComponentData<Faction>(entity);
 				Matrices[i] = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
 				Colors[i] = player.FactionID == faction.ID ?
 					selection.Entity == entity ? config.MainSelectionColor : config.AllyColor :

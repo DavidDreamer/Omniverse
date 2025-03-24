@@ -45,11 +45,10 @@ namespace Omniverse.Network.Server
 
 				var unit = commandBuffer.Instantiate(prefab);
 				commandBuffer.SetComponent(unit, spawnerLocalTransform);
-				commandBuffer.SetSharedComponent(unit, new Faction
+				commandBuffer.SetComponent(unit, new Faction
 				{
 					ID = networkId.Value - 1
 				});
-
 				var ghostOwner = new GhostOwner
 				{
 					NetworkId = networkId.Value
