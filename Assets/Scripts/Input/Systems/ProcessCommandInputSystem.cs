@@ -53,6 +53,11 @@ namespace Omniverse.Input
 						var selection = SystemAPI.GetSingleton<Selection>();
 						foreach (Entity entity in selection.Entities)
 						{
+							if (!state.EntityManager.IsComponentEnabled<GhostOwnerIsLocal>(entity))
+							{
+								continue;
+							}
+
 							var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 							var command = new MoveCommand(selection.Entity, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, command);
