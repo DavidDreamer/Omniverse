@@ -21,10 +21,10 @@ namespace Omniverse
 					continue;
 				}
 
-				float3 direction = math.normalize(navAgent.ValueRW.targetPosition - unit.LocalTransform.ValueRW.Position);
+				float3 direction = math.normalize(navAgent.ValueRW.targetPosition - unit.DynamicEntity.LocalTransform.ValueRW.Position);
 				direction.y = 0;
 
-				unit.LocalTransform.ValueRW.Position += direction * movementSpeed.ValueRW.Current * deltaTime;
+				unit.DynamicEntity.LocalTransform.ValueRW.Position += direction * movementSpeed.ValueRW.Current * deltaTime;
 			}
 		}
 	}
