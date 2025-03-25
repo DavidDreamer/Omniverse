@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse
 {
-	public class LaunchChainAction : IAction<OmniverseEntity>
+	public class LaunchChainAction : IAction<DynamicEntity>
 	{
 		[field: SerializeField]
 		public ChainDesc Chain { get; private set; }
 
-		public void Perform(OmniverseEntity actor, OmniverseEntity target)
+		public void Perform(EntityManager entityManager, DynamicEntity actor, DynamicEntity target)
 		{
-			actor.SpawnChain(Chain, target);
+			//TODO ECS
+			//actor.SpawnChain(Chain, target);
 		}
 	}
 }

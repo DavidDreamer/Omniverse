@@ -51,12 +51,12 @@ namespace Omniverse
 			Cooldown.TimeLeft = math.max(0f, Cooldown.TimeLeft - deltaTime);
 		}
 
-		public void Cast<TTarget>(Entity entity, TTarget target)
+		public void Cast<TTarget>(EntityManager entityManager, DynamicEntity entity, TTarget target)
 		{
 			Cooldown.TimeLeft = Cooldown.Time;
 
-			//var operation = (IOperation<TTarget>)ActiveOperation;
-			//operation.Perform(entity, target);
+			var operation = (IOperation<TTarget>)ActiveOperation;
+			operation.Perform(entityManager, entity, target);
 		}
 	}
 }

@@ -6,29 +6,30 @@ namespace Omniverse
 	{
 		private class MoveToTarget : Behaviour
 		{
-			private OmniverseEntity Target { get; }
+			private DynamicEntity Target { get; }
 
-			public MoveToTarget(MissileObsolete missile, OmniverseEntity target) : base(missile)
+			public MoveToTarget(MissileObsolete missile, DynamicEntity target) : base(missile)
 			{
 				Target = target;
 			}
 
 			public override void Tick(float deltaTime)
 			{
-				float speed = Missile.Desc.Speed;
-				float radius = Missile.Desc.Radius;
+				//TOD ECS
+				//float speed = Missile.Desc.Speed;
+				//float radius = Missile.Desc.Radius;
 
-				Vector3 targetPosition = Target.HitBox.transform.position;
-				Vector3 direction = (targetPosition - Missile.transform.position).normalized;
-				Missile.transform.position += direction * speed * deltaTime;
+				//Vector3 targetPosition = Target.HitBox.transform.position;
+				//Vector3 direction = (targetPosition - Missile.transform.position).normalized;
+				//Missile.transform.position += direction * speed * deltaTime;
 
-				float sqrDistanceToTarget = Vector3.SqrMagnitude(targetPosition - Missile.transform.position);
+				//float sqrDistanceToTarget = Vector3.SqrMagnitude(targetPosition - Missile.transform.position);
 
-				if (sqrDistanceToTarget <= radius * radius)
-				{
-					Missile.PerformHitAction((UnitObsolete)Target);
-					Missile.Completed = true;
-				}
+				//if (sqrDistanceToTarget <= radius * radius)
+				//{
+				//	Missile.PerformHitAction((UnitObsolete)Target);
+				//	Missile.Completed = true;
+				//}
 			}
 		}
 	}

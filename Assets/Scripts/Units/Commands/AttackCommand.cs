@@ -4,9 +4,9 @@ namespace Omniverse
 {
 	public class AttackCommand : Command
 	{
-		private Entity Target { get; }
+		private DynamicEntity Target { get; }
 
-		public AttackCommand(Entity entity, Entity target) : base(entity)
+		public AttackCommand(DynamicEntity entity, DynamicEntity target) : base(entity)
 		{
 			Target = target;
 		}
@@ -40,7 +40,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
 			navAgent.IsActive = false;
 		}
 	}

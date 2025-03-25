@@ -1,30 +1,31 @@
 ﻿using Dreambox.Core;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFactionAction : IAction<OmniverseEntity>
+	public class SwitchTargetFactionAction : IAction<DynamicEntity>
 	{
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<OmniverseEntity>))]
-		public IAction<OmniverseEntity> Self { get; private set; }
+		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
+		public IAction<DynamicEntity> Self { get; private set; }
 
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<OmniverseEntity>))]
-		public IAction<OmniverseEntity> Ally { get; private set; }
+		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
+		public IAction<DynamicEntity> Ally { get; private set; }
 
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<OmniverseEntity>))]
-		public IAction<OmniverseEntity> Enemy { get; private set; }
+		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
+		public IAction<DynamicEntity> Enemy { get; private set; }
 
-		public void Perform(OmniverseEntity actor, OmniverseEntity target)
+		public void Perform(EntityManager entityManager, DynamicEntity actor, DynamicEntity target)
 		{
 			var action = Switch();
-			action.Perform(actor, target);
+			action.Perform(entityManager, actor, target);
 
-			IAction<OmniverseEntity> Switch()
+			IAction<DynamicEntity> Switch()
 			{
-				if (actor == target)
+				if (actor.Entity == target.Entity)
 				{
 					return Self;
 				}

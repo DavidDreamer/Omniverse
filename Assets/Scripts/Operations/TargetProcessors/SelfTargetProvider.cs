@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public class SelfTargetProvider : ITargetConverter<None, UnitObsolete>, ITargetConverter<None, Vector3>
+	public class SelfTargetProvider : ITargetConverter<None, DynamicEntity>, ITargetConverter<None, Vector3>
 	{
-		IEnumerable<UnitObsolete> ITargetConverter<None, UnitObsolete>.Convert(OmniverseEntity actor, None input)
+		IEnumerable<DynamicEntity> ITargetConverter<None, DynamicEntity>.Convert(EntityManager entityManager, DynamicEntity actor, None input)
 		{
-			yield return (UnitObsolete)actor;
+			yield return actor;
 		}
 
-		IEnumerable<Vector3> ITargetConverter<None, Vector3>.Convert(OmniverseEntity actor, None input)
+		IEnumerable<Vector3> ITargetConverter<None, Vector3>.Convert(EntityManager entityManager, DynamicEntity actor, None input)
 		{
-			yield return actor.transform.position;
+			yield return actor.LocalTransform.ValueRO.Position;
 		}
 	}
 }

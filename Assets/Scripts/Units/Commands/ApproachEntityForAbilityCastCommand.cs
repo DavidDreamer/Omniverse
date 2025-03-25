@@ -8,9 +8,9 @@ namespace Omniverse
 	{
 		public Ability Ability { get; }
 
-		public Entity Target { get; }
+		public DynamicEntity Target { get; }
 
-		public ApproachEntityForAbilityCastCommand(Entity entity, Ability ability, Entity target) : base(entity)
+		public ApproachEntityForAbilityCastCommand(DynamicEntity entity, Ability ability, DynamicEntity target) : base(entity)
 		{
 			Ability = ability;
 			Target = target;
@@ -18,11 +18,11 @@ namespace Omniverse
 
 		public override bool Tick(ref SystemState state)
 		{
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
-			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
-			var targetTransform = state.EntityManager.GetComponentData<LocalTransform>(Target);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity.Entity);
+			var targetTransform = state.EntityManager.GetComponentData<LocalTransform>(Target.Entity);
 
-			navAgent.targetEntity = Target;
+			navAgent.targetEntity = Target.Entity;
 
 			return Vector3.Distance(targetTransform.Position, transform.Position) <= Ability.CastRange;
 		}
@@ -31,9 +31,9 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
 
-			navAgent.targetEntity = Entity.Null;
+			navAgent.targetEntity = default;
 		}
 	}
 }

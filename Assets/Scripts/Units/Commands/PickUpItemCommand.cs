@@ -6,7 +6,7 @@ namespace Omniverse
 	{
 		private Entity Item { get; }
 
-		public PickUpItemCommand(Entity entity, Entity item) : base(entity)
+		public PickUpItemCommand(DynamicEntity entity, Entity item) : base(entity)
 		{
 			Item = item;
 		}
@@ -15,9 +15,11 @@ namespace Omniverse
 		{
 			base.Start(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
-			navAgent.targetEntity = Item;
-			navAgent.IsActive = true;
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+
+			//TODO ECS
+			//navAgent.targetEntity = Item;
+			//navAgent.IsActive = true;
 		}
 
 		public override bool Tick(ref SystemState state)
@@ -39,7 +41,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
 			navAgent.IsActive = false;
 		}
 	}

@@ -15,11 +15,11 @@ namespace Omniverse
 
 	public abstract class Command : ICommand
 	{
-		protected Entity Entity { get; }
+		protected DynamicEntity Entity { get; }
 
 		public virtual bool IsRepeatable => false;
 
-		protected Command(Entity entity)
+		protected Command(DynamicEntity entity)
 		{
 			Entity = entity;
 		}

@@ -27,7 +27,7 @@ namespace Omniverse
 			while (ImmediateCommands.Count > 0)
 			{
 				IImmediateCommand command = ImmediateCommands.Dequeue();
-				command.Execute();
+				command.Execute(state.EntityManager);
 			}
 
 			if (Command == null)

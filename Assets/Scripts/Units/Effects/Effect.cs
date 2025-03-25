@@ -21,7 +21,8 @@ namespace Omniverse
 
 		public void Tick(float deltaTime)
 		{
-			Desc.OnTickOperation?.Perform(Entity, None.Instance);
+			//TODO ECS
+			//Desc.OnTickOperation?.Perform(Entity, None.Instance);
 			Time = Mathf.Max(0, Time - deltaTime);
 		}
 	}

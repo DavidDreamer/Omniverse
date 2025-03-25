@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -7,9 +8,10 @@ namespace Omniverse
 		[field: SerializeField]
 		public int Amount { get; private set; }
 
-		public void Perform(OmniverseEntity actor, ResourceSource target)
+		public void Perform(EntityManager entityManager, DynamicEntity actor, ResourceSource target)
 		{
-			actor.Extract(target, Amount);
+			//TODO ECS
+			//actor.Extract(target, Amount);
 		}
 	}
 }

@@ -6,11 +6,11 @@ namespace Omniverse
 	{
 		private Ability Ability { get; }
 
-		public CastImmediateAbilityCommand(Entity entity, Ability ability) : base(entity)
+		public CastImmediateAbilityCommand(DynamicEntity entity, Ability ability) : base(entity)
 		{
 			Ability = ability;
 		}
 
-		public override void Execute() => Ability.Cast(Entity, None.Instance);
+		public override void Execute(EntityManager entityManager) => Ability.Cast(entityManager, Entity, None.Instance);
 	}
 }

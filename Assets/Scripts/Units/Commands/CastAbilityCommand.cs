@@ -10,7 +10,7 @@ namespace Omniverse
 
 		//public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
 
-		protected CastAbilityCommand(Entity entity, Ability ability) : base(entity)
+		protected CastAbilityCommand(DynamicEntity entity, Ability ability) : base(entity)
 		{
 			Ability = ability;
 		}
@@ -38,12 +38,12 @@ namespace Omniverse
 				return false;
 			}
 
-			Cast();
+			Cast(ref state);
 
 			return true;
 		}
 
-		protected virtual void Cast()
+		protected virtual void Cast(ref SystemState state)
 		{
 			//foreach (CostDesc cost in Ability.Desc.Cost)
 			//{
@@ -63,16 +63,16 @@ namespace Omniverse
 	{
 		private TTarget Target { get; }
 
-		public CastAbilityCommand(Entity entity, Ability ability, TTarget target) : base(entity, ability)
+		public CastAbilityCommand(DynamicEntity entity, Ability ability, TTarget target) : base(entity, ability)
 		{
 			Target = target;
 		}
 
-		protected override void Cast()
+		protected override void Cast(ref SystemState state)
 		{
-			base.Cast();
+			base.Cast(ref state);
 
-			Ability.Cast(Entity, Target);
+			Ability.Cast(state.EntityManager, Entity, Target);
 		}
 	}
 }

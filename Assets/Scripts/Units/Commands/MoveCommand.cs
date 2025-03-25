@@ -8,7 +8,7 @@ namespace Omniverse
 	{
 		public Vector3 Position { get; }
 
-		public MoveCommand(Entity entity, Vector3 position) : base(entity)
+		public MoveCommand(DynamicEntity entity, Vector3 position) : base(entity)
 		{
 			Position = position;
 		}
@@ -17,17 +17,17 @@ namespace Omniverse
 		{
 			base.Start(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
 
 			navAgent.IsActive = true;
 			navAgent.targetPosition = Position;
 
-			state.EntityManager.SetComponentData(Entity, navAgent);
+			state.EntityManager.SetComponentData(Entity.Entity, navAgent);
 		}
 
 		public override bool Tick(ref SystemState state)
 		{
-			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
+			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity.Entity);
 			return Vector3.Distance(Position, transform.Position) <= 0.1f;
 		}
 
@@ -35,10 +35,10 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
 			navAgent.IsActive = false;
 
-			state.EntityManager.SetComponentData(Entity, navAgent);
+			state.EntityManager.SetComponentData(Entity.Entity, navAgent);
 		}
 	}
 }

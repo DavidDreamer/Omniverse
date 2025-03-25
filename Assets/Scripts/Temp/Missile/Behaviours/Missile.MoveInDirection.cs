@@ -33,19 +33,19 @@ namespace Omniverse
 					return;
 				}
 
-				//TODO
-				bool hit = false;
+				//TODO ECS
+				//bool hit = false;
 
-				foreach (var item in PhysicsService.GetEntitiesInSphere<UnitObsolete>(Missile, radius, Missile.Desc.Filter))
-				{
-					hit = true;
-					Missile.PerformHitAction(item);
-				}
+				//foreach (var item in PhysicsService.GetEntitiesInSphere<UnitObsolete>(Missile, radius, Missile.Desc.Filter))
+				//{
+				//	hit = true;
+				//	Missile.PerformHitAction(item);
+				//}
 
-				if (hit)
-				{
-					Missile.Completed = true;
-				}
+				//if (hit)
+				//{
+				//	Missile.Completed = true;
+				//}
 			}
 		}
 	}

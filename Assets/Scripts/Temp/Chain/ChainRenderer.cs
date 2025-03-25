@@ -19,18 +19,19 @@ namespace Omniverse
 
 		private void LateUpdate()
 		{
-			LineRenderer.positionCount = Chain.Targets.Count + 1;
+			//TODO ECS
+			//LineRenderer.positionCount = Chain.Targets.Count + 1;
 
-			Vector3 ownerPosition = Chain.Owner.HitBox.transform.position;
-			LineRenderer.SetPosition(0, ownerPosition);
+			//Vector3 ownerPosition = Chain.Owner.HitBox.transform.position;
+			//LineRenderer.SetPosition(0, ownerPosition);
 
-			int i = 1;
-			foreach (var target in Chain.Targets)
-			{
-				Vector3 position = target.HitBox.transform.position;
-				LineRenderer.SetPosition(i, position);
-				i++;
-			}
+			//int i = 1;
+			//foreach (var target in Chain.Targets)
+			//{
+			//	Vector3 position = target.HitBox.transform.position;
+			//	LineRenderer.SetPosition(i, position);
+			//	i++;
+			//}
 		}
 	}
 }

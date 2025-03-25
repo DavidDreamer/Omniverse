@@ -6,23 +6,23 @@ namespace Omniverse
 	{
 		private MissileDesc Desc { get; set; }
 
-		private OmniverseEntity Owner { get; set; }
+		private DynamicEntity Owner { get; set; }
 
 		private Behaviour behaviour { get; set; }
 
-		private void Initialize(MissileDesc desc, OmniverseEntity owner)
+		private void Initialize(MissileDesc desc, DynamicEntity owner)
 		{
 			Desc = desc;
 			Owner = owner;
 		}
 
-		public void Initialize(MissileDesc desc, OmniverseEntity owner, Vector3 vector)
+		public void Initialize(MissileDesc desc, DynamicEntity owner, Vector3 vector)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveInDirection(this, vector);
 		}
 
-		public void Initialize(MissileDesc desc, OmniverseEntity owner, OmniverseEntity target)
+		public void Initialize(MissileDesc desc, DynamicEntity owner, DynamicEntity target)
 		{
 			Initialize(desc, owner);
 			behaviour = new MoveToTarget(this, target);
@@ -33,9 +33,10 @@ namespace Omniverse
 			behaviour.Tick(deltaTime);
 		}
 
-		private void PerformHitAction(UnitObsolete target)
-		{
-			Desc.HitOperation.Perform(Owner, target);
-		}
+		//TODO ECS
+		//private void PerformHitAction(UnitObsolete target)
+		//{
+		//	Desc.HitOperation.Perform(Owner, target);
+		//}
 	}
 }

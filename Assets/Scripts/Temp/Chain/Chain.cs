@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Omniverse
 {
@@ -9,11 +8,11 @@ namespace Omniverse
 
 		private ChainDesc Desc { get; set; }
 
-		public OmniverseEntity Target { get; set; }
+		public DynamicEntity Target { get; set; }
 
-		public OmniverseEntity Owner { get; set; }
+		public DynamicEntity Owner { get; set; }
 
-		public HashSet<OmniverseEntity> Targets { get; } = new();
+		public HashSet<DynamicEntity> Targets { get; } = new();
 
 		public void Initialize(ChainDesc desc)
 		{
@@ -22,56 +21,57 @@ namespace Omniverse
 
 		public override void Tick(float deltaTime)
 		{
-			if (Time == 0)
-			{
-				Targets.Add(Target);
-				Desc.Operation.Perform(Owner, (UnitObsolete)Target);
-			}
+			//TODO ECS
+			//if (Time == 0)
+			//{
+			//	Targets.Add(Target);
+			//	Desc.Operation.Perform(Owner, Target);
+			//}
 
-			Time += deltaTime;
+			//Time += deltaTime;
 
-			if (Time >= Desc.BounceInterval)
-			{
-				if (Targets.Count == Desc.MaxTargets)
-				{
-					Completed = true;
-					return;
-				}
+			//if (Time >= Desc.BounceInterval)
+			//{
+			//	if (Targets.Count == Desc.MaxTargets)
+			//	{
+			//		Completed = true;
+			//		return;
+			//	}
 
-				Vector3 position = Target.transform.position;
-				Target = null;
-				float minDistance = float.MaxValue;
+			//	Vector3 position = Target.transform.position;
+			//	Target = null;
+			//	float minDistance = float.MaxValue;
 
-				foreach (var target in PhysicsService.GetEntitiesInSphere<UnitObsolete>(Owner, Desc.BounceRange, Desc.Filter))
-				{
-					if (target == Owner)
-					{
-						continue;
-					}
+			//	foreach (var target in PhysicsService.GetEntitiesInSphere<UnitObsolete>(Owner, Desc.BounceRange, Desc.Filter))
+			//	{
+			//		if (target == Owner)
+			//		{
+			//			continue;
+			//		}
 
-					if (Targets.Contains(target))
-					{
-						continue;
-					}
+			//		if (Targets.Contains(target))
+			//		{
+			//			continue;
+			//		}
 
-					float distance = Vector3.SqrMagnitude(target.transform.position - position);
+			//		float distance = Vector3.SqrMagnitude(target.transform.position - position);
 
-					if (distance >= minDistance)
-					{
-						continue;
-					}
+			//		if (distance >= minDistance)
+			//		{
+			//			continue;
+			//		}
 
-					Target = target;
-					minDistance = distance;
-				}
+			//		Target = target;
+			//		minDistance = distance;
+			//	}
 
-				if (Target == null)
-				{
-					Completed = true;
-				}
+			//	if (Target == null)
+			//	{
+			//		Completed = true;
+			//	}
 
-				Time = 0;
-			}
+			//	Time = 0;
+			//}
 		}
 	}
 }

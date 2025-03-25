@@ -58,8 +58,9 @@ namespace Omniverse.Input
 								continue;
 							}
 
+							var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
 							var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
-							var command = new MoveCommand(selection.Entity, pointer.WorldPosition);
+							var command = new MoveCommand(dynamicEntity, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, command);
 						}
 						NavigationPointCreated?.Invoke(pointer.WorldPosition);

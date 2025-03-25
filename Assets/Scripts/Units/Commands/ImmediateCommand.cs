@@ -4,18 +4,18 @@ namespace Omniverse
 {
 	public interface IImmediateCommand
 	{
-		void Execute();
+		void Execute(EntityManager entityManager);
 	}
 
 	public abstract class ImmediateCommand : IImmediateCommand
 	{
-		protected Entity Entity { get; }
+		protected DynamicEntity Entity { get; }
 
-		public ImmediateCommand(Entity entity)
+		public ImmediateCommand(DynamicEntity entity)
 		{
 			Entity = entity;
 		}
 
-		public abstract void Execute();
+		public abstract void Execute(EntityManager entityManager);
 	}
 }

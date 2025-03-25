@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Physics;
 using UnityEngine;
 
@@ -8,84 +9,103 @@ namespace Omniverse
 {
 	public static class PhysicsService
 	{
-		private static UnityEngine.Collider[] Colliders { get; } = new UnityEngine.Collider[128];
-
-		public static IEnumerable<TEntity> GetEntitiesInSphere<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
+		public static IEnumerable<DynamicEntity> GetEntitiesInSphere(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
 		{
-			Vector3 sourcePosition = source.transform.position;
-
+			var physicsWorld = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
 			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
 
-			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, settings.HitboxLayerMask);
+			Vector3 position = source.LocalTransform.ValueRO.Position;
 
-			for (int i = 0; i < count; ++i)
+			var distanceHits = new NativeList<DistanceHit>();
+			var collisionFilter = new CollisionFilter
 			{
-				var entity = Colliders[i].GetComponentInParent<TEntity>();
+				BelongsTo = ~0u,
+				CollidesWith = (uint)settings.HitboxLayerMask.value
+			};
 
-				if (entity == null)
+			if (physicsWorld.OverlapSphere(position, radius, ref distanceHits, collisionFilter))
+			{
+				foreach (DistanceHit hit in distanceHits)
 				{
-					continue;
-				}
+					Entity hitEntity = hit.Entity;
 
-				yield return entity;
+					if (entityManager.HasAspect<DynamicEntity>(hit.Entity))
+					{
+						yield return entityManager.GetAspect<DynamicEntity>(hitEntity);
+					}
+				}
 			}
 		}
 
-		public static TEntity GetClosestEntity<TEntity>(OmniverseEntity source, float radius, FactiousFilter filter) where TEntity : OmniverseEntity
+		public static DynamicEntity GetClosestEntity(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
 		{
-			Vector3 sourcePosition = source.transform.position;
-
+			var physicsWorld = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
 			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
 
-			int count = Physics.OverlapSphereNonAlloc(sourcePosition, radius, Colliders, settings.HitboxLayerMask);
+			float3 position = source.LocalTransform.ValueRO.Position;
 
-			float minDistance = float.MaxValue;
-			TEntity closestEntity = null;
-
-			for (int i = 0; i < count; ++i)
+			var distanceHits = new NativeList<DistanceHit>();
+			var collisionFilter = new CollisionFilter
 			{
-				var entity = Colliders[i].GetComponentInParent<TEntity>();
+				BelongsTo = ~0u,
+				CollidesWith = (uint)settings.HitboxLayerMask.value
+			};
 
-				if (entity == null)
+			if (physicsWorld.OverlapSphere(position, radius, ref distanceHits, collisionFilter))
+			{
+				float minDistance = float.MaxValue;
+				DynamicEntity closestEntity = default;
+
+				foreach (DistanceHit hit in distanceHits)
 				{
-					continue;
+					Entity hitEntity = hit.Entity;
+
+					if (!entityManager.HasAspect<DynamicEntity>(hit.Entity))
+					{
+						continue;
+					}
+
+					DynamicEntity dynamicEntity = entityManager.GetAspect<DynamicEntity>(hitEntity);
+
+					float distance = Vector3.SqrMagnitude(position - dynamicEntity.LocalTransform.ValueRO.Position);
+
+					if (distance < minDistance)
+					{
+						minDistance = distance;
+						closestEntity = dynamicEntity;
+					}
 				}
 
-				float distance = Vector3.SqrMagnitude(sourcePosition - entity.transform.position);
-
-				if (distance < minDistance)
-				{
-					minDistance = distance;
-					closestEntity = entity;
-				}
+				return closestEntity;
 			}
 
-			return closestEntity;
+			return default;
 		}
 
-		public static IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
-			OmniverseEntity source,
-			Vector3 forward,
-			float radius,
-			float angle,
-			FactiousFilter filter)
-			where TEntity : OmniverseEntity
-		{
-			Vector3 position = source.transform.position;
-			foreach (TEntity entity in GetEntitiesInSphere<TEntity>(source, radius, filter))
-			{
-				Vector3 direction = (entity.transform.position - position).normalized;
+		//TODO ECS
+		//public static IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
+		//	OmniverseEntity source,
+		//	Vector3 forward,
+		//	float radius,
+		//	float angle,
+		//	FactiousFilter filter)
+		//	where TEntity : OmniverseEntity
+		//{
+		//	Vector3 position = source.transform.position;
+		//	foreach (TEntity entity in GetEntitiesInSphere<TEntity>(source, radius, filter))
+		//	{
+		//		Vector3 direction = (entity.transform.position - position).normalized;
 
-				float currentAngle = Vector3.Angle(direction, forward);
+		//		float currentAngle = Vector3.Angle(direction, forward);
 
-				if (currentAngle > angle)
-				{
-					continue;
-				}
+		//		if (currentAngle > angle)
+		//		{
+		//			continue;
+		//		}
 
-				yield return entity;
-			}
-		}
+		//		yield return entity;
+		//	}
+		//}
 
 		public static Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
 		{

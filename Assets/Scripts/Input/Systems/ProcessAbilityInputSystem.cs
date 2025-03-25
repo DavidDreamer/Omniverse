@@ -25,6 +25,7 @@ namespace Omniverse.Input
 			}
 
 			var entity = selection.Entity;
+			var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
 			var abilityModule = SystemAPI.ManagedAPI.GetComponent<AbilityModule>(entity);
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
@@ -53,14 +54,14 @@ namespace Omniverse.Input
 							direction.Set(direction.x, 0, direction.z);
 							direction.Normalize();
 
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(entity, ability, direction);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, ability, direction);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 						else
 						{
-							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(entity, ability, pointer.WorldPosition);
+							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, approachPositionForAbilityCastCommand);
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(entity, ability, pointer.WorldPosition);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 
@@ -130,7 +131,7 @@ namespace Omniverse.Input
 								}
 							}
 
-							AbilityCastError error = ability.CanBeCasted(entity);
+							AbilityCastError error = ability.CanBeCasted(dynamicEntity);
 
 							if (error is not AbilityCastError.None)
 							{
@@ -141,12 +142,12 @@ namespace Omniverse.Input
 							{
 								if (ability.Casting.Time == 0)
 								{
-									var command = new CastImmediateAbilityCommand(entity, ability);
+									var command = new CastImmediateAbilityCommand(dynamicEntity, ability);
 									commandModule.Add(command);
 								}
 								else
 								{
-									var command = new CastAbilityCommand<None>(entity, ability, None.Instance);
+									var command = new CastAbilityCommand<None>(dynamicEntity, ability, None.Instance);
 									AddCommand(ref state, commandModule, command);
 								}
 							}

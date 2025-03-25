@@ -35,7 +35,8 @@ namespace Omniverse
 
 			Effects.Add(effect);
 
-			effect.Desc.OnAppliedOperation?.Perform(this, None.Instance);
+			//TODO ECS
+			//effect.Desc.OnAppliedOperation?.Perform(this, None.Instance);
 
 			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
 			{
@@ -47,16 +48,17 @@ namespace Omniverse
 
 		public void RemoveEffect(Effect effect, int index)
 		{
-			foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
-			{
-				Properties[desc.ID].RemoveModifier(desc.Modifier);
-			}
+			//TODO ECS
+			//foreach (PropertyModifierDesc desc in effect.Desc.PropertyModifiers)
+			//{
+			//	Properties[desc.ID].RemoveModifier(desc.Modifier);
+			//}
 
-			effect.Desc.OnRemovedOperation?.Perform(this, None.Instance);
+			//effect.Desc.OnRemovedOperation?.Perform(this, None.Instance);
 
-			Effects.RemoveAt(index);
+			//Effects.RemoveAt(index);
 
-			EffectRemoved?.Invoke(effect);
+			//EffectRemoved?.Invoke(effect);
 		}
 
 		public void SpawnMissile(MissileDesc desc, OmniverseEntity target)

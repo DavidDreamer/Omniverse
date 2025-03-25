@@ -9,6 +9,6 @@ namespace Omniverse
 
 		public readonly RefRW<LocalTransform> LocalTransform;
 
-		public readonly RefRW<LocalToWorld> LocalToWorld;
+		public readonly RefRO<LocalToWorld> LocalToWorld;
 	}
 }

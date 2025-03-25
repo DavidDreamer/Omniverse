@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
@@ -10,7 +11,7 @@ namespace Omniverse
 
 	public interface IOperation<TTarget> : IOperation
 	{
-		void Perform(OmniverseEntity actor, TTarget target);
+		void Perform(EntityManager entityManager, DynamicEntity actor, TTarget target);
 	}
 
 	[Serializable]
@@ -22,9 +23,9 @@ namespace Omniverse
 		[field: SerializeReference]
 		private IAction<TTargetOut>[] Actions { get; set; }
 
-		public void Perform(OmniverseEntity actor, TTargetIn targetIn)
+		public void Perform(EntityManager entityManager, DynamicEntity actor, TTargetIn targetIn)
 		{
-			IEnumerable<TTargetOut> targets = TargetConverter.Convert(actor, targetIn);
+			IEnumerable<TTargetOut> targets = TargetConverter.Convert(entityManager, actor, targetIn);
 
 			for (int i = 0; i < Actions.Length; ++i)
 			{
@@ -32,7 +33,7 @@ namespace Omniverse
 
 				foreach (TTargetOut target in targets)
 				{
-					action.Perform(actor, target);
+					action.Perform(entityManager, actor, target);
 				}
 			}
 		}

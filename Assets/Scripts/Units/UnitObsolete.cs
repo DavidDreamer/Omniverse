@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using Omniverse.Abilities;
-using UnityEngine.AI;
+﻿using UnityEngine.AI;
 
 namespace Omniverse
 {
 	public class UnitObsolete : OmniverseEntity<UnitDesc>, IPoolObject
 	{
 		public event System.Action Died;
-
-		public List<AbilityObsolete> Abilities { get; } = new();
 
 		public bool IsDead { get; private set; }
 
@@ -27,12 +23,6 @@ namespace Omniverse
 			foreach (PropertyDesc resourceDesc in Desc.Properties)
 			{
 				Properties.Add(resourceDesc.ID, new Property(resourceDesc));
-			}
-
-			foreach (AbilityDesc abilityDesc in Desc.Abilities)
-			{
-				var ability = new AbilityObsolete(abilityDesc, this);
-				Abilities.Add(ability);
 			}
 
 			Inventory = new Inventory(desc.Inventory);

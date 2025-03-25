@@ -4,17 +4,17 @@ namespace Omniverse
 {
 	public class FollowCommand : Command
 	{
-		private Entity Target { get; }
+		private DynamicEntity Target { get; }
 
-		public FollowCommand(Entity entity, Entity target) : base(entity)
+		public FollowCommand(DynamicEntity entity, DynamicEntity target) : base(entity)
 		{
 			Target = target;
 		}
 
 		public override bool Tick(ref SystemState state)
 		{
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
-			navAgent.targetEntity = Target;
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Target.Entity);
+			navAgent.targetEntity = Target.Entity;
 			return false;
 		}
 
@@ -22,7 +22,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Target.Entity);
 			navAgent.IsActive = false;
 		}
 	}

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public class CollectInRadiusTargetProvider : ITargetConverter<None, UnitObsolete>, ITargetConverter<UnitObsolete, UnitObsolete>
+	public class CollectInRadiusTargetProvider : ITargetConverter<None, DynamicEntity>, ITargetConverter<DynamicEntity, DynamicEntity>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -11,8 +12,10 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, None input) => PhysicsService.GetEntitiesInSphere<UnitObsolete>(actor, Radius, Filter);
+		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, None input)
+			=> PhysicsService.GetEntitiesInSphere(entityManager, actor, Radius, Filter);
 
-		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, UnitObsolete input) => PhysicsService.GetEntitiesInSphere<UnitObsolete>(input, Radius, Filter);
+		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, DynamicEntity input) 
+			=> PhysicsService.GetEntitiesInSphere(entityManager, input, Radius, Filter);
 	}
 }

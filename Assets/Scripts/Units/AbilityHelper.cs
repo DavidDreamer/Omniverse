@@ -1,11 +1,10 @@
 ﻿using Omniverse.Abilities;
-using Unity.Entities;
 
 namespace Omniverse
 {
 	public static class AbilityHelper
 	{
-		public static AbilityCastError CanBeCasted(this Ability ability, Entity entity)
+		public static AbilityCastError CanBeCasted(this Ability ability, DynamicEntity entity)
 		{
 			if (ability.Cooldown.IsActive)
 			{

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public class ClosestTargetProvider : ITargetConverter<None, UnitObsolete>, ITargetConverter<UnitObsolete, UnitObsolete>
+	public class ClosestTargetProvider : ITargetConverter<None, DynamicEntity>, ITargetConverter<DynamicEntity, DynamicEntity>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -11,14 +12,14 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, None input)
+		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, None input)
 		{
-			yield return PhysicsService.GetClosestEntity<UnitObsolete>(actor, Radius, Filter);
+			yield return PhysicsService.GetClosestEntity(entityManager, actor, Radius, Filter);
 		}
 
-		public IEnumerable<UnitObsolete> Convert(OmniverseEntity actor, UnitObsolete input)
+		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, DynamicEntity input)
 		{
-			yield return PhysicsService.GetClosestEntity<UnitObsolete>(input, Radius, Filter);
+			yield return PhysicsService.GetClosestEntity(entityManager, input, Radius, Filter);
 		}
 	}
 }
