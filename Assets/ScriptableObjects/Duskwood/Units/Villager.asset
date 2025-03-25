@@ -69,8 +69,6 @@ MonoBehaviour:
     <Vital>k__BackingField: 0
   <Abilities>k__BackingField:
   - {fileID: 11400000, guid: 5c403545036cd514b9cc1deb7038bdf9, type: 2}
-  - {fileID: 11400000, guid: 13e9998263de9dd488da08da40a829af, type: 2}
-  - {fileID: 11400000, guid: d584e6418f56c3c458397910c61fb9cc, type: 2}
   <Loot>k__BackingField: []
   <Inventory>k__BackingField:
     <Capacity>k__BackingField: 16

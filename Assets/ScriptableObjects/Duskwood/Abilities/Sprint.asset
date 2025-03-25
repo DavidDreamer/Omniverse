@@ -32,22 +32,25 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 5
   <ActiveOperation>k__BackingField:
-    rid: 1311903549940564033
+    rid: 1727845726349164617
   <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 1311903549940564033
-      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.UnitObsolete, Omniverse]]', ns: Omniverse, asm: Omniverse}
+    - rid: 1727845726349164617
+      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[Omniverse.DynamicEntity, Omniverse]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 1311903549940564034
-        <Actions>k__BackingField: []
-    - rid: 1311903549940564034
-      type: {class: ClosestTargetProvider, ns: Omniverse, asm: Omniverse}
+          rid: 1727845726349164619
+        <Actions>k__BackingField:
+        - rid: 1727845726349164620
+    - rid: 1727845726349164619
+      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
+      data: 
+    - rid: 1727845726349164620
+      type: {class: ApplyEffectAction, ns: Omniverse, asm: Omniverse}
       data:
-        <Radius>k__BackingField: 0
-        <Filter>k__BackingField: 0
+        <Effect>k__BackingField: {fileID: 11400000, guid: 0390261ddcd452f4385a7840a04fe769, type: 2}
     - rid: 4041151032854578158
       type: {class: NoneTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data: 

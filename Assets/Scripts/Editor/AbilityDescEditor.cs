@@ -112,7 +112,7 @@ namespace Omniverse.Editor
 					case NoneTarget:
 						return typeof(None);
 					case UnitTarget:
-						return typeof(UnitObsolete);
+						return typeof(Unit);
 					case ResourceSourceTarget:
 						return typeof(ResourceSource);
 					case VectorTarget:

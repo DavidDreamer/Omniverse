@@ -10,7 +10,7 @@ namespace Omniverse.Editor
 	{
 		private static Type[] TargetTypes { get; } = new[]
 		{
-			typeof(UnitObsolete),
+			typeof(DynamicEntity),
 			typeof(ResourceSource),
 			typeof(Vector3)
 		};

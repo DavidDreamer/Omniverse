@@ -52,7 +52,8 @@ namespace Omniverse
 							Time = desc.Casting.Time
 						},
 						Target = desc.Target,
-						CastRange = desc.Casting.Range
+						CastRange = desc.Casting.Range,
+						ActiveOperation = desc.ActiveOperation
 					};
 
 					abilityModule.Abilities.Add(ability);
