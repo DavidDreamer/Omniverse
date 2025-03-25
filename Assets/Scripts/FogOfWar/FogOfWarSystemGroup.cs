@@ -37,6 +37,15 @@ namespace Omniverse
 			});
 		}
 
+		protected override void OnStopRunning()
+		{
+			base.OnStopRunning();
+
+			var fogOfWar = SystemAPI.GetSingleton<FogOfWar>();
+			fogOfWar.Occlusion.Dispose();
+			fogOfWar.Visibility.Dispose();
+		}
+
 		[BurstCompile]
 		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
 		public partial struct ClearVisibilitySystem : ISystem

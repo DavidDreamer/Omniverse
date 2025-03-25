@@ -12,17 +12,25 @@ namespace Omniverse.Input
 	[UpdateAfter(typeof(ProcessPointerSystem))]
 	public partial struct SelectEntitySystem : ISystem
 	{
+		public Selection Selection;
+
 		[BurstCompile]
 		public void OnCreate(ref SystemState state)
 		{
-			Selection selection = new()
+			Selection = new()
 			{
 				Entities = new(Selection.Capacity, Allocator.Persistent)
 			};
 
-			state.EntityManager.CreateSingleton(selection);
+			state.EntityManager.CreateSingleton(Selection);
 
 			state.RequireForUpdate<Player>();
+		}
+
+		[BurstCompile]
+		public void OnDestroy(ref SystemState state)
+		{
+			Selection.Entities.Dispose();
 		}
 
 		public void OnUpdate(ref SystemState state)

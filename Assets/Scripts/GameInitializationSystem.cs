@@ -6,6 +6,8 @@ using Unity.Entities;
 [BurstCompile]
 public partial struct GameInitializationSystem : ISystem
 {
+	private FactionsData factionsData;
+
 	public void OnCreate(ref SystemState state)
 	{
 		var auth = UnityEngine.Object.FindAnyObjectByType<GameOptionsAuthoring>();
@@ -14,7 +16,7 @@ public partial struct GameInitializationSystem : ISystem
 
 		state.EntityManager.CreateSingleton(gameOptions);
 
-		var factionsData = new FactionsData()
+		factionsData = new FactionsData()
 		{
 			Resources = new NativeHashMap<int, NativeArray<int>>(gameOptions.Factions.Length, Allocator.Persistent)
 		};
@@ -34,5 +36,15 @@ public partial struct GameInitializationSystem : ISystem
 		};
 
 		state.EntityManager.CreateSingleton(physicsSettings);
+	}
+
+	public void OnDestroy(ref SystemState state)
+	{
+		foreach (var resources in factionsData.Resources)
+		{
+			resources.Value.Dispose();
+		}
+
+		factionsData.Resources.Dispose();
 	}
 }
