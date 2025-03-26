@@ -27,7 +27,7 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Icon.sprite = castAbilityCommand.Ability.Icon;
+			Icon.sprite = castAbilityCommand.Ability.MetaData.GetIcon();
 			Slider.minValue = 0f;
 			Slider.maxValue = castAbilityCommand.Ability.Casting.Time;
 			Slider.value = castAbilityCommand.Ability.Casting.CurrentTime;

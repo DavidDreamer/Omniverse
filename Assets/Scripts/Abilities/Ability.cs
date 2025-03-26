@@ -32,9 +32,7 @@ namespace Omniverse
 
 	public class Ability
 	{
-		public string Name;
-
-		public Sprite Icon;
+		public MetaData MetaData;
 
 		public Cooldown Cooldown;
 

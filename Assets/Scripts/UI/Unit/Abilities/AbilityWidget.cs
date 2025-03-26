@@ -41,7 +41,7 @@ namespace Omniverse.UI
 
 			Activator.enabled = abilityInput.Ability == ability;
 
-			Icon.sprite = ability.Icon;
+			Icon.sprite = ability.MetaData.GetIcon();
 			Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
 
 			Casting.Tick(Ability.Casting);

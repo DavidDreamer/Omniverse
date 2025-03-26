@@ -10,7 +10,7 @@ namespace Omniverse.UI
 
 		public void Bind(Ability ability)
 		{
-			Name.text = ability.Name.ToString().ToUpper();
+			Name.text = ability.MetaData.Name.ToString().ToUpper();
 		}
 	}
 }
