@@ -1,7 +1,10 @@
-﻿using Unity.Entities;
+﻿using Unity.Burst;
+using Unity.Entities;
+using Unity.NetCode;
 
 namespace Omniverse
 {
+	//[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	//public partial struct HealthSustem : ISystem
 	//{
 	//	public void OnUpdate(ref SystemState state)
@@ -13,10 +16,13 @@ namespace Omniverse
 	//	}
 	//}
 
+	[BurstCompile]
 	public struct Health : IComponentData
 	{
+		[GhostField]
 		public float Maximum;
 
+		[GhostField]
 		public float Current;
 	}
 }
