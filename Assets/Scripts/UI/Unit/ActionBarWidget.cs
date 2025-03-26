@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Omniverse.Abilities;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +28,14 @@ namespace Omniverse.UI
 				return;
 			}
 
-			Icon.sprite = castAbilityCommand.Ability.MetaData.GetIcon();
+			Entity ability = castAbilityCommand.AbilityEntity;
+			var metaData = entityManager.GetComponentData<MetaData>(ability);
+			var casting = entityManager.GetComponentData<Casting>(ability);
+
+			Icon.sprite = metaData.GetIcon();
 			Slider.minValue = 0f;
-			Slider.maxValue = castAbilityCommand.Ability.Casting.Time;
-			Slider.value = castAbilityCommand.Ability.Casting.CurrentTime;
+			Slider.maxValue = casting.Time;
+			Slider.value = casting.CurrentTime;
 		}
 	}
 }

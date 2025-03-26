@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse.Abilities
 {
-	public struct Casting
+	public struct Casting : IComponentData
 	{
 		public float Time;
 

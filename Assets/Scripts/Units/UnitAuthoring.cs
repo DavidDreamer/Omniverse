@@ -1,5 +1,4 @@
 ﻿using Unity.Entities;
-using Unity.Entities.Content;
 using UnityEngine;
 
 namespace Omniverse
@@ -35,36 +34,6 @@ namespace Omniverse
 
 				AddComponent(entity, new NavAgentComponent());
 				AddComponentObject(entity, new CommandModule());
-
-				var abilityModule = new AbilityModule();
-
-				foreach (var desc in authoring.UnitDesc.Abilities)
-				{
-					Ability ability = new()
-					{
-						MetaData = new()
-						{
-							Name = desc.Meta.Name,
-							Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
-
-						},
-						Cooldown = new Cooldown
-						{
-							Time = desc.Cooldown.Time
-						},
-						Casting = new Abilities.Casting()
-						{
-							Time = desc.Casting.Time
-						},
-						Target = desc.Target,
-						CastRange = desc.Casting.Range,
-						ActiveOperation = desc.ActiveOperation
-					};
-
-					abilityModule.Abilities.Add(ability);
-				}
-
-				AddComponentObject(entity, abilityModule);
 			}
 		}
 	}

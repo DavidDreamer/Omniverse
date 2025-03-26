@@ -6,11 +6,11 @@ namespace Omniverse
 {
 	public class ApproachPositionForAbilityCastCommand : Command
 	{
-		public Ability Ability { get; }
+		public Entity Ability { get; }
 
 		public Vector3 Position { get; }
 
-		public ApproachPositionForAbilityCastCommand(DynamicEntity entity, Ability ability, Vector3 position) : base(entity)
+		public ApproachPositionForAbilityCastCommand(DynamicEntity entity, Entity ability, Vector3 position) : base(entity)
 		{
 			Ability = ability;
 			Position = position;
@@ -30,7 +30,8 @@ namespace Omniverse
 		{
 			var localTransform = state.EntityManager.GetComponentData<LocalTransform>(Entity.Entity);
 
-			return Vector3.Distance(Position, localTransform.Position) <= Ability.CastRange;
+			//TODO ECS
+			return Vector3.Distance(Position, localTransform.Position) <= 10f;// Ability.CastRange;
 		}
 
 		public override void Cleanup(ref SystemState state)

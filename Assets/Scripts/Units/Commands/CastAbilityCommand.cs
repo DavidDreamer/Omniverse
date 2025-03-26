@@ -6,20 +6,24 @@ namespace Omniverse
 	//TODO ECS
 	public abstract class CastAbilityCommand : Command
 	{
-		public Ability Ability { get; }
+		public Entity AbilityEntity;
+
+		public Ability Ability;
 
 		//public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
 
-		protected CastAbilityCommand(DynamicEntity entity, Ability ability) : base(entity)
+		protected CastAbilityCommand(DynamicEntity entity, Entity abilityEntity) : base(entity)
 		{
-			Ability = ability;
+			AbilityEntity = abilityEntity;
 		}
 
 		public override void Start(ref SystemState state)
 		{
 			base.Start(ref state);
 
-			Ability.Casting.Start();
+			var casting = state.EntityManager.GetComponentData<Casting>(AbilityEntity);
+			casting.Start();
+			state.EntityManager.SetComponentData(AbilityEntity, casting);
 		}
 
 		public override bool Tick(ref SystemState state)
@@ -31,9 +35,11 @@ namespace Omniverse
 				return true;
 			}
 
-			Ability.Casting.Tick(state.EntityManager.World.Time.DeltaTime);
+			var casting = state.EntityManager.GetComponentData<Casting>(AbilityEntity);
+			casting.Tick(state.EntityManager.World.Time.DeltaTime);
+			state.EntityManager.SetComponentData(AbilityEntity, casting);
 
-			if (!Ability.Casting.Finished)
+			if (!casting.Finished)
 			{
 				return false;
 			}
@@ -55,7 +61,9 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			Ability.Casting.Reset();
+			var casting = state.EntityManager.GetComponentData<Casting>(AbilityEntity);
+			casting.Reset();
+			state.EntityManager.SetComponentData(AbilityEntity, casting);
 		}
 	}
 
@@ -63,7 +71,7 @@ namespace Omniverse
 	{
 		private TTarget Target { get; }
 
-		public CastAbilityCommand(DynamicEntity entity, Ability ability, TTarget target) : base(entity, ability)
+		public CastAbilityCommand(DynamicEntity entity, Entity abilityEntity, TTarget target) : base(entity, abilityEntity)
 		{
 			Target = target;
 		}
@@ -72,7 +80,14 @@ namespace Omniverse
 		{
 			base.Cast(ref state);
 
-			Ability.Cast(state.EntityManager, Entity, Target);
+			var entityManager = state.EntityManager;
+
+			var cooldown = entityManager.GetComponentData<Cooldown>(AbilityEntity);
+			cooldown.TimeLeft = cooldown.Time;
+			entityManager.SetComponentData(AbilityEntity, cooldown);
+
+			//TODO ECS
+			//Ability.Cast(state.EntityManager, Entity, Target);
 		}
 	}
 }

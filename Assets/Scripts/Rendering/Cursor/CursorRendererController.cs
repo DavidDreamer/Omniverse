@@ -27,7 +27,8 @@ namespace Omniverse.Rendering
 
 				if (abilityInput.InProcess)
 				{
-					switch (abilityInput.Ability.Target)
+					var abiltiyTarget = entityManager.GetComponentObject<AbilityTarget>(abilityInput.Ability);
+					switch (abiltiyTarget.Target)
 					{
 						case UnitTarget:
 							return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;

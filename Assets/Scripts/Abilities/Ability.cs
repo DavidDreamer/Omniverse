@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace Omniverse
 {
@@ -10,51 +8,26 @@ namespace Omniverse
 	{
 		public void OnUpdate(ref SystemState state)
 		{
-			foreach (var abilityModule in SystemAPI.Query<AbilityModule>())
+			float deltaTime = SystemAPI.Time.DeltaTime;
+
+			foreach (var cooldown in SystemAPI.Query<RefRW<Cooldown>>())
 			{
-				abilityModule.Update(SystemAPI.Time.DeltaTime);
+				cooldown.ValueRW.TimeLeft = math.max(0f, cooldown.ValueRW.TimeLeft - deltaTime);
 			}
 		}
 	}
 
-	public class AbilityModule : IComponentData
+	public struct CastRange : IComponentData
 	{
-		public List<Ability> Abilities = new();
-
-		public void Update(float deltaTime)
-		{
-			foreach (Ability ability in Abilities)
-			{
-				ability.Update(deltaTime);
-			}
-		}
+		public float Value;
 	}
 
-	public class Ability
+	public class AbilityTarget : IComponentData
 	{
-		public MetaData MetaData;
-
-		public Cooldown Cooldown;
-
-		public Casting Casting;
-
 		public ITarget Target;
+	}
 
-		public float CastRange;
-
-		public IOperation ActiveOperation;
-
-		public void Update(float deltaTime)
-		{
-			Cooldown.TimeLeft = math.max(0f, Cooldown.TimeLeft - deltaTime);
-		}
-
-		public void Cast<TTarget>(EntityManager entityManager, DynamicEntity entity, TTarget target)
-		{
-			Cooldown.TimeLeft = Cooldown.Time;
-
-			var operation = (IOperation<TTarget>)ActiveOperation;
-			operation.Perform(entityManager, entity, target);
-		}
+	public struct Ability : IComponentData
+	{
 	}
 }

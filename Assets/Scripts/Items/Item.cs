@@ -1,10 +1,11 @@
 ﻿using Omniverse.Abilities;
+using Unity.Entities;
 
 namespace Omniverse.Items
 {
 	public class Item : OmniverseEntity<ItemDesc>, IPoolObject
 	{
-		public Ability Ability { get; set; }
+		public Entity Ability { get; set; }
 
 		public override void Initialize(ItemDesc desc)
 		{

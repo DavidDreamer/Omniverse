@@ -1,4 +1,6 @@
-﻿using Omniverse.Input;
+﻿using Omniverse.Abilities;
+using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -31,23 +33,28 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Material OnCooldownMaterial { get; set; }
 
-		private Ability Ability { get; set; }
+		private Entity Ability { get; set; }
 
-		public void Tick(Ability ability)
+		public void Tick(Entity ability)
 		{
 			Ability = ability;
 
 			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
+			var entityManager = ECSUtils.ClientWorld.EntityManager;
 
 			Activator.enabled = abilityInput.Ability == ability;
 
-			Icon.sprite = ability.MetaData.GetIcon();
-			Icon.material = Ability.Cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
+			var metaData = entityManager.GetComponentData<MetaData>(ability);
+			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
+			var casting = entityManager.GetComponentData<Casting>(ability);
 
-			Casting.Tick(Ability.Casting);
+			Icon.sprite = metaData.GetIcon();
+			Icon.material = cooldown.IsActive ? OnCooldownMaterial : DefaultMaterial;
 
-			Cooldown.Tick(ability.Cooldown);
-			Tooltip.Bind(ability);
+			Casting.Tick(casting);
+
+			Cooldown.Tick(cooldown);
+			Tooltip.Bind(metaData);
 		}
 
 		public void OnPointerClick(PointerEventData eventData)

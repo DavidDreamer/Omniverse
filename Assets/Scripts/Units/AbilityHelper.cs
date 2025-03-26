@@ -6,10 +6,10 @@ namespace Omniverse
 	{
 		public static AbilityCastError CanBeCasted(this Ability ability, DynamicEntity entity)
 		{
-			if (ability.Cooldown.IsActive)
-			{
-				return AbilityCastError.IsOnCooldown;
-			}
+			//if (ability.Cooldown.IsActive)
+			//{
+			//	return AbilityCastError.IsOnCooldown;
+			//}
 
 			//TODO ECS
 			//if (ability.Casting.InProcess)

@@ -6,8 +6,8 @@ namespace Omniverse.Input
 	{
 		public Entity Entity;
 
-		public Ability Ability;
+		public Entity Ability;
 
-		public bool InProcess => Ability != null;
+		public bool InProcess => Ability != Entity.Null;
 	}
 }

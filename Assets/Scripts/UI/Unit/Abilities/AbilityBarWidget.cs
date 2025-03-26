@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Omniverse.Input;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,16 +21,28 @@ namespace Omniverse.UI
 		public void Tick(Entity entity)
 		{
 			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
-			var abilityModule = entityManager.GetComponentObject<AbilityModule>(entity);
-			var abilities = abilityModule.Abilities;
 
-			int count = abilities.Count;
-			UpdateSlotsCount(count);
+			var children = entityManager.GetBuffer<Child>(entity);
 
-			for (int i = 0; i < count; ++i)
+			var abilities = Abilities().ToArray();
+
+			UpdateSlotsCount(abilities.Length);
+
+			for (int i = 0; i < abilities.Length; ++i)
 			{
-				Ability ability = abilities[i];
+				Entity ability = abilities[i];
 				Slots[i].Tick(ability);
+			}
+
+			IEnumerable<Entity> Abilities()
+			{
+				foreach (var child in children)
+				{
+					if (entityManager.HasComponent<Ability>(child.Value))
+					{
+						yield return child.Value;
+					}
+				}
 			}
 		}
 

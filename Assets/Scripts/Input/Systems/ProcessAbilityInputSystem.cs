@@ -10,6 +10,8 @@ namespace Omniverse.Input
 	{
 		public void OnUpdate(ref SystemState state)
 		{
+			EntityManager entityManager = state.EntityManager;
+
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingleton<Selection>();
 			var abilityInput = SystemAPI.ManagedAPI.GetSingleton<AbilityInput>();
@@ -26,15 +28,14 @@ namespace Omniverse.Input
 
 			var entity = selection.Entity;
 			var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
-			var abilityModule = SystemAPI.ManagedAPI.GetComponent<AbilityModule>(entity);
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 
 			if (abilityInput.InProcess)
 			{
-				Ability ability = abilityInput.Ability;
+				var target = entityManager.GetComponentObject<AbilityTarget>(abilityInput.Ability).Target;
 
-				switch (ability.Target)
+				switch (target)
 				{
 					case VectorTarget vectorTarget:
 					{
@@ -54,14 +55,14 @@ namespace Omniverse.Input
 							direction.Set(direction.x, 0, direction.z);
 							direction.Normalize();
 
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, ability, direction);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.Ability, direction);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 						else
 						{
-							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, ability, pointer.WorldPosition);
+							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, abilityInput.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, approachPositionForAbilityCastCommand);
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, ability, pointer.WorldPosition);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 
@@ -108,57 +109,75 @@ namespace Omniverse.Input
 
 			var abilityActions = abilitiesActions.Get().actions;
 
-			for (int i = 0; i < abilityActions.Count; ++i)
+			var children = entityManager.GetBuffer<Child>(selection.Entity);
+
+			int i = 0;
+
+			foreach (Child child in children)
 			{
+				if (!entityManager.HasComponent<Ability>(child.Value))
+				{
+					continue;
+				}
+
+				if (i >= abilityActions.Count)
+				{
+					continue;
+				}
+
 				if (abilityActions[i].WasPressedThisFrame())
 				{
-					if (i < abilityModule.Abilities.Count)
+					Entity abilityEntity = child.Value;
+					//Ability ability = entityManager.GetComponentData<Ability>(abilityEntity);
+
+					//if (ability.ActiveOperation is not null)
 					{
-						Ability ability = abilityModule.Abilities[i];
-
-						//if (ability.ActiveOperation is not null)
+						if (abilityInput.InProcess)
 						{
-							if (abilityInput.InProcess)
+							if (abilityInput.Entity == entity && abilityInput.Ability == abilityEntity)
 							{
-								if (abilityInput.Entity == entity && abilityInput.Ability == ability)
-								{
-									Discard();
-									return;
-								}
-								else
-								{
-									Discard();
-								}
-							}
-
-							AbilityCastError error = ability.CanBeCasted(dynamicEntity);
-
-							if (error is not AbilityCastError.None)
-							{
+								Discard();
 								return;
-							}
-
-							if (ability.Target is NoneTarget)
-							{
-								if (ability.Casting.Time == 0)
-								{
-									var command = new CastImmediateAbilityCommand(dynamicEntity, ability);
-									commandModule.Add(command);
-								}
-								else
-								{
-									var command = new CastAbilityCommand<None>(dynamicEntity, ability, None.Instance);
-									AddCommand(ref state, commandModule, command);
-								}
 							}
 							else
 							{
-								abilityInput.Entity = entity;
-								abilityInput.Ability = ability;
+								Discard();
 							}
+						}
+
+						AbilityCastError error = AbilityCastError.None; //ability.CanBeCasted(dynamicEntity);
+
+						if (error is not AbilityCastError.None)
+						{
+							return;
+						}
+
+						var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(abilityEntity);
+
+						if (abilityTarget.Target is NoneTarget)
+						{
+							var casting = entityManager.GetComponentData<Casting>(abilityEntity);
+
+							if (casting.Time == 0)
+							{
+								var command = new CastImmediateAbilityCommand(dynamicEntity, abilityEntity);
+								commandModule.Add(command);
+							}
+							else
+							{
+								var command = new CastAbilityCommand<None>(dynamicEntity, abilityEntity, None.Instance);
+								AddCommand(ref state, commandModule, command);
+							}
+						}
+						else
+						{
+							abilityInput.Entity = entity;
+							abilityInput.Ability = abilityEntity;
 						}
 					}
 				}
+
+				i++;
 			}
 
 			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
@@ -173,7 +192,7 @@ namespace Omniverse.Input
 
 			void Discard()
 			{
-				abilityInput.Ability = null;
+				abilityInput.Ability = Entity.Null;
 			}
 		}
 	}

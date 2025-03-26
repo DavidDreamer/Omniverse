@@ -1,5 +1,6 @@
 ﻿using Omniverse.Input;
 using Omniverse.Items;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,7 +30,7 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					if (Item.Ability is not null)
+					if (Item.Ability != Entity.Null)
 					{
 						//TODO ECS
 						//AbilityController.Process(selection.Entity, Item.Ability);

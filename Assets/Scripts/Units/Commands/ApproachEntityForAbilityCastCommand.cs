@@ -24,7 +24,8 @@ namespace Omniverse
 
 			navAgent.targetEntity = Target.Entity;
 
-			return Vector3.Distance(targetTransform.Position, transform.Position) <= Ability.CastRange;
+			//TODO ECS
+			return Vector3.Distance(targetTransform.Position, transform.Position) <= 10f;//Ability.CastRange;
 		}
 
 		public override void Cleanup(ref SystemState state)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -20,9 +21,9 @@ namespace Omniverse.UI
 			Hotkey.Set(inputAction);
 		}
 
-		public void Tick(Ability ability)
+		public void Tick(Entity ability)
 		{
-			bool hasAbility = ability is not null;
+			bool hasAbility = ability != Entity.Null;
 			//TODO ECS
 			bool isActiveAbility = true;// ability.ActiveOperation is not null;
 

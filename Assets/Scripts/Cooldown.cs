@@ -1,8 +1,9 @@
-﻿using Unity.Mathematics;
+﻿using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Omniverse
 {
-	public struct Cooldown
+	public struct Cooldown : IComponentData
 	{
 		public float Time;
 
