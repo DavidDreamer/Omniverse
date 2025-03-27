@@ -29,15 +29,7 @@ namespace Omniverse.Input
 
 			EntityManager.SetComponentData(entity, inputSystemData);
 
-			CreateManagedSingleton<AbilityInput>();
-
-			void CreateManagedSingleton<T>() where T : class, new()
-			{
-				var entity = EntityManager.CreateEntity();
-				EntityManager.AddComponent<T>(entity);
-				var component = new AbilityInput();
-				EntityManager.SetComponentData(entity, component);
-			}
+			EntityManager.CreateSingleton<AbilityInput>();
 		}
 	}
 }

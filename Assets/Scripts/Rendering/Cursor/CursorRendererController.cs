@@ -20,7 +20,7 @@ namespace Omniverse.Rendering
 			{
 				var player = ECSUtils.GetSingleton<Player>();
 				var pointer = ECSUtils.GetSingleton<Pointer>();
-				var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
+				var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
 
 				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				Entity entity = pointer.Entity;

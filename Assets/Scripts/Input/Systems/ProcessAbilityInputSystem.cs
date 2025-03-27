@@ -14,7 +14,7 @@ namespace Omniverse.Input
 
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingleton<Selection>();
-			var abilityInput = SystemAPI.ManagedAPI.GetSingleton<AbilityInput>();
+			var abilityInput = SystemAPI.GetSingletonRW<AbilityInput>();
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 
 			CommonActions commonActions = inputSystemData.InputActions.Common;
@@ -31,9 +31,9 @@ namespace Omniverse.Input
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 
-			if (abilityInput.InProcess)
+			if (abilityInput.ValueRO.InProcess)
 			{
-				var target = entityManager.GetComponentObject<AbilityTarget>(abilityInput.Ability).Target;
+				var target = entityManager.GetComponentObject<AbilityTarget>(abilityInput.ValueRO.Ability).Target;
 
 				switch (target)
 				{
@@ -55,14 +55,14 @@ namespace Omniverse.Input
 							direction.Set(direction.x, 0, direction.z);
 							direction.Normalize();
 
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.Ability, direction);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.ValueRO.Ability, direction);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 						else
 						{
-							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, abilityInput.Ability, pointer.WorldPosition);
+							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, abilityInput.ValueRO.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, approachPositionForAbilityCastCommand);
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.Ability, pointer.WorldPosition);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, abilityInput.ValueRO.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 
@@ -132,9 +132,9 @@ namespace Omniverse.Input
 
 					//if (ability.ActiveOperation is not null)
 					{
-						if (abilityInput.InProcess)
+						if (abilityInput.ValueRO.InProcess)
 						{
-							if (abilityInput.Ability == abilityEntity)
+							if (abilityInput.ValueRO.Ability == abilityEntity)
 							{
 								Discard();
 								return;
@@ -171,7 +171,7 @@ namespace Omniverse.Input
 						}
 						else
 						{
-							abilityInput.Ability = abilityEntity;
+							abilityInput.ValueRW.Ability = abilityEntity;
 						}
 					}
 				}
@@ -191,7 +191,7 @@ namespace Omniverse.Input
 
 			void Discard()
 			{
-				abilityInput.Ability = Entity.Null;
+				abilityInput.ValueRW.Ability = Entity.Null;
 			}
 		}
 	}

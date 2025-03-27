@@ -39,7 +39,7 @@ namespace Omniverse.UI
 		{
 			Ability = ability;
 
-			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
+			var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
 			var entityManager = ECSUtils.ClientWorld.EntityManager;
 
 			Activator.enabled = abilityInput.Ability == ability;

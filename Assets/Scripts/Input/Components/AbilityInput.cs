@@ -2,7 +2,7 @@
 
 namespace Omniverse.Input
 {
-	public class AbilityInput : IComponentData
+	public struct AbilityInput : IComponentData
 	{
 		public Entity Ability;
 
