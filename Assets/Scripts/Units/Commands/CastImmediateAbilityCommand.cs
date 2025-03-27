@@ -17,8 +17,9 @@ namespace Omniverse
 			cooldown.TimeLeft = cooldown.Time;
 			entityManager.SetComponentData(AbilityEntity, cooldown);
 
-			//TODO ECS
-			//Ability.Cast(entityManager, Entity, None.Instance);
+			var abilityActiveOperation = entityManager.GetComponentObject<AbilityActiveOperation>(AbilityEntity);
+			var operation = (IOperation<None>)abilityActiveOperation.Operation;
+			operation.Perform(entityManager, Entity, None.Instance);
 		}
 	}
 }

@@ -45,7 +45,10 @@ namespace Omniverse
 					Value = desc.Casting.Range
 				});
 
-				//ActiveOperation = desc.ActiveOperation
+				AddComponentObject(entity, new AbilityActiveOperation
+				{
+					Operation = desc.ActiveOperation
+				});
 			}
 		}
 	}
