@@ -6,6 +6,7 @@ using static InputActions;
 namespace Omniverse.Input
 {
 	[UpdateInGroup(typeof(InputSystemGroup))]
+	[UpdateAfter(typeof(SelectEntitySystem))]
 	public partial struct ProcessAbilityInputSystem : ISystem
 	{
 		public void OnUpdate(ref SystemState state)

@@ -40,6 +40,12 @@ namespace Omniverse.Input
 			var player = SystemAPI.GetSingleton<Player>();
 			var detector = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingletonRW<Selection>();
+			var abilityInput = SystemAPI.GetSingleton<AbilityInput>();
+
+			if (abilityInput.InProcess)
+			{
+				return;
+			}
 
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 			CommonActions commonActions = inputSystemData.InputActions.Common;
