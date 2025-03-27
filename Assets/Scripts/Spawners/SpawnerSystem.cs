@@ -1,6 +1,7 @@
 ﻿using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -49,8 +50,8 @@ namespace Omniverse
 	}
 
 	[BurstCompile]
-	[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-	[UpdateAfter(typeof(SpawnerSystem))]
+	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
+	//[UpdateAfter(typeof(SpawnerSystem))]
 	public partial struct MoveMissilesSystem : ISystem
 	{
 		[BurstCompile]

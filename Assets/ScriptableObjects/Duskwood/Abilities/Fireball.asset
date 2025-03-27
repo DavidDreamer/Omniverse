@@ -27,20 +27,25 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Time>k__BackingField: 2
   <ActiveOperation>k__BackingField:
-    rid: 1727845738078535753
+    rid: 1727845769367781457
   <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 1727845738078535753
+    - rid: 1727845769367781457
       type: {class: 'Operation`2[[UnityEngine.Vector3, UnityEngine.CoreModule],[UnityEngine.Vector3, UnityEngine.CoreModule]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 1727845738078535754
-        <Actions>k__BackingField: []
-    - rid: 1727845738078535754
+          rid: 1727845769367781458
+        <Actions>k__BackingField:
+        - rid: 1727845769367781459
+    - rid: 1727845769367781458
       type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
       data: 
+    - rid: 1727845769367781459
+      type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
+      data:
+        <Missile>k__BackingField: {fileID: 0}
     - rid: 4041151032854578049
       type: {class: VectorTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data:

@@ -5,6 +5,8 @@ namespace Omniverse
 {
 	public class MissileAuthoring : MonoBehaviour
 	{
+		public MissileDesc Desc;
+
 		private class MissileBaker : Baker<MissileAuthoring>
 		{
 			public override void Bake(MissileAuthoring authoring)
@@ -12,7 +14,7 @@ namespace Omniverse
 				var entity = GetEntity(TransformUsageFlags.Dynamic);
 				AddComponent(entity, new Missile
 				{
-					Speed = 0
+					Speed = authoring.Desc.Speed
 				});
 			}
 		}

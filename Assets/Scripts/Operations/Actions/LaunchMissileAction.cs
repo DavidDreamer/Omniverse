@@ -16,8 +16,15 @@ namespace Omniverse
 
 		public void Perform(EntityManager entityManager, DynamicEntity actor, Vector3 target)
 		{
-			//TODO ECS
-			//actor.SpawnMissile(Missile, target);
+			var query = entityManager.CreateEntityQuery(new ComponentType[] { typeof(EntityReferences) });
+			var singleton = query.GetSingleton<EntityReferences>();
+			query.Dispose();
+
+			Entity fireball = entityManager.Instantiate(singleton.Fireball);
+			entityManager.SetComponentData(fireball, actor.LocalTransform.ValueRO);
+			var missile = entityManager.GetComponentData<Missile>(fireball);
+			missile.Direction = target;
+			entityManager.SetComponentData(fireball, missile);
 		}
 	}
 }
