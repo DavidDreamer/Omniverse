@@ -40,9 +40,8 @@ namespace Omniverse.Input
 			var player = SystemAPI.GetSingleton<Player>();
 			var detector = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingletonRW<Selection>();
-			var abilityInput = SystemAPI.GetSingleton<AbilityInput>();
 
-			if (abilityInput.InProcess)
+			if (selection.ValueRO.AbilityInProcess)
 			{
 				return;
 			}

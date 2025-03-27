@@ -24,5 +24,9 @@ namespace Omniverse.Input
 		public float2 EndPosition;
 
 		public bool InProcess;
+
+		public Entity Ability;
+
+		public bool AbilityInProcess => Ability != Entity.Null;
 	}
 }

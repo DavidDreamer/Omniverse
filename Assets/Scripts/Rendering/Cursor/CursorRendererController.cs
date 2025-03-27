@@ -20,14 +20,14 @@ namespace Omniverse.Rendering
 			{
 				var player = ECSUtils.GetSingleton<Player>();
 				var pointer = ECSUtils.GetSingleton<Pointer>();
-				var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
+				var selection = ECSUtils.GetSingleton<Selection>();
 
 				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				Entity entity = pointer.Entity;
 
-				if (abilityInput.InProcess)
+				if (selection.AbilityInProcess)
 				{
-					var abiltiyTarget = entityManager.GetComponentObject<AbilityTarget>(abilityInput.Ability);
+					var abiltiyTarget = entityManager.GetComponentObject<AbilityTarget>(selection.Ability);
 					switch (abiltiyTarget.Target)
 					{
 						case UnitTarget:

@@ -38,12 +38,11 @@ namespace Omniverse.Rendering
 			RasterCommandBuffer commandBuffer = context.cmd;
 
 			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
-			var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
 			var selection = ECSUtils.GetSingleton<Selection>();
 
 			var transform = entityManager.GetComponentData<LocalTransform>(selection.Entity);
 			var localToWorld = entityManager.GetComponentData<LocalToWorld>(selection.Entity);
-			var ability = abilityInput.Ability;
+			var ability = selection.Ability;
 
 			DrawRange();
 			DrawDireciton();
@@ -55,7 +54,7 @@ namespace Omniverse.Rendering
 					return;
 				}
 
-				var castRange = entityManager.GetComponentData<CastRange>(abilityInput.Ability);
+				var castRange = entityManager.GetComponentData<CastRange>(ability);
 
 				AbilityRendererConfig config = Renderer.Config;
 
@@ -77,7 +76,7 @@ namespace Omniverse.Rendering
 					return;
 				}
 
-				var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(abilityInput.Ability);
+				var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(ability);
 
 				if (abilityTarget.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
 				{

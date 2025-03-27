@@ -7,6 +7,6 @@ namespace Omniverse.Rendering
 	{
 		protected override AbilityRendererPass Setup() => new(this);
 
-		protected override bool IsInactive() => !ECSUtils.GetSingleton<AbilityInput>().InProcess;
+		protected override bool IsInactive() => !ECSUtils.GetSingleton<Selection>().AbilityInProcess;
 	}
 }

@@ -39,10 +39,10 @@ namespace Omniverse.UI
 		{
 			Ability = ability;
 
-			var abilityInput = ECSUtils.GetSingleton<AbilityInput>();
+			var selection = ECSUtils.GetSingleton<Selection>();
 			var entityManager = ECSUtils.ClientWorld.EntityManager;
 
-			Activator.enabled = abilityInput.Ability == ability;
+			Activator.enabled = selection.Ability == ability;
 
 			var metaData = entityManager.GetComponentData<MetaData>(ability);
 			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
