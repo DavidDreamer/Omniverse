@@ -39,9 +39,10 @@ namespace Omniverse.Rendering
 
 			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 			var abilityInput = ECSUtils.GetSingletonManaged<AbilityInput>();
+			var selection = ECSUtils.GetSingleton<Selection>();
 
-			var transform = entityManager.GetComponentData<LocalTransform>(abilityInput.Entity);
-			var localToWorld = entityManager.GetComponentData<LocalToWorld>(abilityInput.Entity);
+			var transform = entityManager.GetComponentData<LocalTransform>(selection.Entity);
+			var localToWorld = entityManager.GetComponentData<LocalToWorld>(selection.Entity);
 			var ability = abilityInput.Ability;
 
 			DrawRange();

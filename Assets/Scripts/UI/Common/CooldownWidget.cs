@@ -14,9 +14,9 @@ namespace Omniverse.UI
 
 		public void Tick(Cooldown cooldown)
 		{
-			Image.enabled = cooldown.IsActive;
-			Image.fillAmount = cooldown.Ratio;
-			Label.enabled = cooldown.IsActive;
+			Image.enabled = cooldown.IsActive();
+			Image.fillAmount = cooldown.Ratio();
+			Label.enabled = cooldown.IsActive();
 			Label.text = Mathf.CeilToInt(cooldown.TimeLeft).ToString();
 		}
 	}

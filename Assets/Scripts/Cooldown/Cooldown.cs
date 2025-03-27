@@ -1,16 +1,14 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
+using Unity.NetCode;
 
 namespace Omniverse
 {
 	public struct Cooldown : IComponentData
 	{
+		[GhostField]
 		public float Time;
 
+		[GhostField]
 		public float TimeLeft;
-
-		public bool IsActive => TimeLeft > 0f;
-
-		public float Ratio => math.saturate(TimeLeft / Time);
 	}
 }

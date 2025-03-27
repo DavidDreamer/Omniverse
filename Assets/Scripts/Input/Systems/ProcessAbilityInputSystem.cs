@@ -134,7 +134,7 @@ namespace Omniverse.Input
 					{
 						if (abilityInput.InProcess)
 						{
-							if (abilityInput.Entity == entity && abilityInput.Ability == abilityEntity)
+							if (abilityInput.Ability == abilityEntity)
 							{
 								Discard();
 								return;
@@ -171,7 +171,6 @@ namespace Omniverse.Input
 						}
 						else
 						{
-							abilityInput.Entity = entity;
 							abilityInput.Ability = abilityEntity;
 						}
 					}
