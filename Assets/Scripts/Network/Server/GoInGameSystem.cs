@@ -3,6 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.NetCode;
 using Unity.Transforms;
+using static UnityEngine.UI.CanvasScaler;
+using UnityEngine;
 
 namespace Omniverse.Network.Server
 {
@@ -66,21 +68,27 @@ namespace Omniverse.Network.Server
 					Value = unit
 				};
 				commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, linkedEntityGroup);
-			
-				Entity ability = commandBuffer.Instantiate(spawner.Ability);
-				commandBuffer.SetComponent(ability, ghostOwner);
-				commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
+
+				CreateAbility(spawner.Ability);
+				CreateAbility(spawner.Ability2);
+
+				void CreateAbility(Entity prefab)
 				{
-					Value = ability
-				});
-				commandBuffer.AppendToBuffer(unit, new AbilityReference
-				{
-					Entity = ability
-				});
-				commandBuffer.SetComponent(ability, new Owner
-				{
-					Entity = unit
-				});
+					Entity ability = commandBuffer.Instantiate(prefab);
+					commandBuffer.SetComponent(ability, ghostOwner);
+					commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
+					{
+						Value = ability
+					});
+					commandBuffer.AppendToBuffer(unit, new AbilityReference
+					{
+						Entity = ability
+					});
+					commandBuffer.SetComponent(ability, new Owner
+					{
+						Entity = unit
+					});
+				}
 
 				commandBuffer.DestroyEntity(requestEntity);
 			}

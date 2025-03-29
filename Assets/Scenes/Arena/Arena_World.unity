@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 733910673331217839, guid: 261a3dee5c36b5f47b2bac30f7a82f18, type: 3}
   Ability: {fileID: 5609343169077784388, guid: dbbe1d9e06b597a43a908a7e756e6889, type: 3}
+  Ability2: {fileID: 5438775874799483206, guid: f5ace11ad01afb34eb22a20109a21bef, type: 3}
 --- !u!4 &1468656463
 Transform:
   m_ObjectHideFlags: 0

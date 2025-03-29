@@ -15,7 +15,7 @@ namespace Omniverse
 			{
 				AbilityDesc desc = authoring.Desc;
 
-				var entity = GetEntity(TransformUsageFlags.Dynamic);
+				Entity entity = GetEntity(TransformUsageFlags.None);
 
 				AddComponent(entity, new Ability());
 

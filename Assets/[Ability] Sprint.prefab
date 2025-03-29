@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2829560046075511392}
   - component: {fileID: 1144271263649453584}
   m_Layer: 0
-  m_Name: '[Ability]Sprint'
+  m_Name: '[Ability] Sprint'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
