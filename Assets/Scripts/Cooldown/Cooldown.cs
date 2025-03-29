@@ -6,7 +6,7 @@ namespace Omniverse
 	public struct Cooldown : IComponentData
 	{
 		[GhostField]
-		public float Time;
+		public float Duration;
 
 		[GhostField]
 		public float TimeLeft;
