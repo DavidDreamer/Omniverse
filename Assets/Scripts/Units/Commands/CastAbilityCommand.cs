@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -82,13 +83,14 @@ namespace Omniverse
 
 			var entityManager = state.EntityManager;
 
-			var cooldown = entityManager.GetComponentData<Cooldown>(AbilityEntity);
-			cooldown.TimeLeft = cooldown.Time;
-			entityManager.SetComponentData(AbilityEntity, cooldown);
+			var input = entityManager.GetComponentData<AbilityInput>(AbilityEntity);
+			input.Cast.Set();
+			entityManager.SetComponentData(AbilityEntity, input);
 
-			var abilityActiveOperation = entityManager.GetComponentObject<AbilityActiveOperation>(AbilityEntity);
-			var operation = (IOperation<TTarget>)abilityActiveOperation.Operation;
-			operation.Perform(entityManager, Entity, Target);
+			if (typeof(TTarget) == typeof(Vector3))
+			{
+				input.Vector = (Vector3)(object)Target;
+			}
 		}
 	}
 }

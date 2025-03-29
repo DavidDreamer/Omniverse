@@ -13,13 +13,9 @@ namespace Omniverse
 
 		public override void Execute(EntityManager entityManager)
 		{
-			var cooldown = entityManager.GetComponentData<Cooldown>(AbilityEntity);
-			cooldown.TimeLeft = cooldown.Time;
-			entityManager.SetComponentData(AbilityEntity, cooldown);
-
-			var abilityActiveOperation = entityManager.GetComponentObject<AbilityActiveOperation>(AbilityEntity);
-			var operation = (IOperation<None>)abilityActiveOperation.Operation;
-			operation.Perform(entityManager, Entity, None.Instance);
+			var input = entityManager.GetComponentData<AbilityInput>(AbilityEntity);
+			input.Cast.Set();
+			entityManager.SetComponentData(AbilityEntity, input);
 		}
 	}
 }

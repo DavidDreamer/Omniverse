@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Omniverse.Input;
 using Unity.Entities;
-using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +21,7 @@ namespace Omniverse.UI
 		{
 			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 
-			var children = entityManager.GetBuffer<Child>(entity);
+			var abilityReferences = entityManager.GetBuffer<AbilityReference>(entity);
 
 			var abilities = Abilities().ToArray();
 
@@ -36,12 +35,9 @@ namespace Omniverse.UI
 
 			IEnumerable<Entity> Abilities()
 			{
-				foreach (var child in children)
+				foreach (var reference in abilityReferences)
 				{
-					if (entityManager.HasComponent<Ability>(child.Value))
-					{
-						yield return child.Value;
-					}
+					yield return reference.Entity;
 				}
 			}
 		}

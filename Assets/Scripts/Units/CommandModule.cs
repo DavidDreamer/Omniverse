@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Unity.Entities;
+using Unity.NetCode;
 
 namespace Omniverse
 {
+	[UpdateInGroup(typeof(GhostInputSystemGroup))]
 	public partial struct ProcessCommandsSystem : ISystem
 	{
 		public void OnUpdate(ref SystemState state)

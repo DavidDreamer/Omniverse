@@ -110,17 +110,12 @@ namespace Omniverse.Input
 
 			var abilityActions = abilitiesActions.Get().actions;
 
-			var children = entityManager.GetBuffer<Child>(selection.Entity);
+			var abilityReferences = entityManager.GetBuffer<AbilityReference>(selection.Entity);
 
 			int i = 0;
 
-			foreach (Child child in children)
+			foreach (AbilityReference reference in abilityReferences)
 			{
-				if (!entityManager.HasComponent<Ability>(child.Value))
-				{
-					continue;
-				}
-
 				if (i >= abilityActions.Count)
 				{
 					continue;
@@ -128,7 +123,7 @@ namespace Omniverse.Input
 
 				if (abilityActions[i].WasPressedThisFrame())
 				{
-					Entity abilityEntity = child.Value;
+					Entity abilityEntity = reference.Entity;
 					//Ability ability = entityManager.GetComponentData<Ability>(abilityEntity);
 
 					//if (ability.ActiveOperation is not null)

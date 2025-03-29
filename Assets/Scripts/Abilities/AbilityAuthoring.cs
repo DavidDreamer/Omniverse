@@ -49,6 +49,9 @@ namespace Omniverse
 				{
 					Operation = desc.ActiveOperation
 				});
+
+				AddComponent<AbilityInput>(entity);
+				AddComponent<Owner>(entity);
 			}
 		}
 	}

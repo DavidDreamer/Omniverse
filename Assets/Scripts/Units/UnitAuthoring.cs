@@ -1,5 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.Rendering;
 
 namespace Omniverse
 {
@@ -34,6 +36,7 @@ namespace Omniverse
 
 				AddComponent(entity, new NavAgentComponent());
 				AddComponentObject(entity, new CommandModule());
+				AddBuffer<AbilityReference>(entity);
 			}
 		}
 	}

@@ -6,11 +6,15 @@ namespace Omniverse
 	public struct UnitSpawner : IComponentData
 	{
 		public Entity Unit;
+
+		public Entity Ability;
 	}
 
 	public class UnitSpawnerAuthoring : MonoBehaviour
 	{
 		public GameObject Prefab;
+
+		public GameObject Ability;
 
 		private class Baker : Baker<UnitSpawnerAuthoring>
 		{
@@ -18,11 +22,13 @@ namespace Omniverse
 			{
 				var unitSpawner = new UnitSpawner
 				{
-					Unit = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic)
+					Unit = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
+					Ability = GetEntity(authoring.Ability, TransformUsageFlags.Dynamic)
 				};
 
 				var entity = GetEntity(TransformUsageFlags.Dynamic);
 				AddComponent(entity, unitSpawner);
+
 			}
 		}
 	}

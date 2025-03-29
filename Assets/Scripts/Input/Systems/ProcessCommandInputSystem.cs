@@ -9,7 +9,7 @@ using static InputActions;
 namespace Omniverse.Input
 {
 	[BurstCompile]
-	[UpdateInGroup(typeof(GhostInputSystemGroup))]
+	[UpdateInGroup(typeof(InputSystemGroup))]
 	public partial struct ProcessCommandInputSystem : ISystem
 	{
 		public static event Action<Vector3> NavigationPointCreated;
