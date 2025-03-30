@@ -124,7 +124,6 @@ namespace Omniverse.Input
 				if (abilityActions[i].WasPressedThisFrame())
 				{
 					Entity abilityEntity = reference.Entity;
-					//Ability ability = entityManager.GetComponentData<Ability>(abilityEntity);
 
 					//if (ability.ActiveOperation is not null)
 					{
@@ -141,7 +140,7 @@ namespace Omniverse.Input
 							}
 						}
 
-						AbilityCastError error = AbilityCastError.None; //ability.CanBeCasted(dynamicEntity);
+						AbilityCastError error = abilityEntity.CanBeCasted(entityManager);
 
 						if (error is not AbilityCastError.None)
 						{

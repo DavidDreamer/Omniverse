@@ -1,16 +1,21 @@
 ﻿using Omniverse.Abilities;
+using Unity.Entities;
 
 namespace Omniverse
 {
 	public static class AbilityHelper
 	{
-		public static AbilityCastError CanBeCasted(this Ability ability, DynamicEntity entity)
+		public static AbilityCastError CanBeCasted(this Entity ability, EntityManager entityManager)
 		{
-			//if (ability.Cooldown.IsActive)
-			//{
-			//	return AbilityCastError.IsOnCooldown;
-			//}
-
+			if (entityManager.HasComponent<Cooldown>(ability))
+			{
+				var cooldown = entityManager.GetComponentData<Cooldown>(ability);
+				if (cooldown.IsActive())
+				{
+					return AbilityCastError.IsOnCooldown;
+				}
+			}
+	
 			//TODO ECS
 			//if (ability.Casting.InProcess)
 			//{

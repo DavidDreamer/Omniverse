@@ -1,4 +1,5 @@
-﻿using Omniverse.Abilities;
+﻿using System.Resources;
+using Omniverse.Abilities;
 using Unity.Entities;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace Omniverse
 
 		public override bool Tick(ref SystemState state)
 		{
-			AbilityCastError error = Ability.CanBeCasted(Entity);
+			AbilityCastError error = AbilityEntity.CanBeCasted(state.EntityManager);
 
 			if (error is not AbilityCastError.None)
 			{
