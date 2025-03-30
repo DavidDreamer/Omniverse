@@ -3,7 +3,6 @@ using Omniverse.Abilities;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.NetCode;
-using Unity.Transforms;
 
 namespace Omniverse
 {
@@ -52,8 +51,6 @@ namespace Omniverse
 							break;
 						}
 					}
-
-					input.ValueRW.Cast = default;
 				}
 			}
 		}
