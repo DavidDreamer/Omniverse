@@ -28,7 +28,7 @@ namespace Omniverse.Input
 			}
 
 			var entity = selection.Entity;
-			var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
+			var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 

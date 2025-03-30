@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.NetCode;
 
 namespace Omniverse.Input
 {
@@ -8,6 +9,7 @@ namespace Omniverse.Input
 	}
 
 	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation, WorldSystemFilterFlags.ClientSimulation)]
+	[UpdateInGroup(typeof(GhostInputSystemGroup))]
 	public partial class InputSystemGroup : ComponentSystemGroup
 	{
 		protected override void OnCreate()
