@@ -85,12 +85,12 @@ namespace Omniverse
 
 			var input = entityManager.GetComponentData<AbilityInput>(AbilityEntity);
 			input.Cast.Set();
-			entityManager.SetComponentData(AbilityEntity, input);
 
 			if (typeof(TTarget) == typeof(Vector3))
 			{
 				input.Vector = (Vector3)(object)Target;
 			}
+			entityManager.SetComponentData(AbilityEntity, input);
 		}
 	}
 }
