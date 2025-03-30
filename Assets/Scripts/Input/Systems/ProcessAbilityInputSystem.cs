@@ -156,8 +156,9 @@ namespace Omniverse.Input
 
 							if (casting.Time == 0)
 							{
-								var command = new CastImmediateAbilityCommand(dynamicEntity, abilityEntity);
-								commandModule.Add(command);
+								var input = entityManager.GetComponentData<AbilityInput>(abilityEntity);
+								input.Cast.Set();
+								entityManager.SetComponentData(abilityEntity, input);
 							}
 							else
 							{

@@ -20,18 +20,10 @@ namespace Omniverse
 	{
 		private Queue<ICommand> Commands { get; } = new();
 
-		private Queue<IImmediateCommand> ImmediateCommands { get; } = new();
-
 		public ICommand Command { get; private set; }
 
 		public void Tick(ref SystemState state)
 		{
-			while (ImmediateCommands.Count > 0)
-			{
-				IImmediateCommand command = ImmediateCommands.Dequeue();
-				command.Execute(state.EntityManager);
-			}
-
 			if (Command == null)
 			{
 				if (Commands.Count == 0)
@@ -76,8 +68,6 @@ namespace Omniverse
 				}
 			}
 		}
-
-		public void Add(IImmediateCommand command) => ImmediateCommands.Enqueue(command);
 
 		public void Add(ICommand command) => Commands.Enqueue(command);
 
