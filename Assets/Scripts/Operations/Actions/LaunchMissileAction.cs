@@ -1,4 +1,6 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace Omniverse
@@ -21,7 +23,12 @@ namespace Omniverse
 			query.Dispose();
 
 			Entity fireball = entityManager.Instantiate(singleton.Fireball);
-			entityManager.SetComponentData(fireball, actor.LocalTransform.ValueRO);
+
+			float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f);
+			var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
+			localTransform.Position = position;
+			entityManager.SetComponentData(fireball, localTransform);
+
 			var missile = entityManager.GetComponentData<Missile>(fireball);
 			missile.Direction = target;
 			entityManager.SetComponentData(fireball, missile);
