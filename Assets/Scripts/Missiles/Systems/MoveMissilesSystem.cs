@@ -12,21 +12,9 @@ namespace Omniverse
 		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
-			var moveJob = new MoveJob()
+			foreach ((var missile, var trasnform) in SystemAPI.Query<RefRW<Missile>, RefRW<LocalTransform>>().WithAll<Simulate>())
 			{
-				DeltaTime = SystemAPI.Time.fixedDeltaTime
-			};
-
-			moveJob.ScheduleParallel();
-		}
-
-		public partial struct MoveJob : IJobEntity
-		{
-			public float DeltaTime;
-
-			public void Execute(ref Missile missile, ref LocalTransform transform)
-			{
-				transform = transform.Translate(missile.Direction * missile.Speed * DeltaTime);
+				trasnform.ValueRW = trasnform.ValueRW.Translate(missile.ValueRW.Direction * missile.ValueRW.Speed * SystemAPI.Time.fixedDeltaTime);
 			}
 		}
 	}
