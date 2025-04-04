@@ -82,30 +82,29 @@ namespace Omniverse
 			return default;
 		}
 
-		//TODO ECS
-		//public static IEnumerable<TEntity> GetEntitiesInSector<TEntity>(
-		//	OmniverseEntity source,
-		//	Vector3 forward,
-		//	float radius,
-		//	float angle,
-		//	FactiousFilter filter)
-		//	where TEntity : OmniverseEntity
-		//{
-		//	Vector3 position = source.transform.position;
-		//	foreach (TEntity entity in GetEntitiesInSphere<TEntity>(source, radius, filter))
-		//	{
-		//		Vector3 direction = (entity.transform.position - position).normalized;
+		public static IEnumerable<DynamicEntity> GetEntitiesInSector<TEntity>(
+			EntityManager entityManager,
+			DynamicEntity source,
+			Vector3 forward,
+			float radius,
+			float angle,
+			FactiousFilter filter)
+		{
+			float3 position = source.LocalTransform.ValueRO.Position;
+			foreach (DynamicEntity entity in GetEntitiesInSphere(entityManager, source, radius, filter))
+			{
+				float3 direction = math.normalize(entity.LocalTransform.ValueRO.Position - position);
 
-		//		float currentAngle = Vector3.Angle(direction, forward);
+				float currentAngle = Vector3.Angle(direction, forward);
 
-		//		if (currentAngle > angle)
-		//		{
-		//			continue;
-		//		}
+				if (currentAngle > angle)
+				{
+					continue;
+				}
 
-		//		yield return entity;
-		//	}
-		//}
+				yield return entity;
+			}
+		}
 
 		public static Vector3 ScreenPointToWorldGround(Camera camera, Vector2 screenPosition)
 		{
