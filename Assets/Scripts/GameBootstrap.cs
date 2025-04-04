@@ -2,7 +2,6 @@
 
 namespace Omniverse
 {
-
 	[UnityEngine.Scripting.Preserve]
 	public class GameBootstrap : ClientServerBootstrap
 	{

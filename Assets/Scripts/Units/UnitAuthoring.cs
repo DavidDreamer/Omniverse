@@ -1,7 +1,5 @@
 ﻿using Unity.Entities;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
-using UnityEngine.Rendering;
 
 namespace Omniverse
 {

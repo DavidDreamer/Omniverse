@@ -8,7 +8,6 @@ namespace Omniverse.Input
 		public InputActions InputActions;
 	}
 
-	[WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation, WorldSystemFilterFlags.ClientSimulation)]
 	[UpdateInGroup(typeof(GhostInputSystemGroup))]
 	public partial class InputSystemGroup : ComponentSystemGroup
 	{
