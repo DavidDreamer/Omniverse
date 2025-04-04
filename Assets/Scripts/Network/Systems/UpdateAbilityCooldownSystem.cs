@@ -11,9 +11,15 @@ namespace Omniverse.Network
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			foreach (var cooldown in SystemAPI.Query<RefRW<Cooldown>>())
+			foreach ((var cooldown, var entity) in SystemAPI.Query<RefRW<Cooldown>>().WithAll<Cooldown>().WithEntityAccess())
 			{
-				cooldown.ValueRW.TimeLeft = math.max(0f, cooldown.ValueRW.TimeLeft - deltaTime);
+				float timeLeft = math.max(0f, cooldown.ValueRW.TimeLeft - deltaTime);
+				cooldown.ValueRW.TimeLeft = timeLeft;
+
+				if (timeLeft == 0)
+				{
+					SystemAPI.SetComponentEnabled<Cooldown>(entity, false);
+				}
 			}
 		}
 	}

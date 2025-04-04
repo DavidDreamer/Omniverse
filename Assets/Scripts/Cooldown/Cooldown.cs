@@ -3,7 +3,8 @@ using Unity.NetCode;
 
 namespace Omniverse
 {
-	public struct Cooldown : IComponentData
+	[GhostEnabledBit]
+	public struct Cooldown : IComponentData, IEnableableComponent
 	{
 		[GhostField]
 		public float Duration;

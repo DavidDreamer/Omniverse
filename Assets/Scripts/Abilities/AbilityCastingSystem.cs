@@ -28,6 +28,7 @@ namespace Omniverse
 					{
 						var cooldwon = SystemAPI.GetComponentRW<Cooldown>(entity);
 						cooldwon.ValueRW.TimeLeft = cooldwon.ValueRW.Duration;
+						SystemAPI.SetComponentEnabled<Cooldown>(entity, true);
 					}
 
 					var abilityTarget = SystemAPI.ManagedAPI.GetComponent<AbilityTarget>(entity);

@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,14 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
 
-		public void Tick(Cooldown cooldown)
+		public void Tick(EntityManager entityManager, Entity ability)
 		{
-			Image.enabled = cooldown.IsActive();
+			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
+			var isEnabled = entityManager.IsComponentEnabled<Cooldown>(ability);
+
+			Image.enabled = isEnabled;
 			Image.fillAmount = cooldown.Ratio();
-			Label.enabled = cooldown.IsActive();
+			Label.enabled = isEnabled;
 			Label.text = Mathf.CeilToInt(cooldown.TimeLeft).ToString();
 		}
 	}

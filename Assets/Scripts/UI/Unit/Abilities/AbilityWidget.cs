@@ -49,11 +49,11 @@ namespace Omniverse.UI
 			var casting = entityManager.GetComponentData<Casting>(ability);
 
 			Icon.sprite = metaData.GetIcon();
-			Icon.material = cooldown.IsActive() ? OnCooldownMaterial : DefaultMaterial;
+			Icon.material = entityManager.IsComponentEnabled<Cooldown>(ability) ? OnCooldownMaterial : DefaultMaterial;
 
 			Casting.Tick(casting);
 
-			Cooldown.Tick(cooldown);
+			Cooldown.Tick(entityManager, ability);
 			Tooltip.Bind(metaData);
 		}
 

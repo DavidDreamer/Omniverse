@@ -9,8 +9,7 @@ namespace Omniverse
 		{
 			if (entityManager.HasComponent<Cooldown>(ability))
 			{
-				var cooldown = entityManager.GetComponentData<Cooldown>(ability);
-				if (cooldown.IsActive())
+				if (entityManager.IsComponentEnabled<Cooldown>(ability))
 				{
 					return AbilityCastError.IsOnCooldown;
 				}
