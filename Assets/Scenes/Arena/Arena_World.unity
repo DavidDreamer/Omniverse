@@ -145,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 289007869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 959f09dc114018241a20e482b7f4f57c, type: 3}
+  m_Script: {fileID: 11500000, guid: 46555b5c1d34f344b9a88392eda71760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fireball: {fileID: 7493261732366072096, guid: 6f1dd44b1d37f9f448fdb009a8f9f142, type: 3}
