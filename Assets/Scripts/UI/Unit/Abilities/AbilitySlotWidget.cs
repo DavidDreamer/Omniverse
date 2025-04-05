@@ -21,11 +21,10 @@ namespace Omniverse.UI
 			Hotkey.Set(inputAction);
 		}
 
-		public void Tick(Entity ability)
+		public void Tick(EntityManager entityManager, Entity ability)
 		{
 			bool hasAbility = ability != Entity.Null;
-			//TODO ECS
-			bool isActiveAbility = true;// ability.ActiveOperation is not null;
+			bool isActiveAbility = entityManager.HasComponent<AbilityActiveOperation>(ability);
 
 			AbilityWidget.gameObject.SetActive(hasAbility);
 			Background.gameObject.SetActive(!hasAbility);

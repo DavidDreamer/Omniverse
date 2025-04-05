@@ -30,7 +30,7 @@ namespace Omniverse.UI
 			for (int i = 0; i < abilities.Length; ++i)
 			{
 				Entity ability = abilities[i];
-				Slots[i].Tick(ability);
+				Slots[i].Tick(entityManager, ability);
 			}
 
 			IEnumerable<Entity> Abilities()
