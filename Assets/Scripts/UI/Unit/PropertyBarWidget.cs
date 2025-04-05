@@ -22,5 +22,16 @@ namespace Omniverse.UI
 				Label.text = $"{(int)Slider.value} / {Slider.maxValue}";
 			}
 		}
+
+		public void Tick(Mana mana)
+		{
+			Slider.maxValue = mana.Maximum;
+			Slider.value = mana.Current;
+
+			if (Label != null)
+			{
+				Label.text = $"{(int)Slider.value} / {Slider.maxValue}";
+			}
+		}
 	}
 }

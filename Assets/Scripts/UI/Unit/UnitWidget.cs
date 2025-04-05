@@ -13,6 +13,12 @@ namespace Omniverse.UI
 		private AvatarWidget Avatar { get; set; }
 
 		[field: SerializeField]
+		private PropertyBarWidget Health { get; set; }
+
+		[field: SerializeField]
+		private PropertyBarWidget Mana { get; set; }
+
+		[field: SerializeField]
 		private ExperienceWidget Experience { get; set; }
 
 		[field: SerializeField]
@@ -26,8 +32,6 @@ namespace Omniverse.UI
 
 		[field: SerializeField]
 		private ActionBarWidget ActionBar { get; set; }
-
-		public PropertyBarWidget Health;
 
 		public void LateUpdate()
 		{
@@ -48,8 +52,21 @@ namespace Omniverse.UI
 
 			Avatar.Bind(entity);
 
-			var health = entityManager.GetComponentData<Health>(entity);
-			Health.Tick(health);
+			bool hasHealth = entityManager.HasComponent<Health>(entity);
+			Health.gameObject.SetActive(hasHealth);
+			if (hasHealth)
+			{
+				var health = entityManager.GetComponentData<Health>(entity);
+				Health.Tick(health);
+			}
+
+			bool hasMana = entityManager.HasComponent<Mana>(entity);
+			Mana.gameObject.SetActive(hasMana);
+			if (hasMana)
+			{
+				var mana = entityManager.GetComponentData<Mana>(entity);
+				Mana.Tick(mana);
+			}
 
 			AbilityBar.Tick(entity);
 

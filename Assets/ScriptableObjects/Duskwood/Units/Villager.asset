@@ -17,6 +17,8 @@ MonoBehaviour:
   <Model>k__BackingField: {fileID: 4949059538394060341, guid: e10ac33b971d73845ac8949e0305343a, type: 3}
   <Health>k__BackingField:
     <Amount>k__BackingField: 100
+  <Mana>k__BackingField:
+    <Amount>k__BackingField: 100
   <Experience>k__BackingField:
     <PointsForLevel>k__BackingField: e8030000
   <Properties>k__BackingField:

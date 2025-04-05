@@ -11,6 +11,9 @@ namespace Omniverse
 		public HealthDesc Health { get; private set; }
 
 		[field: SerializeField]
+		public ManaDesc Mana { get; private set; }
+
+		[field: SerializeField]
 		public ExperienceDesc Experience { get; private set; }
 
 		[field: SerializeField]

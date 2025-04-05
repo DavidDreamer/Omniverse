@@ -29,6 +29,12 @@ namespace Omniverse
 					Current = desc.Health.Amount
 				});
 
+				AddComponent(entity, new Mana()
+				{
+					Maximum = desc.Mana.Amount,
+					Current = desc.Mana.Amount
+				});
+
 				AddComponent(entity, new MovementSpeed()
 				{
 					Current = 5
