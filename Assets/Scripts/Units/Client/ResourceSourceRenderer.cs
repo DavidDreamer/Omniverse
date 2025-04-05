@@ -1,7 +1,9 @@
-﻿namespace Omniverse.Client
+﻿using UnityEngine;
+
+namespace Omniverse.Client
 {
 	//TODO
-	public class ResourceSourceRenderer : RendererComponent<ResourceSource>
+	public class ResourceSourceRenderer : MonoBehaviour
 	{
 	}
 }
