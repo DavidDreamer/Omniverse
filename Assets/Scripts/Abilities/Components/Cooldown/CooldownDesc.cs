@@ -7,6 +7,6 @@ namespace Omniverse.Abilities
 	public class CooldownDesc
 	{
 		[field: SerializeField]
-		public float Time { get; private set; }
+		public float Duration { get; private set; }
 	}
 }

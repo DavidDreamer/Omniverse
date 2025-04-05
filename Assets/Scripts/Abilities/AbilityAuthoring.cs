@@ -27,7 +27,7 @@ namespace Omniverse
 
 				AddComponent(entity, new Cooldown
 				{
-					Duration = desc.Cooldown.Time
+					Duration = desc.Cooldown.Duration
 				});
 
 				AddComponent(entity, new Casting()
