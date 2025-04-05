@@ -12,7 +12,7 @@ namespace Omniverse.Input
 		{
 			foreach (var input in SystemAPI.Query<RefRW<AbilityInput>>())
 			{
-				input.ValueRW = default;
+				input.ValueRW.Cast = default;
 			}
 		}
 	}
