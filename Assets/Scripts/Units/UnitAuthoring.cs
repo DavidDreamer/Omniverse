@@ -14,6 +14,8 @@ namespace Omniverse
 		{
 			public override void Bake(UnitAuthoring authoring)
 			{
+				UnitDesc desc = authoring.UnitDesc;
+
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
 				AddComponent(entity, new Faction()
@@ -23,8 +25,8 @@ namespace Omniverse
 
 				AddComponent(entity, new Health()
 				{
-					Maximum = 100,
-					Current = 100
+					Maximum = desc.Health.Amount,
+					Current = desc.Health.Amount
 				});
 
 				AddComponent(entity, new MovementSpeed()

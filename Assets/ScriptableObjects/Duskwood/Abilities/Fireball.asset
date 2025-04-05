@@ -25,7 +25,7 @@ MonoBehaviour:
     <Repetitive>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
-    <Time>k__BackingField: 2
+    <Time>k__BackingField: 0.5
   <ActiveOperation>k__BackingField:
     rid: 1727845769367781457
   <Triggers>k__BackingField: []

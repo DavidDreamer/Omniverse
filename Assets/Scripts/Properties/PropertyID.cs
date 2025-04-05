@@ -5,7 +5,6 @@
 		AttackDamage,
 		AttackSpeed,
 		AttackRange,
-		Health,
 		Mana,
 		MovementSpeed,
 		RotationSpeed,
