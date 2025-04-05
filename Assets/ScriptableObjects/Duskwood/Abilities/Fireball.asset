@@ -19,7 +19,7 @@ MonoBehaviour:
   <Target>k__BackingField:
     rid: 4041151032854578049
   <Manacost>k__BackingField:
-    <Value>k__BackingField: 5
+    <Value>k__BackingField: 0
     <Mode>k__BackingField: 0
   <Casting>k__BackingField:
     <Range>k__BackingField: 20
@@ -27,7 +27,7 @@ MonoBehaviour:
     <Repetitive>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
-    <Duration>k__BackingField: 0.5
+    <Duration>k__BackingField: 0
   <ActiveOperation>k__BackingField:
     rid: 1727845769367781457
   <Triggers>k__BackingField: []

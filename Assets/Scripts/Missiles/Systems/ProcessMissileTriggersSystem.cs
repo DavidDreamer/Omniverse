@@ -2,6 +2,8 @@
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using Unity.Transforms;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -48,6 +50,14 @@ namespace Omniverse
 
 				if (isValid)
 				{
+					var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
+
+					if (onDestroyTrigger != null)
+					{
+						Vector3 position = entityManager.GetComponentData<LocalTransform>(missile).Position;
+						Object.Instantiate(onDestroyTrigger.Prefab, position, Quaternion.identity);
+					}
+
 					state.EntityManager.DestroyEntity(missile);
 
 					var h = state.EntityManager.GetComponentData<Health>(health);
