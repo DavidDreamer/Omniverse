@@ -14,26 +14,37 @@ namespace Omniverse
 					return AbilityCastError.IsOnCooldown;
 				}
 			}
-	
-			//TODO ECS
-			//if (ability.Casting.InProcess)
-			//{
-			//	return AbilityCastError.AlreadyInProcess;
-			//}
 
-			//foreach (CostDesc costDesc in ability.Desc.Cost)
-			//{
-			//	if (!unit.Properties.ContainsKey(costDesc.PropertyID))
-			//	{
-			//		return AbilityCastError.NotEnoughResources;
-			//	}
+			if (entityManager.HasComponent<Casting>(ability))
+			{
+				var casting = entityManager.GetComponentData<Casting>(ability);
+				if (casting.InProcess)
+				{
+					//TODO
+					//return AbilityCastError.AlreadyInProcess;
+				}
+			}
 
-			//	//TODO processing
-			//	if (unit.Properties[costDesc.PropertyID].Amount < costDesc.PropertyModifier.Value)
-			//	{
-			//		return AbilityCastError.NotEnoughResources;
-			//	}
-			//}
+			var owner = entityManager.GetComponentData<Owner>(ability).Entity;
+
+			if (entityManager.HasComponent<Manacost>(ability))
+			{
+				var manacost = entityManager.GetComponentData<Manacost>(ability);
+
+				if (entityManager.HasComponent<Mana>(owner))
+				{
+					var mana = entityManager.GetComponentData<Mana>(owner);
+
+					if (mana.Current < manacost.Value)
+					{
+						return AbilityCastError.NotEnoughMana;
+					}
+				}
+				else
+				{
+					return AbilityCastError.NotEnoughMana;
+				}
+			}
 
 			return AbilityCastError.None;
 		}

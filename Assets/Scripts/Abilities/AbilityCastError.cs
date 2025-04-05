@@ -5,6 +5,6 @@
 		None,
 		IsOnCooldown,
 		AlreadyInProcess,
-		NotEnoughResources
+		NotEnoughMana
 	}
 }
