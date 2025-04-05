@@ -25,6 +25,12 @@ namespace Omniverse
 					Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
 				});
 
+				AddComponent(entity, new Manacost
+				{
+					Value = desc.Manacost.Value,
+					Mode = desc.Manacost.Mode
+				});
+
 				AddComponent(entity, new Cooldown
 				{
 					Duration = desc.Cooldown.Duration

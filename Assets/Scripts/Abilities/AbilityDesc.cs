@@ -13,7 +13,7 @@ namespace Omniverse.Abilities
 		public ITarget Target { get; private set; }
 
 		[field: SerializeField]
-		public List<CostDesc> Cost { get; private set; }
+		public ManacostDesc Manacost { get; private set; }
 
 		[field: SerializeField]
 		public CastingDesc Casting { get; private set; }

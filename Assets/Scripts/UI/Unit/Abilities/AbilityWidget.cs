@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
+
 	public class AbilityWidget : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		[field: SerializeField]
@@ -17,6 +18,9 @@ namespace Omniverse.UI
 
 		[field: SerializeField]
 		private CooldownWidget Cooldown { get; set; }
+
+		[field: SerializeField]
+		private ManacostWidget Manacost{ get; set; }
 
 		[field: SerializeField]
 		private AbilityTooltipWidget Tooltip { get; set; }
@@ -55,6 +59,14 @@ namespace Omniverse.UI
 
 			Cooldown.Tick(entityManager, ability);
 			Tooltip.Bind(metaData);
+
+			bool hasManacost = entityManager.HasComponent<Manacost>(ability);
+			Manacost.gameObject.SetActive(hasManacost);
+			if (hasManacost)
+			{
+				var manacost = entityManager.GetComponentData<Manacost>(ability);
+				Manacost.Tick(manacost);
+			}
 		}
 
 		public void OnPointerClick(PointerEventData eventData)

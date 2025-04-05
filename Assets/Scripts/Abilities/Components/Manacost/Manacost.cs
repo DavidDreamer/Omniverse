@@ -4,15 +4,13 @@ using Unity.NetCode;
 
 namespace Omniverse
 {
-
 	[BurstCompile]
-	[GhostEnabledBit]
-	public struct Cooldown : IComponentData, IEnableableComponent
+	public struct Manacost : IComponentData
 	{
 		[GhostField]
-		public float Duration;
+		public float Value;
 
 		[GhostField]
-		public float TimeLeft;
+		public PropertyModifierMode Mode;
 	}
 }

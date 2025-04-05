@@ -18,14 +18,16 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 21300000, guid: c4c8f4afc6c8d364bbf3afe15ea7c3cd, type: 3}
   <Target>k__BackingField:
     rid: 4041151032854578049
-  <Cost>k__BackingField: []
+  <Manacost>k__BackingField:
+    <Value>k__BackingField: 5
+    <Mode>k__BackingField: 0
   <Casting>k__BackingField:
     <Range>k__BackingField: 20
     <Time>k__BackingField: 0
     <Repetitive>k__BackingField: 0
     <AnimationTrigger>k__BackingField: 
   <Cooldown>k__BackingField:
-    <Time>k__BackingField: 0.5
+    <Duration>k__BackingField: 0.5
   <ActiveOperation>k__BackingField:
     rid: 1727845769367781457
   <Triggers>k__BackingField: []

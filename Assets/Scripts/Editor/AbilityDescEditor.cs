@@ -18,7 +18,7 @@ namespace Omniverse.Editor
 		private SerializedProperty Target { get; set; }
 		private SerializedProperty Casting { get; set; }
 		private SerializedProperty Cooldown { get; set; }
-		private SerializedProperty Cost { get; set; }
+		private SerializedProperty Manacost { get; set; }
 
 		private SerializedOperation ActiveOperation { get; set; }
 
@@ -35,7 +35,7 @@ namespace Omniverse.Editor
 			Target = serializedObject.FindProperty(nameof(AbilityDesc.Target).ToBackingField());
 			Casting = serializedObject.FindProperty(nameof(AbilityDesc.Casting).ToBackingField());
 			Cooldown = serializedObject.FindProperty(nameof(Cooldown).ToBackingField());
-			Cost = serializedObject.FindProperty(nameof(Cost).ToBackingField());
+			Manacost = serializedObject.FindProperty(nameof(AbilityDesc.Manacost).ToBackingField());
 			ActiveOperation = new(serializedObject.FindProperty(nameof(AbilityDesc.ActiveOperation).ToBackingField()), typeof(NoneTarget));
 
 			Triggers = serializedObject.FindProperty(nameof(AbilityDesc.Triggers).ToBackingField());
@@ -48,7 +48,7 @@ namespace Omniverse.Editor
 
 			DrawMeta();
 			DrawTarget();
-			DrawSection(Cost);
+			DrawSection(Manacost);
 			DrawCasting();
 			DrawSection(Cooldown);
 			DrawActiveOperation();

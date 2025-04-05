@@ -24,6 +24,8 @@ namespace Omniverse
 			{
 				if (input.ValueRO.Cast.IsSet)
 				{
+					Entity owner = SystemAPI.GetComponent<Owner>(entity).Entity;
+
 					if (SystemAPI.HasComponent<Cooldown>(entity))
 					{
 						var cooldwon = SystemAPI.GetComponentRW<Cooldown>(entity);
@@ -31,11 +33,17 @@ namespace Omniverse
 						SystemAPI.SetComponentEnabled<Cooldown>(entity, true);
 					}
 
+					if (SystemAPI.HasComponent<Manacost>(entity))
+					{
+						var manacost = SystemAPI.GetComponent<Manacost>(entity);
+						var mana = SystemAPI.GetComponentRW<Mana>(owner);
+						mana.ValueRW.Current -= manacost.Value;
+					}
+
 					var abilityTarget = SystemAPI.ManagedAPI.GetComponent<AbilityTarget>(entity);
 					var abilityActiveOperation = SystemAPI.ManagedAPI.GetComponent<AbilityActiveOperation>(entity);
 
-					Entity unit = SystemAPI.GetComponent<Owner>(entity).Entity;
-					var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(unit);
+					var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(owner);
 
 					switch (abilityTarget.Target)
 					{
