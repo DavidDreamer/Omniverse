@@ -3,68 +3,69 @@ using UnityEngine;
 
 namespace Omniverse.Client
 {
-	public class UnitAnimator : OmniverseEntityComponent<UnitObsolete>
+	public class UnitAnimator : MonoBehaviour
 	{
-		private static class AnimatorVariables
-		{
-			public static int IsMoving { get; } = Animator.StringToHash(nameof(IsMoving));
+		//TODO ECS
+		//private static class AnimatorVariables
+		//{
+		//	public static int IsMoving { get; } = Animator.StringToHash(nameof(IsMoving));
 
-			public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
+		//	public static int MovementSpeed { get; } = Animator.StringToHash(nameof(MovementSpeed));
 
-			public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
+		//	public static int Attack { get; } = Animator.StringToHash(nameof(Attack));
 
-			public static int AttackSpeed { get; } = Animator.StringToHash(nameof(AttackSpeed));
+		//	public static int AttackSpeed { get; } = Animator.StringToHash(nameof(AttackSpeed));
 
-			public static int Stunned { get; } = Animator.StringToHash(nameof(Stunned));
-		}
+		//	public static int Stunned { get; } = Animator.StringToHash(nameof(Stunned));
+		//}
 
-		[field: SerializeField]
-		public Animator Animator { get; set; }
+		//[field: SerializeField]
+		//public Animator Animator { get; set; }
 
-		[field: SerializeField]
-		private Ragdoll Ragdoll { get; set; }
+		//[field: SerializeField]
+		//private Ragdoll Ragdoll { get; set; }
 
-		public override void Initialize(UnitObsolete unit)
-		{
-			base.Initialize(unit);
+		//public override void Initialize(UnitObsolete unit)
+		//{
+		//	base.Initialize(unit);
 
-			unit.Died += OnDied;
-			unit.Attack.Started += OnAttackStarted;
-		}
+		//	unit.Died += OnDied;
+		//	unit.Attack.Started += OnAttackStarted;
+		//}
 
-		private void Update()
-		{
-			if (Entity.IsDead)
-			{
-				return;
-			}
+		//private void Update()
+		//{
+		//	if (Entity.IsDead)
+		//	{
+		//		return;
+		//	}
 
-			Animator.SetBool(AnimatorVariables.IsMoving,
-				!Entity.NavMeshAgent.isStopped && Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
+		//	Animator.SetBool(AnimatorVariables.IsMoving,
+		//		!Entity.NavMeshAgent.isStopped && Entity.NavMeshAgent.velocity.sqrMagnitude > 0);
 
-			float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount;
-			Animator.SetFloat(AnimatorVariables.MovementSpeed, movementSpeed);
+		//	float movementSpeed = Entity.Properties[PropertyID.MovementSpeed].Amount;
+		//	Animator.SetFloat(AnimatorVariables.MovementSpeed, movementSpeed);
 
-			float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
-			Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
+		//	float attackSpeed = Entity.Properties[PropertyID.AttackSpeed].Amount;
+		//	Animator.SetFloat(AnimatorVariables.AttackSpeed, attackSpeed);
 
-			bool isStunned = Entity.Status.HasFlag(UnitStatus.Stunned);
-			Animator.SetBool(AnimatorVariables.Stunned, isStunned);
-		}
+		//	bool isStunned = Entity.Status.HasFlag(UnitStatus.Stunned);
+		//	Animator.SetBool(AnimatorVariables.Stunned, isStunned);
+		//}
 
-		private void OnAttackStarted()
-		{
-			Animator.SetTrigger(AnimatorVariables.Attack);
-		}
+		//private void OnAttackStarted()
+		//{
+		//	Animator.SetTrigger(AnimatorVariables.Attack);
+		//}
 
-		private void OnDied()
-		{
-			Animator.enabled = false;
+		//private void OnDied()
+		//{
+		//	Animator.enabled = false;
 
-			if (Ragdoll != null)
-			{
-				Ragdoll.Enable(true);
-			}
-		}
+		//	if (Ragdoll != null)
+		//	{
+		//		Ragdoll.Enable(true);
+		//	}
+		//}
 	}
 }

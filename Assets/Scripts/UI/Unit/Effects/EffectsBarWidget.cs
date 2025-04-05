@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse.UI
@@ -11,48 +12,37 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private EffectWidget EffectWidget { get; set; }
 
-		private UnitObsolete Unit { get; set; }
-
 		private List<EffectWidget> EffectWdigets { get; } = new();
 
-		public void Bind(UnitObsolete unit)
+		public void Tick(Entity entity)
 		{
-			Unit = unit;
-		}
+			//TODO ECS
+			//for (int i = 0; i < Unit.Effects.Count; i++)
+			//{
+			//	Effect effect = Unit.Effects[i];
+			//	if (EffectWdigets.Count == i)
+			//	{
+			//		var effectWidget = Instantiate(EffectWidget);
+			//		effectWidget.transform.SetParent(transform, false);
+			//		EffectWdigets.Add(effectWidget);
+			//	}
 
-		public void LateUpdate()
-		{
-			if (Unit == null)
-			{
-				return;
-			}
+			//	EffectWdigets[i].Bind(effect);
+			//}
 
-			for (int i = 0; i < Unit.Effects.Count; i++)
-			{
-				Effect effect = Unit.Effects[i];
-				if (EffectWdigets.Count == i)
-				{
-					var effectWidget = Instantiate(EffectWidget);
-					effectWidget.transform.SetParent(transform, false);
-					EffectWdigets.Add(effectWidget);
-				}
+			//for (int i = Unit.Effects.Count; i < EffectWdigets.Count; i++)
+			//{
+			//	Destroy(EffectWdigets[i].gameObject);
+			//	EffectWdigets.RemoveAt(i);
+			//	i--;
+			//}
 
-				EffectWdigets[i].Bind(effect);
-			}
+			//foreach (EffectWidget effectWidget in EffectWdigets)
+			//{
+			//	effectWidget.Tick();
+			//}
 
-			for (int i = Unit.Effects.Count; i < EffectWdigets.Count; i++)
-			{
-				Destroy(EffectWdigets[i].gameObject);
-				EffectWdigets.RemoveAt(i);
-				i--;
-			}
-
-			foreach (EffectWidget effectWidget in EffectWdigets)
-			{
-				effectWidget.Tick();
-			}
-
-			Holder.ForceLayoutRebuild();
+			//Holder.ForceLayoutRebuild();
 		}
 	}
 }

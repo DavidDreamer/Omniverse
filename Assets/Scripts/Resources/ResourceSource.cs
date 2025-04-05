@@ -2,7 +2,7 @@
 
 namespace Omniverse
 {
-	public class ResourceSource : OmniverseEntity
+	public class ResourceSource : MonoBehaviour
 	{
 		[field: SerializeField]
 		public ResourceSourceDesc Desc { get; private set; }

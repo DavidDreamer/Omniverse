@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Omniverse
 {
-	public class Chain : TempName
+	public class Chain : MonoBehaviour
 	{
 		private float Time { get; set; }
 
@@ -19,7 +20,7 @@ namespace Omniverse
 			Desc = desc;
 		}
 
-		public override void Tick(float deltaTime)
+		public void Tick(float deltaTime)
 		{
 			//TODO ECS
 			//if (Time == 0)

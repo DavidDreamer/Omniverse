@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Omniverse.Items;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -18,7 +18,7 @@ namespace Omniverse
 			}
 		}
 
-		public void Add(Item item)
+		public void Add(GameObject item)
 		{
 			InventorySlot slot = Slots.First(slot => slot.IsEmpty());
 			slot.Item = item;

@@ -1,7 +1,9 @@
-﻿namespace Omniverse.Abilities
+﻿using UnityEngine;
+
+namespace Omniverse.Abilities
 {
 	public interface IAbilityTrigger
 	{
-		void Listen(OmniverseEntity entity);
+		void Listen(MonoBehaviour entity);
 	}
 }

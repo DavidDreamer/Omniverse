@@ -7,7 +7,7 @@ namespace Omniverse.Items
 	public class ItemDesc : EntityDesc
 	{
 		[field: SerializeField]
-		public Item Prefab { get; private set; }
+		public GameObject Prefab { get; private set; }
 
 		[field: SerializeField]
 		public AbilityDesc Ability { get; private set; }

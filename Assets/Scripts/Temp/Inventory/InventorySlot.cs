@@ -1,10 +1,10 @@
-﻿using Omniverse.Items;
+﻿using UnityEngine;
 
 namespace Omniverse
 {
 	public class InventorySlot
 	{
-		public Item Item { get; set; }
+		public GameObject Item { get; set; }
 	}
 
 	public static class InventorySlotUtils

@@ -22,17 +22,12 @@ namespace Omniverse.UI
 
 		private Effect Effect { get; set; }
 
-		public void Bind(Effect effect)
+		public void Tick(Effect effect)
 		{
-			Effect = effect;
-
-			Icon.sprite = Effect.Desc.Icon;
-			Background.color = Effect.Desc.IsPositive ? ColorPositive : ColorNegative;
-		}
-
-		public void Tick()
-		{
-			Timer.fillAmount = Effect.Time / Effect.Desc.Time;
+			//TODO ECS
+			//Icon.sprite = Effect.Desc.Icon;
+			//Background.color = Effect.Desc.IsPositive ? ColorPositive : ColorNegative;
+			//Timer.fillAmount = Effect.Time / Effect.Desc.Time;
 		}
 	}
 }

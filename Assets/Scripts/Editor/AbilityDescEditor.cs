@@ -39,7 +39,7 @@ namespace Omniverse.Editor
 			ActiveOperation = new(serializedObject.FindProperty(nameof(AbilityDesc.ActiveOperation).ToBackingField()), typeof(NoneTarget));
 
 			Triggers = serializedObject.FindProperty(nameof(AbilityDesc.Triggers).ToBackingField());
-			TriggersList = new(Triggers, typeof(UnitObsolete));
+			TriggersList = new(Triggers, typeof(Unit));
 		}
 
 		public override void OnInspectorGUI()

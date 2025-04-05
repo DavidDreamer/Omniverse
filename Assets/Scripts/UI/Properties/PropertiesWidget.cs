@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse.UI
 {
+	//TODO ECS
 	public class PropertiesWidget : MonoBehaviour
 	{
 		[field: SerializeField]
@@ -22,18 +24,14 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private PropertyWidget VisionRange { get; set; }
 
-		private UnitObsolete Unit { get; set; }
-
-		public void Bind(UnitObsolete unit)
+		public void Bind(Entity entity)
 		{
-			Unit = unit;
-
-			AttackDamage.Bind(Unit.Properties[PropertyID.AttackDamage]);
-			AttackSpeed.Bind(Unit.Properties[PropertyID.AttackSpeed]);
-			AttackRange.Bind(Unit.Properties[PropertyID.AttackRange]);
-			MovementSpeed.Bind(Unit.Properties[PropertyID.MovementSpeed]);
-			RotationSpeed.Bind(Unit.Properties[PropertyID.RotationSpeed]);
-			VisionRange.Bind(Unit.Properties[PropertyID.VisionRange]);
+			//AttackDamage.Bind(Unit.Properties[PropertyID.AttackDamage]);
+			//AttackSpeed.Bind(Unit.Properties[PropertyID.AttackSpeed]);
+			//AttackRange.Bind(Unit.Properties[PropertyID.AttackRange]);
+			//MovementSpeed.Bind(Unit.Properties[PropertyID.MovementSpeed]);
+			//RotationSpeed.Bind(Unit.Properties[PropertyID.RotationSpeed]);
+			//VisionRange.Bind(Unit.Properties[PropertyID.VisionRange]);
 		}
 	}
 }

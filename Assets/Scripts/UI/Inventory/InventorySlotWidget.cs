@@ -2,6 +2,7 @@
 
 namespace Omniverse.UI
 {
+	//TODO ECS
 	public class InventorySlotWidget : MonoBehaviour
 	{
 		[field: SerializeField]
@@ -16,7 +17,7 @@ namespace Omniverse.UI
 			ItemWidget.gameObject.SetActive(hasItem);
 			if (hasItem)
 			{
-				ItemWidget.Bind(slot.Item);
+				//ItemWidget.Bind(slot.Item);
 			}
 		}
 	}

@@ -19,7 +19,7 @@ namespace Omniverse.Editor
 			MaxTargets = serializedObject.FindProperty(nameof(ChainDesc.MaxTargets).ToBackingField());
 			BounceRange = serializedObject.FindProperty(nameof(ChainDesc.BounceRange).ToBackingField());
 			BounceInterval = serializedObject.FindProperty(nameof(ChainDesc.BounceInterval).ToBackingField());
-			Operation = new(serializedObject.FindProperty(nameof(ChainDesc.Operation).ToBackingField()), typeof(UnitObsolete));
+			Operation = new(serializedObject.FindProperty(nameof(ChainDesc.Operation).ToBackingField()), typeof(Unit));
 		}
 
 		public override void OnInspectorGUI()
