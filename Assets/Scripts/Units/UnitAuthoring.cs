@@ -23,6 +23,8 @@ namespace Omniverse
 					ID = authoring.FactionID
 				});
 
+				AddComponent(entity, new Alive());
+
 				AddComponent(entity, new Health()
 				{
 					Maximum = desc.Health.Amount,
