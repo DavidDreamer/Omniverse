@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -22,18 +23,21 @@ namespace Omniverse
 			var singleton = query.GetSingleton<EntityReferences>();
 			query.Dispose();
 
-			Entity fireball = entityManager.Instantiate(singleton.Fireball);
+			if (entityManager.World.IsServer())
+			{
+				Entity fireball = entityManager.Instantiate(singleton.Fireball);
 
-			float3 actorForwardFector = actor.LocalTransform.ValueRO.Forward();
+				float3 actorForwardFector = actor.LocalTransform.ValueRO.Forward();
 
-			float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + actorForwardFector;
-			var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
-			localTransform.Position = position;
-			entityManager.SetComponentData(fireball, localTransform);
+				float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + actorForwardFector;
+				var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
+				localTransform.Position = position;
+				entityManager.SetComponentData(fireball, localTransform);
 
-			var missile = entityManager.GetComponentData<Missile>(fireball);
-			missile.Direction = target;
-			entityManager.SetComponentData(fireball, missile);
+				var missile = entityManager.GetComponentData<Missile>(fireball);
+				missile.Direction = target;
+				entityManager.SetComponentData(fireball, missile);
+			}
 		}
 	}
 }
