@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Omniverse
 {
@@ -10,7 +11,7 @@ namespace Omniverse
 		{
 			foreach (var health in SystemAPI.Query<RefRW<Health>>())
 			{
-				health.ValueRW.Current -= 0.01f;
+				health.ValueRW.Current = math.max(0f, health.ValueRW.Current - 1f);
 			}
 		}
 	}
