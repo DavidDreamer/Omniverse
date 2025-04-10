@@ -27,9 +27,7 @@ namespace Omniverse
 			{
 				Entity fireball = entityManager.Instantiate(singleton.Fireball);
 
-				float3 actorForwardFector = actor.LocalTransform.ValueRO.Forward();
-
-				float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + actorForwardFector;
+				float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + (float3)target;
 				var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
 				localTransform.Position = position;
 				entityManager.SetComponentData(fireball, localTransform);
