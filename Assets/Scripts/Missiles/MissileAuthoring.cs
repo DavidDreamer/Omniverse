@@ -24,6 +24,7 @@ namespace Omniverse
 				{
 					Speed = authoring.Desc.Speed
 				});
+				AddComponent(entity, new Range());
 
 				if (authoring.OnDestroyEffect != null)
 				{

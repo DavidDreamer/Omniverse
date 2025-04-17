@@ -48,6 +48,7 @@ MonoBehaviour:
       type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
       data:
         <Missile>k__BackingField: {fileID: 0}
+        <Range>k__BackingField: 20
     - rid: 4041151032854578049
       type: {class: VectorTarget, ns: Omniverse.Abilities, asm: Omniverse}
       data:

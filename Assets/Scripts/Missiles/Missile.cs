@@ -9,5 +9,6 @@ namespace Omniverse
 	{
 		public float Speed;
 		public float3 Direction;
+		public float3 StartPosition;
 	}
 }
