@@ -35,7 +35,7 @@ namespace Omniverse.Mapping
 
 			Camera.orthographicSize = gameOptions.MapSize.x / 2f;
 
-			Camera.transform.position = new Vector3(gameOptions.MapSize.x / 2f, Camera.transform.position.y, gameOptions.MapSize.y / 2f);
+			Camera.transform.position = new Vector3(0, Camera.transform.position.y, 0);
 
 			var mapShaderProperties = new MapShaderProperties
 			{
