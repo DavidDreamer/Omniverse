@@ -21,7 +21,7 @@ namespace Omniverse.Rendering
 			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
 		}
 
-		private FogOfWar FogOfWar { get; set; }
+		public FogOfWar FogOfWar { get; private set; }
 
 		private Material AnimationMaterial { get; set; }
 

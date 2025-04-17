@@ -37,7 +37,7 @@ Shader "Hidden/Omniverse/FogOfWar/Apply"
                 #endif
                 
                 const float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
-                const float2 uv = worldPos.xz / MapSize.xy;
+                const float2 uv = (worldPos.xz + MapSize.xy / 2) / MapSize.xy;
 
                 const float2 distanceFromBorder = 1 - (abs(float2(0.5, 0.5) - uv) * 2);
                 const float2 distanceFromBorderClamped = 1 - saturate(distanceFromBorder / FogOfWarBorderLength);

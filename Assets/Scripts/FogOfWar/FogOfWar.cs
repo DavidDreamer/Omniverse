@@ -6,6 +6,8 @@ namespace Omniverse
 {
 	public struct FogOfWar : IComponentData
 	{
+		public const int Multiplier = 2;
+
 		public bool Explored;
 		public int2 Size;
 		public NativeArray<bool> Occlusion;

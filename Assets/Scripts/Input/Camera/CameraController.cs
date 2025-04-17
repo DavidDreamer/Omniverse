@@ -65,8 +65,10 @@ namespace Omniverse.Input
 
 			void ProcessBounds(ref Vector3 position)
 			{
-				float clampedX = Mathf.Clamp(position.x, 0, gameOptions.MapSize.x);
-				float clampedZ = Mathf.Clamp(position.z, 0, gameOptions.MapSize.y);
+				float halfSizeX = gameOptions.MapSize.x / 2;
+				float halfSizeY = gameOptions.MapSize.y / 2;
+				float clampedX = Mathf.Clamp(position.x, -halfSizeX, halfSizeX);
+				float clampedZ = Mathf.Clamp(position.z, -halfSizeY, halfSizeY);
 				position = new Vector3(clampedX, position.y, clampedZ);
 			}
 		}
