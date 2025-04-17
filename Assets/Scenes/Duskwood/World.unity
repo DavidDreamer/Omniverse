@@ -3435,6 +3435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 733910673331217839, guid: 261a3dee5c36b5f47b2bac30f7a82f18, type: 3}
+  Ability: {fileID: 0}
+  Ability2: {fileID: 0}
 --- !u!4 &317942581
 Transform:
   m_ObjectHideFlags: 0
@@ -4561,6 +4563,10 @@ MonoBehaviour:
       <Color>k__BackingField: {r: 0.6273585, g: 0.35887682, b: 0.22194287, a: 1}
     - <Name>k__BackingField: Undead
       <Color>k__BackingField: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+  <HitboxLayer>k__BackingField: 0
+  <HitboxLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1001 &396664918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12863,7 +12869,7 @@ Transform:
   m_GameObject: {fileID: 1247025973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -128, y: 0, z: -128}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
