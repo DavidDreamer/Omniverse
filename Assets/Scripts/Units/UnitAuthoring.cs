@@ -31,6 +31,11 @@ namespace Omniverse
 					Current = desc.Health.Amount
 				});
 
+				if (desc.Invulnerable)
+				{
+					AddComponent<Invulnerable>(entity);
+				}
+
 				AddComponent(entity, new Mana()
 				{
 					Maximum = desc.Mana.Amount,

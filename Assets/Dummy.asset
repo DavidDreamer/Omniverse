@@ -17,6 +17,7 @@ MonoBehaviour:
   <Model>k__BackingField: {fileID: 0}
   <Health>k__BackingField:
     <Amount>k__BackingField: 100
+  <Invulnerable>k__BackingField: 1
   <Mana>k__BackingField:
     <Amount>k__BackingField: 100
   <Experience>k__BackingField:

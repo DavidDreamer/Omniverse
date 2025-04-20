@@ -60,6 +60,12 @@ namespace Omniverse
 
 					state.EntityManager.DestroyEntity(missile);
 
+					//TODO DEAL DAMAGE
+					if (entityManager.HasComponent<Invulnerable>(health))
+					{
+						return;
+					}
+
 					var h = state.EntityManager.GetComponentData<Health>(health);
 					h.Current -= 10;
 					state.EntityManager.SetComponentData(health, h);
