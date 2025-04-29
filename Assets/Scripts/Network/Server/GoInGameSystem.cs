@@ -3,8 +3,6 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.NetCode;
 using Unity.Transforms;
-using static UnityEngine.UI.CanvasScaler;
-using UnityEngine;
 
 namespace Omniverse.Network.Server
 {
@@ -27,9 +25,7 @@ namespace Omniverse.Network.Server
 		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
-			var spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
-			var spawnerLocalTransform = SystemAPI.GetComponent<LocalTransform>(spawnerEntity);
-			var spawner = SystemAPI.GetSingleton<UnitSpawner>();
+			var spawner = SystemAPI.ManagedAPI.GetSingleton<UnitSpawner>();
 			var prefab = spawner.Unit;
 
 			var worldName = state.WorldUnmanaged.Name;
@@ -53,7 +49,8 @@ namespace Omniverse.Network.Server
 				UnityEngine.Debug.Log($"'{worldName}' setting connection '{networkId.Value}' to in game");
 
 				var unit = commandBuffer.Instantiate(prefab);
-				commandBuffer.SetComponent(unit, spawnerLocalTransform);
+				var localTransform = LocalTransform.FromPosition(spawner.SpawnPoints[factionId]);
+				commandBuffer.SetComponent(unit, localTransform);
 				commandBuffer.SetComponent(unit, new Faction
 				{
 					ID = factionId

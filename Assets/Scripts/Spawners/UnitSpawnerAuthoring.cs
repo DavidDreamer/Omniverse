@@ -1,15 +1,19 @@
-﻿using Unity.Entities;
+﻿using System.Linq;
+using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public struct UnitSpawner : IComponentData
+	public class UnitSpawner : IComponentData
 	{
 		public Entity Unit;
 
 		public Entity Ability;
 
 		public Entity Ability2;
+
+		public float3[] SpawnPoints;
 	}
 
 	public class UnitSpawnerAuthoring : MonoBehaviour
@@ -20,6 +24,8 @@ namespace Omniverse
 
 		public GameObject Ability2;
 
+		public Transform[] SpawnPoints;
+
 		private class Baker : Baker<UnitSpawnerAuthoring>
 		{
 			public override void Bake(UnitSpawnerAuthoring authoring)
@@ -28,12 +34,12 @@ namespace Omniverse
 				{
 					Unit = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
 					Ability = GetEntity(authoring.Ability, TransformUsageFlags.None),
-					Ability2 = GetEntity(authoring.Ability2, TransformUsageFlags.None)
+					Ability2 = GetEntity(authoring.Ability2, TransformUsageFlags.None),
+					SpawnPoints = authoring.SpawnPoints.Select(point => (float3)point.position).ToArray()
 				};
 
 				var entity = GetEntity(TransformUsageFlags.Dynamic);
-				AddComponent(entity, unitSpawner);
-
+				AddComponentObject(entity, unitSpawner);
 			}
 		}
 	}
