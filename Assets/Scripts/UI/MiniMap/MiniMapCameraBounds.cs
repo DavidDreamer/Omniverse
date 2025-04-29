@@ -49,8 +49,8 @@ namespace Omniverse.UI
 
 			Vector2 ConverCoordinateFromWorldToRectSpace(Vector3 position)
 			{
-				float mapRelativePositionX = Mathf.InverseLerp(0, mapSize.x, position.x);
-				float mapRelativePositionY = Mathf.InverseLerp(0, mapSize.y, position.z);
+				float mapRelativePositionX = Mathf.Clamp01((position.x + mapSize.x / 2) / mapSize.x);
+				float mapRelativePositionY = Mathf.Clamp01((position.z + mapSize.y / 2) / mapSize.y);
 
 				return new Vector2(mapRelativePositionX, mapRelativePositionY);
 			}
