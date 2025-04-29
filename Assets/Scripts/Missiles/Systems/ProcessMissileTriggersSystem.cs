@@ -24,7 +24,7 @@ namespace Omniverse
 			EntityManager entityManager = state.EntityManager;
 
 			var simulation = SystemAPI.GetSingleton<SimulationSingleton>().AsSimulation();
-	
+
 			simulation.FinalSimulationJobHandle.Complete();
 			foreach (TriggerEvent triggerEvent in simulation.TriggerEvents)
 			{
@@ -32,43 +32,44 @@ namespace Omniverse
 				Entity entityB = triggerEvent.EntityB;
 
 				Entity missile = default;
-				Entity health = default;
-				bool isValid = false;
+				Entity other = default;
 
-				if (entityManager.HasComponent<Missile>(entityA) && entityManager.HasComponent<Health>(entityB))
+				if (entityManager.HasComponent<Missile>(triggerEvent.EntityA))
 				{
-					missile = entityA;
-					health = entityB;
-					isValid = true;
+					missile = triggerEvent.EntityA;
+					other = triggerEvent.EntityB;
 				}
-				else if (entityManager.HasComponent<Health>(entityA) && entityManager.HasComponent<Missile>(entityB))
+				else if (entityManager.HasComponent<Missile>(triggerEvent.EntityB))
 				{
-					missile = entityB;
-					health = entityA;
-					isValid = true;
+					other = triggerEvent.EntityA;
+					missile = triggerEvent.EntityB;
+				}
+				else
+				{
+					continue;
 				}
 
-				if (isValid)
+				var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
+
+				if (onDestroyTrigger != null)
 				{
-					var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
+					Vector3 position = entityManager.GetComponentData<LocalTransform>(missile).Position;
+					Object.Instantiate(onDestroyTrigger.Prefab, position, Quaternion.identity);
+				}
 
-					if (onDestroyTrigger != null)
-					{
-						Vector3 position = entityManager.GetComponentData<LocalTransform>(missile).Position;
-						Object.Instantiate(onDestroyTrigger.Prefab, position, Quaternion.identity);
-					}
+				state.EntityManager.DestroyEntity(missile);
 
-					state.EntityManager.DestroyEntity(missile);
+				//TODO DEAL DAMAGE
+				if (entityManager.HasComponent<Invulnerable>(other))
+				{
+					continue;
+				}
 
-					//TODO DEAL DAMAGE
-					if (entityManager.HasComponent<Invulnerable>(health))
-					{
-						return;
-					}
-
-					var h = state.EntityManager.GetComponentData<Health>(health);
-					h.Current -= 10;
-					state.EntityManager.SetComponentData(health, h);
+				if (entityManager.HasComponent<Health>(other))
+				{
+					var health = state.EntityManager.GetComponentData<Health>(other);
+					health.Current -= 10;
+					state.EntityManager.SetComponentData(other, health);
 				}
 			}
 		}
