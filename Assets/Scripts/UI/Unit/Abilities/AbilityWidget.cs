@@ -39,12 +39,11 @@ namespace Omniverse.UI
 
 		private Entity Ability { get; set; }
 
-		public void Tick(Entity ability)
+		public void Tick(EntityManager entityManager, Entity ability)
 		{
 			Ability = ability;
 
-			var selection = ECSUtils.GetSingleton<Selection>();
-			var entityManager = ECSUtils.ClientWorld.EntityManager;
+			var selection = entityManager.CreateEntityQuery(typeof(Selection)).GetSingleton<Selection>();
 
 			Activator.enabled = selection.Ability == ability;
 

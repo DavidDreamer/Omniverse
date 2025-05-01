@@ -1,10 +1,11 @@
 ﻿using Omniverse.Input;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Omniverse.UI
 {
-	public class MinimapInputListener : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
+	public class MinimapInputListener : Widget, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
 	{
 		[field: SerializeField]
 		private RectTransform RectTransform { get; set; }
@@ -70,7 +71,7 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(Vector2 position)
 		{
-			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
 			Vector2 mapSize = new(gameOptions.MapSize.x, gameOptions.MapSize.y);
 			Vector2 sizeMultiplier = mapSize / (RectTransform.rect.size * Canvas.scaleFactor);
 			Vector2 worldSpacePosition = position * sizeMultiplier;
@@ -80,7 +81,7 @@ namespace Omniverse.UI
 		private void MoveCameraToPointerPosition(PointerEventData eventData)
 		{
 			Vector3 viewPoint = TransformPosition(eventData.position);
-			Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
+			FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 		}
 	}
 }

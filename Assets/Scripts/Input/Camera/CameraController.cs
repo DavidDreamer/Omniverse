@@ -1,3 +1,4 @@
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,11 +24,11 @@ namespace Omniverse.Input
 			Cursor.lockState = CursorLockMode.Confined;
 		}
 
-		public void Tick()
+		public void Tick(EntityManager entityManager)
 		{
 			Mouse mouse = Mouse.current;
 			float deltaTime = Time.deltaTime;
-			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			var gameOptions = entityManager.GetSingletonManaged<GameOptions>();
 
 			Vector3 position = Camera.transform.position;
 

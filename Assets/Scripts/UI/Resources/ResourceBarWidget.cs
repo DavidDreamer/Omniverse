@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class ResourceBarWidget : MonoBehaviour
+	public class ResourceBarWidget : Widget
 	{
 		[field: SerializeField]
 		private ResourceWidget ResourceWidgetPrefab { get; set; }
 
 		private List<ResourceWidget> ResourceWidgets { get; } = new();
 
-		public void Awake()
+		public override void Initialize(EntityManager entityManager)
 		{
-			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			base.Initialize(entityManager);
+
+			var gameOptions = entityManager.GetSingletonManaged<GameOptions>();
 
 			for (int i = 0; i < gameOptions.Resources.Length; i++)
 			{
@@ -23,11 +26,11 @@ namespace Omniverse.UI
 			}
 		}
 
-		public void LateUpdate()
+		public override void Tick()
 		{
 			foreach (ResourceWidget resourceWidget in ResourceWidgets)
 			{
-				resourceWidget.LateTick();
+				resourceWidget.Tick(EntityManager);
 			}
 		}
 	}

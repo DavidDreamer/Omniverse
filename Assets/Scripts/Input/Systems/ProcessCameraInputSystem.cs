@@ -17,7 +17,7 @@ namespace Omniverse.Input
 				return;
 			}
 
-			Object.FindFirstObjectByType<CameraController>().Tick();
+			Object.FindFirstObjectByType<CameraController>().Tick(state.EntityManager);
 		}
 	}
 }

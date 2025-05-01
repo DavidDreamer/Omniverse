@@ -13,9 +13,8 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Slider Slider { get; set; }
 
-		public void Tick(Entity entity)
+		public void Tick(EntityManager entityManager, Entity entity)
 		{
-			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 			var commandModule = entityManager.GetComponentObject<CommandModule>(entity);
 
 			CastAbilityCommand castAbilityCommand = commandModule.Command as CastAbilityCommand;

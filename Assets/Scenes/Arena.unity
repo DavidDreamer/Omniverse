@@ -796,6 +796,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393739182}
   m_CullTransparentMesh: 1
+--- !u!1 &436801537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3829597521418972361, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
+  m_PrefabInstance: {fileID: 1936379506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &575938899
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +950,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: 200, y: 30}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1179461428
 MonoBehaviour:
@@ -2001,7 +2006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3829597521418972361, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4638505043255352631, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2442,13 +2447,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7195954740644838148, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1179461427}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3829597521418972361, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1936379511}
   m_SourcePrefab: {fileID: 100100000, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
 --- !u!224 &1936379507 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7195954740644838148, guid: de7178cf73556d549bddd8a3bfae360f, type: 3}
   m_PrefabInstance: {fileID: 1936379506}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1936379511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436801537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e95fde22924db844901a44d61fc466d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Widgets>k__BackingField: []
 --- !u!1 &2086722926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,10 +2507,10 @@ RectTransform:
   - {fileID: 218554915}
   m_Father: {fileID: 1179461427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -15}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2086722928
 MonoBehaviour:

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class UnitWidget : MonoBehaviour
+	public class UnitWidget : Widget
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
@@ -33,11 +33,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private ActionBarWidget ActionBar { get; set; }
 
-		public void LateUpdate()
+		public override void Tick()
 		{
-			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
-
-			var selection = ECSUtils.GetSingleton<Selection>();
+			var selection = EntityManager.GetSingleton<Selection>();
 
 			bool hasSelection = selection.HasSelection;
 
@@ -52,23 +50,23 @@ namespace Omniverse.UI
 
 			Avatar.Bind(entity);
 
-			bool hasHealth = entityManager.HasComponent<Health>(entity);
+			bool hasHealth = EntityManager.HasComponent<Health>(entity);
 			Health.gameObject.SetActive(hasHealth);
 			if (hasHealth)
 			{
-				var health = entityManager.GetComponentData<Health>(entity);
+				var health = EntityManager.GetComponentData<Health>(entity);
 				Health.Tick(health);
 			}
 
-			bool hasMana = entityManager.HasComponent<Mana>(entity);
+			bool hasMana = EntityManager.HasComponent<Mana>(entity);
 			Mana.gameObject.SetActive(hasMana);
 			if (hasMana)
 			{
-				var mana = entityManager.GetComponentData<Mana>(entity);
+				var mana = EntityManager.GetComponentData<Mana>(entity);
 				Mana.Tick(mana);
 			}
 
-			AbilityBar.Tick(entity);
+			AbilityBar.Tick(EntityManager, entity);
 
 			//TODO ECS
 			//EffectsBar.Bind(unit);
@@ -77,7 +75,7 @@ namespace Omniverse.UI
 			//Experience.Bind(unit.Experience);
 			//Properties.Bind(unit);
 
-			ActionBar.Tick(entity);
+			ActionBar.Tick(EntityManager, entity);
 		}
 	}
 }

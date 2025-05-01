@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,10 +24,10 @@ namespace Omniverse.UI
 			Index = index;
 		}
 
-		public void LateTick()
+		public void Tick(EntityManager entityManager)
 		{
-			var player = ECSUtils.GetSingleton<Player>();
-			var factionsData = ECSUtils.GetSingleton<FactionsData>();
+			var player = entityManager.GetSingleton<Player>();
+			var factionsData = entityManager.GetSingleton<FactionsData>();
 
 			int amount = factionsData.Resources[player.FactionID][Index];
 			Amount.text = amount.ToString();

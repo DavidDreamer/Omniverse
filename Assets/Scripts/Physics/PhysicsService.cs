@@ -11,8 +11,8 @@ namespace Omniverse
 	{
 		public static IEnumerable<DynamicEntity> GetEntitiesInSphere(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
 		{
-			var physicsWorld = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
-			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+			var physicsWorld = entityManager.GetSingleton<PhysicsWorldSingleton>();
+			var settings = entityManager.GetSingleton<PhysicsSettings>();
 
 			Vector3 position = source.LocalTransform.ValueRO.Position;
 
@@ -39,8 +39,8 @@ namespace Omniverse
 
 		public static DynamicEntity GetClosestEntity(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
 		{
-			var physicsWorld = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
-			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+			var physicsWorld = entityManager.GetSingleton<PhysicsWorldSingleton>();
+			var settings = entityManager.GetSingleton<PhysicsSettings>();
 
 			float3 position = source.LocalTransform.ValueRO.Position;
 
@@ -118,7 +118,7 @@ namespace Omniverse
 			return point;
 		}
 
-		public static IEnumerable<Entity> GetEntitiesInScreenRect(Camera camera, Vector3 start, Vector3 end)
+		public static IEnumerable<Entity> GetEntitiesInScreenRect(EntityManager entityManager, Camera camera, Vector3 start, Vector3 end)
 		{
 			Vector3 first = ScreenPointToWorldGround(camera, start);
 			Vector3 second = ScreenPointToWorldGround(camera, end);
@@ -131,8 +131,8 @@ namespace Omniverse
 
 			Vector3 halfExtens = new(width, height, length);
 
-			var physicsWorldSingleton = ECSUtils.GetSingleton<PhysicsWorldSingleton>();
-			var settings = ECSUtils.GetSingleton<PhysicsSettings>();
+			var physicsWorldSingleton = entityManager.GetSingleton<PhysicsWorldSingleton>();
+			var settings = entityManager.GetSingleton<PhysicsSettings>();
 
 			var hits = new NativeList<DistanceHit>(Allocator.Temp);
 			var filter = new CollisionFilter()

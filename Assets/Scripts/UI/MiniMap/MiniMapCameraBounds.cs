@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class MiniMapCameraBounds : MonoBehaviour
+	public class MiniMapCameraBounds : Widget
 	{
 		[field: SerializeField]
 		public RectTransform ParentRectTransform { get; set; }
@@ -10,9 +11,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		public RectTransform RectTransform { get; set; }
 
-		private void Update()
+		public override void Tick()
 		{
-			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
 
 			Camera mainCamera = Camera.main;
 			Transform cameraTransform = mainCamera.transform;

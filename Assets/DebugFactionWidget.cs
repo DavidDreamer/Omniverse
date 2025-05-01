@@ -1,15 +1,17 @@
 using System.Linq;
 using Omniverse;
+using Omniverse.UI;
 using Unity.Entities;
-using UnityEngine;
 
-public class DebugFactionWidget : MonoBehaviour
+public class DebugFactionWidget : Widget
 {
 	public TMPro.TMP_Dropdown Dropdown;
 
-	void Start()
+	public override void Initialize(EntityManager entityManager)
 	{
-		var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+		base.Initialize(entityManager);
+
+		var gameOptions = entityManager.GetSingletonManaged<GameOptions>();
 
 		var factionNames = gameOptions.Factions.Select(faction => faction.Name).ToList();
 		Dropdown.AddOptions(factionNames);
@@ -18,7 +20,7 @@ public class DebugFactionWidget : MonoBehaviour
 
 	private void ChangeFaction(int faction)
 	{
-		var query = ECSUtils.ClientWorld.EntityManager.CreateEntityQuery(new ComponentType[] { typeof(Player) });
+		var query = EntityManager.CreateEntityQuery(new ComponentType[] { typeof(Player) });
 		var player = query.GetSingleton<Player>();
 		player.FactionID = faction;
 		query.SetSingleton(player);

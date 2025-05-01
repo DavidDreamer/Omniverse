@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse.UI
 {
-	public class UnitSelectorWidget : MonoBehaviour
+	public class UnitSelectorWidget : Widget
 	{
 		[field: SerializeField]
 		private Canvas Canvas { get; set; }
@@ -17,10 +17,9 @@ namespace Omniverse.UI
 			Items = GetComponentsInChildren<UnitSelectorItem>();
 		}
 
-		public void LateUpdate()
+		public override void Tick()
 		{
-			var entityManager = ECSUtils.ClientWorld.EntityManager;
-			var selection = ECSUtils.GetSingleton<Selection>();
+			var selection = EntityManager.GetSingleton<Selection>();
 			var entities = selection.Entities;
 			int selectedEntitiesCount = entities.Length;
 
@@ -38,7 +37,7 @@ namespace Omniverse.UI
 			{
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);
-				var metaData = entityManager.GetComponentData<MetaData>(entity);
+				var metaData = EntityManager.GetComponentData<MetaData>(entity);
 				item.Icon.sprite = metaData.GetIcon();
 				i++;
 			}

@@ -80,7 +80,7 @@ namespace Omniverse.Input
 					Vector2 start = (Vector2)selection.ValueRW.StartPosition;
 					Vector2 end = (Vector2)selection.ValueRW.EndPosition;
 
-					foreach (Entity entity in PhysicsService.GetEntitiesInScreenRect(camera, start, end))
+					foreach (Entity entity in PhysicsService.GetEntitiesInScreenRect(entityManager, camera, start, end))
 					{
 						var faction = entityManager.GetComponentData<Faction>(entity);
 

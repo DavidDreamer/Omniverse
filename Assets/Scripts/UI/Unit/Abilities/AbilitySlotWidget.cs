@@ -32,7 +32,7 @@ namespace Omniverse.UI
 
 			if (hasAbility)
 			{
-				AbilityWidget.Tick(ability);
+				AbilityWidget.Tick(entityManager, ability);
 			}
 		}
 	}

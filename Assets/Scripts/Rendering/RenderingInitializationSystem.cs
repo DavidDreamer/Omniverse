@@ -13,7 +13,6 @@ namespace Omniverse.Rendering
 			if (SystemAPI.HasSingleton<Player>())
 			{
 				Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include).gameObject.SetActive(true);
-				Object.FindFirstObjectByType<CanvasScaler>(FindObjectsInactive.Include).gameObject.SetActive(true);
 
 				state.Enabled = false;
 			}

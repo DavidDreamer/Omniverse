@@ -18,9 +18,9 @@ namespace Omniverse.UI
 
 		public List<InventorySlotWidget> Slots { get; } = new();
 
-		public void LateUpdate()
+		public void Tick(EntityManager entityManager)
 		{
-			var selection = ECSUtils.GetSingleton<Selection>();
+			var selection = entityManager.GetSingleton<Selection>();
 
 			if (selection.HasSelection is false)
 			{

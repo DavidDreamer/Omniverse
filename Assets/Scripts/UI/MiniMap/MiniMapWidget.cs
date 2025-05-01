@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class MiniMapWidget : MonoBehaviour
+	public class MiniMapWidget : Widget
 	{
 		public RawImage Image;
 		public RawImage FogOfWar;

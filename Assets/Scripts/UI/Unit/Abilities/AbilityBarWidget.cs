@@ -17,10 +17,8 @@ namespace Omniverse.UI
 
 		private List<AbilitySlotWidget> Slots { get; } = new();
 
-		public void Tick(Entity entity)
+		public void Tick(EntityManager entityManager, Entity entity)
 		{
-			EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
-
 			var abilityReferences = entityManager.GetBuffer<AbilityReference>(entity);
 
 			var abilities = Abilities().ToArray();
