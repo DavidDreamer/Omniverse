@@ -1,5 +1,6 @@
 ﻿using Unity.Burst;
 using Unity.Entities;
+using Unity.NetCode;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
@@ -10,7 +11,6 @@ namespace Omniverse
 	[BurstCompile]
 	[UpdateInGroup(typeof(PhysicsSystemGroup))]
 	[UpdateAfter(typeof(PhysicsSimulationGroup))]
-	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	public partial struct ProcessMissileTriggersSystem : ISystem
 	{
 		public void OnCreate(ref SystemState state)
@@ -49,27 +49,37 @@ namespace Omniverse
 					continue;
 				}
 
-				var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
-
-				if (onDestroyTrigger != null)
+				if (entityManager.World.IsServer())
 				{
-					Vector3 position = entityManager.GetComponentData<LocalTransform>(missile).Position;
-					Object.Instantiate(onDestroyTrigger.Prefab, position, Quaternion.identity);
+					//TODO DEAL DAMAGE
+					if (entityManager.HasComponent<Invulnerable>(other))
+					{
+						continue;
+					}
+
+					if (entityManager.HasComponent<Health>(other))
+					{
+						var health = state.EntityManager.GetComponentData<Health>(other);
+						health.Current -= 10;
+						state.EntityManager.SetComponentData(other, health);
+					}
+
+					state.EntityManager.DestroyEntity(missile);
 				}
 
-				state.EntityManager.DestroyEntity(missile);
-
-				//TODO DEAL DAMAGE
-				if (entityManager.HasComponent<Invulnerable>(other))
+				if (entityManager.World.IsClient())
 				{
-					continue;
-				}
+					var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
 
-				if (entityManager.HasComponent<Health>(other))
-				{
-					var health = state.EntityManager.GetComponentData<Health>(other);
-					health.Current -= 10;
-					state.EntityManager.SetComponentData(other, health);
+					if (onDestroyTrigger != null)
+					{
+						Vector3 position = entityManager.GetComponentData<LocalTransform>(missile).Position;
+						Object.Instantiate(onDestroyTrigger.Prefab, position, Quaternion.identity);
+					}
+
+					entityManager.SetEnabled(missile, false);
+
+					//entityManager.GetComponentDataRW<ChunkWorldRenderBounds>
 				}
 			}
 		}

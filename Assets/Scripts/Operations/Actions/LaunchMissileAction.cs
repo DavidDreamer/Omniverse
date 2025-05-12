@@ -22,11 +22,14 @@ namespace Omniverse
 
 		public void Perform(EntityManager entityManager, DynamicEntity actor, Vector3 target)
 		{
-			var query = entityManager.CreateEntityQuery(new ComponentType[] { typeof(EntityReferences) });
-			var singleton = query.GetSingleton<EntityReferences>();
-			query.Dispose();
+			if (!entityManager.World.IsServer())
+			{
+				return;
+			}
 
-			Entity fireball = entityManager.Instantiate(singleton.Fireball);
+			var references = entityManager.GetSingleton<EntityReferences>();
+
+			Entity fireball = entityManager.Instantiate(references.Fireball);
 
 			float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + (float3)target;
 			var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
