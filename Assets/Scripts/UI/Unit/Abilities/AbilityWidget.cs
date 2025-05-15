@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-
 	public class AbilityWidget : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 	{
 		[field: SerializeField]

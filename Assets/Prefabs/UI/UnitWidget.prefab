@@ -2900,10 +2900,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2299456132034757391, guid: 4b8dca0ad5880d44ba183e98f18590f2, type: 3}
-      propertyPath: m_Size
-      value: 0.44
-      objectReference: {fileID: 0}
     - target: {fileID: 2938353927520570703, guid: 4b8dca0ad5880d44ba183e98f18590f2, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542

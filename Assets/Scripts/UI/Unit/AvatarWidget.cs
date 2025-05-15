@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Omniverse.UI
 {
-	public class AvatarWidget : MonoBehaviour, IPointerClickHandler
+	public class AvatarWidget : Widget, IPointerClickHandler
 	{
 		[field: SerializeField]
 		private Image Icon { get; set; }
@@ -18,8 +18,7 @@ namespace Omniverse.UI
 
 		public void Bind(Entity entity)
 		{
-			var entityManager = ECSUtils.ClientWorld.EntityManager;
-			var metaData = entityManager.GetComponentData<MetaData>(entity);
+			var metaData = EntityManager.GetComponentData<MetaData>(entity);
 
 			Icon.sprite = metaData.GetIcon();
 			Name.text = metaData.Name.ToString();
@@ -30,10 +29,9 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					var selection = ECSUtils.GetSingleton<Selection>();
+					var selection = EntityManager.GetSingleton<Selection>();
 					Entity selectedUnit = selection.Entity;
-					var entityManager = ECSUtils.ClientWorld.EntityManager;
-					Vector3 selectedUnitPosition = entityManager.GetComponentData<LocalToWorld>(selectedUnit).Position;
+					Vector3 selectedUnitPosition = EntityManager.GetComponentData<LocalToWorld>(selectedUnit).Position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
 					Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 					break;
