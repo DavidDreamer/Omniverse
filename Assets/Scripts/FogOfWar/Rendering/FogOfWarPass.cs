@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
@@ -14,20 +13,13 @@ namespace Omniverse.Rendering
 
 		private FogOfWarRenderer Renderer { get; }
 
-		private FogOfWarRendererConfig Config { get; }
-
-		private Material Material { get; }
-
 		public FogOfWarPass(FogOfWarRenderer renderer)
 		{
 			Renderer = renderer;
-			Config = renderer.Config;
-			Material = new Material(Config.ApplyShader);
 		}
 
 		public void Dispose()
 		{
-			CoreUtils.Destroy(Material);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -43,7 +35,7 @@ namespace Omniverse.Rendering
 		private void Execute(RasterGraphContext context)
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
-			CoreUtils.DrawFullScreen(commandBuffer, Material, shaderPassId: 0);
+			CoreUtils.DrawFullScreen(commandBuffer, Renderer.Material, shaderPassId: FogOfWarRenderer.ShaderPass.Apply);
 		}
 	}
 }

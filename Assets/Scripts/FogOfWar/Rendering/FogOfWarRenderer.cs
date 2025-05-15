@@ -8,6 +8,12 @@ namespace Omniverse.Rendering
 {
 	public class FogOfWarRenderer : CustomRenderer<FogOfWarRendererConfig, FogOfWarPass>
 	{
+		public static class ShaderPass
+		{
+			public const int Animate = 0;
+			public const int Apply = 1;
+		}
+
 		private static class ShaderVariables
 		{
 			public const string ExploredKeyword = "FOG_OF_WAR_EXPLORED";
@@ -16,14 +22,13 @@ namespace Omniverse.Rendering
 
 			public static int FogOfWarTexture { get; } = Shader.PropertyToID(nameof(FogOfWarTexture));
 
-			public static int FogOfWarProperties { get; } = Shader.PropertyToID(nameof(FogOfWarProperties));
-
 			public static int CellsVisibilityBuffer { get; } = Shader.PropertyToID(nameof(CellsVisibilityBuffer));
 		}
 
-		public FogOfWar FogOfWar { get; private set; }
+		[field: SerializeField]
+		public Material Material { get; private set; }
 
-		private Material AnimationMaterial { get; set; }
+		public FogOfWar FogOfWar { get; private set; }
 
 		private Material BlurMaterial { get; set; }
 
@@ -32,8 +37,6 @@ namespace Omniverse.Rendering
 		public RenderTexture BlurRT1 { get; set; }
 
 		public RenderTexture BlurRT2 { get; set; }
-
-		private ConstantComputeBuffer<FogOfWarProperties> PropertiesBuffer { get; set; }
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 
@@ -47,8 +50,6 @@ namespace Omniverse.Rendering
 
 		private void UpdateShaderVariables()
 		{
-			PropertiesBuffer?.SetData(Config.Properties);
-
 			if (BlurMaterial != null)
 			{
 				Config.BlurSettings.ApplyTo(BlurMaterial);
@@ -62,14 +63,11 @@ namespace Omniverse.Rendering
 			var resolution = new Vector4(FogOfWar.Size.x, FogOfWar.Size.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
-			AnimationMaterial = new Material(Config.PreProcessShader);
 			BlurMaterial = new Material(Config.BlurShader);
 
 			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
 			BlurRT1 = CreateBlurRT("FogOfWar.Blur.1");
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
-
-			PropertiesBuffer = new ConstantComputeBuffer<FogOfWarProperties>(ShaderVariables.FogOfWarProperties);
 
 			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.Visibility.Length, sizeof(CellVisibilityState));
 
@@ -114,14 +112,12 @@ namespace Omniverse.Rendering
 
 		public void OnDestroy()
 		{
-			CoreUtils.Destroy(AnimationMaterial);
 			CoreUtils.Destroy(BlurMaterial);
 
 			AnimationRT.Release();
 			BlurRT1.Release();
 			BlurRT2.Release();
 
-			PropertiesBuffer.Dispose();
 			CellsVisibilityBuffer.Release();
 		}
 
@@ -133,12 +129,9 @@ namespace Omniverse.Rendering
 			commandBuffer.SetBufferData(CellsVisibilityBuffer, FogOfWar.Visibility);
 			commandBuffer.SetGlobalBuffer(ShaderVariables.CellsVisibilityBuffer, CellsVisibilityBuffer);
 
-			Blitter.BlitTexture(commandBuffer, AnimationRT, AnimationRT, AnimationMaterial, 0);
+			Blitter.BlitTexture(commandBuffer, AnimationRT, AnimationRT, Material, ShaderPass.Animate);
 			Blitter.BlitTexture(commandBuffer, AnimationRT, BlurRT1, BlurMaterial, 0);
 			Blitter.BlitTexture(commandBuffer, BlurRT1, BlurRT2, BlurMaterial, 1);
-			//commandBuffer.Blit(AnimationRT, AnimationRT, AnimationMaterial, 0);
-			//commandBuffer.Blit(AnimationRT, BlurRT1, BlurMaterial, 0);
-			//commandBuffer.Blit(BlurRT1, BlurRT2, BlurMaterial, 1);
 
 			commandBuffer.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
 		}

@@ -8,16 +8,7 @@ namespace Omniverse.Rendering
 	public class FogOfWarRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public Shader PreProcessShader { get; private set; }
-
-		[field: SerializeField]
 		public Shader BlurShader { get; private set; }
-
-		[field: SerializeField]
-		public Shader ApplyShader { get; private set; }
-
-		[field: SerializeField]
-		public FogOfWarProperties Properties { get; private set; }
 
 		[field: SerializeField]
 		public BlurSettings BlurSettings { get; private set; }
