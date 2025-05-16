@@ -1,5 +1,6 @@
 using Omniverse.Mapping;
 using Omniverse.Rendering;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,10 @@ namespace Omniverse.UI
 
 		public MiniMapCameraBounds CameraBounds;
 
-		public void Start()
+		public override void Initialize(EntityManager entityManager)
 		{
+			base.Initialize(entityManager);
+
 			var mapRenderer = FindFirstObjectByType<MapRenderer>(FindObjectsInactive.Include);
 			Image.texture = mapRenderer.RenderTexture;
 

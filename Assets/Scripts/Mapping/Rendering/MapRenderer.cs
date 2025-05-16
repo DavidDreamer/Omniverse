@@ -1,10 +1,12 @@
 using Dreambox.Rendering.Core;
+using Omniverse.Rendering;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
 namespace Omniverse.Mapping
 {
-	public class MapRenderer : MonoBehaviour
+	public class MapRenderer : RenderFeature
 	{
 		private static class ShaderVariables
 		{
@@ -20,7 +22,7 @@ namespace Omniverse.Mapping
 
 		public void OnEnable()
 		{
-			var gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
 
 			RenderTexture = new RenderTexture(
 				gameOptions.MapSize.x,

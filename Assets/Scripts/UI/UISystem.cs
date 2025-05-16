@@ -9,16 +9,21 @@ namespace Omniverse.UI
 	{
 		private UIHandler UIHandler;
 
-		protected override void OnCreate()
-		{
-			UIHandler = Object.FindFirstObjectByType<UIHandler>(FindObjectsInactive.Include);
-			UIHandler.Initialize(EntityManager);
-
-			RequireForUpdate<Player>();
-		}
-
 		protected override void OnUpdate()
 		{
+			if (UIHandler == null)
+			{
+				if (SystemAPI.HasSingleton<Player>())
+				{
+					UIHandler = Object.FindFirstObjectByType<UIHandler>(FindObjectsInactive.Include);
+					UIHandler.Initialize(EntityManager);
+				}
+				else
+				{
+					return;
+				}
+			}
+
 			UIHandler.Tick();
 		}
 	}
