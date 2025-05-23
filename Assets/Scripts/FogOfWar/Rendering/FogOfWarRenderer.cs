@@ -1,4 +1,6 @@
-﻿using Dreambox.Rendering.Core;
+﻿using System;
+using System.Linq;
+using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -16,7 +18,7 @@ namespace Omniverse.Rendering
 
 		private static class ShaderVariables
 		{
-			public const string ExploredKeyword = "FOG_OF_WAR_EXPLORED";
+			public static string ModeToKeyword(FogOfWarMode mode) => $"MODE_{mode.ToString().ToUpper()}";
 
 			public static int FogOfWarResolution { get; } = Shader.PropertyToID(nameof(FogOfWarResolution));
 
@@ -58,6 +60,25 @@ namespace Omniverse.Rendering
 
 		public void Start()
 		{
+			GameOptions gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+
+			foreach (FogOfWarMode mode in Enum.GetValues(typeof(FogOfWarMode)).Cast<FogOfWarMode>())
+			{
+				if (mode == gameOptions.FogOfWarMode)
+				{
+					Material.EnableKeyword(ShaderVariables.ModeToKeyword(mode));
+				}
+				else
+				{
+					Material.DisableKeyword(ShaderVariables.ModeToKeyword(mode));
+				}
+			}
+
+			if (gameOptions.FogOfWarMode is FogOfWarMode.Revealed)
+			{
+				return;
+			}
+
 			FogOfWar = ECSUtils.GetSingleton<FogOfWar>();
 
 			var resolution = new Vector4(FogOfWar.Size.x, FogOfWar.Size.y);
@@ -70,15 +91,6 @@ namespace Omniverse.Rendering
 			BlurRT2 = CreateBlurRT("FogOfWar.Blur.2");
 
 			CellsVisibilityBuffer = new ComputeBuffer(FogOfWar.Visibility.Length, sizeof(CellVisibilityState));
-
-			if (FogOfWar.Explored)
-			{
-				Shader.EnableKeyword(ShaderVariables.ExploredKeyword);
-			}
-			else
-			{
-				Shader.DisableKeyword(ShaderVariables.ExploredKeyword);
-			}
 
 			UpdateShaderVariables();
 
@@ -114,15 +126,21 @@ namespace Omniverse.Rendering
 		{
 			CoreUtils.Destroy(BlurMaterial);
 
-			AnimationRT.Release();
-			BlurRT1.Release();
-			BlurRT2.Release();
+			AnimationRT?.Release();
+			BlurRT1?.Release();
+			BlurRT2?.Release();
 
-			CellsVisibilityBuffer.Release();
+			CellsVisibilityBuffer?.Release();
 		}
 
 		private void LateUpdate()
 		{
+			GameOptions gameOptions = ECSUtils.GetSingletonManaged<GameOptions>();
+			if (gameOptions.FogOfWarMode is FogOfWarMode.Revealed)
+			{
+				return;
+			}
+
 			using var scope = new CommandBufferScope("FogOfWar.PreProcess");
 			CommandBuffer commandBuffer = scope.CommandBuffer;
 

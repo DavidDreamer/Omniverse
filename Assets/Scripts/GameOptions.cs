@@ -14,7 +14,7 @@ namespace Omniverse
 	public class GameOptions : IComponentData
 	{
 		public int2 MapSize;
-		public FogOfWarType FogOfWarType;
+		public FogOfWarMode FogOfWarMode;
 		public ResourceDesc[] Resources;
 		public FactionDesc[] Factions;
 	}

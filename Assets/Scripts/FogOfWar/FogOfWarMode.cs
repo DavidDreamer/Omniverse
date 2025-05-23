@@ -1,8 +1,8 @@
 ﻿namespace Omniverse
 {
-	public enum FogOfWarType
+	public enum FogOfWarMode
 	{
-		None,
+		Revealed,
 		Explored,
 		Unexplored
 	}

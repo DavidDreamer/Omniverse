@@ -855,7 +855,7 @@ MonoBehaviour:
     MapSize:
       x: 64
       y: 64
-    FogOfWarType: 1
+    FogOfWarMode: 0
     Resources:
     - {fileID: 11400000, guid: f02e271383beedf4cb6ae87f31095902, type: 2}
     - {fileID: 11400000, guid: 21ccd9a5f7208ef4abea0d7ddd71d56a, type: 2}

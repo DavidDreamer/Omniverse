@@ -73,7 +73,7 @@ Shader "Omniverse/FogOfWar"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
-            #pragma multi_compile_fragment _ FOG_OF_WAR_EXPLORED
+            #pragma multi_compile_fragment MODE_REVEALED MODE_EXPLORED MODE_UNEXPLORED
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Assets/Scripts/Mapping/Map.hlsl"
@@ -117,18 +117,22 @@ Shader "Omniverse/FogOfWar"
                 float4 outOfBorderShading = max(distanceFromBorderClamped.x, distanceFromBorderClamped.y) * BaseColor;
                 outOfBorderShading = saturate(outOfBorderShading + cloud * outOfBorderShading);
 
+                #ifdef MODE_REVEALED
+                return outOfBorderShading;
+                #else
                 float4 fowData = tex2D(FogOfWarTexture, uv);
                 float fogValue = (fowData.r + 1.0) * 0.5;
 
                 fogValue = saturate(fogValue + cloud * fogValue);
                 
-                #ifdef FOG_OF_WAR_EXPLORED
+                #ifdef MODE_EXPLORED
                 float4 fogColor = ExploredColor * fogValue;
                 #else
                 float4 fogColor = lerp(ExploredColor, BaseColor, fowData.g) * fogValue;
                 #endif
                 
                 return max(fogColor, outOfBorderShading);
+                #endif
             }
             ENDHLSL
         }

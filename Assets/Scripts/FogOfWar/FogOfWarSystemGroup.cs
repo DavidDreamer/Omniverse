@@ -16,7 +16,8 @@ namespace Omniverse
 			base.OnStartRunning();
 
 			var gameOptions = SystemAPI.ManagedAPI.GetSingleton<GameOptions>();
-			if (gameOptions.FogOfWarType is FogOfWarType.None)
+
+			if (gameOptions.FogOfWarMode is FogOfWarMode.Revealed)
 			{
 				return;
 			}
@@ -28,7 +29,7 @@ namespace Omniverse
 			EntityManager.AddComponent<FogOfWar>(entity);
 			EntityManager.SetComponentData(entity, new FogOfWar()
 			{
-				Explored = gameOptions.FogOfWarType is FogOfWarType.Explored,
+				Explored = gameOptions.FogOfWarMode is FogOfWarMode.Explored,
 				Size = size,
 				Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
 				Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
@@ -39,9 +40,12 @@ namespace Omniverse
 		{
 			base.OnStopRunning();
 
-			var fogOfWar = SystemAPI.GetSingleton<FogOfWar>();
-			fogOfWar.Occlusion.Dispose();
-			fogOfWar.Visibility.Dispose();
+			if (SystemAPI.HasSingleton<FogOfWar>())
+			{
+				var fogOfWar = SystemAPI.GetSingleton<FogOfWar>();
+				fogOfWar.Occlusion.Dispose();
+				fogOfWar.Visibility.Dispose();
+			}
 		}
 
 		[BurstCompile]
