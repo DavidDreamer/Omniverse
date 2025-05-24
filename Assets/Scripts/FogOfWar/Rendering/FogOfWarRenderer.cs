@@ -99,9 +99,20 @@ namespace Omniverse.Rendering
 
 		public void OnDestroy()
 		{
-			AnimationRT?.Release();
-			BlurRT1?.Release();
-			BlurRT2?.Release();
+			if (AnimationRT != null)
+			{
+				AnimationRT.Release();
+			}
+
+			if (BlurRT1 != null)
+			{
+				BlurRT1.Release();
+			}
+
+			if (BlurRT2 != null)
+			{
+				BlurRT2.Release();
+			}
 
 			CellsVisibilityBuffer?.Release();
 		}
