@@ -14,13 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Omniverse.FogOfWar.Rendering:Omniverse.FogOfWar.Rendering:FogOfWarRendererConfig
   <RenderPassEvent>k__BackingField: 550
   <CameraType>k__BackingField: 3
-  <BlurShader>k__BackingField: {fileID: 4800000, guid: 54060db8c13c6594e8d1a1e51fd4fa9c, type: 3}
-  <Properties>k__BackingField:
-    UnexploredColor: {r: 0, g: 0, b: 0, a: 1}
-    ExploredColor: {r: 0, g: 0, b: 0, a: 0.7490196}
-  <BlurSettings>k__BackingField:
-    <Algorithm>k__BackingField: 1
-    <WrapMode>k__BackingField: 0
-    <Downsample>k__BackingField: 1
-    <Radius>k__BackingField: 5
-    <Factor>k__BackingField: 1
+  <Material>k__BackingField: {fileID: 2100000, guid: 6f8f8e53ae7a3a345b223fed391c96e4, type: 2}
+  <BlurMaterial>k__BackingField: {fileID: 2100000, guid: d66277e4932d77a4fbe383d9d6064d87, type: 2}

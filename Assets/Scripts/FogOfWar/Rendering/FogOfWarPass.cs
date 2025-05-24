@@ -35,7 +35,7 @@ namespace Omniverse.Rendering
 		private void Execute(RasterGraphContext context)
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
-			CoreUtils.DrawFullScreen(commandBuffer, Renderer.Material, shaderPassId: FogOfWarRenderer.ShaderPass.Apply);
+			CoreUtils.DrawFullScreen(commandBuffer, Renderer.Config.Material, shaderPassId: FogOfWarRenderer.ShaderPass.Apply);
 		}
 	}
 }

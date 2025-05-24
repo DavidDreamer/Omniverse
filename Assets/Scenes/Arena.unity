@@ -1763,10 +1763,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rendering
       objectReference: {fileID: 0}
-    - target: {fileID: 91925243166902958, guid: 0b639e714261d264ebdd806c41231520, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7544276808104931717, guid: 0b639e714261d264ebdd806c41231520, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

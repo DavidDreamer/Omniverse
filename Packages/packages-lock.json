@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
+      "hash": "fd443844e969f556611191b7d39f985a65965df1"
     },
     "com.david-dreamer.dreambox.math": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Math",

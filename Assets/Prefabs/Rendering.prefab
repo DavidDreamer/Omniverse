@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7544276808104931717
 Transform:
   m_ObjectHideFlags: 0
@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Config>k__BackingField: {fileID: 11400000, guid: c0a4120d8ece4304e95f5daa88c73516, type: 2}
-  <Material>k__BackingField: {fileID: 2100000, guid: 6f8f8e53ae7a3a345b223fed391c96e4, type: 2}
 --- !u!1 &3760786188499088326
 GameObject:
   m_ObjectHideFlags: 0

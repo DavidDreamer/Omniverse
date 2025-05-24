@@ -1,4 +1,3 @@
-using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace Omniverse.Rendering
 	public class FogOfWarRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public Shader BlurShader { get; private set; }
+		public Material Material { get; private set; }
 
 		[field: SerializeField]
-		public BlurSettings BlurSettings { get; private set; }
+		public Material BlurMaterial { get; private set; }
 	}
 }
