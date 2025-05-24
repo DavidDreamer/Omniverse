@@ -3,8 +3,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 namespace Omniverse.Mapping
 {
@@ -32,8 +31,10 @@ namespace Omniverse.Mapping
 
 			try
 			{
-				int mapWidth = 64;
-				int mapHeight = 64;
+				var gameOptions = FindAnyObjectByType<GameOptionsAuthoring>(FindObjectsInactive.Include);
+
+				int mapWidth = gameOptions.GameOptions.MapSize.x;
+				int mapHeight = gameOptions.GameOptions.MapSize.y;
 
 				int width = 512;
 				int height = 512;
@@ -67,7 +68,19 @@ namespace Omniverse.Mapping
 
 				byte[] data = texture.EncodeToPNG();
 
-				File.WriteAllBytes("Assets/t.png", data);
+				var scene = SceneManager.GetActiveScene();
+				string sceneFullPath = Path.GetFullPath(scene.path);
+				string directoryPath = sceneFullPath[..sceneFullPath.LastIndexOf('.')];
+
+				if (!Directory.Exists(directoryPath))
+				{
+					Directory.CreateDirectory(directoryPath);
+				}
+
+				string filePath = Path.Combine(directoryPath, $"{scene.name}.Minimap.png");
+
+				Debug.Log(filePath);
+				File.WriteAllBytes(filePath, data);
 				AssetDatabase.Refresh();
 
 				Debug.Log("Done");
