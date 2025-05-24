@@ -2484,7 +2484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7823140861967892923, guid: 332627fc966330b478115e272ae5ae48, type: 3}
       propertyPath: m_Name
-      value: MipMapWidget
+      value: MiniMapWidget
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

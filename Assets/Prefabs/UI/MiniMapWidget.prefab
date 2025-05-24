@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 9147597053507873670}
   - component: {fileID: 7207820913308063500}
   m_Layer: 5
-  m_Name: MipMapWidget
+  m_Name: MiniMapWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
