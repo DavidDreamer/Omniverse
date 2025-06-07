@@ -8,9 +8,6 @@ namespace Omniverse.Rendering
 	public class HealthBarsRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public int MaxCount { get; set; }
-
-		[field: SerializeField]
 		public DrawMeshParams DrawMeshParams { get; set; }
 
 		[field: SerializeField]

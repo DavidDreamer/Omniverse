@@ -98,7 +98,6 @@ namespace Omniverse.Mapping
 				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
 				int count = 0;
-
 				for (int i = 0; i < entities.Length; i++)
 				{
 					Entity entity = entities[i];
@@ -110,12 +109,17 @@ namespace Omniverse.Mapping
 					count++;
 					if (count == Matrices.Length)
 					{
-						commandBuffer.DrawMeshInstanced(mesh, 0, material, 0, Matrices, count);
+						DrawBatch();
 						count = 0;
 					}
 				}
 
 				if (count > 0)
+				{
+					DrawBatch();
+				}
+
+				void DrawBatch()
 				{
 					commandBuffer.DrawMeshInstanced(mesh, 0, material, 0, Matrices, count);
 				}

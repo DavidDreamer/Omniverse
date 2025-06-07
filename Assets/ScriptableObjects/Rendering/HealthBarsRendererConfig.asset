@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 550
   <CameraType>k__BackingField: 3
-  <MaxCount>k__BackingField: 64
   <DrawMeshParams>k__BackingField:
     <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
     <SubmeshIndex>k__BackingField: 0

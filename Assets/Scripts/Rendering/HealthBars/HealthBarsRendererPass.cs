@@ -28,6 +28,8 @@ namespace Omniverse.Rendering
 
 		private HealthBarsRendererConfig Config { get; }
 
+		private const int InstanceBufferSize = 64;
+
 		private Matrix4x4[] Matrices { get; }
 
 		private Vector4[] BaseColors { get; }
@@ -43,10 +45,10 @@ namespace Omniverse.Rendering
 			Renderer = renderer;
 			Config = renderer.Config;
 
-			Matrices = new Matrix4x4[Config.MaxCount];
-			BaseColors = new Vector4[Config.MaxCount];
-			SecondColors = new Vector4[Config.MaxCount];
-			Amounts = new float[Config.MaxCount];
+			Matrices = new Matrix4x4[InstanceBufferSize];
+			BaseColors = new Vector4[InstanceBufferSize];
+			SecondColors = new Vector4[InstanceBufferSize];
+			Amounts = new float[InstanceBufferSize];
 
 			MaterialPropertyBlock = new MaterialPropertyBlock();
 		}
@@ -77,14 +79,9 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.Clear();
 
-			int count = Mathf.Min(entities.Length, Config.MaxCount);
+			int count = 0;
 
-			if (count == 0)
-			{
-				return;
-			}
-
-			for (int i = 0; i < count; i++)
+			for (int i = 0; i < entities.Length; i++)
 			{
 				Entity entity = entities[i];
 
@@ -93,28 +90,43 @@ namespace Omniverse.Rendering
 				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
 
 				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);
-				Matrices[i] = matrix;
+				Matrices[count] = matrix;
 
 				HealthBarColors colors = player.FactionID == faction.ID ? Config.AllyColors : Config.EnemyColors;
-				BaseColors[i] = colors.BaseColor;
-				SecondColors[i] = colors.SecondColor;
+				BaseColors[count] = colors.BaseColor;
+				SecondColors[count] = colors.SecondColor;
 
-				Amounts[i] = health.Current / health.Maximum;
+				Amounts[count] = health.Current / health.Maximum;
+
+				count++;
+				if (count == InstanceBufferSize)
+				{
+					DrawBatch();
+					count = 0;
+				}
 			}
 
-			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);
-			MaterialPropertyBlock.SetVectorArray(ShaderVariables.SecondColor, SecondColors);
-			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Amount, Amounts);
+			if (count > 0)
+			{
+				DrawBatch();
+			}
 
-			var drawMeshParams = Config.DrawMeshParams;
-			commandBuffer.DrawMeshInstanced(
-				drawMeshParams.Mesh,
-				drawMeshParams.SubmeshIndex,
-				drawMeshParams.Material,
-				drawMeshParams.ShaderPass,
-				Matrices,
-				count,
-				MaterialPropertyBlock);
+			void DrawBatch()
+			{
+				MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);
+				MaterialPropertyBlock.SetVectorArray(ShaderVariables.SecondColor, SecondColors);
+				MaterialPropertyBlock.SetFloatArray(ShaderVariables.Amount, Amounts);
+
+				var drawMeshParams = Config.DrawMeshParams;
+				commandBuffer.DrawMeshInstanced(
+					drawMeshParams.Mesh,
+					drawMeshParams.SubmeshIndex,
+					drawMeshParams.Material,
+					drawMeshParams.ShaderPass,
+					Matrices,
+					count,
+					MaterialPropertyBlock);
+			}
 		}
 	}
 }
