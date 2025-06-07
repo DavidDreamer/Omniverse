@@ -1,37 +1,35 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
 
 namespace Omniverse.Network.Server
 {
-	[BurstCompile]
 	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
-	public partial struct GoInGameSystem : ISystem
+	public partial class GoInGameSystem : SystemBase
 	{
 		private ComponentLookup<NetworkId> networkIdFromEntity;
 
-		public void OnCreate(ref SystemState state)
+		protected override void OnCreate()
 		{
-			state.RequireForUpdate<UnitSpawner>();
+			RequireForUpdate<UnitSpawner>();
 
 			var builder = new EntityQueryBuilder(Allocator.Temp).WithAll<GoInGameRequestCommand>().WithAll<ReceiveRpcCommandRequest>();
-			var query = state.GetEntityQuery(builder);
-			state.RequireForUpdate(query);
-			networkIdFromEntity = state.GetComponentLookup<NetworkId>(true);
+			var query = GetEntityQuery(builder);
+			RequireForUpdate(query);
+			networkIdFromEntity = GetComponentLookup<NetworkId>(true);
 		}
 
-		[BurstCompile]
-		public void OnUpdate(ref SystemState state)
+		protected override void OnUpdate()
 		{
 			var spawner = SystemAPI.ManagedAPI.GetSingleton<UnitSpawner>();
 			var prefab = spawner.Unit;
 
-			var worldName = state.WorldUnmanaged.Name;
+			var worldName = World.Unmanaged.Name;
 
 			var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-			networkIdFromEntity.Update(ref state);
+			networkIdFromEntity.Update(this);
 
 			foreach (var (receiver, requestEntity) in SystemAPI.Query<RefRO<ReceiveRpcCommandRequest>>().WithAll<GoInGameRequestCommand>().WithEntityAccess())
 			{
@@ -48,49 +46,56 @@ namespace Omniverse.Network.Server
 
 				UnityEngine.Debug.Log($"'{worldName}' setting connection '{networkId.Value}' to in game");
 
-				var unit = commandBuffer.Instantiate(prefab);
-				var localTransform = LocalTransform.FromPosition(spawner.SpawnPoints[factionId]);
-				commandBuffer.SetComponent(unit, localTransform);
-				commandBuffer.SetComponent(unit, new Faction
-				{
-					ID = factionId
-				});
-				var ghostOwner = new GhostOwner
-				{
-					NetworkId = networkId.Value
-				};
-				commandBuffer.SetComponent(unit, ghostOwner);
-				var linkedEntityGroup = new LinkedEntityGroup
-				{
-					Value = unit
-				};
-				commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, linkedEntityGroup);
+				var mapSize = SystemAPI.GetSingleton<MapSettings>().Size / 2;
 
-				CreateAbility(spawner.Ability);
-				CreateAbility(spawner.Ability2);
+				SpawnUnit();
 
-				void CreateAbility(Entity prefab)
+				void SpawnUnit()
 				{
-					Entity ability = commandBuffer.Instantiate(prefab);
-					commandBuffer.SetComponent(ability, ghostOwner);
-					commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
+					var unit = commandBuffer.Instantiate(prefab);
+					var localTransform = LocalTransform.FromPosition(spawner.SpawnPoints[factionId]);
+					commandBuffer.SetComponent(unit, localTransform);
+					commandBuffer.SetComponent(unit, new Faction
 					{
-						Value = ability
+						ID = factionId,
 					});
-					commandBuffer.AppendToBuffer(unit, new AbilityReference
+					var ghostOwner = new GhostOwner
 					{
-						Entity = ability
-					});
-					commandBuffer.SetComponent(ability, new Owner
+						NetworkId = networkId.Value
+					};
+					commandBuffer.SetComponent(unit, ghostOwner);
+					var linkedEntityGroup = new LinkedEntityGroup
 					{
-						Entity = unit
-					});
+						Value = unit
+					};
+					commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, linkedEntityGroup);
+
+					CreateAbility(spawner.Ability);
+					CreateAbility(spawner.Ability2);
+
+					void CreateAbility(Entity prefab)
+					{
+						Entity ability = commandBuffer.Instantiate(prefab);
+						commandBuffer.SetComponent(ability, ghostOwner);
+						commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
+						{
+							Value = ability
+						});
+						commandBuffer.AppendToBuffer(unit, new AbilityReference
+						{
+							Entity = ability
+						});
+						commandBuffer.SetComponent(ability, new Owner
+						{
+							Entity = unit
+						});
+					}
 				}
 
 				commandBuffer.DestroyEntity(requestEntity);
 			}
 
-			commandBuffer.Playback(state.EntityManager);
+			commandBuffer.Playback(EntityManager);
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace Omniverse
 					continue;
 				}
 
-				if (entityManager.World.IsServer())
+				if (entityManager.WorldUnmanaged.IsServer())
 				{
 					//TODO DEAL DAMAGE
 					if (entityManager.HasComponent<Invulnerable>(other))
@@ -67,7 +67,7 @@ namespace Omniverse
 					state.EntityManager.DestroyEntity(missile);
 				}
 
-				if (entityManager.World.IsClient())
+				if (entityManager.WorldUnmanaged.IsClient())
 				{
 					var onDestroyTrigger = entityManager.GetComponentObject<OnDestroyTrigger>(missile);
 

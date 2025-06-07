@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using Omniverse.Abilities;
-using Unity.Burst;
 using Unity.Entities;
 using Unity.NetCode;
 
 namespace Omniverse
 {
-	[BurstCompile]
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial struct AbilityCastingSystem : ISystem
 	{
-		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
 			var networkTime = SystemAPI.GetSingleton<NetworkTime>();
