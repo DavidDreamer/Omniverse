@@ -2,7 +2,6 @@ using Dreambox.Rendering.Core;
 using Omniverse.Rendering;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -10,7 +9,7 @@ using UnityEngine.Rendering;
 
 namespace Omniverse.Mapping
 {
-	public class MapRenderer : RenderFeature
+	public class MinimapRenderer : RenderFeature
 	{
 		private static class ShaderVariables
 		{
@@ -78,15 +77,20 @@ namespace Omniverse.Mapping
 
 		private void OnBeginContextRendering(ScriptableRenderContext context, System.Collections.Generic.List<Camera> arg2)
 		{
-			using (var scope = new CommandBufferContextScope(context, "TODO"))
+			using var scope = new CommandBufferContextScope(context, "Minimap");
+
+			CommandBuffer commandBuffer = scope.CommandBuffer;
+
+			commandBuffer.SetViewProjectionMatrices(Camera.WorldToCameraMatrix, Camera.ProjectionMatrix);
+
+			commandBuffer.SetRenderTarget(RenderTexture);
+			commandBuffer.ClearRenderTarget(true, true, Color.clear);
+
+			DrawUnits();
+			DrawFrustrum();
+
+			void DrawUnits()
 			{
-				CommandBuffer commandBuffer = scope.CommandBuffer;
-				
-				commandBuffer.SetViewProjectionMatrices(Camera.WorldToCameraMatrix, Camera.ProjectionMatrix);
-
-				commandBuffer.SetRenderTarget(RenderTexture);
-				commandBuffer.ClearRenderTarget(true, true, Color.clear);
-
 				var query = new EntityQueryBuilder(Allocator.Temp).WithAspect<Unit>();
 				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
@@ -95,7 +99,10 @@ namespace Omniverse.Mapping
 					var localTransform = EntityManager.GetComponentData<LocalTransform>(entity);
 					commandBuffer.DrawMesh(mesh, localTransform.ToMatrix(), material, 0, 0);
 				}
+			}
 
+			void DrawFrustrum()
+			{
 				var camera = UnityEngine.Camera.main;
 				var plane = new Plane(Vector3.up, 0);
 
@@ -103,11 +110,6 @@ namespace Omniverse.Mapping
 				var point2 = Point(new Vector3(0, 1, 0));
 				var point3 = Point(new Vector3(1, 1, 0));
 				var point4 = Point(new Vector3(1, 0, 0));
-
-				//Debug.DrawLine(point1, point2, Color.red);
-				//Debug.DrawLine(point2, point3, Color.red);
-				//Debug.DrawLine(point3, point4, Color.red);
-				//Debug.DrawLine(point4, point1, Color.red);
 
 				Shader.SetGlobalVector("Point1", point1);
 				Shader.SetGlobalVector("Point2", point2);

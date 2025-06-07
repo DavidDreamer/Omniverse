@@ -15,7 +15,7 @@ namespace Omniverse.UI
 		{
 			base.Initialize(entityManager);
 
-			var mapRenderer = FindFirstObjectByType<MapRenderer>(FindObjectsInactive.Include);
+			var mapRenderer = FindFirstObjectByType<MinimapRenderer>(FindObjectsInactive.Include);
 			Image.texture = mapRenderer.RenderTexture;
 
 			var fogOfWarRenderer = FindFirstObjectByType<FogOfWarRenderer>(FindObjectsInactive.Include);

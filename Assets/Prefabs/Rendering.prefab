@@ -514,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6930934088407015050, guid: 067693e730141934183f96269b2ed95f, type: 3}
       propertyPath: m_Name
-      value: MapRenderer
+      value: MinimapRenderer
       objectReference: {fileID: 0}
     - target: {fileID: 6930934088407015050, guid: 067693e730141934183f96269b2ed95f, type: 3}
       propertyPath: m_IsActive
