@@ -3,7 +3,7 @@ Shader "Omniverse/Minimap/Unit"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Color ("Color", Color) = (1,1,1,1)
+        Tint ("Color", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -36,7 +36,7 @@ Shader "Omniverse/Minimap/Unit"
             float4 _MainTex_ST;
 
             UNITY_INSTANCING_BUFFER_START(PerInstanceProperties)
-            UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_DEFINE_INSTANCED_PROP(float4, Tint)
             UNITY_INSTANCING_BUFFER_END(PerInstanceProperties)
 
             v2f vert (appdata v)
@@ -57,9 +57,9 @@ Shader "Omniverse/Minimap/Unit"
 
                 float col = tex2D(_MainTex, i.uv);
      
-                float4 color = UNITY_ACCESS_INSTANCED_PROP(PerInstanceProperties, _Color);
+                float4 tint = UNITY_ACCESS_INSTANCED_PROP(PerInstanceProperties, Tint);
 
-                return col * color;
+                return col * tint;
             }
             ENDCG
         }

@@ -38,9 +38,7 @@ namespace Omniverse.Mapping
 			}
 		}
 
-		public Mesh mesh;
-
-		public Material material;
+		public DrawMeshParams DrawMeshParams;
 
 		public Material FrustrumMaterial;
 
@@ -49,6 +47,8 @@ namespace Omniverse.Mapping
 		private ConstantComputeBuffer<MapShaderProperties> PropertiesBuffer { get; set; }
 
 		private VirtualCamera Camera { get; set; }
+
+		private MinimapUnitDrawer MinimapUnitDrawer { get; set; }
 
 		public void OnEnable()
 		{
@@ -74,9 +74,9 @@ namespace Omniverse.Mapping
 			PropertiesBuffer.SetData(mapShaderProperties);
 
 			Camera = new VirtualCamera(gameOptions.MapSize.x / 2);
-		}
 
-		private Matrix4x4[] Matrices { get; } = new Matrix4x4[64];
+			MinimapUnitDrawer = new(DrawMeshParams, 64);
+		}
 
 		private void OnBeginContextRendering(ScriptableRenderContext context, System.Collections.Generic.List<Camera> arg2)
 		{
@@ -94,34 +94,30 @@ namespace Omniverse.Mapping
 
 			void DrawUnits()
 			{
+				var player = EntityManager.GetSingleton<Player>();
 				var query = new EntityQueryBuilder(Allocator.Temp).WithAspect<Unit>();
 				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
-				int count = 0;
-				for (int i = 0; i < entities.Length; i++)
+				int drawnCount = 0;
+
+				while (drawnCount < entities.Length)
 				{
-					Entity entity = entities[i];
-					var localTransform = EntityManager.GetComponentData<LocalTransform>(entity);
-					float4x4 matrix = localTransform.ToMatrix();
+					int currentBatchSize = math.min(entities.Length - drawnCount, MinimapUnitDrawer.BatchSize);
 
-					Matrices[count] = matrix;
-
-					count++;
-					if (count == Matrices.Length)
+					for (int i = 0; i < currentBatchSize; i++)
 					{
-						DrawBatch();
-						count = 0;
+						Entity entity = entities[i];
+
+						var localTransform = EntityManager.GetComponentData<LocalTransform>(entity);
+						float4x4 matrix = localTransform.ToMatrix();
+						var faction = EntityManager.GetComponentData<Faction>(entity);
+						Color tint = player.FactionID == faction.ID ? Color.green : Color.red;
+						MinimapUnitDrawer.AddInstance(matrix, tint);
 					}
-				}
 
-				if (count > 0)
-				{
-					DrawBatch();
-				}
+					MinimapUnitDrawer.DrawBatch(commandBuffer);
 
-				void DrawBatch()
-				{
-					commandBuffer.DrawMeshInstanced(mesh, 0, material, 0, Matrices, count);
+					drawnCount += currentBatchSize;
 				}
 			}
 

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Minimap.Unit
+  m_Name: MinimapUnit
   m_Shader: {fileID: 4800000, guid: 3e2506fd4c05876439a209c6f0da4198, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

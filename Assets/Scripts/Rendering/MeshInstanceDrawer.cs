@@ -32,6 +32,22 @@ namespace Omniverse.Rendering
 			Count++;
 		}
 
+		public void DrawBatch(CommandBuffer commandBuffer)
+		{
+			SetupBatch(MaterialPropertyBlock);
+
+			commandBuffer.DrawMeshInstanced(
+				DrawMeshParams.Mesh,
+				DrawMeshParams.SubmeshIndex,
+				DrawMeshParams.Material,
+				DrawMeshParams.ShaderPass,
+				Matrices,
+				Count,
+				MaterialPropertyBlock);
+
+			Count = 0;
+		}
+
 		public void DrawBatch(RasterCommandBuffer commandBuffer)
 		{
 			SetupBatch(MaterialPropertyBlock);
