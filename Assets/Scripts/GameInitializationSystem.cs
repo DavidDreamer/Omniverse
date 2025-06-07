@@ -16,6 +16,14 @@ public partial struct GameInitializationSystem : ISystem
 
 		state.EntityManager.CreateSingleton(gameOptions);
 
+		MapSettings mapSettings = new()
+		{
+			Size = gameOptions.MapSize,
+			FogOfWarMode = gameOptions.FogOfWarMode
+		};
+
+		state.EntityManager.CreateSingleton(mapSettings);
+
 		factionsData = new FactionsData()
 		{
 			Resources = new NativeHashMap<int, NativeArray<int>>(gameOptions.Factions.Length, Allocator.Persistent)

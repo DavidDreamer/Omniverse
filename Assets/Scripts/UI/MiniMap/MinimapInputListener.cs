@@ -71,16 +71,15 @@ namespace Omniverse.UI
 
 		private Vector3 TransformPosition(PointerEventData data)
 		{
-			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
-			Vector2 mapSize = new(gameOptions.MapSize.x / 2f, gameOptions.MapSize.y / 2f);
+			var mapSettings = EntityManager.GetSingleton<MapSettings>();
 
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, data.position, data.pressEventCamera, out Vector2 localPoint);
 
 			float x = Mathf.InverseLerp(RectTransform.rect.xMin, RectTransform.rect.xMax, localPoint.x);
 			float y = Mathf.InverseLerp(RectTransform.rect.yMin, RectTransform.rect.yMax, localPoint.y);
 
-			float xWorldSpace = (x - 0.5f) * gameOptions.MapSize.x;
-			float yWorldSpace = (y - 0.5f) * gameOptions.MapSize.y;
+			float xWorldSpace = (x - 0.5f) * mapSettings.Size.x;
+			float yWorldSpace = (y - 0.5f) * mapSettings.Size.y;
 
 			return new Vector3(xWorldSpace, 0, yWorldSpace);
 		}

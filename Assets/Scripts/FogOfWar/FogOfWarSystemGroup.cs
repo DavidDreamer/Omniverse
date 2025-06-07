@@ -15,21 +15,21 @@ namespace Omniverse
 		{
 			base.OnStartRunning();
 
-			var gameOptions = SystemAPI.ManagedAPI.GetSingleton<GameOptions>();
+			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
 
-			if (gameOptions.FogOfWarMode is FogOfWarMode.Revealed)
+			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
 			{
 				return;
 			}
 
-			int2 size = gameOptions.MapSize / FogOfWar.Multiplier;
+			int2 size = mapSettings.Size / FogOfWar.Multiplier;
 
 			var entity = EntityManager.CreateEntity();
 			EntityManager.SetName(entity, "Fog Of War");
 			EntityManager.AddComponent<FogOfWar>(entity);
 			EntityManager.SetComponentData(entity, new FogOfWar()
 			{
-				Explored = gameOptions.FogOfWarMode is FogOfWarMode.Explored,
+				Explored = mapSettings.FogOfWarMode is FogOfWarMode.Explored,
 				Size = size,
 				Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
 				Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
@@ -87,7 +87,7 @@ namespace Omniverse
 			//TODO: Size-dependent algorithm
 			public void OnUpdate(ref SystemState state)
 			{
-				int2 mapSize = SystemAPI.ManagedAPI.GetSingleton<GameOptions>().MapSize;
+				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
 
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
@@ -111,7 +111,7 @@ namespace Omniverse
 			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
-				int2 mapSize = SystemAPI.ManagedAPI.GetSingleton<GameOptions>().MapSize;
+				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
 
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
@@ -197,7 +197,7 @@ namespace Omniverse
 			public void OnUpdate(ref SystemState state)
 			{
 				var player = SystemAPI.GetSingleton<Player>();
-				int2 mapSize = SystemAPI.ManagedAPI.GetSingleton<GameOptions>().MapSize;
+				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
 
 				foreach (var fogOfWar in SystemAPI.Query<FogOfWar>())
 				{

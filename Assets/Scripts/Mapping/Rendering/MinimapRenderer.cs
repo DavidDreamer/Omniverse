@@ -54,11 +54,11 @@ namespace Omniverse.Mapping
 		{
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;
 
-			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
+			var mapSettings = EntityManager.GetSingleton<MapSettings>();
 
 			RenderTexture = new RenderTexture(
-				gameOptions.MapSize.x,
-				gameOptions.MapSize.y,
+				mapSettings.Size.x,
+				mapSettings.Size.y,
 				GraphicsFormat.R16G16B16A16_SFloat,
 				GraphicsFormat.D16_UNorm)
 			{
@@ -67,13 +67,13 @@ namespace Omniverse.Mapping
 
 			var mapShaderProperties = new MapShaderProperties
 			{
-				MapSize = new Vector4(gameOptions.MapSize.x, gameOptions.MapSize.y, 0, 0)
+				MapSize = new Vector4(mapSettings.Size.x, mapSettings.Size.y, 0, 0)
 			};
 
 			PropertiesBuffer = new ConstantComputeBuffer<MapShaderProperties>(ShaderVariables.MapProperties);
 			PropertiesBuffer.SetData(mapShaderProperties);
 
-			Camera = new VirtualCamera(gameOptions.MapSize.x / 2);
+			Camera = new VirtualCamera(mapSettings.Size.x / 2);
 
 			MinimapUnitDrawer = new(DrawMeshParams, 64);
 		}
