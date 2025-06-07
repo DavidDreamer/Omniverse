@@ -61,7 +61,7 @@ namespace Omniverse.UI
 				}
 				case PointerEventData.InputButton.Right:
 				{
-					Vector3 position = TransformPosition(eventData.position);
+					Vector3 position = TransformPosition(eventData);
 					//TODO ECS
 					//UnitController.ProcessNavigationPoint(position);
 					break;
@@ -69,18 +69,25 @@ namespace Omniverse.UI
 			}
 		}
 
-		private Vector3 TransformPosition(Vector2 position)
+		private Vector3 TransformPosition(PointerEventData data)
 		{
 			var gameOptions = EntityManager.GetSingletonManaged<GameOptions>();
-			Vector2 mapSize = new(gameOptions.MapSize.x, gameOptions.MapSize.y);
-			Vector2 sizeMultiplier = mapSize / (RectTransform.rect.size * Canvas.scaleFactor);
-			Vector2 worldSpacePosition = position * sizeMultiplier;
-			return new Vector3(worldSpacePosition.x, 0, worldSpacePosition.y);
+			Vector2 mapSize = new(gameOptions.MapSize.x / 2f, gameOptions.MapSize.y / 2f);
+
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, data.position, data.pressEventCamera, out Vector2 localPoint);
+
+			float x = Mathf.InverseLerp(RectTransform.rect.xMin, RectTransform.rect.xMax, localPoint.x);
+			float y = Mathf.InverseLerp(RectTransform.rect.yMin, RectTransform.rect.yMax, localPoint.y);
+
+			float xWorldSpace = (x - 0.5f) * gameOptions.MapSize.x;
+			float yWorldSpace = (y - 0.5f) * gameOptions.MapSize.y;
+
+			return new Vector3(xWorldSpace, 0, yWorldSpace);
 		}
 
 		private void MoveCameraToPointerPosition(PointerEventData eventData)
 		{
-			Vector3 viewPoint = TransformPosition(eventData.position);
+			Vector3 viewPoint = TransformPosition(eventData);
 			FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
 		}
 	}
