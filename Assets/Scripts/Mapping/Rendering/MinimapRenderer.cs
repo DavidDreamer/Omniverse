@@ -2,6 +2,7 @@ using Dreambox.Rendering.Core;
 using Omniverse.Rendering;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -75,6 +76,8 @@ namespace Omniverse.Mapping
 			Camera = new VirtualCamera(gameOptions.MapSize.x / 2);
 		}
 
+		private Matrix4x4[] Matrices { get; } = new Matrix4x4[64];
+
 		private void OnBeginContextRendering(ScriptableRenderContext context, System.Collections.Generic.List<Camera> arg2)
 		{
 			using var scope = new CommandBufferContextScope(context, "Minimap");
@@ -94,10 +97,27 @@ namespace Omniverse.Mapping
 				var query = new EntityQueryBuilder(Allocator.Temp).WithAspect<Unit>();
 				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
-				foreach (var entity in entities)
+				int count = 0;
+
+				for (int i = 0; i < entities.Length; i++)
 				{
+					Entity entity = entities[i];
 					var localTransform = EntityManager.GetComponentData<LocalTransform>(entity);
-					commandBuffer.DrawMesh(mesh, localTransform.ToMatrix(), material, 0, 0);
+					float4x4 matrix = localTransform.ToMatrix();
+
+					Matrices[count] = matrix;
+
+					count++;
+					if (count == Matrices.Length)
+					{
+						commandBuffer.DrawMeshInstanced(mesh, 0, material, 0, Matrices, count);
+						count = 0;
+					}
+				}
+
+				if (count > 0)
+				{
+					commandBuffer.DrawMeshInstanced(mesh, 0, material, 0, Matrices, count);
 				}
 			}
 
