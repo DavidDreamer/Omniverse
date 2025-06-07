@@ -84,7 +84,7 @@ namespace Omniverse.Rendering
 				return;
 			}
 
-			for (int i = 0; i < entities.Length; i++)
+			for (int i = 0; i < count; i++)
 			{
 				Entity entity = entities[i];
 
