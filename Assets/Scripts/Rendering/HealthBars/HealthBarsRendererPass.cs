@@ -9,17 +9,9 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
+
 	public class HealthBarsRendererPass : ScriptableRenderPass, IDisposable
 	{
-		private static class ShaderVariables
-		{
-			public static int BaseColor { get; } = Shader.PropertyToID(nameof(BaseColor));
-
-			public static int SecondColor { get; } = Shader.PropertyToID(nameof(SecondColor));
-
-			public static int Amount { get; } = Shader.PropertyToID(nameof(Amount));
-		}
-
 		private class PassData
 		{
 		}
@@ -28,29 +20,14 @@ namespace Omniverse.Rendering
 
 		private HealthBarsRendererConfig Config { get; }
 
-		private const int InstanceBufferSize = 64;
-
-		private Matrix4x4[] Matrices { get; }
-
-		private Vector4[] BaseColors { get; }
-
-		private Vector4[] SecondColors { get; }
-
-		private float[] Amounts { get; }
-
-		private MaterialPropertyBlock MaterialPropertyBlock { get; }
+		private HealthBarDrawer HealthBarDrawer { get; }
 
 		public HealthBarsRendererPass(HealthBarsRenderer renderer)
 		{
 			Renderer = renderer;
 			Config = renderer.Config;
 
-			Matrices = new Matrix4x4[InstanceBufferSize];
-			BaseColors = new Vector4[InstanceBufferSize];
-			SecondColors = new Vector4[InstanceBufferSize];
-			Amounts = new float[InstanceBufferSize];
-
-			MaterialPropertyBlock = new MaterialPropertyBlock();
+			HealthBarDrawer = new HealthBarDrawer(Config.DrawMeshParams, 64);
 		}
 
 		public void Dispose()
@@ -77,55 +54,33 @@ namespace Omniverse.Rendering
 			var query = entityManager.CreateEntityQuery(typeof(Health));
 			var entities = query.ToEntityArray(Allocator.Temp);
 
-			MaterialPropertyBlock.Clear();
+			int drawnCount = 0;
 
-			int count = 0;
-
-			for (int i = 0; i < entities.Length; i++)
+			while (drawnCount < entities.Length)
 			{
-				Entity entity = entities[i];
+				int currentBatchSize = Math.Min(entities.Length - drawnCount, HealthBarDrawer.BatchSize);
 
-				var health = entityManager.GetComponentData<Health>(entity);
-				var faction = entityManager.GetComponentData<Faction>(entity);
-				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
-
-				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);
-				Matrices[count] = matrix;
-
-				HealthBarColors colors = player.FactionID == faction.ID ? Config.AllyColors : Config.EnemyColors;
-				BaseColors[count] = colors.BaseColor;
-				SecondColors[count] = colors.SecondColor;
-
-				Amounts[count] = health.Current / health.Maximum;
-
-				count++;
-				if (count == InstanceBufferSize)
+				for (int i = drawnCount; i < currentBatchSize; i++)
 				{
-					DrawBatch();
-					count = 0;
+					Entity entity = entities[i];
+
+					var health = entityManager.GetComponentData<Health>(entity);
+					var faction = entityManager.GetComponentData<Faction>(entity);
+					var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
+
+					var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);
+
+					HealthBarColors colors = player.FactionID == faction.ID ? Config.AllyColors : Config.EnemyColors;
+					Color baseColor = colors.BaseColor;
+					Color secondColor = colors.SecondColor;
+					float amount = health.Current / health.Maximum;
+
+					HealthBarDrawer.AddInstance(matrix, baseColor, secondColor, amount);
 				}
-			}
 
-			if (count > 0)
-			{
-				DrawBatch();
-			}
+				HealthBarDrawer.DrawBatch(commandBuffer);
 
-			void DrawBatch()
-			{
-				MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);
-				MaterialPropertyBlock.SetVectorArray(ShaderVariables.SecondColor, SecondColors);
-				MaterialPropertyBlock.SetFloatArray(ShaderVariables.Amount, Amounts);
-
-				var drawMeshParams = Config.DrawMeshParams;
-				commandBuffer.DrawMeshInstanced(
-					drawMeshParams.Mesh,
-					drawMeshParams.SubmeshIndex,
-					drawMeshParams.Material,
-					drawMeshParams.ShaderPass,
-					Matrices,
-					count,
-					MaterialPropertyBlock);
+				drawnCount += currentBatchSize;
 			}
 		}
 	}
