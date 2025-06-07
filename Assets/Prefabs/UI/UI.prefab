@@ -642,7 +642,6 @@ MonoBehaviour:
   <Widgets>k__BackingField:
   - {fileID: 2169862534108161091}
   - {fileID: 1030447294228636867}
-  - {fileID: 7786544594903073507}
   - {fileID: 2000654304879999302}
   - {fileID: 2962672751680115746}
   - {fileID: 3739816671902902889}
@@ -2516,16 +2515,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f96bbad4a1b840aca5819f8f01cbb1e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7786544594903073507 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 451747243833618732, guid: 332627fc966330b478115e272ae5ae48, type: 3}
-  m_PrefabInstance: {fileID: 7659409879791662031}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fefa2fa7eba441fa69194b8d6aeae64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -11,8 +11,6 @@ namespace Omniverse.UI
 		public RawImage Image;
 		public RawImage FogOfWar;
 
-		public MiniMapCameraBounds CameraBounds;
-
 		public override void Initialize(EntityManager entityManager)
 		{
 			base.Initialize(entityManager);
