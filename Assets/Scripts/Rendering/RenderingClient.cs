@@ -8,6 +8,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		public RenderFeature[] Features { get; set; }
 
+		[field: SerializeField]
+		public SelectionBoxRendererConfig SelectionBoxRendererConfig { get; set; }
+
 		public void Initialize(EntityManager entityManager)
 		{
 			foreach (RenderFeature feature in Features)
