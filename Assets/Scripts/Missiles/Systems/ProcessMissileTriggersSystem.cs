@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	[BurstCompile]
 	[UpdateInGroup(typeof(PhysicsSystemGroup))]
 	[UpdateAfter(typeof(PhysicsSimulationGroup))]
 	public partial struct ProcessMissileTriggersSystem : ISystem
@@ -18,7 +17,6 @@ namespace Omniverse
 			state.RequireForUpdate<SimulationSingleton>();
 		}
 
-		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
 			EntityManager entityManager = state.EntityManager;

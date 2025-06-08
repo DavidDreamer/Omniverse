@@ -66,7 +66,7 @@ namespace Omniverse.Rendering
 
 		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
 		{
-			var selection = EntityManager.GetSingleton<Selection>();
+			var selection = SystemAPI.GetSingleton<Selection>();
 
 			if (!selection.InProcess)
 			{
