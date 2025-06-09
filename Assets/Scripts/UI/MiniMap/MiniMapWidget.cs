@@ -15,8 +15,8 @@ namespace Omniverse.UI
 		{
 			base.Initialize(entityManager);
 
-			var mapRenderer = FindFirstObjectByType<MinimapRenderer>(FindObjectsInactive.Include);
-			Image.texture = mapRenderer.RenderTexture;
+			var minimapRenderSystem = EntityManager.World.GetExistingSystemManaged<MinimapRenderSystem>();
+			Image.texture = minimapRenderSystem.RenderTexture;
 
 			var fogOfWarRenderer = FindFirstObjectByType<FogOfWarRenderer>(FindObjectsInactive.Include);
 			FogOfWar.texture = fogOfWarRenderer.BlurRT2;

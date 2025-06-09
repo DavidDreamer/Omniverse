@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 
 [BurstCompile]
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 public partial struct GameInitializationSystem : ISystem
 {
 	private FactionsData factionsData;

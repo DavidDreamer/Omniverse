@@ -12,7 +12,6 @@ namespace Omniverse.Rendering
 			if (SystemAPI.HasSingleton<Player>())
 			{
 				var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
-				rendering.Initialize(state.EntityManager);
 				rendering.gameObject.SetActive(true);
 				state.Enabled = false;
 			}

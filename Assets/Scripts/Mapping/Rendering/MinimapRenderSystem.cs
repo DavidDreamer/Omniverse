@@ -10,7 +10,8 @@ using UnityEngine.Rendering;
 
 namespace Omniverse.Mapping
 {
-	public class MinimapRenderer : RenderFeature
+	[UpdateInGroup(typeof(PresentationSystemGroup))]
+	public partial class MinimapRenderSystem : SystemBase
 	{
 		private static class ShaderVariables
 		{
@@ -38,9 +39,7 @@ namespace Omniverse.Mapping
 			}
 		}
 
-		public DrawMeshParams DrawMeshParams;
-
-		public Material FrustrumMaterial;
+		private MinimapRenderConfig Config;
 
 		public RenderTexture RenderTexture { get; private set; }
 
@@ -50,11 +49,11 @@ namespace Omniverse.Mapping
 
 		private MinimapUnitDrawer MinimapUnitDrawer { get; set; }
 
-		public void OnEnable()
+		protected override void OnStartRunning()
 		{
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;
 
-			var mapSettings = EntityManager.GetSingleton<MapSettings>();
+			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
 
 			RenderTexture = new RenderTexture(
 				mapSettings.Size.x,
@@ -64,6 +63,9 @@ namespace Omniverse.Mapping
 			{
 				name = "Minimap"
 			};
+
+			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
+			Config = rendering.MinimapRenderConfig;
 
 			var mapShaderProperties = new MapShaderProperties
 			{
@@ -75,7 +77,19 @@ namespace Omniverse.Mapping
 
 			Camera = new VirtualCamera(mapSettings.Size.x / 2);
 
-			MinimapUnitDrawer = new(DrawMeshParams, 64);
+			MinimapUnitDrawer = new(Config.DrawMeshParams, 64);
+		}
+
+		protected override void OnStopRunning()
+		{
+			RenderPipelineManager.beginContextRendering -= OnBeginContextRendering;
+
+			RenderTexture.Release();
+			PropertiesBuffer.Dispose();
+		}
+
+		protected override void OnUpdate()
+		{
 		}
 
 		private void OnBeginContextRendering(ScriptableRenderContext context, System.Collections.Generic.List<Camera> arg2)
@@ -94,7 +108,13 @@ namespace Omniverse.Mapping
 
 			void DrawUnits()
 			{
-				var player = EntityManager.GetSingleton<Player>();
+				//TODO remove check
+				if (!SystemAPI.HasSingleton<Player>())
+				{
+					return;
+				}
+
+				var player = SystemAPI.GetSingleton<Player>();
 				var query = new EntityQueryBuilder(Allocator.Temp).WithAspect<Unit>();
 				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
@@ -136,7 +156,7 @@ namespace Omniverse.Mapping
 				Shader.SetGlobalVector("Point3", point3);
 				Shader.SetGlobalVector("Point4", point4);
 
-				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), FrustrumMaterial, 0);
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Config.FrustrumMaterial, 0);
 
 				Vector2 Point(Vector3 viewportPoint)
 				{
@@ -148,15 +168,6 @@ namespace Omniverse.Mapping
 					return orhoPoint;
 				}
 			}
-		}
-
-		public void OnDisable()
-		{
-			RenderPipelineManager.beginContextRendering -= OnBeginContextRendering;
-
-			Destroy(RenderTexture);
-
-			PropertiesBuffer.Dispose();
 		}
 	}
 }
