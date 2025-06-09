@@ -25,8 +25,6 @@ namespace Omniverse.UI
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
-			var selection = ECSUtils.GetSingleton<Selection>();
-
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:

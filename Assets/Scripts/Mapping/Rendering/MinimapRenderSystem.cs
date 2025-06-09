@@ -1,9 +1,7 @@
 using Dreambox.Rendering.Core;
 using Omniverse.Rendering;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -64,6 +62,7 @@ namespace Omniverse.Mapping
 				name = "Minimap"
 			};
 
+			//TODO
 			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
 			Config = rendering.MinimapRenderConfig;
 
@@ -115,29 +114,26 @@ namespace Omniverse.Mapping
 				}
 
 				var player = SystemAPI.GetSingleton<Player>();
-				var query = new EntityQueryBuilder(Allocator.Temp).WithAspect<Unit>();
-				var entities = EntityManager.CreateEntityQuery(query).ToEntityArray(Allocator.Temp);
 
 				int drawnCount = 0;
 
-				while (drawnCount < entities.Length)
+				foreach ((var unit, var entity) in SystemAPI.Query<Unit>().WithEntityAccess())
 				{
-					int currentBatchSize = math.min(entities.Length - drawnCount, MinimapUnitDrawer.BatchSize);
+					float4x4 matrix = unit.DynamicEntity.LocalTransform.ValueRO.ToMatrix();
+					Color tint = player.FactionID == unit.Faction.ValueRO.ID ? Color.green : Color.red;
+					MinimapUnitDrawer.AddInstance(matrix, tint);
+					drawnCount++;
 
-					for (int i = 0; i < currentBatchSize; i++)
+					if (drawnCount == MinimapUnitDrawer.BatchSize)
 					{
-						Entity entity = entities[i];
-
-						var localTransform = EntityManager.GetComponentData<LocalTransform>(entity);
-						float4x4 matrix = localTransform.ToMatrix();
-						var faction = EntityManager.GetComponentData<Faction>(entity);
-						Color tint = player.FactionID == faction.ID ? Color.green : Color.red;
-						MinimapUnitDrawer.AddInstance(matrix, tint);
+						MinimapUnitDrawer.DrawBatch(commandBuffer);
+						drawnCount = 0;
 					}
+				}
 
+				if (drawnCount > 0)
+				{
 					MinimapUnitDrawer.DrawBatch(commandBuffer);
-
-					drawnCount += currentBatchSize;
 				}
 			}
 

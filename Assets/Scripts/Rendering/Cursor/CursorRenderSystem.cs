@@ -5,12 +5,20 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	public class CursorRendererController : MonoBehaviour
+	[UpdateInGroup(typeof(PresentationSystemGroup))]
+	public partial class CursorRenderSystem : SystemBase
 	{
-		[field: SerializeField]
 		private CursorRendererConfig Config { get; set; }
 
-		public void LateUpdate()
+		protected override void OnCreate()
+		{
+			RequireForUpdate<Player>();
+
+			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
+			Config = rendering.CursorRendererConfig;
+		}
+
+		protected override void OnUpdate()
 		{
 			CursorParams cursorTexture = GetCursorParams();
 
@@ -18,20 +26,19 @@ namespace Omniverse.Rendering
 
 			CursorParams GetCursorParams()
 			{
-				var player = ECSUtils.GetSingleton<Player>();
-				var pointer = ECSUtils.GetSingleton<Pointer>();
-				var selection = ECSUtils.GetSingleton<Selection>();
+				var player = SystemAPI.GetSingleton<Player>();
+				var pointer = SystemAPI.GetSingleton<Pointer>();
+				var selection = SystemAPI.GetSingleton<Selection>();
 
-				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
 				Entity entity = pointer.Entity;
 
 				if (selection.AbilityInProcess)
 				{
-					var abiltiyTarget = entityManager.GetComponentObject<AbilityTarget>(selection.Ability);
+					var abiltiyTarget = EntityManager.GetComponentObject<AbilityTarget>(selection.Ability);
 					switch (abiltiyTarget.Target)
 					{
 						case UnitTarget:
-							return entityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
+							return EntityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
 						default:
 							return Config.TargetDefault;
 					}
@@ -42,9 +49,9 @@ namespace Omniverse.Rendering
 					{
 						case PointerTargetType.Entity:
 						{
-							if (entityManager.HasComponent<Faction>(entity))
+							if (EntityManager.HasComponent<Faction>(entity))
 							{
-								var faction = entityManager.GetComponentData<Faction>(entity);
+								var faction = EntityManager.GetComponentData<Faction>(entity);
 								if (faction.ID == player.FactionID)
 								{
 									return Config.HoverAlly;

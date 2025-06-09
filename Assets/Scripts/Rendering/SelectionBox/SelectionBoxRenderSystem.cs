@@ -17,6 +17,7 @@ namespace Omniverse.Rendering
 		{
 			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
 
+			//TODO
 			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
 			Config = rendering.SelectionBoxRendererConfig;
 			Pass = new SelectionBoxRendererPass(Config.Material);

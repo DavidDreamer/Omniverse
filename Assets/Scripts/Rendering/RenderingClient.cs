@@ -10,5 +10,8 @@ namespace Omniverse.Rendering
 
 		[field: SerializeField]
 		public MinimapRenderConfig MinimapRenderConfig { get; set; }
+
+		[field: SerializeField]
+		public CursorRendererConfig CursorRendererConfig { get; set; }
 	}
 }
