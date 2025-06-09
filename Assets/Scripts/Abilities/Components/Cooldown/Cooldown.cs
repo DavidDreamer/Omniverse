@@ -4,7 +4,6 @@ using Unity.NetCode;
 
 namespace Omniverse
 {
-
 	[BurstCompile]
 	[GhostEnabledBit]
 	public struct Cooldown : IComponentData, IEnableableComponent

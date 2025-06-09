@@ -4,7 +4,6 @@ using Unity.NetCode;
 
 namespace Omniverse
 {
-
 	[BurstCompile]
 	public struct Health : IComponentData
 	{
