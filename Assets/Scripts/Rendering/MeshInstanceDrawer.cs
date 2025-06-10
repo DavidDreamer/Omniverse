@@ -6,7 +6,7 @@ namespace Omniverse.Rendering
 {
 	public class MeshInstanceDrawer
 	{
-		private DrawMeshParams DrawMeshParams { get; }
+		private MeshDrawSettings Settings { get; }
 
 		public int BatchSize { get; }
 
@@ -16,9 +16,9 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public MeshInstanceDrawer(DrawMeshParams drawMeshParams, int batchSize)
+		public MeshInstanceDrawer(MeshDrawSettings settings, int batchSize)
 		{
-			DrawMeshParams = drawMeshParams;
+			Settings = settings;
 			BatchSize = batchSize;
 
 			Matrices = new Matrix4x4[BatchSize];
@@ -37,10 +37,10 @@ namespace Omniverse.Rendering
 			SetupBatch(MaterialPropertyBlock);
 
 			commandBuffer.DrawMeshInstanced(
-				DrawMeshParams.Mesh,
-				DrawMeshParams.SubmeshIndex,
-				DrawMeshParams.Material,
-				DrawMeshParams.ShaderPass,
+				Settings.Mesh,
+				Settings.SubmeshIndex,
+				Settings.Material,
+				Settings.ShaderPass,
 				Matrices,
 				Count,
 				MaterialPropertyBlock);
@@ -53,10 +53,10 @@ namespace Omniverse.Rendering
 			SetupBatch(MaterialPropertyBlock);
 
 			commandBuffer.DrawMeshInstanced(
-				DrawMeshParams.Mesh,
-				DrawMeshParams.SubmeshIndex,
-				DrawMeshParams.Material,
-				DrawMeshParams.ShaderPass,
+				Settings.Mesh,
+				Settings.SubmeshIndex,
+				Settings.Material,
+				Settings.ShaderPass,
 				Matrices,
 				Count,
 				MaterialPropertyBlock);

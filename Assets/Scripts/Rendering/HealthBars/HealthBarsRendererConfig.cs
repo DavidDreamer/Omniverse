@@ -8,7 +8,7 @@ namespace Omniverse.Rendering
 	public class HealthBarsRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public DrawMeshParams DrawMeshParams { get; set; }
+		public MeshDrawSettings DrawMeshParams { get; set; }
 
 		[field: SerializeField]
 		public Vector3 Offset { get; set; }

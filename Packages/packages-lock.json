@@ -29,7 +29,7 @@
         "com.unity.render-pipelines.core": "14.0.10",
         "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core"
       },
-      "hash": "54b2a511c498f583c7717f90a97a7cad31aecd00"
+      "hash": "f1a6a795fa8f38cf534f0010375f9d764cb45a45"
     },
     "com.david-dreamer.dreambox.rendering.universal": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Universal",

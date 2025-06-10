@@ -8,7 +8,7 @@ namespace Omniverse.Rendering
 	public class NavigationRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public DrawMeshParams DrawMeshParams { get; set; }
+		public MeshDrawSettings DrawMeshParams { get; set; }
 
 		[field: SerializeField]
 		public int Capacity { get; private set; }

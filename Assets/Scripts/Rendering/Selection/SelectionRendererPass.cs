@@ -79,7 +79,7 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
 
-			DrawMeshParams drawMeshParams = config.DrawMeshParams;
+			MeshDrawSettings drawMeshParams = config.DrawMeshParams;
 			commandBuffer.DrawMeshInstanced(
 				drawMeshParams.Mesh,
 				drawMeshParams.SubmeshIndex,

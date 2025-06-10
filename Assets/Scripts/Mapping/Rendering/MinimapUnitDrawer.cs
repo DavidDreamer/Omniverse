@@ -13,7 +13,7 @@ namespace Omniverse.Mapping
 
 		private Vector4[] Tints { get; }
 
-		public MinimapUnitDrawer(DrawMeshParams drawMeshParams, int batchSize) : base(drawMeshParams, batchSize)
+		public MinimapUnitDrawer(MeshDrawSettings settings, int batchSize) : base(settings, batchSize)
 		{
 			Tints = new Vector4[batchSize];
 		}

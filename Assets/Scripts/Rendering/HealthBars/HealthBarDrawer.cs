@@ -20,7 +20,7 @@ namespace Omniverse.Rendering
 
 		private float[] Amounts { get; }
 
-		public HealthBarDrawer(DrawMeshParams drawMeshParams, int batchSize) : base(drawMeshParams, batchSize)
+		public HealthBarDrawer(MeshDrawSettings settings, int batchSize) : base(settings, batchSize)
 		{
 			BaseColors = new Vector4[BatchSize];
 			SecondColors = new Vector4[BatchSize];

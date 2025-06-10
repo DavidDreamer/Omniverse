@@ -9,7 +9,7 @@ namespace Omniverse.Rendering
 	public class AbilityDirectionRendererData
 	{
 		[field: SerializeField]
-		public DrawMeshParams DrawMeshParams { get; private set; }
+		public MeshDrawSettings DrawMeshParams { get; private set; }
 
 		[field: SerializeField]
 		public Vector3 Scale { get; private set; }
@@ -19,7 +19,7 @@ namespace Omniverse.Rendering
 	public class AbilityRendererConfig : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public DrawMeshParams Range { get; private set; }
+		public MeshDrawSettings Range { get; private set; }
 
 		[field: SerializeField]
 		public AbilityDirectionRendererData Direction { get; private set; }

@@ -67,7 +67,7 @@ namespace Omniverse.Rendering
 				i++;
 			}
 
-			DrawMeshParams drawMeshParams = Config.DrawMeshParams;
+			MeshDrawSettings drawMeshParams = Config.DrawMeshParams;
 
 			commandBuffer.DrawMeshInstanced(
 				drawMeshParams.Mesh,
