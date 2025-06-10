@@ -6,6 +6,6 @@ namespace Omniverse.Rendering
 	{
 		public Matrix4x4 Matrix;
 
-		public float Time;
+		public double Time;
 	}
 }

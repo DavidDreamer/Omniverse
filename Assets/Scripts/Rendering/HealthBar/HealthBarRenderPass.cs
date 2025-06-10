@@ -9,29 +9,22 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-
-	public class HealthBarsRendererPass : ScriptableRenderPass, IDisposable
+	public class HealthBarRenderPass : ScriptableRenderPass
 	{
 		private class PassData
 		{
 		}
 
-		private HealthBarsRenderer Renderer { get; }
+		public Player Player { get; set; }
 
-		private HealthBarsRendererConfig Config { get; }
+		private HealthBarRenderSettings Settings { get; }
 
 		private HealthBarDrawer HealthBarDrawer { get; }
 
-		public HealthBarsRendererPass(HealthBarsRenderer renderer)
+		public HealthBarRenderPass(HealthBarRenderSettings settings)
 		{
-			Renderer = renderer;
-			Config = renderer.Config;
-
-			HealthBarDrawer = new HealthBarDrawer(Config.DrawMeshParams, 64);
-		}
-
-		public void Dispose()
-		{
+			Settings = settings;
+			HealthBarDrawer = new HealthBarDrawer(Settings.MeshDrawSettings, 64);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -47,8 +40,6 @@ namespace Omniverse.Rendering
 		private void Execute(RasterGraphContext context)
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
-
-			var player = ECSUtils.GetSingleton<Player>();
 
 			var entityManager = ECSUtils.ClientWorld.EntityManager;
 			var query = entityManager.CreateEntityQuery(typeof(Health));
@@ -68,9 +59,9 @@ namespace Omniverse.Rendering
 					var faction = entityManager.GetComponentData<Faction>(entity);
 					var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
 
-					var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Config.Offset);
+					var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Settings.Offset);
 
-					HealthBarColors colors = player.FactionID == faction.ID ? Config.AllyColors : Config.EnemyColors;
+					HealthBarColors colors = Player.FactionID == faction.ID ? Settings.AllyColors : Settings.EnemyColors;
 					Color baseColor = colors.BaseColor;
 					Color secondColor = colors.SecondColor;
 					float amount = health.Current / health.Maximum;

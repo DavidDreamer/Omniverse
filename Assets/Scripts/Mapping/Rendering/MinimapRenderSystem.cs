@@ -75,7 +75,7 @@ namespace Omniverse.Mapping
 
 			Camera = new VirtualCamera(mapSettings.Size.x / 2);
 
-			MinimapUnitDrawer = new(Settings.DrawMeshParams, 64);
+			MinimapUnitDrawer = new(Settings.MeshDrawSettings, 64);
 		}
 
 		protected override void OnStopRunning()

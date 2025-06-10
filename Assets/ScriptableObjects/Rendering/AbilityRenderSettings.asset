@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48cd2b2b3e6ea454bb43a1097c452253, type: 3}
-  m_Name: AbilityRenderer
+  m_Name: AbilityRenderSettings
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 450
   <CameraType>k__BackingField: 3
@@ -20,7 +20,7 @@ MonoBehaviour:
     <Material>k__BackingField: {fileID: 2100000, guid: 47df882da3c958f4b8153cb5359bf5d1, type: 2}
     <ShaderPass>k__BackingField: 3
   <Direction>k__BackingField:
-    <DrawMeshParams>k__BackingField:
+    <MeshDrawSettings>k__BackingField:
       <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
       <SubmeshIndex>k__BackingField: 0
       <Material>k__BackingField: {fileID: 2100000, guid: b2f47e85c077de945a5922fc72d91234, type: 2}

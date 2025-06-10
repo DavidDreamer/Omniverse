@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Selection")]
-	public class SelectionRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/Selection")]
+	public class SelectionRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public MeshDrawSettings DrawMeshParams { get; set; }
+		public MeshDrawSettings MeshDrawSettings { get; set; }
 
 		[field: SerializeField]
 		public Color MainSelectionColor { get; set; }

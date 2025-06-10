@@ -10,6 +10,6 @@ namespace Omniverse.Mapping
 		public Material FrustrumMaterial { get; private set; }
 
 		[field: SerializeField]
-		public MeshDrawSettings DrawMeshParams { get; private set; }
+		public MeshDrawSettings MeshDrawSettings { get; private set; }
 	}
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Navigation")]
-	public class NavigationRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/Navigation")]
+	public class NavigationRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public MeshDrawSettings DrawMeshParams { get; set; }
+		public MeshDrawSettings MeshDrawSettings { get; set; }
 
 		[field: SerializeField]
 		public int Capacity { get; private set; }

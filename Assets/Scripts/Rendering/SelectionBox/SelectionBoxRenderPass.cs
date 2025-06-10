@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionBoxRendererPass : ScriptableRenderPass
+	public class SelectionBoxRenderPass : ScriptableRenderPass
 	{
 		private class PassData
 		{
@@ -14,7 +14,7 @@ namespace Omniverse.Rendering
 
 		private Material Material { get; }
 
-		public SelectionBoxRendererPass(Material material)
+		public SelectionBoxRenderPass(Material material)
 		{
 			Material = material;
 		}

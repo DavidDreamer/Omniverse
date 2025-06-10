@@ -9,14 +9,14 @@ namespace Omniverse.Rendering
 	public class AbilityDirectionRendererData
 	{
 		[field: SerializeField]
-		public MeshDrawSettings DrawMeshParams { get; private set; }
+		public MeshDrawSettings MeshDrawSettings { get; private set; }
 
 		[field: SerializeField]
 		public Vector3 Scale { get; private set; }
 	}
 
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Ability")]
-	public class AbilityRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/Ability")]
+	public class AbilityRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
 		public MeshDrawSettings Range { get; private set; }

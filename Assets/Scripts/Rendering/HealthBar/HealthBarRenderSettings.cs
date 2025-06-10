@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/Health Bar")]
-	public class HealthBarsRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/Health Bar")]
+	public class HealthBarRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
-		public MeshDrawSettings DrawMeshParams { get; set; }
+		public MeshDrawSettings MeshDrawSettings { get; set; }
 
 		[field: SerializeField]
 		public Vector3 Offset { get; set; }

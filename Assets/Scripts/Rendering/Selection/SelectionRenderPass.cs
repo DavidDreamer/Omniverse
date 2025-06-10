@@ -1,5 +1,4 @@
-﻿using System;
-using Dreambox.Core;
+﻿using Dreambox.Core;
 using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using Unity.Entities;
@@ -11,7 +10,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class SelectionRendererPass : ScriptableRenderPass, IDisposable
+	public class SelectionRenderPass : ScriptableRenderPass
 	{
 		private static class ShaderVariables
 		{
@@ -22,7 +21,13 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		private SelectionRenderer Renderer { get; }
+		public Player Player { get; set; }
+
+		public Selection Selection { get; set; }
+
+		private SelectionRenderSettings Settings { get; }
+
+		private EntityManager EntityManager { get; }
 
 		private Matrix4x4[] Matrices { get; }
 
@@ -30,17 +35,14 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public SelectionRendererPass(SelectionRenderer renderer)
+		public SelectionRenderPass(SelectionRenderSettings settings, EntityManager entityManager)
 		{
-			Renderer = renderer;
+			Settings = settings;
+			EntityManager = entityManager;
 
 			Matrices = new Matrix4x4[Selection.Capacity];
 			Colors = new Vector4[Selection.Capacity];
 			MaterialPropertyBlock = new MaterialPropertyBlock();
-		}
-
-		public void Dispose()
-		{
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -57,36 +59,30 @@ namespace Omniverse.Rendering
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
 
-			SelectionRendererConfig config = Renderer.Config;
-
-			Player player = ECSUtils.GetSingleton<Player>();
-			Selection selection = ECSUtils.GetSingleton<Selection>();
-
 			MaterialPropertyBlock.Clear();
 
 			int i = 0;
-			foreach (Entity entity in selection.Entities)
+			foreach (Entity entity in Selection.Entities)
 			{
-				EntityManager entityManager = ECSUtils.ClientWorld.EntityManager;
-				var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
-				var faction = entityManager.GetComponentData<Faction>(entity);
+				var localToWorld = EntityManager.GetComponentData<LocalToWorld>(entity);
+				var faction = EntityManager.GetComponentData<Faction>(entity);
 				Matrices[i] = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
-				Colors[i] = player.FactionID == faction.ID ?
-					selection.Entity == entity ? config.MainSelectionColor : config.AllyColor :
-					config.EnemyColor;
+				Colors[i] = Player.FactionID == faction.ID ?
+					Selection.Entity == entity ? Settings.MainSelectionColor : Settings.AllyColor :
+					Settings.EnemyColor;
 				i++;
 			}
 
 			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
 
-			MeshDrawSettings drawMeshParams = config.DrawMeshParams;
+			MeshDrawSettings settings = Settings.MeshDrawSettings;
 			commandBuffer.DrawMeshInstanced(
-				drawMeshParams.Mesh,
-				drawMeshParams.SubmeshIndex,
-				drawMeshParams.Material,
-				drawMeshParams.ShaderPass,
+				settings.Mesh,
+				settings.SubmeshIndex,
+				settings.Material,
+				settings.ShaderPass,
 				Matrices,
-				selection.Entities.Length,
+				Selection.Entities.Length,
 				MaterialPropertyBlock);
 		}
 	}

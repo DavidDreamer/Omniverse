@@ -11,7 +11,7 @@ namespace Omniverse.Rendering
 	{
 		private SelectionBoxRenderSettings Settings { get; set; }
 
-		private SelectionBoxRendererPass Pass { get; set; }
+		private SelectionBoxRenderPass Pass { get; set; }
 
 		protected override void OnStartRunning()
 		{
@@ -20,7 +20,7 @@ namespace Omniverse.Rendering
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.SelectionBox;
 
-			Pass = new SelectionBoxRendererPass(Settings.Material)
+			Pass = new SelectionBoxRenderPass(Settings.Material)
 			{
 				renderPassEvent = Settings.RenderPassEvent
 			};

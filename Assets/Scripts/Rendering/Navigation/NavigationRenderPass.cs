@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dreambox.Rendering.Core;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class NavigationRenderPass : ScriptableRenderPass, IDisposable
+	public class NavigationRenderPass : ScriptableRenderPass
 	{
 		private static class ShaderVariables
 		{
@@ -19,7 +19,7 @@ namespace Omniverse.Rendering
 		{
 		}
 
-		private NavigationRendererConfig Config { get; set; }
+		private NavigationRenderSettings Config { get; set; }
 
 		private Queue<NavigationPoint> Points { get; }
 
@@ -29,17 +29,13 @@ namespace Omniverse.Rendering
 
 		private MaterialPropertyBlock MaterialPropertyBlock { get; }
 
-		public NavigationRenderPass(NavigationRendererConfig config, Queue<NavigationPoint> poitns)
+		public NavigationRenderPass(NavigationRenderSettings config, Queue<NavigationPoint> poitns)
 		{
 			Config = config;
 			Points = poitns;
 			Matrices = new Matrix4x4[config.Capacity];
 			Lifetimes = new float[config.Capacity];
 			MaterialPropertyBlock = new();
-		}
-
-		public void Dispose()
-		{
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -58,22 +54,22 @@ namespace Omniverse.Rendering
 
 			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
 
-			float time = Time.time;
+			double time = Time.time;
 			int i = 0;
 			foreach (NavigationPoint point in Points)
 			{
 				Matrices[i] = point.Matrix;
-				Lifetimes[i] = Mathf.Clamp01((time - point.Time) / Config.Lifetime);
+				Lifetimes[i] = (float)math.clamp((time - point.Time) / (double)Config.Lifetime, 0, 1);
 				i++;
 			}
 
-			MeshDrawSettings drawMeshParams = Config.DrawMeshParams;
+			MeshDrawSettings settings = Config.MeshDrawSettings;
 
 			commandBuffer.DrawMeshInstanced(
-				drawMeshParams.Mesh,
-				drawMeshParams.SubmeshIndex,
-				drawMeshParams.Material,
-				drawMeshParams.ShaderPass,
+				settings.Mesh,
+				settings.SubmeshIndex,
+				settings.Material,
+				settings.ShaderPass,
 				Matrices,
 				Points.Count,
 				MaterialPropertyBlock);
