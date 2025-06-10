@@ -22491,6 +22491,7 @@ MonoBehaviour:
   <SelectionBox>k__BackingField: {fileID: 11400000, guid: ea34e54ced1d3464e903ad5d9adba82a, type: 2}
   <Minimap>k__BackingField: {fileID: 11400000, guid: fa8ea76f6a0e0cf4493c94e3935db185, type: 2}
   <Cursor>k__BackingField: {fileID: 11400000, guid: 1722df185b803784c8824718a3f09bad, type: 2}
+  <FogOfWar>k__BackingField: {fileID: 11400000, guid: c0a4120d8ece4304e95f5daa88c73516, type: 2}
 --- !u!4 &2002787565
 Transform:
   m_ObjectHideFlags: 0

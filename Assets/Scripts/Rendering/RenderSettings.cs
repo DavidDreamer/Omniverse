@@ -10,5 +10,6 @@ namespace Omniverse.Rendering
 		public UnityObjectRef<SelectionBoxRenderSettings> SelectionBox;
 		public UnityObjectRef<MinimapRenderSettings> Minimap;
 		public UnityObjectRef<CursorRenderSettings> Cursor;
+		public UnityObjectRef<FogOfWarRenderSettings> FogOfWar;
 	}
 }

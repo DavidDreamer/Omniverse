@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/FogOfWar")]
-	public class FogOfWarRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/FogOfWar")]
+	public class FogOfWarRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
 		public Material Material { get; private set; }

@@ -1,25 +1,20 @@
-﻿using System;
-using UnityEngine.Rendering;
+﻿using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
-	public class FogOfWarPass : ScriptableRenderPass, IDisposable
+	public class FogOfWarPass : ScriptableRenderPass
 	{
 		private class PassData
 		{
 		}
 
-		private FogOfWarRenderer Renderer { get; }
+		private FogOfWarRenderSettings Settings { get; }
 
-		public FogOfWarPass(FogOfWarRenderer renderer)
+		public FogOfWarPass(FogOfWarRenderSettings settings)
 		{
-			Renderer = renderer;
-		}
-
-		public void Dispose()
-		{
+			Settings = settings;
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -35,7 +30,7 @@ namespace Omniverse.Rendering
 		private void Execute(RasterGraphContext context)
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
-			CoreUtils.DrawFullScreen(commandBuffer, Renderer.Config.Material, shaderPassId: FogOfWarRenderer.ShaderPass.Apply);
+			CoreUtils.DrawFullScreen(commandBuffer, Settings.Material, shaderPassId: FogOfWarRenderSystem.ShaderPass.Apply);
 		}
 	}
 }

@@ -35,7 +35,6 @@ Transform:
   - {fileID: 2688679657199600964}
   - {fileID: 8456544361875487423}
   - {fileID: 4113198914690224990}
-  - {fileID: 6814418413507964661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1698036229603431698
@@ -50,61 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6b855f8af674645a8713edfafa8bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MinimapRenderSettings>k__BackingField: {fileID: 11400000, guid: fa8ea76f6a0e0cf4493c94e3935db185, type: 2}
-  <SelectionBoxRendererConfig>k__BackingField: {fileID: 11400000, guid: ea34e54ced1d3464e903ad5d9adba82a, type: 2}
-  <MinimapRenderConfig>k__BackingField:
-    FrustrumMaterial: {fileID: 2100000, guid: 712d6278db78a8e47b981e3b35d24e06, type: 2}
-    DrawMeshParams:
-      <Mesh>k__BackingField: {fileID: -3781860745874542921, guid: 604c5671fa3654943a4f1b935fe86fc0, type: 3}
-      <SubmeshIndex>k__BackingField: 0
-      <Material>k__BackingField: {fileID: 2100000, guid: 2a106bd4ced2f674e964a0c2d4dae484, type: 2}
-      <ShaderPass>k__BackingField: 0
-  <CursorRendererConfig>k__BackingField: {fileID: 11400000, guid: 1722df185b803784c8824718a3f09bad, type: 2}
---- !u!1 &3675245376922184343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6814418413507964661}
-  - component: {fileID: 7205387010489676021}
-  m_Layer: 0
-  m_Name: FogOfWarRenderer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6814418413507964661
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3675245376922184343}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7544276808104931717}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7205387010489676021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3675245376922184343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12237e68019c48b891b266ae44540e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Config>k__BackingField: {fileID: 11400000, guid: c0a4120d8ece4304e95f5daa88c73516, type: 2}
 --- !u!1 &3760786188499088326
 GameObject:
   m_ObjectHideFlags: 0

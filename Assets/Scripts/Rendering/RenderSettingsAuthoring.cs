@@ -15,6 +15,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		public CursorRenderSettings Cursor { get; set; }
 
+		[field: SerializeField]
+		public FogOfWarRenderSettings FogOfWar { get; set; }
+
 		private class Baker : Baker<RenderSettingsAuthoring>
 		{
 			public override void Bake(RenderSettingsAuthoring authoring)
@@ -24,7 +27,8 @@ namespace Omniverse.Rendering
 				{
 					SelectionBox = authoring.SelectionBox,
 					Minimap = authoring.Minimap,
-					Cursor = authoring.Cursor
+					Cursor = authoring.Cursor,
+					FogOfWar = authoring.FogOfWar
 				});
 			}
 		}

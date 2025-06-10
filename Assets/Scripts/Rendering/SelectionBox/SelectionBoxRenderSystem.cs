@@ -20,7 +20,10 @@ namespace Omniverse.Rendering
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.SelectionBox;
 
-			Pass = new SelectionBoxRendererPass(Settings.Material);
+			Pass = new SelectionBoxRendererPass(Settings.Material)
+			{
+				renderPassEvent = Settings.RenderPassEvent
+			};
 		}
 
 		protected override void OnStopRunning()

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c6f452d8aee5489d70c73a47e2379, type: 3}
-  m_Name: FogOfWarRendererConfig
+  m_Name: FogOfWarRenderSettings
   m_EditorClassIdentifier: Omniverse.FogOfWar.Rendering:Omniverse.FogOfWar.Rendering:FogOfWarRendererConfig
   <RenderPassEvent>k__BackingField: 550
   <CameraType>k__BackingField: 3
