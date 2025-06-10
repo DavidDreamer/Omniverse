@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Configs/Rendering/Cursor")]
-	public class CursorRendererConfig : ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/Cursor")]
+	public class CursorRenderSettings : ScriptableObject
 	{
 		[field: SerializeField]
 		public CursorParams Default { get; private set; }

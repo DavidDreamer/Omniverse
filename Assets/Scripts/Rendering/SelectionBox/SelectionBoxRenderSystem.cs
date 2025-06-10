@@ -9,21 +9,21 @@ namespace Omniverse.Rendering
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
 	public partial class SelectionBoxRenderSystem : SystemBase
 	{
-		private SelectionBoxRendererConfig Config { get; set; }
+		private SelectionBoxRenderSettings Settings { get; set; }
 
 		private SelectionBoxRendererPass Pass { get; set; }
 
-		protected override void OnCreate()
+		protected override void OnStartRunning()
 		{
 			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
 
-			//TODO
-			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
-			Config = rendering.SelectionBoxRendererConfig;
-			Pass = new SelectionBoxRendererPass(Config.Material);
+			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
+			Settings = renderSettings.SelectionBox;
+
+			Pass = new SelectionBoxRendererPass(Settings.Material);
 		}
 
-		protected override void OnDestroy()
+		protected override void OnStopRunning()
 		{
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
@@ -74,7 +74,7 @@ namespace Omniverse.Rendering
 				return;
 			}
 
-			if (Config.CameraType.HasFlag(cam.cameraType))
+			if (Settings.CameraType.HasFlag(cam.cameraType))
 			{
 				cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
 			}

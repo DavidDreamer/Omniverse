@@ -1,10 +1,10 @@
 using Dreambox.Rendering.Core;
-using Omniverse.Rendering;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using RenderSettings = Omniverse.Rendering.RenderSettings;
 
 namespace Omniverse.Mapping
 {
@@ -37,7 +37,7 @@ namespace Omniverse.Mapping
 			}
 		}
 
-		private MinimapRenderConfig Config;
+		private MinimapRenderSettings Settings;
 
 		public RenderTexture RenderTexture { get; private set; }
 
@@ -62,9 +62,8 @@ namespace Omniverse.Mapping
 				name = "Minimap"
 			};
 
-			//TODO
-			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
-			Config = rendering.MinimapRenderConfig;
+			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
+			Settings = renderSettings.Minimap;
 
 			var mapShaderProperties = new MapShaderProperties
 			{
@@ -76,7 +75,7 @@ namespace Omniverse.Mapping
 
 			Camera = new VirtualCamera(mapSettings.Size.x / 2);
 
-			MinimapUnitDrawer = new(Config.DrawMeshParams, 64);
+			MinimapUnitDrawer = new(Settings.DrawMeshParams, 64);
 		}
 
 		protected override void OnStopRunning()
@@ -152,7 +151,7 @@ namespace Omniverse.Mapping
 				Shader.SetGlobalVector("Point3", point3);
 				Shader.SetGlobalVector("Point4", point4);
 
-				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Config.FrustrumMaterial, 0);
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, 0);
 
 				Vector2 Point(Vector3 viewportPoint)
 				{

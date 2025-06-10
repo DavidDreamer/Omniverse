@@ -8,18 +8,17 @@ namespace Omniverse.Rendering
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
 	public partial class CursorRenderSystem : SystemBase
 	{
-		private CursorRendererConfig Config { get; set; }
-
 		protected override void OnCreate()
 		{
 			RequireForUpdate<Player>();
-
-			var rendering = Object.FindFirstObjectByType<RenderingClient>(FindObjectsInactive.Include);
-			Config = rendering.CursorRendererConfig;
+			RequireForUpdate<RenderSettings>();
 		}
 
 		protected override void OnUpdate()
 		{
+			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
+			CursorRenderSettings settings = renderSettings.Cursor.Value;
+
 			CursorParams cursorTexture = GetCursorParams();
 
 			Cursor.SetCursor(cursorTexture.Texture, cursorTexture.Hotspot, CursorMode.Auto);
@@ -34,13 +33,13 @@ namespace Omniverse.Rendering
 
 				if (selection.AbilityInProcess)
 				{
-					var abiltiyTarget = EntityManager.GetComponentObject<AbilityTarget>(selection.Ability);
+					var abiltiyTarget = SystemAPI.ManagedAPI.GetComponent<AbilityTarget>(selection.Ability);
 					switch (abiltiyTarget.Target)
 					{
 						case UnitTarget:
-							return EntityManager.HasComponent<Unit>(entity) ? Config.TargetUnit : Config.TargetInvalid;
+							return EntityManager.HasComponent<Unit>(entity) ? settings.TargetUnit : settings.TargetInvalid;
 						default:
-							return Config.TargetDefault;
+							return settings.TargetDefault;
 					}
 				}
 				else
@@ -49,25 +48,25 @@ namespace Omniverse.Rendering
 					{
 						case PointerTargetType.Entity:
 						{
-							if (EntityManager.HasComponent<Faction>(entity))
+							if (SystemAPI.HasComponent<Faction>(entity))
 							{
-								var faction = EntityManager.GetComponentData<Faction>(entity);
+								var faction = SystemAPI.GetComponent<Faction>(entity);
 								if (faction.ID == player.FactionID)
 								{
-									return Config.HoverAlly;
+									return settings.HoverAlly;
 								}
 								else
 								{
-									return Config.HoverEnemy;
+									return settings.HoverEnemy;
 								}
 							}
 							else
 							{
-								return Config.Default;
+								return settings.Default;
 							}
 						}
 						default:
-							return Config.Default;
+							return settings.Default;
 					}
 				}
 			}

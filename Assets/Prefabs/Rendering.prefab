@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6b855f8af674645a8713edfafa8bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MinimapRenderSettings>k__BackingField: {fileID: 11400000, guid: fa8ea76f6a0e0cf4493c94e3935db185, type: 2}
   <SelectionBoxRendererConfig>k__BackingField: {fileID: 11400000, guid: ea34e54ced1d3464e903ad5d9adba82a, type: 2}
   <MinimapRenderConfig>k__BackingField:
     FrustrumMaterial: {fileID: 2100000, guid: 712d6278db78a8e47b981e3b35d24e06, type: 2}

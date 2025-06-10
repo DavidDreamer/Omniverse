@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Omniverse.Rendering
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/Rendering/SelectionBox")]
-	public class SelectionBoxRendererConfig : CustomRendererConfig
+	[CreateAssetMenu(menuName = "Omniverse/Settings/Rendering/SelectionBox")]
+	public class SelectionBoxRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
 		public Material Material { get; set; }
