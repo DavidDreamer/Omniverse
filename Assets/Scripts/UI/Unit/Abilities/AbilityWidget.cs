@@ -19,7 +19,7 @@ namespace Omniverse.UI
 		private CooldownWidget Cooldown { get; set; }
 
 		[field: SerializeField]
-		private ManacostWidget Manacost{ get; set; }
+		private ManacostWidget Manacost { get; set; }
 
 		[field: SerializeField]
 		private AbilityTooltipWidget Tooltip { get; set; }
@@ -72,8 +72,8 @@ namespace Omniverse.UI
 			switch (eventData.button)
 			{
 				case PointerEventData.InputButton.Left:
-					var selection = ECSUtils.GetSingleton<Selection>();
 					//TODO ECS
+					//var selection = ECSUtils.GetSingleton<Selection>();
 					//AbilityController.Process(selection.Entity, Ability);
 					break;
 			}

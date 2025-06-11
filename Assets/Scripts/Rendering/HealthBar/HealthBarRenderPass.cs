@@ -19,11 +19,15 @@ namespace Omniverse.Rendering
 
 		private HealthBarRenderSettings Settings { get; }
 
+		private EntityManager EntityManager { get; }
+
 		private HealthBarDrawer HealthBarDrawer { get; }
 
-		public HealthBarRenderPass(HealthBarRenderSettings settings)
+		public HealthBarRenderPass(HealthBarRenderSettings settings, EntityManager entityManager)
 		{
 			Settings = settings;
+			EntityManager = entityManager;
+
 			HealthBarDrawer = new HealthBarDrawer(Settings.MeshDrawSettings, 64);
 		}
 
@@ -41,8 +45,7 @@ namespace Omniverse.Rendering
 		{
 			RasterCommandBuffer commandBuffer = context.cmd;
 
-			var entityManager = ECSUtils.ClientWorld.EntityManager;
-			var query = entityManager.CreateEntityQuery(typeof(Health));
+			var query = EntityManager.CreateEntityQuery(typeof(Health));
 			var entities = query.ToEntityArray(Allocator.Temp);
 
 			int drawnCount = 0;
@@ -55,9 +58,9 @@ namespace Omniverse.Rendering
 				{
 					Entity entity = entities[i];
 
-					var health = entityManager.GetComponentData<Health>(entity);
-					var faction = entityManager.GetComponentData<Faction>(entity);
-					var localToWorld = entityManager.GetComponentData<LocalToWorld>(entity);
+					var health = EntityManager.GetComponentData<Health>(entity);
+					var faction = EntityManager.GetComponentData<Faction>(entity);
+					var localToWorld = EntityManager.GetComponentData<LocalToWorld>(entity);
 
 					var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Settings.Offset);
 

@@ -22,7 +22,7 @@ namespace Omniverse.Rendering
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.HealthBar;
 
-			Pass = new(Settings)
+			Pass = new(Settings, EntityManager)
 			{
 				renderPassEvent = Settings.RenderPassEvent
 			};

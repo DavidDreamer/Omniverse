@@ -23,7 +23,7 @@ namespace Omniverse.UI
 
 			var abilities = Abilities().ToArray();
 
-			UpdateSlotsCount(abilities.Length);
+			UpdateSlotsCount(entityManager, abilities.Length);
 
 			for (int i = 0; i < abilities.Length; ++i)
 			{
@@ -40,11 +40,11 @@ namespace Omniverse.UI
 			}
 		}
 
-		private void UpdateSlotsCount(int count)
+		private void UpdateSlotsCount(EntityManager entityManager, int count)
 		{
 			int slotsDelta = count - Slots.Count;
 
-			var inputSystemData = ECSUtils.GetSingletonManaged<InputSystemData>();
+			var inputSystemData = entityManager.GetSingletonManaged<InputSystemData>();
 			var abilityActions = inputSystemData.InputActions.Abilities;
 
 			if (slotsDelta > 0)
