@@ -1,24 +1,81 @@
-﻿using Dreambox.Rendering.Universal;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using Dreambox.Rendering;
+using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using Unity.Entities;
 using Unity.Rendering;
+using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Omniverse.Rendering
 {
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
-	public partial struct OutlineRenderSystem : ISystem
+	public partial class OutlineRenderSystem : SystemBase
 	{
-		public void OnCreate(ref SystemState state)
+		private OutlineRenderSettings Settings { get; set; }
+
+		private OutlineRenderPass Pass { get; set; }
+
+		private HashSet<OutlineTarget> Targets { get; } = new();
+
+		private ComputeBuffer VariantsBuffer { get; set; }
+
+		protected override void OnCreate()
 		{
-			state.RequireForUpdate<Player>();
+			RequireForUpdate<Player>();
 		}
 
-		public void OnUpdate(ref SystemState state)
+		protected override void OnStartRunning()
 		{
-			var OutlineRenderer = Object.FindFirstObjectByType<OutlineRenderer>(FindObjectsInactive.Include);
+			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
+			Settings = renderSettings.Outline;
 
-			OutlineRenderer.Clear();
+			VariantsBuffer = new ComputeBuffer(Settings.Variants.Length, Marshal.SizeOf<OutlineVariant>());
+			Settings.Material.SetBuffer(OutlineShaderVariables.VariantsBuffer, VariantsBuffer);
+
+			float width = Settings.Variants.Max(config => config.Width);
+			VariantsBuffer.SetData(Settings.Variants);
+
+			Pass = new(Settings.Material, Targets, width)
+			{
+				renderPassEvent = Settings.RenderPassEvent
+			};
+
+			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
+		}
+
+		protected override void OnStopRunning()
+		{
+			VariantsBuffer.Release();
+
+			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
+		}
+
+		private void OnBeginCameraRendering(ScriptableRenderContext context, Camera camera)
+		{
+			if (!SystemAPI.HasSingleton<Player>())
+			{
+				return;
+			}
+
+			if (Targets.Count == 0)
+			{
+				return;
+			}
+
+			if (Settings.CameraType.HasFlag(camera.cameraType))
+			{
+				camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(Pass);
+			}
+		}
+
+		protected override void OnUpdate()
+		{
+			Targets.Clear();
 
 			var player = SystemAPI.GetSingleton<Player>();
 			var entityDetector = SystemAPI.GetSingleton<Pointer>();
@@ -29,27 +86,38 @@ namespace Omniverse.Rendering
 				return;
 			}
 
-			if (SystemAPI.HasComponent<RenderMeshUnmanaged>(entity))
+			int outlineVariant = 0;
+			if (SystemAPI.HasComponent<Faction>(entity))
 			{
-				var materialMeshInfo = SystemAPI.GetComponent<MaterialMeshInfo>(entityDetector.Entity);
+				var faction = SystemAPI.GetComponent<Faction>(entity);
+				outlineVariant = faction.ID == player.FactionID ? 0 : 1;
+			}
+			else
+			{
+				outlineVariant = -2;
+			}
 
-				int outlineVariant = 0;
-				if (SystemAPI.HasComponent<Faction>(entity))
+			var childBuffer = SystemAPI.GetBuffer<Child>(entity);
+
+			for (int i = 0; i < childBuffer.Length; ++i)
+			{
+				Entity child = childBuffer[i].Value;
+
+				if (!SystemAPI.HasComponent<MaterialMeshInfo>(child))
 				{
-					var faction = SystemAPI.GetComponent<Faction>(entity);
-					outlineVariant = faction.ID == player.FactionID ? 0 : 1;
-				}
-				else
-				{
-					outlineVariant = -2;
+					continue;
 				}
 
-				//TODO ECS
-				//foreach (Renderer renderer in entityRenderer.Renderers)
-				//{
-				//	var outlineTarget = new OutlineTarget(renderer, outlineVariant);
-				//	outlinerRenderer.AddTarget(outlineTarget);
-				//}
+				var localToWorld = SystemAPI.GetComponent<LocalToWorld>(child);
+				var materialMeshInfo = SystemAPI.GetComponent<MaterialMeshInfo>(child);
+				var renderMeshArray = EntityManager.GetSharedComponentManaged<RenderMeshArray>(child);
+
+				Mesh mesh = renderMeshArray.GetMesh(materialMeshInfo);
+				Material material = renderMeshArray.GetMaterial(materialMeshInfo);
+				Matrix4x4 matrix = localToWorld.Value;
+
+				var outlineTarget = new OutlineTarget(mesh, material, matrix, outlineVariant);
+				Targets.Add(outlineTarget);
 			}
 		}
 	}

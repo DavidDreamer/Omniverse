@@ -1,4 +1,5 @@
-﻿using Omniverse.Mapping;
+﻿using Dreambox.Rendering;
+using Omniverse.Mapping;
 using Unity.Burst;
 using Unity.Entities;
 
@@ -15,5 +16,6 @@ namespace Omniverse.Rendering
 		public UnityObjectRef<AbilityRenderSettings> Ability;
 		public UnityObjectRef<HealthBarRenderSettings> HealthBar;
 		public UnityObjectRef<NavigationRenderSettings> Navigation;
+		public UnityObjectRef<OutlineRenderSettings> Outline;
 	}
 }

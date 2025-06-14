@@ -1,4 +1,5 @@
-﻿using Omniverse.Mapping;
+﻿using Dreambox.Rendering;
+using Omniverse.Mapping;
 using Unity.Entities;
 using UnityEngine;
 
@@ -28,7 +29,10 @@ namespace Omniverse.Rendering
 		public HealthBarRenderSettings HealthBar { get; set; }
 
 		[field: SerializeField]
-		public NavigationRenderSettings Navigation{ get; set; }
+		public NavigationRenderSettings Navigation { get; set; }
+
+		[field: SerializeField]
+		public OutlineRenderSettings Outline { get; set; }
 
 		private class Baker : Baker<RenderSettingsAuthoring>
 		{
@@ -44,7 +48,8 @@ namespace Omniverse.Rendering
 					FogOfWar = authoring.FogOfWar,
 					Ability = authoring.Ability,
 					HealthBar = authoring.HealthBar,
-					Navigation = authoring.Navigation
+					Navigation = authoring.Navigation,
+					Outline = authoring.Outline
 				});
 			}
 		}
