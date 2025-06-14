@@ -35,6 +35,7 @@ namespace Omniverse.Input
 			//}
 
 			var pointer = SystemAPI.GetSingleton<Pointer>();
+			pointer.Entity = Entity.Null;
 
 			bool pointerIsOverUI = EventSystem.current.IsPointerOverGameObject();
 
