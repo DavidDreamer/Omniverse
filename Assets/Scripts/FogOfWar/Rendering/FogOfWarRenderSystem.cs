@@ -50,8 +50,6 @@ namespace Omniverse.Rendering
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.FogOfWar;
 
-			Pass = new FogOfWarPass(Settings);
-
 			foreach (FogOfWarMode mode in Enum.GetValues(typeof(FogOfWarMode)).Cast<FogOfWarMode>())
 			{
 				if (mode == mapSettings.FogOfWarMode)
@@ -63,6 +61,8 @@ namespace Omniverse.Rendering
 					Settings.Material.DisableKeyword(ShaderVariables.ModeToKeyword(mode));
 				}
 			}
+
+			Pass = new FogOfWarPass(Settings.Material);
 
 			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
 			{
