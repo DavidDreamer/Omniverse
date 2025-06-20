@@ -44,35 +44,34 @@ namespace Omniverse.Rendering
 			{
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+
+				builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
+				{
+					RasterCommandBuffer commandBuffer = context.cmd;
+
+					MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
+
+					double time = Time.time;
+					int i = 0;
+					foreach (NavigationPoint point in Points)
+					{
+						Matrices[i] = point.Matrix;
+						Lifetimes[i] = (float)math.clamp((time - point.Time) / (double)Config.Lifetime, 0, 1);
+						i++;
+					}
+
+					MeshDrawSettings settings = Config.MeshDrawSettings;
+
+					commandBuffer.DrawMeshInstanced(
+						settings.Mesh,
+						settings.SubmeshIndex,
+						settings.Material,
+						settings.ShaderPass,
+						Matrices,
+						Points.Count,
+						MaterialPropertyBlock);
+				});
 			}
-		}
-
-		private void Execute(RasterGraphContext context)
-		{
-			RasterCommandBuffer commandBuffer = context.cmd;
-
-			MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
-
-			double time = Time.time;
-			int i = 0;
-			foreach (NavigationPoint point in Points)
-			{
-				Matrices[i] = point.Matrix;
-				Lifetimes[i] = (float)math.clamp((time - point.Time) / (double)Config.Lifetime, 0, 1);
-				i++;
-			}
-
-			MeshDrawSettings settings = Config.MeshDrawSettings;
-
-			commandBuffer.DrawMeshInstanced(
-				settings.Mesh,
-				settings.SubmeshIndex,
-				settings.Material,
-				settings.ShaderPass,
-				Matrices,
-				Points.Count,
-				MaterialPropertyBlock);
 		}
 	}
 }

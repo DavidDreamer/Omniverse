@@ -9,6 +9,7 @@ namespace Omniverse.Rendering
 	{
 		private class PassData
 		{
+			public Material Material;
 		}
 
 		private Material Material { get; }
@@ -22,16 +23,17 @@ namespace Omniverse.Rendering
 		{
 			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("FogOfWar.Apply", out var data))
 			{
+				data.Material = Material;
+
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
-			}
-		}
 
-		private void Execute(RasterGraphContext context)
-		{
-			RasterCommandBuffer commandBuffer = context.cmd;
-			CoreUtils.DrawFullScreen(commandBuffer, Material, shaderPassId: FogOfWarRenderSystem.ShaderPass.Apply);
+				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
+				{
+					RasterCommandBuffer commandBuffer = context.cmd;
+					CoreUtils.DrawFullScreen(commandBuffer, data.Material, shaderPassId: FogOfWarRenderSystem.ShaderPass.Apply);
+				});
+			}
 		}
 	}
 }

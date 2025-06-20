@@ -13,6 +13,10 @@ namespace Omniverse.Rendering
 	{
 		private class PassData
 		{
+			public EntityManager EntityManager;
+			public HealthBarDrawer HealthBarDrawer;
+			public Player Player;
+			public HealthBarRenderSettings Settings;
 		}
 
 		public Player Player { get; set; }
@@ -35,46 +39,50 @@ namespace Omniverse.Rendering
 		{
 			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Health Bars", out var data))
 			{
+				data.EntityManager = EntityManager;
+				data.HealthBarDrawer = HealthBarDrawer;
+				data.Player = Player;
+				data.Settings = Settings;
+
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
-			}
-		}
 
-		private void Execute(RasterGraphContext context)
-		{
-			RasterCommandBuffer commandBuffer = context.cmd;
-
-			var query = EntityManager.CreateEntityQuery(typeof(Health));
-			var entities = query.ToEntityArray(Allocator.Temp);
-
-			int drawnCount = 0;
-
-			while (drawnCount < entities.Length)
-			{
-				int currentBatchSize = Math.Min(entities.Length - drawnCount, HealthBarDrawer.BatchSize);
-
-				for (int i = drawnCount; i < currentBatchSize; i++)
+				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{
-					Entity entity = entities[i];
+					RasterCommandBuffer commandBuffer = context.cmd;
 
-					var health = EntityManager.GetComponentData<Health>(entity);
-					var faction = EntityManager.GetComponentData<Faction>(entity);
-					var localToWorld = EntityManager.GetComponentData<LocalToWorld>(entity);
+					var query = data.EntityManager.CreateEntityQuery(typeof(Health));
+					var entities = query.ToEntityArray(Allocator.Temp);
 
-					var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(Settings.Offset);
+					int drawnCount = 0;
 
-					HealthBarColors colors = Player.FactionID == faction.ID ? Settings.AllyColors : Settings.EnemyColors;
-					Color baseColor = colors.BaseColor;
-					Color secondColor = colors.SecondColor;
-					float amount = health.Current / health.Maximum;
+					while (drawnCount < entities.Length)
+					{
+						int currentBatchSize = Math.Min(entities.Length - drawnCount, data.HealthBarDrawer.BatchSize);
 
-					HealthBarDrawer.AddInstance(matrix, baseColor, secondColor, amount);
-				}
+						for (int i = drawnCount; i < currentBatchSize; i++)
+						{
+							Entity entity = entities[i];
 
-				HealthBarDrawer.DrawBatch(commandBuffer);
+							var health = data.EntityManager.GetComponentData<Health>(entity);
+							var faction = data.EntityManager.GetComponentData<Faction>(entity);
+							var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
 
-				drawnCount += currentBatchSize;
+							var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(data.Settings.Offset);
+
+							HealthBarColors colors = data.Player.FactionID == faction.ID ? data.Settings.AllyColors : data.Settings.EnemyColors;
+							Color baseColor = colors.BaseColor;
+							Color secondColor = colors.SecondColor;
+							float amount = health.Current / health.Maximum;
+
+							data.HealthBarDrawer.AddInstance(matrix, baseColor, secondColor, amount);
+						}
+
+						data.HealthBarDrawer.DrawBatch(commandBuffer);
+
+						drawnCount += currentBatchSize;
+					}
+				});
 			}
 		}
 	}

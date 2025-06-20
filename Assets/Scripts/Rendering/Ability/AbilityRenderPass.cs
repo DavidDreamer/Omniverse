@@ -14,7 +14,7 @@ namespace Omniverse.Rendering
 	{
 		public Selection Selection { get; set; }
 
-		public Pointer Pointer{ get; set; }
+		public Pointer Pointer { get; set; }
 
 		private AbilityRenderSettings Settings { get; }
 
@@ -22,6 +22,10 @@ namespace Omniverse.Rendering
 
 		private class PassData
 		{
+			public EntityManager EntityManager;
+			public Pointer Pointer;
+			public AbilityRenderSettings AbilityRenderSettings;
+			public Selection Selection;
 		}
 
 		public AbilityRenderPass(AbilityRenderSettings settings, EntityManager entityManager)
@@ -34,82 +38,91 @@ namespace Omniverse.Rendering
 		{
 			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Ability", out var data))
 			{
+				data.EntityManager = EntityManager;
+				data.Pointer = Pointer;
+				data.AbilityRenderSettings = Settings;
+				data.Selection = Selection;
+
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
-			}
-		}
 
-		private void Execute(RasterGraphContext context)
-		{
-			RasterCommandBuffer commandBuffer = context.cmd;
-
-			var transform = EntityManager.GetComponentData<LocalTransform>(Selection.Entity);
-			var localToWorld = EntityManager.GetComponentData<LocalToWorld>(Selection.Entity);
-			var ability = Selection.Ability;
-
-			DrawRange();
-			DrawDireciton();
-
-			void DrawRange()
-			{
-				if (!EntityManager.HasComponent<CastRange>(ability))
+				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{
-					return;
-				}
+					RasterCommandBuffer commandBuffer = context.cmd;
 
-				var castRange = EntityManager.GetComponentData<CastRange>(ability);
+					var entityManager = data.EntityManager;
+					var selection = data.Selection;
+					var renderSettings = data.AbilityRenderSettings;
+					var pointer = data.Pointer;
 
-				var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * castRange.Value * 2f) * MatrixUtils.WorldUpRotation;
+					var transform = entityManager.GetComponentData<LocalTransform>(selection.Entity);
+					var localToWorld = entityManager.GetComponentData<LocalToWorld>(selection.Entity);
+					var ability = selection.Ability;
 
-				var settings = Settings.Range;
-				commandBuffer.DrawMesh(
-					settings.Mesh,
-					matrix,
-					settings.Material,
-					settings.SubmeshIndex,
-					settings.ShaderPass);
-			}
+					DrawRange();
+					DrawDireciton();
 
-			void DrawDireciton()
-			{
-				if (!EntityManager.HasComponent<AbilityTarget>(ability))
-				{
-					return;
-				}
+					void DrawRange()
+					{
+						if (!data.EntityManager.HasComponent<CastRange>(ability))
+						{
+							return;
+						}
 
-				var abilityTarget = EntityManager.GetComponentObject<AbilityTarget>(ability);
+						var castRange = data.EntityManager.GetComponentData<CastRange>(ability);
 
-				if (abilityTarget.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
-				{
-					return;
-				}
+						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * castRange.Value * 2f) * MatrixUtils.WorldUpRotation;
 
-				AbilityDirectionRendererData data = Settings.Direction;
+						var settings = renderSettings.Range;
+						commandBuffer.DrawMesh(
+							settings.Mesh,
+							matrix,
+							settings.Material,
+							settings.SubmeshIndex,
+							settings.ShaderPass);
+					}
 
-				if (Pointer.TargetType is not PointerTargetType.World)
-				{
-					return;
-				}
+					void DrawDireciton()
+					{
+						if (!entityManager.HasComponent<AbilityTarget>(ability))
+						{
+							return;
+						}
 
-				Vector3 activeUnitPosition = transform.Position;
-				Vector3 direction = (Vector3)Pointer.WorldPosition - activeUnitPosition;
-				direction.Set(direction.x, 0, direction.z);
-				direction.Normalize();
+						var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(ability);
 
-				Vector3 position = activeUnitPosition + direction * data.Scale.y * 0.5f;
-				Quaternion rotation = Quaternion.LookRotation(Vector3.down, direction);
-				Vector3 scale = data.Scale;
+						if (abilityTarget.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
+						{
+							return;
+						}
 
-				var matrix = Matrix4x4.TRS(position, rotation, scale);
+						AbilityDirectionRendererData data = renderSettings.Direction;
 
-				var settings = data.MeshDrawSettings;
-				commandBuffer.DrawMesh(
-					settings.Mesh,
-					matrix,
-					settings.Material,
-					settings.SubmeshIndex,
-					settings.ShaderPass);
+						if (pointer.TargetType is not PointerTargetType.World)
+						{
+							return;
+						}
+
+						Vector3 activeUnitPosition = transform.Position;
+						Vector3 direction = (Vector3)pointer.WorldPosition - activeUnitPosition;
+						direction.Set(direction.x, 0, direction.z);
+						direction.Normalize();
+
+						Vector3 position = activeUnitPosition + direction * data.Scale.y * 0.5f;
+						Quaternion rotation = Quaternion.LookRotation(Vector3.down, direction);
+						Vector3 scale = data.Scale;
+
+						var matrix = Matrix4x4.TRS(position, rotation, scale);
+
+						var settings = data.MeshDrawSettings;
+						commandBuffer.DrawMesh(
+							settings.Mesh,
+							matrix,
+							settings.Material,
+							settings.SubmeshIndex,
+							settings.ShaderPass);
+					}
+				});
 			}
 		}
 	}
