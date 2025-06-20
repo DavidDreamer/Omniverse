@@ -2,6 +2,7 @@ Shader "Omniverse/Minimap"
 {
     Properties
     {
+        FogOfWarColor("Fog Of War Color", Color) = (0, 0, 0, 0.5)
     }
 
     SubShader
@@ -17,6 +18,31 @@ Shader "Omniverse/Minimap"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
         ENDHLSL
+
+        Pass
+        {
+            Name "FogOfWar"
+
+            ZTest Always
+            ZWrite Off
+            Cull Off
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment Frag
+            
+            float4 FogOfWarColor;
+
+            uniform sampler2D FogOfWarTexture;
+
+            float4 Frag(Varyings input) : SV_Target
+            {
+                float4 color = (tex2D(FogOfWarTexture, input.texcoord).r + 1) * FogOfWarColor;
+                return color;
+            }
+            ENDHLSL
+        }
 
         Pass
         {

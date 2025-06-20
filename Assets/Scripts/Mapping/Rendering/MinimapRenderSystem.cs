@@ -11,6 +11,12 @@ namespace Omniverse.Mapping
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
 	public partial class MinimapRenderSystem : SystemBase
 	{
+		private static class ShaderPass
+		{
+			public const int FogOfWar = 0;
+			public const int Frustrum = 1;
+		}
+
 		private static class ShaderVariables
 		{
 			public static int MapProperties { get; } = Shader.PropertyToID(nameof(MapProperties));
@@ -102,6 +108,7 @@ namespace Omniverse.Mapping
 			commandBuffer.ClearRenderTarget(true, true, Color.clear);
 
 			DrawUnits();
+			DrawFogOfWar();
 			DrawFrustrum();
 
 			void DrawUnits()
@@ -136,6 +143,16 @@ namespace Omniverse.Mapping
 				}
 			}
 
+			void DrawFogOfWar()
+			{
+				if (!SystemAPI.HasSingleton<FogOfWar>())
+				{
+					return;
+				}
+
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, ShaderPass.FogOfWar);
+			}
+
 			void DrawFrustrum()
 			{
 				var camera = UnityEngine.Camera.main;
@@ -151,7 +168,7 @@ namespace Omniverse.Mapping
 				Shader.SetGlobalVector("Point3", point3);
 				Shader.SetGlobalVector("Point4", point4);
 
-				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, 0);
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, ShaderPass.Frustrum);
 
 				Vector2 Point(Vector3 viewportPoint)
 				{
