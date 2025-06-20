@@ -43,6 +43,8 @@ namespace Omniverse.Mapping
 			}
 		}
 
+		private MapSettings MapSettings { get; set; }
+
 		private MinimapRenderSettings Settings;
 
 		public RenderTexture RenderTexture { get; private set; }
@@ -57,11 +59,11 @@ namespace Omniverse.Mapping
 		{
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;
 
-			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
+			MapSettings = SystemAPI.GetSingleton<MapSettings>();
 
 			RenderTexture = new RenderTexture(
-				mapSettings.Size.x,
-				mapSettings.Size.y,
+				MapSettings.Size.x,
+				MapSettings.Size.y,
 				GraphicsFormat.R16G16B16A16_SFloat,
 				GraphicsFormat.D16_UNorm)
 			{
@@ -73,13 +75,13 @@ namespace Omniverse.Mapping
 
 			var mapShaderProperties = new MapShaderProperties
 			{
-				MapSize = new Vector4(mapSettings.Size.x, mapSettings.Size.y, 0, 0)
+				MapSize = new Vector4(MapSettings.Size.x, MapSettings.Size.y, 0, 0)
 			};
 
 			PropertiesBuffer = new ConstantComputeBuffer<MapShaderProperties>(ShaderVariables.MapProperties);
 			PropertiesBuffer.SetData(mapShaderProperties);
 
-			Camera = new VirtualCamera(mapSettings.Size.x / 2);
+			Camera = new VirtualCamera(MapSettings.Size.x / 2);
 
 			MinimapUnitDrawer = new(Settings.MeshDrawSettings, 64);
 		}
@@ -176,7 +178,7 @@ namespace Omniverse.Mapping
 					plane.Raycast(ray, out float enter);
 					var worldSpacePoint = ray.origin + ray.direction * enter;
 					//Debug.DrawRay(point1, Vector3.up * 100, Color.red);
-					var orhoPoint = new Vector2((worldSpacePoint.x / 32 + 1) * 0.5f, (worldSpacePoint.z / 32 + 1) * 0.5f);
+					var orhoPoint = new Vector2((worldSpacePoint.x / (MapSettings.Size.x / 2) + 1) * 0.5f, (worldSpacePoint.z / (MapSettings.Size.y / 2) + 1) * 0.5f);
 					return orhoPoint;
 				}
 			}
