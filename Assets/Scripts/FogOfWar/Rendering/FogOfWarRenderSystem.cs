@@ -62,7 +62,10 @@ namespace Omniverse.Rendering
 				}
 			}
 
-			Pass = new FogOfWarPass(Settings.Material);
+			Pass = new FogOfWarPass(Settings.Material)
+			{
+				renderPassEvent = Settings.RenderPassEvent
+			};
 
 			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
 			{

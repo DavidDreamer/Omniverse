@@ -118,20 +118,20 @@ Shader "Omniverse/FogOfWar"
                 outOfBorderShading = saturate(outOfBorderShading + cloud * outOfBorderShading);
 
                 #ifdef MODE_REVEALED
-                return outOfBorderShading;
+                    return outOfBorderShading;
                 #else
-                float4 fowData = tex2D(FogOfWarTexture, uv);
-                float fogValue = (fowData.r + 1.0) * 0.5;
+                    float4 fowData = tex2D(FogOfWarTexture, uv);
+                    float fogValue = (fowData.r + 1.0) * 0.5;
 
-                fogValue = saturate(fogValue + cloud * fogValue);
+                    fogValue = saturate(fogValue + cloud * fogValue);
                 
-                #ifdef MODE_EXPLORED
-                float4 fogColor = ExploredColor * fogValue;
-                #else
-                float4 fogColor = lerp(ExploredColor, BaseColor, fowData.g) * fogValue;
-                #endif
+                    #ifdef MODE_EXPLORED
+                        float4 fogColor = ExploredColor * fogValue;
+                    #else
+                        float4 fogColor = lerp(ExploredColor, BaseColor, fowData.g) * fogValue;
+                    #endif
                 
-                return max(fogColor, outOfBorderShading);
+                    return max(fogColor, outOfBorderShading);
                 #endif
             }
             ENDHLSL
