@@ -94,7 +94,7 @@ namespace Omniverse.Rendering
 			}
 			else
 			{
-				outlineVariant = -2;
+				outlineVariant = 2;
 			}
 
 			if (SystemAPI.HasComponent<MaterialMeshInfo>(entity))
