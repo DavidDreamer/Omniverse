@@ -97,20 +97,33 @@ namespace Omniverse.Rendering
 				outlineVariant = -2;
 			}
 
-			var childBuffer = SystemAPI.GetBuffer<Child>(entity);
-
-			for (int i = 0; i < childBuffer.Length; ++i)
+			if (SystemAPI.HasComponent<MaterialMeshInfo>(entity))
 			{
-				Entity child = childBuffer[i].Value;
+				AddTarget(entity);
+			}
 
-				if (!SystemAPI.HasComponent<MaterialMeshInfo>(child))
+			if (SystemAPI.HasBuffer<Child>(entity))
+			{
+				var childBuffer = SystemAPI.GetBuffer<Child>(entity);
+
+				for (int i = 0; i < childBuffer.Length; ++i)
 				{
-					continue;
-				}
+					Entity child = childBuffer[i].Value;
 
-				var localToWorld = SystemAPI.GetComponent<LocalToWorld>(child);
-				var materialMeshInfo = SystemAPI.GetComponent<MaterialMeshInfo>(child);
-				var renderMeshArray = EntityManager.GetSharedComponentManaged<RenderMeshArray>(child);
+					if (!SystemAPI.HasComponent<MaterialMeshInfo>(child))
+					{
+						continue;
+					}
+
+					AddTarget(child);
+				}
+			}
+
+			void AddTarget(Entity entity)
+			{
+				var localToWorld = SystemAPI.GetComponent<LocalToWorld>(entity);
+				var materialMeshInfo = SystemAPI.GetComponent<MaterialMeshInfo>(entity);
+				var renderMeshArray = EntityManager.GetSharedComponentManaged<RenderMeshArray>(entity);
 
 				Mesh mesh = renderMeshArray.GetMesh(materialMeshInfo);
 				Material material = renderMeshArray.GetMaterial(materialMeshInfo);
