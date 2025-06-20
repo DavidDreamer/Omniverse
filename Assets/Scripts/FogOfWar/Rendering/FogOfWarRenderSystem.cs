@@ -54,11 +54,11 @@ namespace Omniverse.Rendering
 			{
 				if (mode == mapSettings.FogOfWarMode)
 				{
-					Settings.Material.EnableKeyword(ShaderVariables.ModeToKeyword(mode));
+					Shader.EnableKeyword(ShaderVariables.ModeToKeyword(mode));
 				}
 				else
 				{
-					Settings.Material.DisableKeyword(ShaderVariables.ModeToKeyword(mode));
+					Shader.DisableKeyword(ShaderVariables.ModeToKeyword(mode));
 				}
 			}
 
