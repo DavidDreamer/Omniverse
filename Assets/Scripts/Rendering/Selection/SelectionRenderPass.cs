@@ -1,5 +1,4 @@
 ﻿using Dreambox.Core;
-using Dreambox.Rendering.Core;
 using Omniverse.Input;
 using Unity.Entities;
 using Unity.Transforms;
@@ -12,13 +11,13 @@ namespace Omniverse.Rendering
 {
 	public class SelectionRenderPass : ScriptableRenderPass
 	{
-		private static class ShaderVariables
-		{
-			public static int BaseColor { get; } = Shader.PropertyToID(nameof(BaseColor));
-		}
-
 		private class PassData
 		{
+			public EntityManager EntityManager;
+			public Player Player;
+			public Selection Selection;
+			public SelectionRenderSettings Settings;
+			public SelectionDrawer SelectionDrawer;
 		}
 
 		public Player Player { get; set; }
@@ -29,61 +28,47 @@ namespace Omniverse.Rendering
 
 		private EntityManager EntityManager { get; }
 
-		private Matrix4x4[] Matrices { get; }
-
-		private Vector4[] Colors { get; }
-
-		private MaterialPropertyBlock MaterialPropertyBlock { get; }
+		private SelectionDrawer SelectionDrawer { get; }
 
 		public SelectionRenderPass(SelectionRenderSettings settings, EntityManager entityManager)
 		{
 			Settings = settings;
 			EntityManager = entityManager;
 
-			Matrices = new Matrix4x4[Selection.Capacity];
-			Colors = new Vector4[Selection.Capacity];
-			MaterialPropertyBlock = new MaterialPropertyBlock();
+			SelectionDrawer = new(settings.MeshDrawSettings, 64);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
 			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Selection", out var data))
 			{
+				data.EntityManager = EntityManager;
+				data.Player = Player;
+				data.Selection = Selection;
+				data.Settings = Settings;
+				data.SelectionDrawer = SelectionDrawer;
+
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) => Execute(context));
+				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
+				{
+					RasterCommandBuffer commandBuffer = context.cmd;
+
+					foreach (Entity entity in data.Selection.Entities)
+					{
+						var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
+						var faction = data.EntityManager.GetComponentData<Faction>(entity);
+						var matrix = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
+						var color = data.Player.FactionID == faction.ID ?
+							data.Selection.Entity == entity ? data.Settings.MainSelectionColor : data.Settings.AllyColor :
+							data.Settings.EnemyColor;
+
+						data.SelectionDrawer.Draw(commandBuffer, matrix, color);
+					}
+
+					data.SelectionDrawer.Flush(commandBuffer);
+				});
 			}
-		}
-
-		private void Execute(RasterGraphContext context)
-		{
-			RasterCommandBuffer commandBuffer = context.cmd;
-
-			MaterialPropertyBlock.Clear();
-
-			int i = 0;
-			foreach (Entity entity in Selection.Entities)
-			{
-				var localToWorld = EntityManager.GetComponentData<LocalToWorld>(entity);
-				var faction = EntityManager.GetComponentData<Faction>(entity);
-				Matrices[i] = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
-				Colors[i] = Player.FactionID == faction.ID ?
-					Selection.Entity == entity ? Settings.MainSelectionColor : Settings.AllyColor :
-					Settings.EnemyColor;
-				i++;
-			}
-
-			MaterialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, Colors);
-
-			MeshDrawSettings settings = Settings.MeshDrawSettings;
-			commandBuffer.DrawMeshInstanced(
-				settings.Mesh,
-				settings.SubmeshIndex,
-				settings.Material,
-				settings.ShaderPass,
-				Matrices,
-				Selection.Entities.Length,
-				MaterialPropertyBlock);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Dreambox.Rendering.Core;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,66 +9,51 @@ namespace Omniverse.Rendering
 {
 	public class NavigationRenderPass : ScriptableRenderPass
 	{
-		private static class ShaderVariables
-		{
-			public static int Lifetime { get; } = Shader.PropertyToID(nameof(Lifetime));
-		}
-
 		private class PassData
 		{
+			public NavigationRenderSettings Settings;
+			public Queue<NavigationPoint> Points;
+			public NavigationPointDrawer NavigationPointDrawer;
 		}
 
-		private NavigationRenderSettings Config { get; set; }
+		private NavigationRenderSettings Settings { get; set; }
 
 		private Queue<NavigationPoint> Points { get; }
 
-		private Matrix4x4[] Matrices { get; }
+		private NavigationPointDrawer NavigationPointDrawer { get; }
 
-		private float[] Lifetimes { get; }
-
-		private MaterialPropertyBlock MaterialPropertyBlock { get; }
-
-		public NavigationRenderPass(NavigationRenderSettings config, Queue<NavigationPoint> poitns)
+		public NavigationRenderPass(NavigationRenderSettings settings, Queue<NavigationPoint> poitns)
 		{
-			Config = config;
+			Settings = settings;
 			Points = poitns;
-			Matrices = new Matrix4x4[config.Capacity];
-			Lifetimes = new float[config.Capacity];
-			MaterialPropertyBlock = new();
+
+			NavigationPointDrawer = new NavigationPointDrawer(Settings.MeshDrawSettings, 4);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
 			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Navigation", out var data))
 			{
+				data.Settings = Settings;
+				data.Points = Points;
+				data.NavigationPointDrawer = NavigationPointDrawer;
+
 				var universalResourceData = frameData.Get<UniversalResourceData>();
 				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
 
-				builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
+				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{
 					RasterCommandBuffer commandBuffer = context.cmd;
 
-					MaterialPropertyBlock.SetFloatArray(ShaderVariables.Lifetime, Lifetimes);
-
 					double time = Time.time;
-					int i = 0;
-					foreach (NavigationPoint point in Points)
+					foreach (NavigationPoint point in data.Points)
 					{
-						Matrices[i] = point.Matrix;
-						Lifetimes[i] = (float)math.clamp((time - point.Time) / (double)Config.Lifetime, 0, 1);
-						i++;
+						var matrix = point.Matrix;
+						var lifetime = (float)math.clamp((time - point.Time) / (double)data.Settings.Lifetime, 0, 1);
+						data.NavigationPointDrawer.Draw(commandBuffer, matrix, lifetime);
 					}
 
-					MeshDrawSettings settings = Config.MeshDrawSettings;
-
-					commandBuffer.DrawMeshInstanced(
-						settings.Mesh,
-						settings.SubmeshIndex,
-						settings.Material,
-						settings.ShaderPass,
-						Matrices,
-						Points.Count,
-						MaterialPropertyBlock);
+					data.NavigationPointDrawer.Flush(commandBuffer);
 				});
 			}
 		}
