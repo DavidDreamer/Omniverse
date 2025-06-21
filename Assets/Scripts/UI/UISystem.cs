@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Omniverse.UI
 {
-	[WorldSystemFilter(WorldSystemFilterFlags.Presentation)]
 	[UpdateInGroup(typeof(PresentationSystemGroup), OrderLast = true)]
 	public partial class UISystem : SystemBase
 	{
