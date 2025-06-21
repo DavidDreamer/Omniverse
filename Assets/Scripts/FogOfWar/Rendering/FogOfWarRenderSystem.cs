@@ -41,6 +41,12 @@ namespace Omniverse.Rendering
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 
+		protected override void OnCreate()
+		{
+			RequireForUpdate<MapSettings>();
+			RequireForUpdate<RenderSettings>();
+		}
+
 		protected override void OnStartRunning()
 		{
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;

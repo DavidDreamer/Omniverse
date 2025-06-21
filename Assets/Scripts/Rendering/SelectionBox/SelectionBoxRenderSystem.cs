@@ -13,6 +13,11 @@ namespace Omniverse.Rendering
 
 		private SelectionBoxRenderPass Pass { get; set; }
 
+		protected override void OnCreate()
+		{
+			RequireForUpdate<RenderSettings>();
+		}
+
 		protected override void OnStartRunning()
 		{
 			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;

@@ -17,6 +17,11 @@ namespace Omniverse.Rendering
 
 		private NavigationRenderPass Pass { get; set; }
 
+		protected override void OnCreate()
+		{
+			RequireForUpdate<RenderSettings>();
+		}
+
 		protected override void OnStartRunning()
 		{
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();

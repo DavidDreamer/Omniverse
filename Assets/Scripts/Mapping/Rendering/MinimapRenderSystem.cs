@@ -55,6 +55,12 @@ namespace Omniverse.Mapping
 
 		private MinimapUnitDrawer MinimapUnitDrawer { get; set; }
 
+		protected override void OnCreate()
+		{
+			RequireForUpdate<MapSettings>();
+			RequireForUpdate<RenderSettings>();
+		}
+
 		protected override void OnStartRunning()
 		{
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;

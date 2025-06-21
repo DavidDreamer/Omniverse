@@ -16,6 +16,7 @@ namespace Omniverse.Rendering
 		protected override void OnCreate()
 		{
 			RequireForUpdate<Player>();
+			RequireForUpdate<RenderSettings>();
 		}
 
 		protected override void OnStartRunning()
