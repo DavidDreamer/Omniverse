@@ -54,34 +54,23 @@ namespace Omniverse.Rendering
 					var query = data.EntityManager.CreateEntityQuery(typeof(Health));
 					var entities = query.ToEntityArray(Allocator.Temp);
 
-					int drawnCount = 0;
-
-					while (drawnCount < entities.Length)
+					foreach (var entity in entities)
 					{
-						int currentBatchSize = Math.Min(entities.Length - drawnCount, data.HealthBarDrawer.BatchSize);
+						var health = data.EntityManager.GetComponentData<Health>(entity);
+						var faction = data.EntityManager.GetComponentData<Faction>(entity);
+						var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
 
-						for (int i = drawnCount; i < currentBatchSize; i++)
-						{
-							Entity entity = entities[i];
+						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(data.Settings.Offset);
 
-							var health = data.EntityManager.GetComponentData<Health>(entity);
-							var faction = data.EntityManager.GetComponentData<Faction>(entity);
-							var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
+						HealthBarColors colors = data.Player.FactionID == faction.ID ? data.Settings.AllyColors : data.Settings.EnemyColors;
+						Color baseColor = colors.BaseColor;
+						Color secondColor = colors.SecondColor;
+						float amount = health.Current / health.Maximum;
 
-							var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Translate(data.Settings.Offset);
-
-							HealthBarColors colors = data.Player.FactionID == faction.ID ? data.Settings.AllyColors : data.Settings.EnemyColors;
-							Color baseColor = colors.BaseColor;
-							Color secondColor = colors.SecondColor;
-							float amount = health.Current / health.Maximum;
-
-							data.HealthBarDrawer.AddInstance(matrix, baseColor, secondColor, amount);
-						}
-
-						data.HealthBarDrawer.DrawBatch(commandBuffer);
-
-						drawnCount += currentBatchSize;
+						data.HealthBarDrawer.Draw(commandBuffer, matrix, baseColor, secondColor, amount);
 					}
+
+					data.HealthBarDrawer.Flush(commandBuffer);
 				});
 			}
 		}

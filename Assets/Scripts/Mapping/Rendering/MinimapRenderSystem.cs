@@ -123,26 +123,14 @@ namespace Omniverse.Mapping
 
 				var player = SystemAPI.GetSingleton<Player>();
 
-				int drawnCount = 0;
-
 				foreach ((var unit, var entity) in SystemAPI.Query<Unit>().WithEntityAccess())
 				{
 					float4x4 matrix = unit.DynamicEntity.LocalTransform.ValueRO.ToMatrix();
 					Color tint = player.FactionID == unit.Faction.ValueRO.ID ? Color.green : Color.red;
-					MinimapUnitDrawer.AddInstance(matrix, tint);
-					drawnCount++;
-
-					if (drawnCount == MinimapUnitDrawer.BatchSize)
-					{
-						MinimapUnitDrawer.DrawBatch(commandBuffer);
-						drawnCount = 0;
-					}
+					MinimapUnitDrawer.Draw(commandBuffer, matrix, tint);
 				}
 
-				if (drawnCount > 0)
-				{
-					MinimapUnitDrawer.DrawBatch(commandBuffer);
-				}
+				MinimapUnitDrawer.Flush(commandBuffer);
 			}
 
 			void DrawFogOfWar()

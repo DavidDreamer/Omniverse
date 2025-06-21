@@ -1,5 +1,6 @@
 ﻿using Dreambox.Rendering.Core;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Omniverse.Rendering
 {
@@ -27,13 +28,13 @@ namespace Omniverse.Rendering
 			Amounts = new float[BatchSize];
 		}
 
-		public void AddInstance(Matrix4x4 matrix, Color baseColor, Color secondColor, float amount)
+		public void Draw(RasterCommandBuffer commandBuffer, Matrix4x4 matrix, Color baseColor, Color secondColor, float amount)
 		{
 			BaseColors[Count] = baseColor;
 			SecondColors[Count] = secondColor;
 			Amounts[Count] = amount;
 
-			AddInstance(matrix);
+			Draw(commandBuffer, matrix);
 		}
 
 		protected override void SetupBatch(MaterialPropertyBlock materialPropertyBlock)

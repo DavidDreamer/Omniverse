@@ -1,6 +1,7 @@
 using Dreambox.Rendering.Core;
 using Omniverse.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Omniverse.Mapping
 {
@@ -18,10 +19,11 @@ namespace Omniverse.Mapping
 			Tints = new Vector4[batchSize];
 		}
 
-		public void AddInstance(Matrix4x4 matrix, Color tint)
+		public void Draw(CommandBuffer commandBuffer, Matrix4x4 matrix, Color tint)
 		{
 			Tints[Count] = tint;
-			AddInstance(matrix);
+
+			Draw(commandBuffer, matrix);
 		}
 
 		protected override void SetupBatch(MaterialPropertyBlock materialPropertyBlock)

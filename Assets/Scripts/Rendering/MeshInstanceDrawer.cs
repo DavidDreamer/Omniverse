@@ -26,13 +26,29 @@ namespace Omniverse.Rendering
 			MaterialPropertyBlock = new();
 		}
 
-		public void AddInstance(Matrix4x4 matrix)
+		public void Draw(CommandBuffer commandBuffer, Matrix4x4 matrix)
 		{
 			Matrices[Count] = matrix;
 			Count++;
+
+			if (Count == BatchSize)
+			{
+				DrawBatch(commandBuffer);
+			}
 		}
 
-		public void DrawBatch(CommandBuffer commandBuffer)
+		public void Draw(RasterCommandBuffer commandBuffer, Matrix4x4 matrix)
+		{
+			Matrices[Count] = matrix;
+			Count++;
+
+			if (Count == BatchSize)
+			{
+				DrawBatch(commandBuffer);
+			}
+		}
+
+		private void DrawBatch(CommandBuffer commandBuffer)
 		{
 			SetupBatch(MaterialPropertyBlock);
 
@@ -48,7 +64,7 @@ namespace Omniverse.Rendering
 			Count = 0;
 		}
 
-		public void DrawBatch(RasterCommandBuffer commandBuffer)
+		private void DrawBatch(RasterCommandBuffer commandBuffer)
 		{
 			SetupBatch(MaterialPropertyBlock);
 
@@ -62,6 +78,26 @@ namespace Omniverse.Rendering
 				MaterialPropertyBlock);
 
 			Count = 0;
+		}
+
+		public void Flush(CommandBuffer commandBuffer)
+		{
+			if (Count == 0)
+			{
+				return;
+			}
+
+			DrawBatch(commandBuffer);
+		}
+
+		public void Flush(RasterCommandBuffer commandBuffer)
+		{
+			if (Count == 0)
+			{
+				return;
+			}
+
+			DrawBatch(commandBuffer);
 		}
 
 		protected virtual void SetupBatch(MaterialPropertyBlock materialPropertyBlock)
