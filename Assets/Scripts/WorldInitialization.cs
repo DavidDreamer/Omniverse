@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class WorldInitialization : MonoBehaviour
+	public static class WorldInitialization
 	{
-		//[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		public void Awake()
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+		public static void Initialize()
 		{
 			DefaultWorldInitialization.Initialize("Default World", false);
 		}
