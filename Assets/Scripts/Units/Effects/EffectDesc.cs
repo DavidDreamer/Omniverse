@@ -16,7 +16,7 @@ namespace Omniverse
 		public bool IsPositive { get; private set; }
 
 		[field: SerializeField]
-		public float Time { get; private set; }
+		public float Duration { get; private set; }
 
 		[field: SerializeField]
 		public UnitStatus UnitStatus { get; private set; }

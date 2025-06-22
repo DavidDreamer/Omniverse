@@ -1,27 +1,13 @@
-﻿using UnityEngine;
+﻿using Unity.Burst;
+using Unity.Entities;
 
 namespace Omniverse
 {
-	public class Effect
+	[BurstCompile]
+	public struct Effect : IBufferElementData
 	{
-		//public EffectDesc Desc { get; }
+		public UnityObjectRef<EffectDesc> Desc;
 
-		//public float Time { get; private set; }
-
-		//public bool OutOfTime => Time == 0;
-
-		//public Effect(OmniverseEntity entity, EffectDesc desc)
-		//{
-		//	Entity = entity;
-		//	Desc = desc;
-		//	Time = desc.Time;
-		//}
-
-		//public void Tick(float deltaTime)
-		//{
-		//	//TODO ECS
-		//	//Desc.OnTickOperation?.Perform(Entity, None.Instance);
-		//	Time = Mathf.Max(0, Time - deltaTime);
-		//}
+		public float Time;
 	}
 }

@@ -24,10 +24,9 @@ namespace Omniverse.UI
 
 		public void Tick(Effect effect)
 		{
-			//TODO ECS
-			//Icon.sprite = Effect.Desc.Icon;
-			//Background.color = Effect.Desc.IsPositive ? ColorPositive : ColorNegative;
-			//Timer.fillAmount = Effect.Time / Effect.Desc.Time;
+			Icon.sprite = Effect.Desc.Value.Icon;
+			Background.color = Effect.Desc.Value.IsPositive ? ColorPositive : ColorNegative;
+			Timer.fillAmount = Effect.Time / Effect.Desc.Value.Duration;
 		}
 	}
 }

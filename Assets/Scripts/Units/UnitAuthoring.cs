@@ -47,6 +47,8 @@ namespace Omniverse
 					Current = 5
 				});
 
+				AddBuffer<Effect>(entity);
+
 				AddComponent(entity, new NavAgentComponent());
 				AddComponentObject(entity, new CommandModule());
 				AddBuffer<AbilityReference>(entity);

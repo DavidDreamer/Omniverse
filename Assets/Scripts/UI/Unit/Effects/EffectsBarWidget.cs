@@ -12,37 +12,34 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private EffectWidget EffectWidget { get; set; }
 
-		private List<EffectWidget> EffectWdigets { get; } = new();
+		private List<EffectWidget> EffectWidgets { get; } = new();
 
-		public void Tick(Entity entity)
+		public void Tick(DynamicBuffer<Effect> effects)
 		{
-			//TODO ECS
-			//for (int i = 0; i < Unit.Effects.Count; i++)
-			//{
-			//	Effect effect = Unit.Effects[i];
-			//	if (EffectWdigets.Count == i)
-			//	{
-			//		var effectWidget = Instantiate(EffectWidget);
-			//		effectWidget.transform.SetParent(transform, false);
-			//		EffectWdigets.Add(effectWidget);
-			//	}
+			for (int i = 0; i < effects.Length; i++)
+			{
+				Effect effect = effects[i];
+				if (EffectWidgets.Count == i)
+				{
+					var effectWidget = Instantiate(EffectWidget);
+					effectWidget.transform.SetParent(transform, false);
+					EffectWidgets.Add(effectWidget);
+				}
+			}
 
-			//	EffectWdigets[i].Bind(effect);
-			//}
+			for (int i = effects.Length; i < EffectWidgets.Count; i++)
+			{
+				Destroy(EffectWidgets[i].gameObject);
+				EffectWidgets.RemoveAt(i);
+				i--;
+			}
 
-			//for (int i = Unit.Effects.Count; i < EffectWdigets.Count; i++)
-			//{
-			//	Destroy(EffectWdigets[i].gameObject);
-			//	EffectWdigets.RemoveAt(i);
-			//	i--;
-			//}
+			for (int i = 0; i < effects.Length; i++)
+			{
+				EffectWidgets[i].Tick(effects[i]);
+			}
 
-			//foreach (EffectWidget effectWidget in EffectWdigets)
-			//{
-			//	effectWidget.Tick();
-			//}
-
-			//Holder.ForceLayoutRebuild();
+			Holder.ForceLayoutRebuild();
 		}
 	}
 }

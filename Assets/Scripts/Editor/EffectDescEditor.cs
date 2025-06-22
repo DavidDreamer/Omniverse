@@ -22,7 +22,7 @@ namespace Omniverse.Editor
 			Icon = serializedObject.FindProperty(nameof(EffectDesc.Icon).ToBackingField());
 			Prefab = serializedObject.FindProperty(nameof(EffectDesc.Prefab).ToBackingField());
 			IsPositive = serializedObject.FindProperty(nameof(EffectDesc.IsPositive).ToBackingField());
-			Time = serializedObject.FindProperty(nameof(EffectDesc.Time).ToBackingField());
+			Time = serializedObject.FindProperty(nameof(EffectDesc.Duration).ToBackingField());
 			UnitStatus = serializedObject.FindProperty(nameof(EffectDesc.UnitStatus).ToBackingField());
 			PropertyModifiers = serializedObject.FindProperty(nameof(EffectDesc.PropertyModifiers).ToBackingField());
 			OnAppliedOperation = new(serializedObject.FindProperty(nameof(EffectDesc.OnAppliedOperation).ToBackingField()), typeof(None));

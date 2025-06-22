@@ -68,10 +68,10 @@ namespace Omniverse.UI
 
 			AbilityBar.Tick(EntityManager, entity);
 
-			//TODO ECS
-			//EffectsBar.Bind(unit);
-			//EffectsBar.Tick();
+			var effects = EntityManager.GetBuffer<Effect>(entity);
+			EffectsBar.Tick(effects);
 
+			//TODO ECS
 			//Experience.Bind(unit.Experience);
 			//Properties.Bind(unit);
 

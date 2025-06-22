@@ -15,7 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: f39fffbfc9f8de74e97f2584f4d94e12, type: 3}
   <Prefab>k__BackingField: {fileID: 0}
   <IsPositive>k__BackingField: 0
-  <Time>k__BackingField: 5
+  <Duration>k__BackingField: 5
   <UnitStatus>k__BackingField: 1
   <PropertyModifiers>k__BackingField: []
   <OnAppliedOperation>k__BackingField:
