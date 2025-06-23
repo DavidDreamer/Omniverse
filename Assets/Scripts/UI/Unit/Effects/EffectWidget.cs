@@ -20,13 +20,11 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Color ColorNegative { get; set; }
 
-		private Effect Effect { get; set; }
-
 		public void Tick(Effect effect)
 		{
-			Icon.sprite = Effect.Desc.Value.Icon;
-			Background.color = Effect.Desc.Value.IsPositive ? ColorPositive : ColorNegative;
-			Timer.fillAmount = Effect.Time / Effect.Desc.Value.Duration;
+			Icon.sprite = effect.Desc.Value.Icon;
+			Background.color = effect.Desc.Value.IsPositive ? ColorPositive : ColorNegative;
+			Timer.fillAmount = effect.Time / effect.Desc.Value.Duration;
 		}
 	}
 }

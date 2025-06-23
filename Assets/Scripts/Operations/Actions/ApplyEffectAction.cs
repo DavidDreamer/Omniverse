@@ -10,8 +10,15 @@ namespace Omniverse
 
 		public void Perform(EntityManager entityManager, DynamicEntity actor, DynamicEntity target)
 		{
-			//TODO ECS
-			//target.ApplyEffect(Effect);
+			Effect effect = new()
+			{
+				Desc = Effect,
+				Time = Effect.Duration
+			};
+
+			var effects = entityManager.GetBuffer<Effect>(target.Entity);
+
+			effects.Add(effect);
 		}
 	}
 }
