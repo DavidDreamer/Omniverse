@@ -8,6 +8,9 @@ namespace Omniverse
 	public class UnitDesc : EntityDesc
 	{
 		[field: SerializeField]
+		public MovementDesc Movement { get; private set; }
+
+		[field: SerializeField]
 		public HealthDesc Health { get; private set; }
 
 		[field: SerializeField]

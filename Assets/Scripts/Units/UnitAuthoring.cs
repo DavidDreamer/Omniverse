@@ -44,7 +44,8 @@ namespace Omniverse
 
 				AddComponent(entity, new MovementSpeed()
 				{
-					Current = 5
+					Base = authoring.UnitDesc.Movement.BaseSpeed,
+					Current = authoring.UnitDesc.Movement.BaseSpeed
 				});
 
 				AddBuffer<Effect>(entity);

@@ -7,6 +7,8 @@ namespace Omniverse
 	[BurstCompile]
 	public struct MovementSpeed : IComponentData
 	{
+		public float Base;
+
 		[GhostField]
 		public float Current;
 	}
