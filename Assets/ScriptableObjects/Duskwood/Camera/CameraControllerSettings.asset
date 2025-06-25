@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48534f733ef90074abed817569a9b633, type: 3}
-  m_Name: CameraControllerConfig
+  m_Name: CameraControllerSettings
   m_EditorClassIdentifier: 
   <HeightRange>k__BackingField:
     <Min>k__BackingField: 5

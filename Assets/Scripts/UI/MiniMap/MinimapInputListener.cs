@@ -87,7 +87,8 @@ namespace Omniverse.UI
 		private void MoveCameraToPointerPosition(PointerEventData eventData)
 		{
 			Vector3 viewPoint = TransformPosition(eventData);
-			FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
+			var system = EntityManager.World.GetExistingSystemManaged<ProcessCameraInputSystem>();
+			system.SetViewPoint(viewPoint);
 		}
 	}
 }

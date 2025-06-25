@@ -33,7 +33,8 @@ namespace Omniverse.UI
 					Entity selectedUnit = selection.Entity;
 					Vector3 selectedUnitPosition = EntityManager.GetComponentData<LocalToWorld>(selectedUnit).Position;
 					var viewPoint = new Vector3(selectedUnitPosition.x, 0, selectedUnitPosition.z);
-					Object.FindFirstObjectByType<CameraController>().SetViewPoint(viewPoint);
+					var system = EntityManager.World.GetExistingSystemManaged<ProcessCameraInputSystem>();
+					system.SetViewPoint(viewPoint);
 					break;
 			}
 		}

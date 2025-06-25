@@ -1,34 +1,16 @@
+using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Omniverse.Input
 {
-	public class CameraController : MonoBehaviour
+	[BurstCompile]
+	public struct CameraController : IComponentData
 	{
-		[field: SerializeField]
-		private Camera Camera { get; set; }
+		public UnityObjectRef<CameraControllerSettings> Settings;
 
-		[field: SerializeField]
-		public CameraControllerConfig Config { get; set; }
+		public UnityObjectRef<Camera> Camera;
 
-		private float CurrentHeight { get; set; }
-
-		public void Start()
-		{
-			CurrentHeight = Config.HeightRange.Evaluate(Config.DefaultHeight);
-
-			Camera.transform.position = new Vector3(Camera.transform.position.x, CurrentHeight, Camera.transform.position.z);
-			Camera.transform.eulerAngles = Config.Rotation;
-
-			Cursor.lockState = CursorLockMode.Confined;
-		}
-
-		public void SetViewPoint(Vector3 viewPoint)
-		{
-			float distanceToViewPoint = CurrentHeight / Mathf.Sin(Mathf.Deg2Rad * Camera.transform.eulerAngles.x);
-
-			Camera.transform.position = viewPoint - Camera.transform.forward * distanceToViewPoint;
-		}
+		public float Height;
 	}
 }

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Omniverse.Input
 {
-	[CreateAssetMenu(menuName = "Omniverse/Config/CameraControllerConfig", fileName = nameof(CameraControllerConfig))]
-	public class CameraControllerConfig : ScriptableObject
+	[CreateAssetMenu(menuName = "Omniverse/Settings/CameraController", fileName = nameof(CameraControllerSettings))]
+	public class CameraControllerSettings : ScriptableObject
 	{
 		[field: SerializeField]
 		public FloatRange HeightRange { get; private set; }

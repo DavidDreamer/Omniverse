@@ -1,17 +1,35 @@
-﻿using Unity.Burst;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Omniverse.Input
 {
-	[BurstCompile]
 	[UpdateInGroup(typeof(InputSystemGroup))]
-	public partial struct ProcessCameraInputSystem : ISystem
+	public partial class ProcessCameraInputSystem : SystemBase
 	{
-		[BurstCompile]
-		public void OnUpdate(ref SystemState state)
+		protected override void OnCreate()
+		{
+			RequireForUpdate<CameraController>();
+		}
+
+		protected override void OnStartRunning()
+		{
+			var cameraController = SystemAPI.GetSingletonRW<CameraController>();
+			CameraControllerSettings settings = cameraController.ValueRO.Settings.Value;
+
+			var camera = Camera.main;
+
+			cameraController.ValueRW.Camera = camera;
+			cameraController.ValueRW.Height = settings.HeightRange.Evaluate(settings.DefaultHeight);
+
+			camera.transform.position = new Vector3(camera.transform.position.x, cameraController.ValueRO.Height, camera.transform.position.z);
+			camera.transform.eulerAngles = settings.Rotation;
+
+			Cursor.lockState = CursorLockMode.Confined;
+		}
+
+		protected override void OnUpdate()
 		{
 			var selection = SystemAPI.GetSingleton<Selection>();
 
@@ -20,24 +38,25 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var cameraController = Object.FindFirstObjectByType<CameraController>();
+			var cameraController = SystemAPI.GetSingletonRW<CameraController>();
 
 			Mouse mouse = Mouse.current;
 			float deltaTime = SystemAPI.Time.DeltaTime;
 			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
 
-			Vector3 position = cameraController.transform.position;
+			Camera camera = cameraController.ValueRW.Camera.Value;
+			Vector3 position = camera.transform.position;
 
 			if (mouse.middleButton.isPressed)
 			{
 				position = ProcessSnapping(position, mouse.delta.value);
 			}
 
-			float speed = cameraController.Config.Speed * deltaTime;
+			float speed = cameraController.ValueRW.Settings.Value.Speed * deltaTime;
 			position = ProcessScreenBorderMovements(position, mouse.position.value, speed);
 			position = ProcessBounds(position, mapSettings.Size);
 
-			cameraController.transform.position = position;
+			camera.transform.position = position;
 		}
 
 		private Vector3 ProcessSnapping(Vector3 position, Vector2 delta)
@@ -64,6 +83,15 @@ namespace Omniverse.Input
 			float clampedX = Mathf.Clamp(position.x, -halfSizeX, halfSizeX);
 			float clampedZ = Mathf.Clamp(position.z, -halfSizeY, halfSizeY);
 			return new Vector3(clampedX, position.y, clampedZ);
+		}
+
+		public void SetViewPoint(Vector3 viewPoint)
+		{
+			var cameraController = SystemAPI.GetSingletonRW<CameraController>().ValueRW;
+			Camera camera = cameraController.Camera.Value;
+
+			float distanceToViewPoint = cameraController.Height / Mathf.Sin(Mathf.Deg2Rad * camera.transform.eulerAngles.x);
+			camera.transform.position = viewPoint - camera.transform.forward * distanceToViewPoint;
 		}
 	}
 }
