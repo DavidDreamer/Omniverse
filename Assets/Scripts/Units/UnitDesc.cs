@@ -28,6 +28,8 @@ namespace Omniverse
 		[field: SerializeField]
 		public List<AbilityDesc> Abilities { get; private set; }
 
+		public BuildAbilityDesc BuildAbilityDesc;
+
 		[field: SerializeField]
 		public List<LootDesc> Loot { get; private set; }
 

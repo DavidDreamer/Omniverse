@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Omniverse.Abilities;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
@@ -53,6 +54,15 @@ namespace Omniverse
 				AddComponent(entity, new NavAgentComponent());
 				AddComponentObject(entity, new CommandModule());
 				AddBuffer<AbilityReference>(entity);
+
+				if (desc.BuildAbilityDesc != null)
+				{
+					var building = GetEntity(desc.BuildAbilityDesc.Prefab, TransformUsageFlags.Dynamic);
+					AddComponent(entity, new BuildAbility()
+					{
+						Building = building
+					});
+				}
 			}
 		}
 	}

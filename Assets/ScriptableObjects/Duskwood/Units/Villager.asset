@@ -77,6 +77,7 @@ MonoBehaviour:
   <Abilities>k__BackingField:
   - {fileID: 11400000, guid: 5c403545036cd514b9cc1deb7038bdf9, type: 2}
   - {fileID: 11400000, guid: 13e9998263de9dd488da08da40a829af, type: 2}
+  BuildAbilityDesc: {fileID: 11400000, guid: e55cd3a2d3cbf1240811729610362a9c, type: 2}
   <Loot>k__BackingField: []
   <Inventory>k__BackingField:
     <Capacity>k__BackingField: 16
