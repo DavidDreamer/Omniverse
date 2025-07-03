@@ -17,5 +17,6 @@ namespace Omniverse.Rendering
 		public UnityObjectRef<HealthBarRenderSettings> HealthBar;
 		public UnityObjectRef<NavigationRenderSettings> Navigation;
 		public UnityObjectRef<OutlineRenderSettings> Outline;
+		public UnityObjectRef<BuilderRenderSettings> Builder;
 	}
 }

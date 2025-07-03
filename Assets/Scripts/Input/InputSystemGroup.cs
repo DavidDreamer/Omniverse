@@ -28,6 +28,8 @@ namespace Omniverse.Input
 			inputSystemData.InputActions.Common.Enable();
 			inputSystemData.InputActions.Abilities.Enable();
 
+			EntityManager.CreateSingleton<Builder>();
+
 			EntityManager.SetComponentData(entity, inputSystemData);
 		}
 	}

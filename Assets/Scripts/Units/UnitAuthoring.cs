@@ -60,6 +60,7 @@ namespace Omniverse
 					var building = GetEntity(desc.BuildAbilityDesc.Prefab, TransformUsageFlags.Dynamic);
 					AddComponent(entity, new BuildAbility()
 					{
+						Desc = desc.BuildAbilityDesc,
 						Building = building
 					});
 				}

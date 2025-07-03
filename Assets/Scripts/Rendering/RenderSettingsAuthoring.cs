@@ -34,6 +34,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		public OutlineRenderSettings Outline { get; set; }
 
+		[field: SerializeField]
+		public BuilderRenderSettings Builder { get; set; }
+
 		private class Baker : Baker<RenderSettingsAuthoring>
 		{
 			public override void Bake(RenderSettingsAuthoring authoring)
@@ -49,7 +52,8 @@ namespace Omniverse.Rendering
 					Ability = authoring.Ability,
 					HealthBar = authoring.HealthBar,
 					Navigation = authoring.Navigation,
-					Outline = authoring.Outline
+					Outline = authoring.Outline,
+					Builder = authoring.Builder,
 				});
 			}
 		}

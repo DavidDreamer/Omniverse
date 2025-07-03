@@ -1,5 +1,6 @@
 ﻿using Omniverse.Abilities;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using static InputActions;
 
@@ -16,6 +17,7 @@ namespace Omniverse.Input
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 			var selection = SystemAPI.GetSingleton<Selection>();
 			var selectionRW = SystemAPI.GetSingletonRW<Selection>();
+			var builder = SystemAPI.GetSingletonRW<Builder>();
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 
 			CommonActions commonActions = inputSystemData.InputActions.Common;
@@ -175,6 +177,44 @@ namespace Omniverse.Input
 				i++;
 			}
 
+			if (abilitiesActions.Build.WasPressedThisFrame())
+			{
+				if (builder.ValueRW.BuildingDesc == null)
+				{
+					var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
+					builder.ValueRW.BuildingDesc = buildAbility.Desc.Value.Building;
+				}
+				else
+				{
+					builder.ValueRW.BuildingDesc = null;
+				}
+			}
+
+			if (builder.ValueRW.BuildingDesc != null && commonActions.Select.WasPressedThisFrame())
+			{
+				var commandBuffer =  new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
+
+				var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
+				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
+				
+				var data = new BuildOperaionData
+				{
+					Entity = buildAbility.Building,
+					LocalTransform = new LocalTransform()
+					{
+						Position = pointer.CellPosiiton,
+						Rotation = quaternion.identity,
+						Scale = 1
+					},
+					Faction = faction
+				};
+
+				BuildingUtils.Build(commandBuffer, data);
+
+				builder.ValueRW.BuildingDesc = null;
+				commandBuffer.Playback(entityManager);
+			}
+
 			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
 			{
 				if (!commonActions.AdditiveMode.IsPressed())
@@ -188,6 +228,23 @@ namespace Omniverse.Input
 			void Discard()
 			{
 				selectionRW.ValueRW.Ability = Entity.Null;
+			}
+		}
+
+		public struct BuildOperaionData
+		{
+			public Entity Entity;
+			public LocalTransform LocalTransform;
+			public Faction Faction;
+		}
+
+		public class BuildingUtils
+		{
+			public static void Build(EntityCommandBuffer commandBuffer, BuildOperaionData data)
+			{
+				Entity entity = commandBuffer.Instantiate(data.Entity);
+				commandBuffer.SetComponent(entity, data.LocalTransform);
+				commandBuffer.AddComponent(entity, data.Faction);
 			}
 		}
 	}

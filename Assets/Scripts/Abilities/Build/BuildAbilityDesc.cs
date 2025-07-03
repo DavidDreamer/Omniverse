@@ -1,5 +1,4 @@
-﻿using Unity.Entities.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Omniverse.Abilities
 {
@@ -8,6 +7,8 @@ namespace Omniverse.Abilities
 	{
 		[field: SerializeField]
 		public Meta Meta { get; private set; }
+
+		public BuildingDesc Building;
 
 		public GameObject Prefab;
 	}

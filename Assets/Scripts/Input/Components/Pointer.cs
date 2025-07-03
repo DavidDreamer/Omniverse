@@ -22,6 +22,8 @@ namespace Omniverse.Input
 
 		public float3 WorldPosition;
 
+		public float3 CellPosiiton;
+
 		private NativeHashSet<ComponentType> DetectableTypes;
 
 		private FactiousFilter Filter;
