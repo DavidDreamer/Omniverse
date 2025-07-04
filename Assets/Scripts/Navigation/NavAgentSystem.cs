@@ -2,6 +2,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
+using Unity.Transforms;
 
 namespace Omniverse
 {
@@ -14,17 +15,17 @@ namespace Omniverse
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			foreach (var (unit, movementSpeed, navAgent) in SystemAPI.Query<Unit, RefRW<MovementSpeed>, RefRW <NavAgentComponent>>())
+			foreach ((var unit, var localTransform, var movementSpeed, var navAgent) in SystemAPI.Query<Unit, RefRW<LocalTransform>, MovementSpeed, NavAgentComponent>())
 			{
-				if (!navAgent.ValueRW.IsActive)
+				if (!navAgent.IsActive)
 				{
 					continue;
 				}
 
-				float3 direction = math.normalize(navAgent.ValueRW.targetPosition - unit.DynamicEntity.LocalTransform.ValueRW.Position);
+				float3 direction = math.normalize(navAgent.targetPosition - localTransform.ValueRW.Position);
 				direction.y = 0;
 
-				unit.DynamicEntity.LocalTransform.ValueRW.Position += direction * movementSpeed.ValueRW.Current * deltaTime;
+				localTransform.ValueRW.Position += direction * movementSpeed.Current * deltaTime;
 			}
 		}
 	}

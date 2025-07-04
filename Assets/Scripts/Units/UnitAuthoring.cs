@@ -64,6 +64,8 @@ namespace Omniverse
 						Building = building
 					});
 				}
+
+				AddComponent<Unit>(entity);
 			}
 		}
 	}

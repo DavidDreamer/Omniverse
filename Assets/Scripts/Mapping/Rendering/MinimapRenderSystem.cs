@@ -1,6 +1,7 @@
 using Dreambox.Rendering.Core;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -129,10 +130,10 @@ namespace Omniverse.Mapping
 
 				var player = SystemAPI.GetSingleton<Player>();
 
-				foreach ((var unit, var entity) in SystemAPI.Query<Unit>().WithEntityAccess())
+				foreach ((var unit, var localTransform, var faction, var entity) in SystemAPI.Query<Unit, LocalTransform, Faction>().WithEntityAccess())
 				{
-					float4x4 matrix = unit.DynamicEntity.LocalTransform.ValueRO.ToMatrix();
-					Color tint = player.FactionID == unit.Faction.ValueRO.ID ? Color.green : Color.red;
+					float4x4 matrix = localTransform.ToMatrix();
+					Color tint = player.FactionID == faction.ID ? Color.green : Color.red;
 					MinimapUnitDrawer.Draw(commandBuffer, matrix, tint);
 				}
 
