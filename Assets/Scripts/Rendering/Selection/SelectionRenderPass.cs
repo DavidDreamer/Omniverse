@@ -1,5 +1,4 @@
-﻿using Dreambox.Core;
-using Omniverse.Input;
+﻿using Omniverse.Input;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -35,7 +34,9 @@ namespace Omniverse.Rendering
 			Settings = settings;
 			EntityManager = entityManager;
 
-			SelectionDrawer = new(settings.MeshDrawSettings, 64);
+			ConfigureInput(ScriptableRenderPassInput.Depth);
+
+			SelectionDrawer = new(settings.MeshDrawSettings, settings.RenderingLayerMask, 64);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -49,7 +50,9 @@ namespace Omniverse.Rendering
 				data.SelectionDrawer = SelectionDrawer;
 
 				var universalResourceData = frameData.Get<UniversalResourceData>();
-				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0, AccessFlags.Write);
+				builder.SetRenderAttachmentDepth(universalResourceData.activeDepthTexture, AccessFlags.Read);
+
 				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{
 					RasterCommandBuffer commandBuffer = context.cmd;
@@ -58,8 +61,7 @@ namespace Omniverse.Rendering
 					{
 						var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
 						var faction = data.EntityManager.GetComponentData<Faction>(entity);
-						var matrix = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
-						matrix *= Matrix4x4.Scale(Vector3.one * data.Settings.SizeMultiplier);
+						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * data.Settings.SizeMultiplier);
 						Color color = data.Player.FactionID == faction.ID ?
 							data.Selection.Entity == entity ? data.Settings.MainSelectionColor : data.Settings.AllyColor :
 							data.Settings.EnemyColor;

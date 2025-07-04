@@ -32,6 +32,8 @@ namespace Omniverse.Rendering
 		{
 			Settings = settings;
 			EntityManager = entityManager;
+
+			ConfigureInput(ScriptableRenderPassInput.Depth);
 		}
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -44,7 +46,8 @@ namespace Omniverse.Rendering
 				data.Selection = Selection;
 
 				var universalResourceData = frameData.Get<UniversalResourceData>();
-				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
+				builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0, AccessFlags.Write);
+				builder.SetRenderAttachmentDepth(universalResourceData.activeDepthTexture, AccessFlags.Read);
 
 				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{

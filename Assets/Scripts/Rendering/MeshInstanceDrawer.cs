@@ -4,6 +4,12 @@ using UnityEngine.Rendering;
 
 namespace Omniverse.Rendering
 {
+	public static class DecalShaderVariables
+	{
+		public static int NormalToWorld { get; } = Shader.PropertyToID($"_{nameof(NormalToWorld)}");
+		public static int DecalLayerMaskFromDecal { get; } = Shader.PropertyToID($"_{nameof(DecalLayerMaskFromDecal)}");
+	}
+
 	public class MeshInstanceDrawer
 	{
 		private MeshDrawSettings Settings { get; }
@@ -14,7 +20,7 @@ namespace Omniverse.Rendering
 
 		protected int Count { get; set; }
 
-		private MaterialPropertyBlock MaterialPropertyBlock { get; }
+		protected MaterialPropertyBlock MaterialPropertyBlock { get; }
 
 		public MeshInstanceDrawer(MeshDrawSettings settings, int batchSize)
 		{

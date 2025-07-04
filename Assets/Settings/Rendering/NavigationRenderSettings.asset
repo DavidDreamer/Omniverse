@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74aa2dd42114b07bc4f31701e6495c0, type: 3}
   m_Name: NavigationRenderSettings
   m_EditorClassIdentifier: 
-  <RenderPassEvent>k__BackingField: 450
+  <RenderPassEvent>k__BackingField: 300
   <CameraType>k__BackingField: 3
   <MeshDrawSettings>k__BackingField:
-    <Mesh>k__BackingField: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+    <Mesh>k__BackingField: {fileID: 4300000, guid: 029c0020d7497914c98add19c467ac7d, type: 2}
     <SubmeshIndex>k__BackingField: 0
     <Material>k__BackingField: {fileID: 2100000, guid: 73d1bb8caf943c447b3d5c55ad8bb8d1, type: 2}
-    <ShaderPass>k__BackingField: 3
+    <ShaderPass>k__BackingField: 0
+  <RenderingLayerMask>k__BackingField:
+    serializedVersion: 0
+    m_Bits: 2
   <Capacity>k__BackingField: 5
   <Lifetime>k__BackingField: 1

@@ -11,6 +11,9 @@ namespace Omniverse.Rendering
 		public MeshDrawSettings MeshDrawSettings { get; set; }
 
 		[field: SerializeField]
+		public RenderingLayerMask RenderingLayerMask { get; set; }
+
+		[field: SerializeField]
 		public float SizeMultiplier { get; set; }
 
 		[field: SerializeField]

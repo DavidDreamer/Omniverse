@@ -8,32 +8,47 @@ namespace Omniverse.Rendering
 	{
 		private static class ShaderVariables
 		{
-			public static int BaseColor { get; } = Shader.PropertyToID(nameof(BaseColor));
-			public static int Radius { get; } = Shader.PropertyToID(nameof(Radius));
+			public static int BaseColor { get; } = Shader.PropertyToID($"_{nameof(BaseColor)}");
+			public static int Radius { get; } = Shader.PropertyToID($"_{nameof(Radius)}");
 		}
 
-		private Vector4[] BaseColors { get; }
+		private Vector4[] BaseColor { get; }
 
-		private float[] Radiuses { get; }
+		private float[] Radius { get; }
 
-		public SelectionDrawer(MeshDrawSettings settings, int batchSize) : base(settings, batchSize)
+		public SelectionDrawer(MeshDrawSettings settings, RenderingLayerMask renderingLayerMask, int batchSize) : base(settings, batchSize)
 		{
-			BaseColors = new Vector4[BatchSize];
-			Radiuses = new float[BatchSize];
+			BaseColor = new Vector4[BatchSize];
+			Radius = new float[BatchSize];
+
+			float[] decalLayerMaskFromDecal = new float[BatchSize];
+			for (int i = 0; i < BatchSize; i++)
+			{
+				decalLayerMaskFromDecal[i] = renderingLayerMask.value;
+			}
+			MaterialPropertyBlock.SetFloatArray(DecalShaderVariables.DecalLayerMaskFromDecal, decalLayerMaskFromDecal);
+
+			var matrix = new Matrix4x4(new Vector4(1, 0, 0, 1), new Vector4(0, 0, 1, 1), new Vector4(0, 1, 0, 0), new Vector4(1, 0, 0, 0));
+			Matrix4x4[] normalToWorld = new Matrix4x4[BatchSize];
+			for (int i = 0; i < BatchSize; i++)
+			{
+				normalToWorld[i] = matrix;
+			}
+			MaterialPropertyBlock.SetMatrixArray(DecalShaderVariables.NormalToWorld, normalToWorld);
 		}
 
 		public void Draw(RasterCommandBuffer commandBuffer, Matrix4x4 matrix, Color baseColor, float radius)
 		{
-			BaseColors[Count] = baseColor;
-			Radiuses[Count] = radius;
+			BaseColor[Count] = baseColor;
+			Radius[Count] = radius;
 
 			Draw(commandBuffer, matrix);
 		}
 
 		protected override void SetupBatch(MaterialPropertyBlock materialPropertyBlock)
 		{
-			materialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColors);
-			materialPropertyBlock.SetFloatArray(ShaderVariables.Radius, Radiuses);
+			materialPropertyBlock.SetVectorArray(ShaderVariables.BaseColor, BaseColor);
+			materialPropertyBlock.SetFloatArray(ShaderVariables.Radius, Radius);
 		}
 	}
 }
