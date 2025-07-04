@@ -15,7 +15,7 @@ namespace Omniverse
 		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, None input)
 			=> PhysicsService.GetEntitiesInSphere(entityManager, actor, Radius, Filter);
 
-		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, DynamicEntity input) 
+		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, DynamicEntity input)
 			=> PhysicsService.GetEntitiesInSphere(entityManager, input, Radius, Filter);
 	}
 }

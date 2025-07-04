@@ -1,10 +1,10 @@
 ﻿using Omniverse.Input;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
-using Unity.Mathematics;
 
 namespace Omniverse.Rendering
 {

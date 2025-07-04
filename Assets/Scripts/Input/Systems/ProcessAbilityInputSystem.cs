@@ -198,11 +198,11 @@ namespace Omniverse.Input
 
 			if (builder.ValueRW.BuildingDesc != null && commonActions.Select.WasPressedThisFrame())
 			{
-				var commandBuffer =  new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
+				var commandBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
 				var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
 				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
-				
+
 				var data = new BuildOperationData
 				{
 					Desc = buildAbility.Desc.Value.Building,

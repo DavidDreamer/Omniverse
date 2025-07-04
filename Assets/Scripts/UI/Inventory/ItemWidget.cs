@@ -1,5 +1,4 @@
-﻿using Omniverse.Input;
-using Unity.Entities;
+﻿using Unity.Entities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,7 +29,7 @@ namespace Omniverse.UI
 				case PointerEventData.InputButton.Left:
 					//if (Item.Ability != Entity.Null)
 					//{
-						//AbilityController.Process(selection.Entity, Item.Ability);
+					//AbilityController.Process(selection.Entity, Item.Ability);
 					//}
 					break;
 			}

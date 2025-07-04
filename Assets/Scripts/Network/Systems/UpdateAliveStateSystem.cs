@@ -1,7 +1,7 @@
 ﻿using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.NetCode;
-using Unity.Collections;
 
 namespace Omniverse.Network
 {

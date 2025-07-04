@@ -1,5 +1,4 @@
-﻿using System.Resources;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Unity.Entities;
 using UnityEngine;
 

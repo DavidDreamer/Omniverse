@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Omniverse.Abilities;
+﻿using Omniverse.Abilities;
 using Unity.Entities;
 using Unity.NetCode;
+using UnityEngine;
 
 namespace Omniverse
 {

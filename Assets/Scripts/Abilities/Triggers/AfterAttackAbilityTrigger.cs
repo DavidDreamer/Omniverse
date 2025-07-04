@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Omniverse.Abilities
+﻿namespace Omniverse.Abilities
 {
 	//TODO ECS
 	//public class AfterAttackAbilityTrigger : IAbilityTrigger

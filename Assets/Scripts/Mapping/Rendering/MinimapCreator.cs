@@ -45,7 +45,7 @@ namespace Omniverse.Mapping
 
 				camera.transform.position = new Vector3(0, 10, 0);
 				camera.transform.eulerAngles = new Vector3(90, 0, 0);
-		
+
 				renderTexture = new RenderTexture(
 				width,
 				height,
@@ -56,7 +56,7 @@ namespace Omniverse.Mapping
 				};
 
 				camera.targetTexture = renderTexture;
-				
+
 				camera.Render();
 
 				Texture2D texture = new(width, height, TextureFormat.RGBA32, false);
