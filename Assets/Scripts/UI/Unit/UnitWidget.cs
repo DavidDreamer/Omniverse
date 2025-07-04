@@ -68,14 +68,26 @@ namespace Omniverse.UI
 
 			AbilityBar.Tick(EntityManager, entity);
 
-			var effects = EntityManager.GetBuffer<Effect>(entity);
-			EffectsBar.Tick(effects);
+			if (EntityManager.HasBuffer<Effect>(entity))
+			{
+				EffectsBar.gameObject.SetActive(false);
+
+				var effects = EntityManager.GetBuffer<Effect>(entity);
+				EffectsBar.Tick(effects);
+			}
+			else
+			{
+				EffectsBar.gameObject.SetActive(false);
+			}
 
 			//TODO ECS
 			//Experience.Bind(unit.Experience);
 			//Properties.Bind(unit);
 
-			ActionBar.Tick(EntityManager, entity);
+			if (EntityManager.HasComponent<CommandModule>(entity))
+			{
+				ActionBar.Tick(EntityManager, entity);
+			}
 		}
 	}
 }

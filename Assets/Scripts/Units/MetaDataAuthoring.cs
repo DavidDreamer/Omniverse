@@ -1,5 +1,4 @@
 ﻿using Unity.Entities;
-using Unity.Entities.Content;
 using UnityEngine;
 
 namespace Omniverse
@@ -8,7 +7,7 @@ namespace Omniverse
 	{
 		public string Name;
 
-		public WeakObjectReference<Sprite> Icon;
+		public Sprite Icon;
 
 		public class Baker : Baker<MetaDataAuthoring>
 		{

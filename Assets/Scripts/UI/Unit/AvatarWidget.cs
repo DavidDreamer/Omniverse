@@ -20,7 +20,7 @@ namespace Omniverse.UI
 		{
 			var metaData = EntityManager.GetComponentData<MetaData>(entity);
 
-			Icon.sprite = metaData.GetIcon();
+			Icon.sprite = metaData.Icon;
 			Name.text = metaData.Name.ToString();
 		}
 

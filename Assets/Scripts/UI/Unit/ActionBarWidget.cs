@@ -31,7 +31,7 @@ namespace Omniverse.UI
 			var metaData = entityManager.GetComponentData<MetaData>(ability);
 			var casting = entityManager.GetComponentData<Casting>(ability);
 
-			Icon.sprite = metaData.GetIcon();
+			Icon.sprite = metaData.Icon;
 			Slider.minValue = 0f;
 			Slider.maxValue = casting.Time;
 			Slider.value = casting.CurrentTime;

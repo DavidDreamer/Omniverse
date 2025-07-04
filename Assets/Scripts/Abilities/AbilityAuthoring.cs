@@ -1,6 +1,5 @@
 ﻿using Omniverse.Abilities;
 using Unity.Entities;
-using Unity.Entities.Content;
 using UnityEngine;
 
 namespace Omniverse
@@ -22,7 +21,7 @@ namespace Omniverse
 				AddComponent(entity, new MetaData
 				{
 					Name = desc.Meta.Name,
-					Icon = new WeakObjectReference<Sprite>(desc.Meta.Icon),
+					Icon = desc.Meta.Icon,
 				});
 
 				AddComponent(entity, new Manacost

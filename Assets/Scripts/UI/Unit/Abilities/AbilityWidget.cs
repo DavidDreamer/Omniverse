@@ -50,7 +50,7 @@ namespace Omniverse.UI
 			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
 			var casting = entityManager.GetComponentData<Casting>(ability);
 
-			Icon.sprite = metaData.GetIcon();
+			Icon.sprite = metaData.Icon;
 			Icon.material = entityManager.IsComponentEnabled<Cooldown>(ability) ? OnCooldownMaterial : DefaultMaterial;
 
 			Casting.Tick(casting);

@@ -38,7 +38,7 @@ namespace Omniverse.UI
 				UnitSelectorItem item = Items[i];
 				item.gameObject.SetActive(true);
 				var metaData = EntityManager.GetComponentData<MetaData>(entity);
-				item.Icon.sprite = metaData.GetIcon();
+				item.Icon.sprite = metaData.Icon;
 				i++;
 			}
 

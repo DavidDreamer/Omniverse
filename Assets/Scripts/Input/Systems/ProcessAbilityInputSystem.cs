@@ -30,6 +30,12 @@ namespace Omniverse.Input
 			}
 
 			var entity = selection.Entity;
+
+			if (entityManager.HasComponent<Building>(entity))
+			{
+				return;
+			}
+
 			var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
 			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
@@ -197,8 +203,9 @@ namespace Omniverse.Input
 				var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
 				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
 				
-				var data = new BuildOperaionData
+				var data = new BuildOperationData
 				{
+					Desc = buildAbility.Desc.Value.Building,
 					Entity = buildAbility.Building,
 					LocalTransform = new LocalTransform()
 					{
@@ -231,8 +238,9 @@ namespace Omniverse.Input
 			}
 		}
 
-		public struct BuildOperaionData
+		public struct BuildOperationData
 		{
+			public UnityObjectRef<BuildingDesc> Desc;
 			public Entity Entity;
 			public LocalTransform LocalTransform;
 			public Faction Faction;
@@ -240,11 +248,17 @@ namespace Omniverse.Input
 
 		public class BuildingUtils
 		{
-			public static void Build(EntityCommandBuffer commandBuffer, BuildOperaionData data)
+			public static void Build(EntityCommandBuffer commandBuffer, BuildOperationData data)
 			{
 				Entity entity = commandBuffer.Instantiate(data.Entity);
 				commandBuffer.SetComponent(entity, data.LocalTransform);
 				commandBuffer.AddComponent(entity, data.Faction);
+				commandBuffer.AddComponent(entity, new MetaData
+				{
+					Name = data.Desc.Value.Meta.Name,
+					Icon = data.Desc.Value.Meta.Icon
+				});
+				commandBuffer.AddComponent<Building>(entity);
 			}
 		}
 	}

@@ -188,19 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Mr. ECS
-  Icon:
-    Id:
-      GlobalId:
-        SceneObjectIdentifier0: 21300000
-        SceneObjectIdentifier1: 0
-        AssetGUID:
-          Value:
-            x: 1069111007
-            y: 1265591483
-            z: 2991383936
-            w: 3674163195
-        IdentifierType: 1
-      GenerationType: 1
+  Icon: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
 --- !u!114 &2567662937323303929
 MonoBehaviour:
   m_ObjectHideFlags: 0
