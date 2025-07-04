@@ -59,11 +59,13 @@ namespace Omniverse.Rendering
 						var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
 						var faction = data.EntityManager.GetComponentData<Faction>(entity);
 						var matrix = (Matrix4x4)localToWorld.Value * MatrixUtils.WorldUpRotation * Matrix4x4.Translate(Vector3.up * 0.01f);
-						var color = data.Player.FactionID == faction.ID ?
+						matrix *= Matrix4x4.Scale(Vector3.one * data.Settings.SizeMultiplier);
+						Color color = data.Player.FactionID == faction.ID ?
 							data.Selection.Entity == entity ? data.Settings.MainSelectionColor : data.Settings.AllyColor :
 							data.Settings.EnemyColor;
+						float radius = data.EntityManager.HasComponent<Building>(entity) ? data.Settings.BuildingRadius : data.Settings.UnitRadius;
 
-						data.SelectionDrawer.Draw(commandBuffer, matrix, color);
+						data.SelectionDrawer.Draw(commandBuffer, matrix, color, radius);
 					}
 
 					data.SelectionDrawer.Flush(commandBuffer);

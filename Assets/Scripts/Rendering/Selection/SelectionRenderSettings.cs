@@ -11,6 +11,17 @@ namespace Omniverse.Rendering
 		public MeshDrawSettings MeshDrawSettings { get; set; }
 
 		[field: SerializeField]
+		public float SizeMultiplier { get; set; }
+
+		[field: SerializeField]
+		[field: Range(0f, 1f)]
+		public float UnitRadius{ get; set; }
+
+		[field: SerializeField]
+		[field: Range(0f, 1f)]
+		public float BuildingRadius { get; set; }
+
+		[field: SerializeField]
 		public Color MainSelectionColor { get; set; }
 
 		[field: SerializeField]
