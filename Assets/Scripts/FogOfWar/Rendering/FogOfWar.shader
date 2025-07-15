@@ -114,7 +114,7 @@ Shader "Omniverse/FogOfWar"
 
                 float2 distanceFromBorder = 1 - (abs(float2(0.5, 0.5) - uv) * 2);
                 float2 distanceFromBorderClamped = 1 - saturate(distanceFromBorder / BorderLength);
-                float4 outOfBorderShading = max(distanceFromBorderClamped.x, distanceFromBorderClamped.y) * BaseColor;
+                float4 outOfBorderShading = lerp(distanceFromBorderClamped.x, 1, distanceFromBorderClamped.y) * BaseColor;
                 outOfBorderShading = saturate(outOfBorderShading + cloud * outOfBorderShading);
 
                 #ifdef MODE_REVEALED
