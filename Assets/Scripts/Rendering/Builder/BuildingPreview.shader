@@ -32,7 +32,7 @@ Shader "Omniverse/Builder/Preview"
                 float opacity : TEXCOORD0;
             };
 
-            uniform float4 BoundsSize;
+            uniform float3 _BuilderBoundsSize;
 
             float4 BaseColor;
 
@@ -40,7 +40,7 @@ Shader "Omniverse/Builder/Preview"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.opacity = (v.vertex.y / BoundsSize.y);
+                o.opacity = (v.vertex.y / _BuilderBoundsSize.y);
                 return o;
             }
 

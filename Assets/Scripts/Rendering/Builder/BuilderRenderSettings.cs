@@ -7,6 +7,9 @@ namespace Omniverse.Rendering
 	public class BuilderRenderSettings : CustomRendererConfig
 	{
 		[field: SerializeField]
+		public Material GridMaterial { get; private set; }
+
+		[field: SerializeField]
 		public Material Material { get; private set; }
 	}
 }

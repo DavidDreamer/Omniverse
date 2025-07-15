@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <RenderPassEvent>k__BackingField: 450
   <CameraType>k__BackingField: 3
+  <GridMaterial>k__BackingField: {fileID: 2100000, guid: c6c8b8f05ecbd6b4997c582912704874, type: 2}
   <Material>k__BackingField: {fileID: 2100000, guid: f1b141ba32b10364c8bd2f7d225fff22, type: 2}

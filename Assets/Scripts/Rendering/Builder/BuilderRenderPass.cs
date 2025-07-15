@@ -10,6 +10,12 @@ namespace Omniverse.Rendering
 {
 	public class BuilderRenderPass : ScriptableRenderPass
 	{
+		private static class ShaderVariables
+		{
+			public static int BuilderBoundsSize { get; } = Shader.PropertyToID($"_{nameof(BuilderBoundsSize)}");
+			public static int BuilderFocusPoint { get; } = Shader.PropertyToID($"_{nameof(BuilderFocusPoint)}");
+		}
+
 		private BuilderRenderSettings Settings { get; }
 
 		private EntityManager EntityManager { get; }
@@ -34,7 +40,7 @@ namespace Omniverse.Rendering
 
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
-			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Selection Box", out var data))
+			using (IRasterRenderGraphBuilder builder = renderGraph.AddRasterRenderPass<PassData>("Builder", out var data))
 			{
 				data.EntityManager = EntityManager;
 				data.Settings = Settings;
@@ -54,7 +60,12 @@ namespace Omniverse.Rendering
 					Material material = data.Settings.Material;
 
 					Vector3 boundsSize = mesh.bounds.size;
-					commandBuffer.SetGlobalVector("BoundsSize", boundsSize);
+					commandBuffer.SetGlobalVector(ShaderVariables.BuilderBoundsSize, boundsSize);
+
+					Vector3 focusPoint = (Vector3)data.Pointer.CellPosiiton;
+					commandBuffer.SetGlobalVector(ShaderVariables.BuilderFocusPoint, focusPoint);
+
+					CoreUtils.DrawFullScreen(commandBuffer, data.Settings.GridMaterial, shaderPassId: 0);
 
 					float3 position = data.Pointer.CellPosiiton;
 					var matrix = Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
