@@ -119,6 +119,8 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Power: 1
+    - _PulsationAmplitide: 0.85
+    - _PulsationSpeed: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5

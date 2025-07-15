@@ -7,6 +7,9 @@ Shader "Omniverse/Builder/Grid"
         _RenderingLayer ("Rendering Layer", Integer) = 2
         _Radius ("Radius", Integer) = 3
         _Thickness ("Thickness", Range(0, 1)) = 0.05
+
+        _PulsationSpeed ("Pulsation Speed", Float) = 1
+        _PulsationAmplitide ("Pulsation Amplitude", Range(0, 1)) = 0.5
     }
     SubShader
     {
@@ -33,6 +36,9 @@ Shader "Omniverse/Builder/Grid"
             uint _RenderingLayer;
             uint _Radius;
             float _Thickness;
+
+            float _PulsationSpeed;
+            float _PulsationAmplitide;
 
             uniform float3 _BuilderBoundsSize;
             uniform float3 _BuilderFocusPoint;
@@ -64,7 +70,12 @@ Shader "Omniverse/Builder/Grid"
                 
                 float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
 
-                float3 radius = _BuilderBoundsSize + _Radius;
+                float pulsationTime = _Time.y * _PulsationSpeed;
+                int remainder = fmod(floor(pulsationTime), 2);
+                float pulsationFactor = remainder == 1 ? 1 - frac(pulsationTime) : frac(pulsationTime);
+                float pulsationRadius = lerp(_Radius * _PulsationAmplitide, _Radius, pulsationFactor);
+
+                float3 radius = _BuilderBoundsSize + pulsationRadius;
                 float opacityFromDistance = 1 - saturate(length(_BuilderFocusPoint - worldPos) / radius.x);
 
                 float2 worldPosFrac = frac(worldPos.xz);
