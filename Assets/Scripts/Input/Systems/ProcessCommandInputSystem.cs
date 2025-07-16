@@ -53,6 +53,11 @@ namespace Omniverse.Input
 						var selection = SystemAPI.GetSingleton<Selection>();
 						foreach (Entity entity in selection.Entities)
 						{
+							if (!SystemAPI.HasComponent<MovementSpeed>(entity))
+							{
+								continue;
+							}
+
 							if (!state.EntityManager.IsComponentEnabled<GhostOwnerIsLocal>(entity))
 							{
 								continue;

@@ -135,7 +135,7 @@ namespace Omniverse.Input
 
 					//if (ability.ActiveOperation is not null)
 					{
-						if (selection.InProcess)
+						if (selection.AbilityInProcess)
 						{
 							if (selection.Ability == abilityEntity)
 							{
