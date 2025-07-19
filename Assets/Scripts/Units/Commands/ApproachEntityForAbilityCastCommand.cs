@@ -10,7 +10,7 @@ namespace Omniverse
 
 		public DynamicEntity Target { get; }
 
-		public ApproachEntityForAbilityCastCommand(DynamicEntity entity, Ability ability, DynamicEntity target) : base(entity)
+		public ApproachEntityForAbilityCastCommand(Entity entity, Ability ability, DynamicEntity target) : base(entity)
 		{
 			Ability = ability;
 			Target = target;
@@ -18,8 +18,8 @@ namespace Omniverse
 
 		public override bool Tick(ref SystemState state)
 		{
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
-			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
+			var transform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
 			var targetTransform = state.EntityManager.GetComponentData<LocalTransform>(Target.Entity);
 
 			navAgent.targetEntity = Target.Entity;
@@ -32,7 +32,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 
 			navAgent.targetEntity = default;
 		}

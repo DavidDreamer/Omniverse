@@ -13,7 +13,7 @@ namespace Omniverse
 
 		//public override bool IsRepeatable => Ability.Desc.Casting.Repetitive;
 
-		protected CastAbilityCommand(DynamicEntity entity, Entity abilityEntity) : base(entity)
+		protected CastAbilityCommand(Entity entity, Entity abilityEntity) : base(entity)
 		{
 			AbilityEntity = abilityEntity;
 		}
@@ -72,7 +72,7 @@ namespace Omniverse
 	{
 		private TTarget Target { get; }
 
-		public CastAbilityCommand(DynamicEntity entity, Entity abilityEntity, TTarget target) : base(entity, abilityEntity)
+		public CastAbilityCommand(Entity entity, Entity abilityEntity, TTarget target) : base(entity, abilityEntity)
 		{
 			Target = target;
 		}

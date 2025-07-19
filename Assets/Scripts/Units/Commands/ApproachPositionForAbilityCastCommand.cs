@@ -10,7 +10,7 @@ namespace Omniverse
 
 		public Vector3 Position { get; }
 
-		public ApproachPositionForAbilityCastCommand(DynamicEntity entity, Entity ability, Vector3 position) : base(entity)
+		public ApproachPositionForAbilityCastCommand(Entity entity, Entity ability, Vector3 position) : base(entity)
 		{
 			Ability = ability;
 			Position = position;
@@ -20,7 +20,7 @@ namespace Omniverse
 		{
 			base.Start(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 
 			navAgent.IsActive = true;
 			navAgent.targetPosition = Position;
@@ -28,7 +28,7 @@ namespace Omniverse
 
 		public override bool Tick(ref SystemState state)
 		{
-			var localTransform = state.EntityManager.GetComponentData<LocalTransform>(Entity.Entity);
+			var localTransform = state.EntityManager.GetComponentData<LocalTransform>(Entity);
 
 			//TODO ECS
 			return Vector3.Distance(Position, localTransform.Position) <= 10f;// Ability.CastRange;
@@ -38,7 +38,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 			navAgent.IsActive = false;
 		}
 	}

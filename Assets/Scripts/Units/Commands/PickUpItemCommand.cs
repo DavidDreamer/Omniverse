@@ -6,7 +6,7 @@ namespace Omniverse
 	{
 		private Entity Item { get; }
 
-		public PickUpItemCommand(DynamicEntity entity, Entity item) : base(entity)
+		public PickUpItemCommand(Entity entity, Entity item) : base(entity)
 		{
 			Item = item;
 		}
@@ -15,7 +15,7 @@ namespace Omniverse
 		{
 			base.Start(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 
 			//TODO ECS
 			//navAgent.targetEntity = Item;
@@ -41,7 +41,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 			navAgent.IsActive = false;
 		}
 	}

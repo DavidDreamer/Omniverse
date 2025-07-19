@@ -64,14 +64,14 @@ namespace Omniverse.Input
 							direction.Set(direction.x, 0, direction.z);
 							direction.Normalize();
 
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, selection.Ability, direction);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity.Entity, selection.Ability, direction);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 						else
 						{
-							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity, selection.Ability, pointer.WorldPosition);
+							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity.Entity, selection.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, approachPositionForAbilityCastCommand);
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity, selection.Ability, pointer.WorldPosition);
+							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity.Entity, selection.Ability, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, castAbilityCommand);
 						}
 
@@ -169,7 +169,7 @@ namespace Omniverse.Input
 							}
 							else
 							{
-								var command = new CastAbilityCommand<None>(dynamicEntity, abilityEntity, None.Instance);
+								var command = new CastAbilityCommand<None>(dynamicEntity.Entity, abilityEntity, None.Instance);
 								AddCommand(ref state, commandModule, command);
 							}
 						}

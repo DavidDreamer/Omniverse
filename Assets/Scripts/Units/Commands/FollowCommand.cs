@@ -6,7 +6,7 @@ namespace Omniverse
 	{
 		private DynamicEntity Target { get; }
 
-		public FollowCommand(DynamicEntity entity, DynamicEntity target) : base(entity)
+		public FollowCommand(Entity entity, DynamicEntity target) : base(entity)
 		{
 			Target = target;
 		}

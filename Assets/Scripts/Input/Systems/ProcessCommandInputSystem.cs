@@ -65,7 +65,7 @@ namespace Omniverse.Input
 
 							var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
 							var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
-							var command = new MoveCommand(dynamicEntity, pointer.WorldPosition);
+							var command = new MoveCommand(dynamicEntity.Entity, pointer.WorldPosition);
 							AddCommand(ref state, commandModule, command);
 						}
 						NavigationPointCreated?.Invoke(pointer.WorldPosition);

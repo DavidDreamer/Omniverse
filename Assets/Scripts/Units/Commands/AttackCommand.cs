@@ -6,7 +6,7 @@ namespace Omniverse
 	{
 		private DynamicEntity Target { get; }
 
-		public AttackCommand(DynamicEntity entity, DynamicEntity target) : base(entity)
+		public AttackCommand(Entity entity, DynamicEntity target) : base(entity)
 		{
 			Target = target;
 		}
@@ -40,7 +40,7 @@ namespace Omniverse
 		{
 			base.Cleanup(ref state);
 
-			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity.Entity);
+			var navAgent = state.EntityManager.GetComponentData<NavAgentComponent>(Entity);
 			navAgent.IsActive = false;
 		}
 	}
