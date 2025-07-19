@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 
 namespace Omniverse
@@ -96,7 +97,7 @@ namespace Omniverse
 						RefRO<FogOfWarObstacle> obstacle = item.Item1;
 						RefRO<LocalTransform> transform = item.Item2;
 
-						int index = fogOfWar.ValueRW.CellIndexFromPosition(transform.ValueRO.Position, mapSize);
+						int index = FogOfWarUtils.CellIndexFromPosition(transform.ValueRO.Position, mapSize, fogOfWar.ValueRO.Size);
 						fogOfWar.ValueRW.Occlusion[index] = true;
 					}
 				}
@@ -118,8 +119,45 @@ namespace Omniverse
 					foreach ((var agent, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
 					{
 						float3 position = localTransform.ValueRO.Position;
-						agent.ValueRW.CellIndex = fogOfWar.ValueRW.CellIndexFromPosition(position, mapSize);
+						agent.ValueRW.CellIndex = FogOfWarUtils.CellIndexFromPosition(position, mapSize, fogOfWar.ValueRO.Size);
 					}
+				}
+			}
+		}
+
+		[BurstCompile]
+		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
+		[UpdateAfter(typeof(UpdateVisibilitySystem))]
+		public partial struct UpdateUnitsRelevancy : ISystem
+		{
+			[BurstCompile]
+			public void OnCreate(ref SystemState state)
+			{
+				var ghostRelevancy = SystemAPI.GetSingleton<GhostRelevancy>();
+				ghostRelevancy.GhostRelevancyMode = GhostRelevancyMode.SetIsRelevant;
+			}
+
+			[BurstCompile]
+			public void OnUpdate(ref SystemState state)
+			{
+				var ghostRelevancy = SystemAPI.GetSingleton<GhostRelevancy>();
+
+				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
+
+				foreach ((var unit, var localTransform, var entity) in SystemAPI.Query<Unit, LocalTransform>().WithEntityAccess())
+				{
+					//var a = FogOfWarUtils.CellIndexFromPosition
+
+					//foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
+					//{
+					//	foreach ((var agent, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
+					//	{
+					//		float3 position = localTransform.ValueRO.Position;
+					//		agent.ValueRW.CellIndex = fogOfWar.ValueRW.CellIndexFromPosition(position, mapSize);
+					//	}
+					//}
+
+					//ghostRelevancy.GhostRelevancySet.Add
 				}
 			}
 		}
@@ -209,7 +247,7 @@ namespace Omniverse
 						}
 
 						float3 position = localTransform.ValueRO.Position;
-						int2 coordinates = fogOfWar.CellCoordinatesFromPosition(position, mapSize);
+						int2 coordinates = FogOfWarUtils.CellCoordinatesFromPosition(position, mapSize);
 						int radius = (int)(agent.ValueRW.VisionRange) / FogOfWar.Multiplier;
 
 						var circleHandler = new BresenhamCircleHandler(coordinates.x, coordinates.y, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWar.Size);

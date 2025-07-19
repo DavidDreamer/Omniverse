@@ -75,8 +75,6 @@ namespace Omniverse
 					}
 
 					entityManager.SetEnabled(missile, false);
-
-					//entityManager.GetComponentDataRW<ChunkWorldRenderBounds>
 				}
 			}
 		}
