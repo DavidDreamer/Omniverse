@@ -1,12 +1,13 @@
 ﻿using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 
 namespace Omniverse
 {
 	[BurstCompile]
-	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
+	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial struct ProcessMissilesLifetimeSystem : ISystem
 	{
 		[BurstCompile]
@@ -22,7 +23,14 @@ namespace Omniverse
 
 				if (distanceSq >= rangeSq)
 				{
-					commandBuffer.DestroyEntity(entity);
+					if (state.WorldUnmanaged.IsServer())
+					{
+						commandBuffer.DestroyEntity(entity);
+					}
+					else
+					{
+						commandBuffer.SetEnabled(entity, false);
+					}
 				}
 			}
 
