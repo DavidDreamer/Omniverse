@@ -22,11 +22,6 @@ namespace Omniverse
 
 		public void Perform(EntityManager entityManager, DynamicEntity actor, Vector3 target)
 		{
-			if (!entityManager.World.IsServer())
-			{
-				return;
-			}
-
 			var references = entityManager.GetSingleton<EntityReferences>();
 
 			Entity fireball = entityManager.Instantiate(references.Fireball);
