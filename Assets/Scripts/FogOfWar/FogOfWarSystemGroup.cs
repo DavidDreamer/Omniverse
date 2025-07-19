@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.NetCode;
 using Unity.Transforms;
 
 namespace Omniverse
@@ -16,24 +15,20 @@ namespace Omniverse
 		{
 			base.OnStartRunning();
 
-			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
+			var settings = SystemAPI.GetSingleton<FogOfWarSettings>();
 
-			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
+			if (settings.Mode is FogOfWarMode.Revealed)
 			{
 				return;
 			}
-
-			int2 size = mapSettings.Size / FogOfWar.Multiplier;
 
 			var entity = EntityManager.CreateEntity();
 			EntityManager.SetName(entity, "Fog Of War");
 			EntityManager.AddComponent<FogOfWar>(entity);
 			EntityManager.SetComponentData(entity, new FogOfWar()
 			{
-				Explored = mapSettings.FogOfWarMode is FogOfWarMode.Explored,
-				Size = size,
-				Occlusion = new NativeArray<bool>(size.x * size.y, Allocator.Persistent),
-				Visibility = new NativeArray<CellVisibilityState>(size.x * size.y, Allocator.Persistent)
+				Occlusion = new NativeArray<bool>(settings.Size.x * settings.Size.y, Allocator.Persistent),
+				Visibility = new NativeArray<CellVisibilityState>(settings.Size.x * settings.Size.y, Allocator.Persistent)
 			});
 		}
 
@@ -56,9 +51,11 @@ namespace Omniverse
 			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
+
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
-					if (fogOfWar.ValueRW.Explored)
+					if (fogOfWarSettings.Mode is FogOfWarMode.Explored)
 					{
 						for (int i = 0; i < fogOfWar.ValueRW.Visibility.Length; ++i)
 						{
@@ -89,6 +86,7 @@ namespace Omniverse
 			public void OnUpdate(ref SystemState state)
 			{
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
 
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
@@ -97,7 +95,7 @@ namespace Omniverse
 						RefRO<FogOfWarObstacle> obstacle = item.Item1;
 						RefRO<LocalTransform> transform = item.Item2;
 
-						int index = FogOfWarUtils.CellIndexFromPosition(transform.ValueRO.Position, mapSize, fogOfWar.ValueRO.Size);
+						int index = FogOfWarUtils.CellIndexFromPosition(transform.ValueRO.Position, mapSize, fogOfWarSettings.Size);
 						fogOfWar.ValueRW.Occlusion[index] = true;
 					}
 				}
@@ -113,51 +111,15 @@ namespace Omniverse
 			public void OnUpdate(ref SystemState state)
 			{
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
 
 				foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
 				{
 					foreach ((var agent, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
 					{
 						float3 position = localTransform.ValueRO.Position;
-						agent.ValueRW.CellIndex = FogOfWarUtils.CellIndexFromPosition(position, mapSize, fogOfWar.ValueRO.Size);
+						agent.ValueRW.CellIndex = FogOfWarUtils.CellIndexFromPosition(position, mapSize, fogOfWarSettings.Size);
 					}
-				}
-			}
-		}
-
-		[BurstCompile]
-		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		[UpdateAfter(typeof(UpdateVisibilitySystem))]
-		public partial struct UpdateUnitsRelevancy : ISystem
-		{
-			[BurstCompile]
-			public void OnCreate(ref SystemState state)
-			{
-				var ghostRelevancy = SystemAPI.GetSingleton<GhostRelevancy>();
-				ghostRelevancy.GhostRelevancyMode = GhostRelevancyMode.SetIsRelevant;
-			}
-
-			[BurstCompile]
-			public void OnUpdate(ref SystemState state)
-			{
-				var ghostRelevancy = SystemAPI.GetSingleton<GhostRelevancy>();
-
-				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
-
-				foreach ((var unit, var localTransform, var entity) in SystemAPI.Query<Unit, LocalTransform>().WithEntityAccess())
-				{
-					//var a = FogOfWarUtils.CellIndexFromPosition
-
-					//foreach (var fogOfWar in SystemAPI.Query<RefRW<FogOfWar>>())
-					//{
-					//	foreach ((var agent, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, RefRO<LocalTransform>>())
-					//	{
-					//		float3 position = localTransform.ValueRO.Position;
-					//		agent.ValueRW.CellIndex = fogOfWar.ValueRW.CellIndexFromPosition(position, mapSize);
-					//	}
-					//}
-
-					//ghostRelevancy.GhostRelevancySet.Add
 				}
 			}
 		}
@@ -237,6 +199,8 @@ namespace Omniverse
 				var player = SystemAPI.GetSingleton<Player>();
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
 
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
+
 				foreach (var fogOfWar in SystemAPI.Query<FogOfWar>())
 				{
 					foreach ((var agent, var faction, var localTransform) in SystemAPI.Query<RefRW<FogOfWarAgent>, Faction, RefRO<LocalTransform>>())
@@ -250,7 +214,7 @@ namespace Omniverse
 						int2 coordinates = FogOfWarUtils.CellCoordinatesFromPosition(position, mapSize);
 						int radius = (int)(agent.ValueRW.VisionRange) / FogOfWar.Multiplier;
 
-						var circleHandler = new BresenhamCircleHandler(coordinates.x, coordinates.y, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWar.Size);
+						var circleHandler = new BresenhamCircleHandler(coordinates.x, coordinates.y, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWarSettings.Size);
 						Bresenham.Circle(coordinates.x, coordinates.y, radius, circleHandler);
 					}
 				}

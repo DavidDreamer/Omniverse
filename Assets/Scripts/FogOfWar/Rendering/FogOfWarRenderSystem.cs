@@ -52,13 +52,13 @@ namespace Omniverse.Rendering
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;
 			RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
 
-			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
+			var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.FogOfWar;
 
 			foreach (FogOfWarMode mode in Enum.GetValues(typeof(FogOfWarMode)).Cast<FogOfWarMode>())
 			{
-				if (mode == mapSettings.FogOfWarMode)
+				if (mode == fogOfWarSettings.Mode)
 				{
 					Shader.EnableKeyword(ShaderVariables.ModeToKeyword(mode));
 				}
@@ -73,14 +73,14 @@ namespace Omniverse.Rendering
 				renderPassEvent = Settings.RenderPassEvent
 			};
 
-			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
+			if (fogOfWarSettings.Mode is FogOfWarMode.Revealed)
 			{
 				return;
 			}
 
 			var fogOfWar = SystemAPI.GetSingleton<FogOfWar>();
 
-			var resolution = new Vector4(fogOfWar.Size.x, fogOfWar.Size.y);
+			var resolution = new Vector4(fogOfWarSettings.Size.x, fogOfWarSettings.Size.y);
 			Shader.SetGlobalVector(ShaderVariables.FogOfWarResolution, resolution);
 
 			AnimationRT = CreateAnimationRT("FogOfWar.Animation");
@@ -91,7 +91,7 @@ namespace Omniverse.Rendering
 
 			RenderTexture CreateAnimationRT(string textureName)
 			{
-				return new RenderTexture(fogOfWar.Size.x, fogOfWar.Size.y,
+				return new RenderTexture(fogOfWarSettings.Size.x, fogOfWarSettings.Size.y,
 					GraphicsFormat.R16G16_SNorm,
 					GraphicsFormat.None)
 				{
@@ -103,7 +103,7 @@ namespace Omniverse.Rendering
 
 			RenderTexture CreateBlurRT(string textureName)
 			{
-				return new RenderTexture(fogOfWar.Size.x, fogOfWar.Size.y,
+				return new RenderTexture(fogOfWarSettings.Size.x, fogOfWarSettings.Size.y,
 					GraphicsFormat.R16G16_SFloat,
 					GraphicsFormat.None)
 				{
@@ -118,9 +118,9 @@ namespace Omniverse.Rendering
 			RenderPipelineManager.beginContextRendering -= OnBeginContextRendering;
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 
-			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
+			var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
 
-			if (mapSettings.FogOfWarMode is not FogOfWarMode.Revealed)
+			if (fogOfWarSettings.Mode is not FogOfWarMode.Revealed)
 			{
 				AnimationRT.Release();
 				BlurRT1.Release();
@@ -131,9 +131,9 @@ namespace Omniverse.Rendering
 
 		private void OnBeginContextRendering(ScriptableRenderContext context, System.Collections.Generic.List<Camera> cameras)
 		{
-			var mapSettings = SystemAPI.GetSingleton<MapSettings>();
+			var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
 
-			if (mapSettings.FogOfWarMode is FogOfWarMode.Revealed)
+			if (fogOfWarSettings.Mode is FogOfWarMode.Revealed)
 			{
 				return;
 			}

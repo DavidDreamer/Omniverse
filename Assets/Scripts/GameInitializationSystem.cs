@@ -19,11 +19,18 @@ public partial struct GameInitializationSystem : ISystem
 
 		MapSettings mapSettings = new()
 		{
-			Size = gameOptions.MapSize,
-			FogOfWarMode = gameOptions.FogOfWarMode
+			Size = gameOptions.MapSize
 		};
 
 		state.EntityManager.CreateSingleton(mapSettings);
+
+		FogOfWarSettings fogOfWarSettings = new()
+		{
+			Mode = gameOptions.FogOfWarMode,
+			Size = mapSettings.Size / FogOfWar.Multiplier
+		};
+
+		state.EntityManager.CreateSingleton(fogOfWarSettings);
 
 		factionsData = new FactionsData()
 		{

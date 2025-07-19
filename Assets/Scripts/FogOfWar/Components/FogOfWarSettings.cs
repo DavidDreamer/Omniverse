@@ -5,8 +5,9 @@ using Unity.Mathematics;
 namespace Omniverse
 {
 	[BurstCompile]
-	public struct MapSettings : IComponentData
+	public struct FogOfWarSettings : IComponentData
 	{
+		public FogOfWarMode Mode;
 		public int2 Size;
 	}
 }
