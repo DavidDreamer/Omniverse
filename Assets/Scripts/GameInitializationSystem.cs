@@ -27,7 +27,7 @@ public partial struct GameInitializationSystem : ISystem
 		FogOfWarSettings fogOfWarSettings = new()
 		{
 			Mode = gameOptions.FogOfWarMode,
-			Size = mapSettings.Size / FogOfWar.Multiplier
+			Size = mapSettings.Size / FogOfWarUtils.Multiplier
 		};
 
 		state.EntityManager.CreateSingleton(fogOfWarSettings);

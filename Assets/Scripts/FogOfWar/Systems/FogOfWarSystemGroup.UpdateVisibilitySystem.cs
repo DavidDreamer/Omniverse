@@ -97,7 +97,7 @@ namespace Omniverse
 
 						float3 position = localTransform.ValueRO.Position;
 						int2 coordinates = FogOfWarUtils.CellCoordinatesFromPosition(position, mapSize);
-						int radius = (int)(agent.ValueRW.VisionRange) / FogOfWar.Multiplier;
+						int radius = (int)(agent.ValueRW.VisionRange) / FogOfWarUtils.Multiplier;
 
 						var circleHandler = new BresenhamCircleHandler(coordinates.x, coordinates.y, fogOfWar.Visibility, fogOfWar.Occlusion, fogOfWarSettings.Size);
 						Bresenham.Circle(coordinates.x, coordinates.y, radius, circleHandler);
