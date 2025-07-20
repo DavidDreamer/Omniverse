@@ -75,6 +75,7 @@ namespace Omniverse.Network.Server
 					void CreateAbility(Entity prefab)
 					{
 						Entity ability = commandBuffer.Instantiate(prefab);
+						commandBuffer.AddComponent<GhostChildEntity>(ability);
 						commandBuffer.SetComponent(ability, ghostOwner);
 						commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
 						{
@@ -84,6 +85,11 @@ namespace Omniverse.Network.Server
 						{
 							Entity = ability
 						});
+						commandBuffer.AppendToBuffer(unit, new GhostGroup
+						{
+							Value = ability,
+						});
+
 						commandBuffer.SetComponent(ability, new Owner
 						{
 							Entity = unit
