@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UnitDesc>k__BackingField: {fileID: 11400000, guid: 5052019bdf62048489488d971aaed40f, type: 2}
-  FactionID: 0
 --- !u!114 &4419848845648766339
 MonoBehaviour:
   m_ObjectHideFlags: 0

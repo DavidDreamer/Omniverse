@@ -9,8 +9,6 @@ namespace Omniverse
 		[field: SerializeField]
 		public UnitDesc UnitDesc { get; set; }
 
-		public int FactionID;
-
 		private class Baker : Baker<UnitAuthoring>
 		{
 			public override void Bake(UnitAuthoring authoring)
@@ -19,10 +17,7 @@ namespace Omniverse
 
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-				AddComponent(entity, new Faction()
-				{
-					ID = authoring.FactionID
-				});
+				AddComponent<Faction>(entity);
 
 				AddComponent(entity, new Alive());
 
