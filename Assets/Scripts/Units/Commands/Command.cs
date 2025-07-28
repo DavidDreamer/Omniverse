@@ -13,13 +13,13 @@ namespace Omniverse
 		void Cleanup(ref SystemState state);
 	}
 
-	public abstract class Command : ICommand
+	public abstract class CommandBase : ICommand
 	{
 		protected Entity Entity { get; }
 
 		public virtual bool IsRepeatable => false;
 
-		protected Command(Entity entity)
+		protected CommandBase(Entity entity)
 		{
 			Entity = entity;
 		}

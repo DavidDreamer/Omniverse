@@ -84,10 +84,10 @@ namespace Omniverse.UI
 			//Experience.Bind(unit.Experience);
 			//Properties.Bind(unit);
 
-			if (EntityManager.HasComponent<CommandModule>(entity))
-			{
-				ActionBar.Tick(EntityManager, entity);
-			}
+			//if (EntityManager.HasComponent<CommandModule>(entity))
+			//{
+			//	ActionBar.Tick(EntityManager, entity);
+			//}
 		}
 	}
 }

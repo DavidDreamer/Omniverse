@@ -16,6 +16,11 @@ namespace Omniverse.Input
 
 		public void OnUpdate(ref SystemState state)
 		{
+			foreach (var unitInput in SystemAPI.Query<RefRW<UnitInput>>())
+			{
+				unitInput.ValueRW.Event = default;
+			}
+
 			var inputSystemData = SystemAPI.ManagedAPI.GetSingleton<InputSystemData>();
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 			CommonActions commonActions = inputSystemData.InputActions.Common;
@@ -63,11 +68,12 @@ namespace Omniverse.Input
 								continue;
 							}
 
-							var dynamicEntity = state.EntityManager.GetAspect<DynamicEntity>(entity);
-							var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
-							var command = new MoveCommand(dynamicEntity.Entity, pointer.WorldPosition);
-							AddCommand(ref state, commandModule, command);
+							var target = SystemAPI.GetComponentRW<UnitInput>(entity);
+							target.ValueRW.Command = Command.Move;
+							target.ValueRW.Position = pointer.WorldPosition;
+							target.ValueRW.Event.Set();
 						}
+
 						NavigationPointCreated?.Invoke(pointer.WorldPosition);
 						break;
 				}
@@ -79,16 +85,6 @@ namespace Omniverse.Input
 			//		unit.CommandModule.Reset();
 			//	}
 			//}
-
-			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
-			{
-				if (!commonActions.AdditiveMode.IsPressed())
-				{
-					commandModule.Reset(ref state);
-				}
-
-				commandModule.Add(command);
-			}
 		}
 
 		public void ProcessNavigationPoint(Vector3 position)

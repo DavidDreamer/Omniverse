@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Omniverse
 {
 	//TODO ECS
-	public abstract class CastAbilityCommand : Command
+	public abstract class CastAbilityCommand : CommandBase
 	{
 		public Entity AbilityEntity;
 

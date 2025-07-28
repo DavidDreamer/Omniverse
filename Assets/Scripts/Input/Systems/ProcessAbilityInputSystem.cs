@@ -37,7 +37,6 @@ namespace Omniverse.Input
 			}
 
 			var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
-			var commandModule = SystemAPI.ManagedAPI.GetComponent<CommandModule>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 
 			if (selection.AbilityInProcess)
@@ -64,15 +63,11 @@ namespace Omniverse.Input
 							direction.Set(direction.x, 0, direction.z);
 							direction.Normalize();
 
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity.Entity, selection.Ability, direction);
-							AddCommand(ref state, commandModule, castAbilityCommand);
+							//TODO CASTING
 						}
 						else
 						{
-							var approachPositionForAbilityCastCommand = new ApproachPositionForAbilityCastCommand(dynamicEntity.Entity, selection.Ability, pointer.WorldPosition);
-							AddCommand(ref state, commandModule, approachPositionForAbilityCastCommand);
-							var castAbilityCommand = new CastAbilityCommand<UnityEngine.Vector3>(dynamicEntity.Entity, selection.Ability, pointer.WorldPosition);
-							AddCommand(ref state, commandModule, castAbilityCommand);
+							//TODO: Approach and Cast
 						}
 
 						Discard();
@@ -169,8 +164,7 @@ namespace Omniverse.Input
 							}
 							else
 							{
-								var command = new CastAbilityCommand<None>(dynamicEntity.Entity, abilityEntity, None.Instance);
-								AddCommand(ref state, commandModule, command);
+								//TODO CASTING
 							}
 						}
 						else
@@ -220,16 +214,6 @@ namespace Omniverse.Input
 
 				builder.ValueRW.BuildingDesc = null;
 				commandBuffer.Playback(entityManager);
-			}
-
-			void AddCommand(ref SystemState state, CommandModule commandModule, ICommand command)
-			{
-				if (!commonActions.AdditiveMode.IsPressed())
-				{
-					commandModule.Reset(ref state);
-				}
-
-				commandModule.Add(command);
 			}
 
 			void Discard()

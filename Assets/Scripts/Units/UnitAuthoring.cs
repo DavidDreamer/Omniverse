@@ -46,8 +46,6 @@ namespace Omniverse
 
 				AddBuffer<Effect>(entity);
 
-				AddComponent(entity, new NavAgentComponent());
-				AddComponentObject(entity, new CommandModule());
 				AddBuffer<AbilityReference>(entity);
 
 				if (desc.BuildAbilityDesc != null)
@@ -61,6 +59,7 @@ namespace Omniverse
 				}
 
 				AddComponent<Unit>(entity);
+				AddComponent<UnitInput>(entity);
 			}
 		}
 	}
