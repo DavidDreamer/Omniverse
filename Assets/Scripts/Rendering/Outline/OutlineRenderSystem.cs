@@ -79,10 +79,17 @@ namespace Omniverse.Rendering
 			Targets.Clear();
 
 			var player = SystemAPI.GetSingleton<Player>();
-			var entityDetector = SystemAPI.GetSingleton<Pointer>();
-			var entity = entityDetector.Entity;
+			var pointer = SystemAPI.GetSingleton<Pointer>();
+			var selection = SystemAPI.GetSingleton<Selection>();
+
+			var entity = pointer.Entity;
 
 			if (entity == Entity.Null)
+			{
+				return;
+			}
+
+			if (selection.HasSelection && entity == selection.Entity)
 			{
 				return;
 			}
