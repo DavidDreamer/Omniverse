@@ -76,7 +76,7 @@ Shader "Omniverse/FogOfWar"
             #pragma multi_compile_fragment MODE_REVEALED MODE_EXPLORED MODE_UNEXPLORED
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
-            #include "Assets/Scripts/Mapping/Map.hlsl"
+            #include "Assets/Scripts/Map/Map.hlsl"
             
             float4 BaseColor;
             float4 ExploredColor;

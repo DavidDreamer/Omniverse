@@ -57,7 +57,7 @@ Shader "Omniverse/Minimap"
             #pragma vertex Vert
             #pragma fragment Frag
             
-            #include "Assets/Scripts/Mapping/Map.hlsl"
+            #include "Assets/Scripts/Map/Map.hlsl"
             
             float4 Point1;
             float4 Point2;
