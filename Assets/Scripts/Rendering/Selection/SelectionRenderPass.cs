@@ -60,11 +60,36 @@ namespace Omniverse.Rendering
 					foreach (Entity entity in data.Selection.Entities)
 					{
 						var localToWorld = data.EntityManager.GetComponentData<LocalToWorld>(entity);
-						var faction = data.EntityManager.GetComponentData<Faction>(entity);
 						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * data.Settings.SizeMultiplier);
-						Color color = data.Player.FactionID == faction.ID ?
-							data.Selection.Entity == entity ? data.Settings.MainSelectionColor : data.Settings.AllyColor :
-							data.Settings.EnemyColor;
+
+						Color color;
+						if (data.EntityManager.HasComponent<Faction>(entity))
+						{
+							var faction = data.EntityManager.GetComponentData<Faction>(entity);
+
+							if (data.Player.FactionID == faction.ID)
+							{
+								if (data.Selection.Entity == entity)
+								{
+									color = data.Settings.MainSelectionColor;
+								}
+								else
+								{
+									color = data.Settings.AllyColor;
+								}
+							}
+							else
+							{
+								color = data.Settings.EnemyColor;
+							}
+
+						}
+						else
+						{
+							color = data.Settings.NeutralColor;
+						}
+
+
 						float radius = data.EntityManager.HasComponent<Building>(entity) ? data.Settings.BuildingRadius : data.Settings.UnitRadius;
 
 						data.SelectionDrawer.Draw(commandBuffer, matrix, color, radius);

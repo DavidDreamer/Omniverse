@@ -1,6 +1,7 @@
 ﻿using Omniverse.Abilities;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 using static InputActions;
 
@@ -30,6 +31,11 @@ namespace Omniverse.Input
 			}
 
 			var entity = selection.Entity;
+
+			if (!SystemAPI.HasComponent<GhostOwnerIsLocal>(entity))
+			{
+				return;
+			}
 
 			if (entityManager.HasComponent<Building>(entity))
 			{

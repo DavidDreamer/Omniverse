@@ -25,6 +25,9 @@ namespace Omniverse.Rendering
 		public float BuildingRadius { get; set; }
 
 		[field: SerializeField]
+		public Color NeutralColor { get; set; }
+
+		[field: SerializeField]
 		public Color MainSelectionColor { get; set; }
 
 		[field: SerializeField]

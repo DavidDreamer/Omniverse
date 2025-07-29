@@ -18,10 +18,17 @@ namespace Omniverse.UI
 
 		public void Bind(Entity entity)
 		{
-			var metaData = EntityManager.GetComponentData<MetaData>(entity);
-
-			Icon.sprite = metaData.Icon;
-			Name.text = metaData.Name.ToString();
+			if (EntityManager.HasComponent<MetaData>(entity))
+			{
+				var metaData = EntityManager.GetComponentData<MetaData>(entity);
+				Icon.sprite = metaData.Icon;
+				Name.text = metaData.Name.ToString();
+			}
+			else
+			{
+				Icon.sprite = null;
+				Name.text = string.Empty;
+			}
 		}
 
 		public void OnPointerClick(PointerEventData eventData)
