@@ -3,6 +3,10 @@ Shader "Omniverse/Minimap"
     Properties
     {
         FogOfWarColor("Fog Of War Color", Color) = (0, 0, 0, 0.5)
+
+        FrustrumColor("Frustrum Color", Color) = (1, 1, 1, 1)
+        FrustrumEdgeWidth("Frustrum Edge Width", Float) = 0.01
+        FrustrumEdgePower("Frustrum Edge Power", Float) = 1
     }
 
     SubShader
@@ -59,7 +63,9 @@ Shader "Omniverse/Minimap"
             
             #include "Assets/Scripts/Map/Map.hlsl"
 
-            #define WIDTH 0.01
+            float4 FrustrumColor;
+            float FrustrumEdgeWidth;
+            float FrustrumEdgePower;
 
             float4 Point1;
             float4 Point2;
@@ -71,7 +77,7 @@ Shader "Omniverse/Minimap"
                 float2 normal = normalize(float2(-(b.y - a.y), (b.x - a.x)));
                 float distAB = dot(normal, a);
                 dist = dot(normal, c) - distAB;
-                factor = 1 - saturate(abs(dist) / WIDTH);
+                factor = 1 - saturate(abs(dist) / FrustrumEdgeWidth);
             }
 
             float4 Frag(Varyings input) : SV_Target
@@ -95,7 +101,9 @@ Shader "Omniverse/Minimap"
                 float hh = lerp(sum, h, aDist >= 0 || cDist >= 0);
                 float vv = lerp(sum, v, bDist >= 0 || dDist >= 0);
 
-                return min(hh, vv);
+                float opacity = pow(min(hh, vv), FrustrumEdgePower);
+
+                return FrustrumColor * opacity;
             }
             ENDHLSL
         }
