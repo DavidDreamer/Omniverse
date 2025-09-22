@@ -67,10 +67,10 @@ Shader "Omniverse/Minimap"
             float FrustrumEdgeWidth;
             float FrustrumEdgePower;
 
-            float4 Point1;
-            float4 Point2;
-            float4 Point3;
-            float4 Point4;
+            uniform float4 FrustrumLeftBottom;
+            uniform float4 FrustrumLeftTop;
+            uniform float4 FrustrumRightTop;
+            uniform float4 FrustrumRightBottom;
 
             void CalculateValuesForEdge(float2 a, float2 b, float2 c, out float dist, out float factor)
             {
@@ -83,16 +83,16 @@ Shader "Omniverse/Minimap"
             float4 Frag(Varyings input) : SV_Target
             {
                 float aDist, aFactor;
-                CalculateValuesForEdge(Point1, Point2, input.texcoord, aDist, aFactor);
+                CalculateValuesForEdge(FrustrumLeftBottom, FrustrumLeftTop, input.texcoord, aDist, aFactor);
 
                 float bDist, bFactor;
-                CalculateValuesForEdge(Point2, Point3, input.texcoord, bDist, bFactor);
+                CalculateValuesForEdge(FrustrumLeftTop, FrustrumRightTop, input.texcoord, bDist, bFactor);
 
                 float cDist, cFactor;
-                CalculateValuesForEdge(Point3, Point4, input.texcoord, cDist, cFactor);
+                CalculateValuesForEdge(FrustrumRightTop, FrustrumRightBottom, input.texcoord, cDist, cFactor);
 
                 float dDist, dFactor;
-                CalculateValuesForEdge(Point4, Point1, input.texcoord, dDist, dFactor);
+                CalculateValuesForEdge(FrustrumRightBottom, FrustrumLeftBottom, input.texcoord, dDist, dFactor);
 
                 float h = max(aFactor, cFactor);
                 float v = max(bFactor, dFactor);

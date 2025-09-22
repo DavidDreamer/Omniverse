@@ -3,7 +3,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using RenderSettings = Omniverse.Rendering.RenderSettings;
 
@@ -21,6 +20,11 @@ namespace Omniverse.Mapping
 		private static class ShaderVariables
 		{
 			public static int MapProperties { get; } = Shader.PropertyToID(nameof(MapProperties));
+
+			public static int FrustrumLeftBottom { get; } = Shader.PropertyToID(nameof(FrustrumLeftBottom));
+			public static int FrustrumLeftTop { get; } = Shader.PropertyToID(nameof(FrustrumLeftTop));
+			public static int FrustrumRightTop { get; } = Shader.PropertyToID(nameof(FrustrumRightTop));
+			public static int FrustrumRightBottom { get; } = Shader.PropertyToID(nameof(FrustrumRightBottom));
 		}
 
 		private readonly struct VirtualCamera
@@ -145,15 +149,15 @@ namespace Omniverse.Mapping
 				var camera = UnityEngine.Camera.main;
 				var plane = new Plane(Vector3.up, Vector3.zero);
 
-				var point1 = Point(new Vector3(0, 0, 0));
-				var point2 = Point(new Vector3(0, 1, 0));
-				var point3 = Point(new Vector3(1, 1, 0));
-				var point4 = Point(new Vector3(1, 0, 0));
+				var leftBottom = Point(new Vector3(0, 0, 0));
+				var leftTop = Point(new Vector3(0, 1, 0));
+				var rightTop = Point(new Vector3(1, 1, 0));
+				var rightBottom = Point(new Vector3(1, 0, 0));
 
-				Shader.SetGlobalVector("Point1", point1);
-				Shader.SetGlobalVector("Point2", point2);
-				Shader.SetGlobalVector("Point3", point3);
-				Shader.SetGlobalVector("Point4", point4);
+				Shader.SetGlobalVector(ShaderVariables.FrustrumLeftBottom, leftBottom);
+				Shader.SetGlobalVector(ShaderVariables.FrustrumLeftTop, leftTop);
+				Shader.SetGlobalVector(ShaderVariables.FrustrumRightTop, rightTop);
+				Shader.SetGlobalVector(ShaderVariables.FrustrumRightBottom, rightBottom);
 
 				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.Material, ShaderPass.Frustrum);
 
