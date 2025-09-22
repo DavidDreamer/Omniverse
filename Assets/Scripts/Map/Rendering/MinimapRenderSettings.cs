@@ -7,7 +7,10 @@ namespace Omniverse.Mapping
 	public class MinimapRenderSettings : ScriptableObject
 	{
 		[field: SerializeField]
-		public Material FrustrumMaterial { get; private set; }
+		public RenderTexture RenderTexture { get; private set; }
+
+		[field: SerializeField]
+		public Material Material { get; private set; }
 
 		[field: SerializeField]
 		public MeshDrawSettings MeshDrawSettings { get; private set; }

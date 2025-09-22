@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf4fad55b7266d488c1a74d43052116, type: 3}
   m_Name: MinimapRenderSettings
   m_EditorClassIdentifier: 
-  <FrustrumMaterial>k__BackingField: {fileID: 2100000, guid: 712d6278db78a8e47b981e3b35d24e06, type: 2}
+  <RenderTexture>k__BackingField: {fileID: 8400000, guid: 1028ff9a6a51a3a4fbdb172cc29315a9, type: 2}
+  <Material>k__BackingField: {fileID: 2100000, guid: 712d6278db78a8e47b981e3b35d24e06, type: 2}
   <MeshDrawSettings>k__BackingField:
     <Mesh>k__BackingField: {fileID: -3781860745874542921, guid: 604c5671fa3654943a4f1b935fe86fc0, type: 3}
     <SubmeshIndex>k__BackingField: 0

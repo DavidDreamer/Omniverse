@@ -48,7 +48,7 @@ namespace Omniverse.Mapping
 
 		private MinimapRenderSettings Settings;
 
-		public RenderTexture RenderTexture { get; private set; }
+		public RenderTexture RenderTexture => Settings.RenderTexture;
 
 		private ConstantComputeBuffer<MapShaderProperties> PropertiesBuffer { get; set; }
 
@@ -67,15 +67,6 @@ namespace Omniverse.Mapping
 			RenderPipelineManager.beginContextRendering += OnBeginContextRendering;
 
 			MapSettings = SystemAPI.GetSingleton<MapSettings>();
-
-			RenderTexture = new RenderTexture(
-				MapSettings.Size.x,
-				MapSettings.Size.y,
-				GraphicsFormat.R16G16B16A16_SFloat,
-				GraphicsFormat.D16_UNorm)
-			{
-				name = "Minimap"
-			};
 
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.Minimap;
@@ -97,7 +88,6 @@ namespace Omniverse.Mapping
 		{
 			RenderPipelineManager.beginContextRendering -= OnBeginContextRendering;
 
-			RenderTexture.Release();
 			PropertiesBuffer.Dispose();
 		}
 
@@ -147,7 +137,7 @@ namespace Omniverse.Mapping
 					return;
 				}
 
-				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, ShaderPass.FogOfWar);
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.Material, ShaderPass.FogOfWar);
 			}
 
 			void DrawFrustrum()
@@ -165,7 +155,7 @@ namespace Omniverse.Mapping
 				Shader.SetGlobalVector("Point3", point3);
 				Shader.SetGlobalVector("Point4", point4);
 
-				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.FrustrumMaterial, ShaderPass.Frustrum);
+				Blitter.BlitTexture(commandBuffer, RenderTexture, new Vector4(1, 1, 0, 0), Settings.Material, ShaderPass.Frustrum);
 
 				Vector2 Point(Vector3 viewportPoint)
 				{
