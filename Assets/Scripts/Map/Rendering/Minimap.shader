@@ -58,42 +58,44 @@ Shader "Omniverse/Minimap"
             #pragma fragment Frag
             
             #include "Assets/Scripts/Map/Map.hlsl"
-            
+
+            #define WIDTH 0.01
+
             float4 Point1;
             float4 Point2;
             float4 Point3;
             float4 Point4;
 
+            void CalculateValuesForEdge(float2 a, float2 b, float2 c, out float dist, out float factor)
+            {
+                float2 normal = normalize(float2(-(b.y - a.y), (b.x - a.x)));
+                float distAB = dot(normal, a);
+                dist = dot(normal, c) - distAB;
+                factor = 1 - saturate(abs(dist) / WIDTH);
+            }
+
             float4 Frag(Varyings input) : SV_Target
             {
-                //TEMP: make valid frustrum diplaying
-                float intersectionX = (input.texcoord.y - Point1.y) * (Point2.x - Point1.x) / (Point2.y - Point1.y) + Point1.x;
-                bool condd = intersectionX > min(Point1.x, Point2.x) && intersectionX < max(Point1.x, Point2.x);
-      
-                bool condH = input.texcoord.x >= Point1.x && input.texcoord.x <= Point3.x;
-                bool condV = input.texcoord.y >= Point1.y && input.texcoord.y <= Point2.y;
-                
-                bool hd = max(max(0, input.texcoord.x - Point1.x), max(0, Point3.x - input.texcoord.x));
-                bool vd = max(max(0, input.texcoord.y - Point1.y), max(0, Point2.y - input.texcoord.y));
-                bool d = min(hd, vd);
+                float aDist, aFactor;
+                CalculateValuesForEdge(Point1, Point2, input.texcoord, aDist, aFactor);
 
-                float width = 0.02;
+                float bDist, bFactor;
+                CalculateValuesForEdge(Point2, Point3, input.texcoord, bDist, bFactor);
 
-                float distanceX = input.texcoord.x - Point1.x;
-                bool condX = distanceX >= 0 && distanceX <= width;
+                float cDist, cFactor;
+                CalculateValuesForEdge(Point3, Point4, input.texcoord, cDist, cFactor);
 
-                float distanceX2 = Point3.x - input.texcoord.x;
-                bool condX2 = distanceX2 >= 0 && distanceX2 <= width;
+                float dDist, dFactor;
+                CalculateValuesForEdge(Point4, Point1, input.texcoord, dDist, dFactor);
 
-                float distanceY = input.texcoord.y - Point1.y;
-                bool condY = distanceY >= 0 && distanceY <= width;
+                float h = max(aFactor, cFactor);
+                float v = max(bFactor, dFactor);
+                float sum = lerp(h, 1, v);
 
-                float distanceY2 = Point2.y - input.texcoord.y;
-                bool condY2 = distanceY2 >= 0 && distanceY2 <= width;
+                float hh = lerp(sum, h, aDist >= 0 || cDist >= 0);
+                float vv = lerp(sum, v, bDist >= 0 || dDist >= 0);
 
-                bool cond = (condX || condX2 || condY || condY2) && condH && condV;
-                
-                return cond;
+                return min(hh, vv);
             }
             ENDHLSL
         }

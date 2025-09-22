@@ -153,7 +153,7 @@ namespace Omniverse.Mapping
 			void DrawFrustrum()
 			{
 				var camera = UnityEngine.Camera.main;
-				var plane = new Plane(Vector3.up, 0);
+				var plane = new Plane(Vector3.up, Vector3.zero);
 
 				var point1 = Point(new Vector3(0, 0, 0));
 				var point2 = Point(new Vector3(0, 1, 0));
@@ -169,10 +169,9 @@ namespace Omniverse.Mapping
 
 				Vector2 Point(Vector3 viewportPoint)
 				{
-					var ray = camera.ViewportPointToRay(viewportPoint, UnityEngine.Camera.MonoOrStereoscopicEye.Mono);
+					Ray ray = camera.ViewportPointToRay(viewportPoint, UnityEngine.Camera.MonoOrStereoscopicEye.Mono);
 					plane.Raycast(ray, out float enter);
-					var worldSpacePoint = ray.origin + ray.direction * enter;
-					//Debug.DrawRay(point1, Vector3.up * 100, Color.red);
+					var worldSpacePoint = ray.GetPoint(enter);
 					var orhoPoint = new Vector2((worldSpacePoint.x / (MapSettings.Size.x / 2) + 1) * 0.5f, (worldSpacePoint.z / (MapSettings.Size.y / 2) + 1) * 0.5f);
 					return orhoPoint;
 				}
