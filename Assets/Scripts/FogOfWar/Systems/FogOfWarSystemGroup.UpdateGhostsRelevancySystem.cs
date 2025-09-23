@@ -17,6 +17,13 @@ namespace Omniverse
 			[BurstCompile]
 			public void OnCreate(ref SystemState state)
 			{
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
+
+				if (fogOfWarSettings.Mode is FogOfWarMode.Revealed)
+				{
+					return;
+				}
+
 				var ghostRelevancy = SystemAPI.GetSingletonRW<GhostRelevancy>();
 				ghostRelevancy.ValueRW.GhostRelevancyMode = GhostRelevancyMode.SetIsRelevant;
 			}
@@ -24,12 +31,18 @@ namespace Omniverse
 			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
+				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
+
+				if (fogOfWarSettings.Mode is FogOfWarMode.Revealed)
+				{
+					return;
+				}
+
 				var ghostRelevancy = SystemAPI.GetSingletonRW<GhostRelevancy>();
 				ghostRelevancy.ValueRW.GhostRelevancySet.Clear();
 
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
-				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
-
+			
 				foreach ((var localTransform, var ghostInstance) in SystemAPI.Query<LocalTransform, GhostInstance>().WithAll<Unit>().WithAll<Simulate>())
 				{
 					int cellIndex = FogOfWarUtils.CellIndexFromPosition(localTransform.Position, mapSize, fogOfWarSettings.Size);
