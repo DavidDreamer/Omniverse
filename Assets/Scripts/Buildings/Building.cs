@@ -6,5 +6,6 @@ namespace Omniverse
 	[BurstCompile]
 	public struct Building : IComponentData
 	{
+		public UnityObjectRef<BuildingDesc> Desc;
 	}
 }

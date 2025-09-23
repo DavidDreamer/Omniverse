@@ -1,32 +1,16 @@
 ﻿using Omniverse.Abilities;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.NetCode;
 
 namespace Omniverse
 {
-	public struct CastRange : IComponentData
+	[BurstCompile]
+	public struct Ability : IBufferElementData
 	{
-		public float Value;
-	}
-
-	public class AbilityTarget : IComponentData
-	{
-		public ITarget Target;
-	}
-
-	public struct Owner : IComponentData
-	{
-		[GhostField]
-		public Entity Entity;
-	}
-
-	public struct AbilityReference : IBufferElementData
-	{
-		[GhostField]
-		public Entity Entity;
-	}
-
-	public struct Ability : IComponentData
-	{
+		public UnityObjectRef<AbilityDesc> Desc;
+		public Manacost Manacost;
+		public Cooldown Cooldown;
+		public Casting Casting;
 	}
 }

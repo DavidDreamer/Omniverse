@@ -17,45 +17,36 @@ namespace Omniverse
 				return;
 			}
 
-			foreach ((var input, var entity) in SystemAPI.Query<RefRW<AbilityInput>>().WithEntityAccess())
+			foreach ((var abilityBuffer, var input, var entity) in SystemAPI.Query<DynamicBuffer<Ability>, RefRW<AbilityInput>>().WithEntityAccess())
 			{
-				if (input.ValueRO.Cast.IsSet)
+				if (!input.ValueRO.Cast.IsSet)
 				{
-					Entity owner = SystemAPI.GetComponent<Owner>(entity).Entity;
+					continue;
+				}
 
-					if (SystemAPI.HasComponent<Cooldown>(entity))
+				int index = input.ValueRW.AbilityIndex;
+				Ability ability = abilityBuffer.ElementAt(index);
+				abilityBuffer.ElementAt(index).Cooldown.TimeLeft = ability.Cooldown.Duration;
+
+				var mana = SystemAPI.GetComponentRW<Mana>(entity);
+				mana.ValueRW.Current -= ability.Manacost.Value;
+
+				var abilityActiveOperation = ability.Desc.Value.ActiveOperation;
+				var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
+
+				switch (ability.Desc.Value.Target)
+				{
+					case NoneTarget:
 					{
-						var cooldwon = SystemAPI.GetComponentRW<Cooldown>(entity);
-						cooldwon.ValueRW.TimeLeft = cooldwon.ValueRW.Duration;
-						SystemAPI.SetComponentEnabled<Cooldown>(entity, true);
+						var operation = (IOperation<None>)abilityActiveOperation;
+						operation.Perform(state.EntityManager, dynamicEntity, None.Instance);
+						break;
 					}
-
-					if (SystemAPI.HasComponent<Manacost>(entity))
+					case VectorTarget vectorTarget:
 					{
-						var manacost = SystemAPI.GetComponent<Manacost>(entity);
-						var mana = SystemAPI.GetComponentRW<Mana>(owner);
-						mana.ValueRW.Current -= manacost.Value;
-					}
-
-					var abilityTarget = SystemAPI.ManagedAPI.GetComponent<AbilityTarget>(entity);
-					var abilityActiveOperation = SystemAPI.ManagedAPI.GetComponent<AbilityActiveOperation>(entity);
-
-					var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(owner);
-
-					switch (abilityTarget.Target)
-					{
-						case NoneTarget:
-						{
-							var operation = (IOperation<None>)abilityActiveOperation.Operation;
-							operation.Perform(state.EntityManager, dynamicEntity, None.Instance);
-							break;
-						}
-						case VectorTarget vectorTarget:
-						{
-							var operation = (IOperation<Vector3>)abilityActiveOperation.Operation;
-							operation.Perform(state.EntityManager, dynamicEntity, input.ValueRO.Vector);
-							break;
-						}
+						var operation = (IOperation<Vector3>)abilityActiveOperation;
+						operation.Perform(state.EntityManager, dynamicEntity, input.ValueRO.Vector);
+						break;
 					}
 				}
 			}

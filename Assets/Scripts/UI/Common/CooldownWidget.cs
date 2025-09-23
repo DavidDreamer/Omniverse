@@ -13,14 +13,11 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Label { get; set; }
 
-		public void Tick(EntityManager entityManager, Entity ability)
+		public void Tick(EntityManager entityManager, Cooldown cooldown)
 		{
-			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
-			var isEnabled = entityManager.IsComponentEnabled<Cooldown>(ability);
-
-			Image.enabled = isEnabled;
+			Image.enabled = cooldown.Active;
 			Image.fillAmount = cooldown.Ratio();
-			Label.enabled = isEnabled;
+			Label.enabled = cooldown.Active;
 			Label.text = Mathf.CeilToInt(cooldown.TimeLeft).ToString();
 		}
 	}

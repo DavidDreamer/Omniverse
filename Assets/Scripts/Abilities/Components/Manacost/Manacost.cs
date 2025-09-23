@@ -1,11 +1,8 @@
-﻿using Unity.Burst;
-using Unity.Entities;
-using Unity.NetCode;
+﻿using Unity.NetCode;
 
 namespace Omniverse
 {
-	[BurstCompile]
-	public struct Manacost : IComponentData
+	public struct Manacost
 	{
 		[GhostField]
 		public float Value;

@@ -9,12 +9,17 @@ namespace Omniverse
 			Entity entity = commandBuffer.Instantiate(data.Entity);
 			commandBuffer.SetComponent(entity, data.LocalTransform);
 			commandBuffer.AddComponent(entity, data.Faction);
+
 			commandBuffer.AddComponent(entity, new MetaData
 			{
+				Icon = data.Desc.Value.Meta.Icon,
 				Name = data.Desc.Value.Meta.Name,
-				Icon = data.Desc.Value.Meta.Icon
 			});
-			commandBuffer.AddComponent<Building>(entity);
+
+			commandBuffer.AddComponent(entity, new Building
+			{
+				Desc = data.Desc
+			});
 		}
 	}
 }

@@ -68,33 +68,6 @@ namespace Omniverse.Network.Server
 						Value = unit
 					};
 					commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, linkedEntityGroup);
-
-					CreateAbility(spawner.Ability);
-					CreateAbility(spawner.Ability2);
-
-					void CreateAbility(Entity prefab)
-					{
-						Entity ability = commandBuffer.Instantiate(prefab);
-						commandBuffer.AddComponent<GhostChildEntity>(ability);
-						commandBuffer.SetComponent(ability, ghostOwner);
-						commandBuffer.AppendToBuffer(receiver.ValueRO.SourceConnection, new LinkedEntityGroup
-						{
-							Value = ability
-						});
-						commandBuffer.AppendToBuffer(unit, new AbilityReference
-						{
-							Entity = ability
-						});
-						commandBuffer.AppendToBuffer(unit, new GhostGroup
-						{
-							Value = ability,
-						});
-
-						commandBuffer.SetComponent(ability, new Owner
-						{
-							Entity = unit
-						});
-					}
 				}
 
 				commandBuffer.DestroyEntity(requestEntity);

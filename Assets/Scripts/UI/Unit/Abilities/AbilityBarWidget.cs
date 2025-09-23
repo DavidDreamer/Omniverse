@@ -19,28 +19,18 @@ namespace Omniverse.UI
 
 		public void Tick(EntityManager entityManager, Entity entity)
 		{
-			bool hasAbilities = entityManager.HasBuffer<AbilityReference>(entity);
+			bool hasAbilities = entityManager.HasBuffer<Ability>(entity);
 
 			if (hasAbilities)
 			{
-				var abilityReferences = entityManager.GetBuffer<AbilityReference>(entity);
+				var abilityBuffer = entityManager.GetBuffer<Ability>(entity);
 
-				var abilities = Abilities().ToArray();
+				UpdateSlotsCount(entityManager, abilityBuffer.Length);
 
-				UpdateSlotsCount(entityManager, abilities.Length);
-
-				for (int i = 0; i < abilities.Length; ++i)
+				for (int i = 0; i < abilityBuffer.Length; ++i)
 				{
-					Entity ability = abilities[i];
-					Slots[i].Tick(entityManager, ability);
-				}
-
-				IEnumerable<Entity> Abilities()
-				{
-					foreach (var reference in abilityReferences)
-					{
-						yield return reference.Entity;
-					}
+					Ability ability = abilityBuffer[i];
+					Slots[i].Tick(entityManager, ability, i);
 				}
 			}
 			else

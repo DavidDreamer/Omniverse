@@ -60,21 +60,20 @@ namespace Omniverse.Rendering
 
 					var transform = entityManager.GetComponentData<LocalTransform>(selection.Entity);
 					var localToWorld = entityManager.GetComponentData<LocalToWorld>(selection.Entity);
-					var ability = selection.Ability;
+					var abilityBuffer = entityManager.GetBuffer<Ability>(selection.Entity);
+					Ability ability = abilityBuffer[selection.AbilityIndex];
 
 					DrawRange();
 					DrawDireciton();
 
 					void DrawRange()
 					{
-						if (!data.EntityManager.HasComponent<CastRange>(ability))
+						if (ability.Casting.Range == 0)
 						{
 							return;
 						}
 
-						var castRange = data.EntityManager.GetComponentData<CastRange>(ability);
-
-						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * castRange.Value * 2f) * MatrixUtils.WorldUpRotation;
+						var matrix = (Matrix4x4)localToWorld.Value * Matrix4x4.Scale(Vector3.one * ability.Casting.Range * 2f) * MatrixUtils.WorldUpRotation;
 
 						var settings = renderSettings.Range;
 						commandBuffer.DrawMesh(
@@ -87,14 +86,7 @@ namespace Omniverse.Rendering
 
 					void DrawDireciton()
 					{
-						if (!entityManager.HasComponent<AbilityTarget>(ability))
-						{
-							return;
-						}
-
-						var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(ability);
-
-						if (abilityTarget.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
+						if (ability.Desc.Value.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
 						{
 							return;
 						}

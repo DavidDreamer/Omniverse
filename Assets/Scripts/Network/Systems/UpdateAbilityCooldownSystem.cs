@@ -1,5 +1,4 @@
 ﻿using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
@@ -15,20 +14,14 @@ namespace Omniverse.Network
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-
-			foreach ((var cooldown, var entity) in SystemAPI.Query<RefRW<Cooldown>>().WithAll<Cooldown>().WithEntityAccess())
+			foreach ((var abilityBuffer, var entity) in SystemAPI.Query<DynamicBuffer<Ability>>().WithEntityAccess())
 			{
-				float timeLeft = math.max(0f, cooldown.ValueRW.TimeLeft - deltaTime);
-				cooldown.ValueRW.TimeLeft = timeLeft;
-
-				if (timeLeft == 0)
+				for (int i = 0; i < abilityBuffer.Length; i++)
 				{
-					commandBuffer.SetComponentEnabled<Cooldown>(entity, false);
+					Ability ability = abilityBuffer.ElementAt(i);
+					abilityBuffer.ElementAt(i).Cooldown.TimeLeft = math.max(0f, ability.Cooldown.TimeLeft - deltaTime);
 				}
 			}
-
-			commandBuffer.Playback(state.EntityManager);
 		}
 	}
 }

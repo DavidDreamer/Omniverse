@@ -1,17 +1,15 @@
-﻿using Unity.Burst;
-using Unity.Entities;
-using Unity.NetCode;
+﻿using Unity.NetCode;
 
 namespace Omniverse
 {
-	[BurstCompile]
-	[GhostEnabledBit]
-	public struct Cooldown : IComponentData, IEnableableComponent
+	public struct Cooldown
 	{
 		[GhostField]
 		public float Duration;
 
 		[GhostField]
 		public float TimeLeft;
+
+		public bool Active => TimeLeft > 0f;
 	}
 }

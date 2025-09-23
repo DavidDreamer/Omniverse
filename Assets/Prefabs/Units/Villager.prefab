@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 5099563631643922585}
   - component: {fileID: 4419848845648766339}
   - component: {fileID: 8730712458762868957}
-  - component: {fileID: 6508548082462837643}
   - component: {fileID: 2567662937323303929}
   - component: {fileID: 4804818439130100293}
   - component: {fileID: 5659521384443709368}
@@ -174,20 +173,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &6508548082462837643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733910673331217839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc2136795400944ab1225178f556a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Mr. ECS
-  Icon: {fileID: 21300000, guid: fd659bf3bb46f6b4085ec42bbf74ffad, type: 3}
 --- !u!114 &2567662937323303929
 MonoBehaviour:
   m_ObjectHideFlags: 0

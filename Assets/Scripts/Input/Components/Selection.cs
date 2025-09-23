@@ -25,8 +25,8 @@ namespace Omniverse.Input
 
 		public bool InProcess;
 
-		public Entity Ability;
+		public int AbilityIndex;
 
-		public bool AbilityInProcess => Ability != Entity.Null;
+		public bool AbilityInProcess;
 	}
 }

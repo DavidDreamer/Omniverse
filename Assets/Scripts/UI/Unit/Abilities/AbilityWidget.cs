@@ -36,34 +36,25 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private Material OnCooldownMaterial { get; set; }
 
-		private Entity Ability { get; set; }
-
-		public void Tick(EntityManager entityManager, Entity ability)
+		public void Tick(EntityManager entityManager, Ability ability, int index)
 		{
-			Ability = ability;
-
 			var selection = entityManager.CreateEntityQuery(typeof(Selection)).GetSingleton<Selection>();
 
-			Activator.enabled = selection.Ability == ability;
+			Activator.enabled = selection.AbilityInProcess && selection.AbilityIndex == index;
 
-			var metaData = entityManager.GetComponentData<MetaData>(ability);
-			var cooldown = entityManager.GetComponentData<Cooldown>(ability);
-			var casting = entityManager.GetComponentData<Casting>(ability);
+			Icon.sprite = ability.Desc.Value.Meta.Icon;
+			Icon.material = ability.Cooldown.Active ? OnCooldownMaterial : DefaultMaterial;
 
-			Icon.sprite = metaData.Icon;
-			Icon.material = entityManager.IsComponentEnabled<Cooldown>(ability) ? OnCooldownMaterial : DefaultMaterial;
+			Casting.Tick(ability.Casting);
 
-			Casting.Tick(casting);
+			Cooldown.Tick(entityManager, ability.Cooldown);
+			Tooltip.Bind(ability.Desc.Value.Meta.Name);
 
-			Cooldown.Tick(entityManager, ability);
-			Tooltip.Bind(metaData);
-
-			bool hasManacost = entityManager.HasComponent<Manacost>(ability);
+			bool hasManacost = ability.Manacost.Value > 0;
 			Manacost.gameObject.SetActive(hasManacost);
 			if (hasManacost)
 			{
-				var manacost = entityManager.GetComponentData<Manacost>(ability);
-				Manacost.Tick(manacost);
+				Manacost.Tick(ability.Manacost);
 			}
 		}
 

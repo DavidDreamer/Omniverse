@@ -9,20 +9,12 @@ namespace Omniverse
 	{
 		public Entity Unit;
 
-		public Entity Ability;
-
-		public Entity Ability2;
-
 		public float3[] SpawnPoints;
 	}
 
 	public class UnitSpawnerAuthoring : MonoBehaviour
 	{
 		public GameObject Prefab;
-
-		public GameObject Ability;
-
-		public GameObject Ability2;
 
 		public Transform[] SpawnPoints;
 
@@ -33,8 +25,6 @@ namespace Omniverse
 				var unitSpawner = new UnitSpawner
 				{
 					Unit = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
-					Ability = GetEntity(authoring.Ability, TransformUsageFlags.None),
-					Ability2 = GetEntity(authoring.Ability2, TransformUsageFlags.None),
 					SpawnPoints = authoring.SpawnPoints.Select(point => (float3)point.position).ToArray()
 				};
 

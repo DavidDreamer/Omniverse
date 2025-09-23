@@ -5,45 +5,30 @@ namespace Omniverse
 {
 	public static class AbilityHelper
 	{
-		public static AbilityCastError CanBeCasted(this Entity ability, EntityManager entityManager)
+		public static AbilityCastError CanBeCasted(this Ability ability, Entity entity, EntityManager entityManager)
 		{
-			if (entityManager.HasComponent<Cooldown>(ability))
+			if (ability.Cooldown.Active)
 			{
-				if (entityManager.IsComponentEnabled<Cooldown>(ability))
-				{
-					return AbilityCastError.IsOnCooldown;
-				}
+				return AbilityCastError.IsOnCooldown;
 			}
 
-			if (entityManager.HasComponent<Casting>(ability))
+			if (ability.Casting.InProcess)
 			{
-				var casting = entityManager.GetComponentData<Casting>(ability);
-				if (casting.InProcess)
-				{
-					//TODO
-					//return AbilityCastError.AlreadyInProcess;
-				}
+				return AbilityCastError.AlreadyInProcess;
 			}
 
-			var owner = entityManager.GetComponentData<Owner>(ability).Entity;
-
-			if (entityManager.HasComponent<Manacost>(ability))
+			if (entityManager.HasComponent<Mana>(entity))
 			{
-				var manacost = entityManager.GetComponentData<Manacost>(ability);
+				var mana = entityManager.GetComponentData<Mana>(entity);
 
-				if (entityManager.HasComponent<Mana>(owner))
-				{
-					var mana = entityManager.GetComponentData<Mana>(owner);
-
-					if (mana.Current < manacost.Value)
-					{
-						return AbilityCastError.NotEnoughMana;
-					}
-				}
-				else
+				if (mana.Current < ability.Manacost.Value)
 				{
 					return AbilityCastError.NotEnoughMana;
 				}
+			}
+			else
+			{
+				return AbilityCastError.NotEnoughMana;
 			}
 
 			return AbilityCastError.None;

@@ -17,6 +17,12 @@ namespace Omniverse
 
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
+				AddComponent(entity, new MetaData
+				{
+					Icon = desc.Icon,
+					Name = desc.Name,
+				});
+
 				AddComponent<Faction>(entity);
 
 				AddComponent(entity, new Alive());
@@ -45,8 +51,32 @@ namespace Omniverse
 				});
 
 				AddBuffer<Effect>(entity);
+				AddBuffer<Ability>(entity);
+				AddComponent<AbilityInput>(entity);
 
-				AddBuffer<AbilityReference>(entity);
+				foreach (var abilityDesc in desc.Abilities)
+				{
+					var ability = new Ability()
+					{
+						Desc = abilityDesc,
+						Manacost = new()
+						{
+							Value = abilityDesc.Manacost.Value,
+							Mode = abilityDesc.Manacost.Mode
+						},
+						Cooldown = new()
+						{
+							Duration = abilityDesc.Cooldown.Duration
+						},
+						Casting = new()
+						{
+							Range = abilityDesc.Casting.Range,
+							Time = abilityDesc.Casting.Time
+						}
+					};
+
+					AppendToBuffer(entity, ability);
+				}
 
 				if (desc.BuildAbilityDesc != null)
 				{

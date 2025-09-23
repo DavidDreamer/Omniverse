@@ -8,9 +8,9 @@ namespace Omniverse.UI
 		[field: SerializeField]
 		private TextMeshProUGUI Name { get; set; }
 
-		public void Bind(MetaData metaData)
+		public void Bind(string abilityName)
 		{
-			Name.text = metaData.Name.ToString().ToUpper();
+			Name.text = abilityName.ToUpper();
 		}
 	}
 }

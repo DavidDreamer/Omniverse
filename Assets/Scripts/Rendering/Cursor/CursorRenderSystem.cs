@@ -33,8 +33,10 @@ namespace Omniverse.Rendering
 
 				if (selection.AbilityInProcess)
 				{
-					var abiltiyTarget = SystemAPI.ManagedAPI.GetComponent<AbilityTarget>(selection.Ability);
-					switch (abiltiyTarget.Target)
+					var abilityBuffer = SystemAPI.GetBuffer<Ability>(selection.Entity);
+					Ability ability = abilityBuffer[selection.AbilityIndex];
+
+					switch (ability.Desc.Value.Target)
 					{
 						case UnitTarget:
 							return EntityManager.HasComponent<Unit>(entity) ? settings.TargetUnit : settings.TargetInvalid;

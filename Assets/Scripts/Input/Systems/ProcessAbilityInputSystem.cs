@@ -44,12 +44,13 @@ namespace Omniverse.Input
 
 			var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
+			var abilityBuffer = entityManager.GetBuffer<Ability>(selection.Entity);
 
 			if (selection.AbilityInProcess)
 			{
-				var target = entityManager.GetComponentObject<AbilityTarget>(selectionRW.ValueRO.Ability).Target;
+				Ability ability = abilityBuffer[selection.AbilityIndex];
 
-				switch (target)
+				switch (ability.Desc.Value.Target)
 				{
 					case VectorTarget vectorTarget:
 					{
@@ -119,26 +120,22 @@ namespace Omniverse.Input
 
 			var abilityActions = abilitiesActions.Get().actions;
 
-			var abilityReferences = entityManager.GetBuffer<AbilityReference>(selection.Entity);
-
-			int i = 0;
-
-			foreach (AbilityReference reference in abilityReferences)
+			for (int i = 0; i < abilityBuffer.Length; i++)
 			{
 				if (i >= abilityActions.Count)
 				{
 					continue;
 				}
 
+				Ability ability = abilityBuffer[i];
+
 				if (abilityActions[i].WasPressedThisFrame())
 				{
-					Entity abilityEntity = reference.Entity;
-
 					//if (ability.ActiveOperation is not null)
 					{
 						if (selection.AbilityInProcess)
 						{
-							if (selection.Ability == abilityEntity)
+							if (selection.AbilityIndex == i)
 							{
 								Discard();
 								return;
@@ -149,24 +146,21 @@ namespace Omniverse.Input
 							}
 						}
 
-						AbilityCastError error = abilityEntity.CanBeCasted(entityManager);
+						AbilityCastError error = ability.CanBeCasted(selection.Entity, entityManager);
 
 						if (error is not AbilityCastError.None)
 						{
 							return;
 						}
 
-						var abilityTarget = entityManager.GetComponentObject<AbilityTarget>(abilityEntity);
-
-						if (abilityTarget.Target is NoneTarget)
+						if (ability.Desc.Value.Target is NoneTarget)
 						{
-							var casting = entityManager.GetComponentData<Casting>(abilityEntity);
-
-							if (casting.Time == 0)
+							if (ability.Casting.Time == 0)
 							{
-								var input = entityManager.GetComponentData<AbilityInput>(abilityEntity);
-								input.Cast.Set();
-								entityManager.SetComponentData(abilityEntity, input);
+								var abilityInput = entityManager.GetComponentData<AbilityInput>(selection.Entity);
+								abilityInput.AbilityIndex = i;
+								abilityInput.Cast.Set();
+								entityManager.SetComponentData(selection.Entity, abilityInput);
 							}
 							else
 							{
@@ -175,12 +169,11 @@ namespace Omniverse.Input
 						}
 						else
 						{
-							selectionRW.ValueRW.Ability = abilityEntity;
+							selectionRW.ValueRW.AbilityInProcess = true;
+							selectionRW.ValueRW.AbilityIndex = i;
 						}
 					}
 				}
-
-				i++;
 			}
 
 			if (abilitiesActions.Build.WasPressedThisFrame())
@@ -224,7 +217,7 @@ namespace Omniverse.Input
 
 			void Discard()
 			{
-				selectionRW.ValueRW.Ability = Entity.Null;
+				selectionRW.ValueRW.AbilityInProcess = false;
 			}
 		}
 	}
