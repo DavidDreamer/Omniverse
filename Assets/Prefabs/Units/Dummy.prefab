@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7071263084255905373}
   - component: {fileID: 6564815402819992571}
   - component: {fileID: 6927632742869460935}
-  - component: {fileID: -8569989213392490604}
   - component: {fileID: 3346148846658159147}
   - component: {fileID: 7485843631615611279}
   m_Layer: 6
@@ -128,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UnitDesc>k__BackingField: {fileID: 11400000, guid: 1d04f09ac3b2d074e8c4a8681a5121df, type: 2}
-  FactionID: 1
 --- !u!54 &6927632742869460935
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,32 +154,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-8569989213392490604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3269508970349816169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc2136795400944ab1225178f556a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Dummy
-  Icon:
-    Id:
-      GlobalId:
-        SceneObjectIdentifier0: 21300000
-        SceneObjectIdentifier1: 0
-        AssetGUID:
-          Value:
-            x: 2574212932
-            y: 1099774854
-            z: 763154095
-            w: 548974540
-        IdentifierType: 1
-      GenerationType: 1
 --- !u!114 &3346148846658159147
 MonoBehaviour:
   m_ObjectHideFlags: 0
