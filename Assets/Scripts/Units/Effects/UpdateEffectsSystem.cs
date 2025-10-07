@@ -6,6 +6,7 @@ namespace Omniverse
 {
 	[BurstCompile]
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	public partial struct UpdateEffectsSystem : ISystem
 	{
 		[BurstCompile]
@@ -13,7 +14,7 @@ namespace Omniverse
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			foreach ((var _, var entity) in SystemAPI.Query<DynamicBuffer<Effect>>().WithEntityAccess())
+			foreach ((var _, var entity) in SystemAPI.Query<DynamicBuffer<Effect>>().WithEntityAccess().WithAll<Simulate>())
 			{
 				var buffer = SystemAPI.GetBuffer<Effect>(entity);
 

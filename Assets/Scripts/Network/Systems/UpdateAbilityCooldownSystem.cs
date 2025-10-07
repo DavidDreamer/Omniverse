@@ -7,6 +7,7 @@ namespace Omniverse.Network
 {
 	[BurstCompile]
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	public partial struct UpdateAbilityCooldownSystem : ISystem
 	{
 		[BurstCompile]
@@ -14,7 +15,7 @@ namespace Omniverse.Network
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			foreach ((var abilityBuffer, var entity) in SystemAPI.Query<DynamicBuffer<Ability>>().WithEntityAccess())
+			foreach ((var abilityBuffer, var entity) in SystemAPI.Query<DynamicBuffer<Ability>>().WithEntityAccess().WithAll<Simulate>())
 			{
 				for (int i = 0; i < abilityBuffer.Length; i++)
 				{
