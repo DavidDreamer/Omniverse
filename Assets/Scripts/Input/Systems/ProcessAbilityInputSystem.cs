@@ -52,7 +52,7 @@ namespace Omniverse.Input
 
 				switch (ability.Desc.Value.Target)
 				{
-					case VectorTarget vectorTarget:
+					case Target.Vector:
 					{
 						if (!commonActions.Select.WasPressedThisFrame())
 						{
@@ -64,24 +64,17 @@ namespace Omniverse.Input
 							break;
 						}
 
-						if (vectorTarget.Mode is VectorTargetMode.Direction)
-						{
-							UnityEngine.Vector3 direction = pointer.WorldPosition - transform.Position;
-							direction.Set(direction.x, 0, direction.z);
-							direction.Normalize();
+						UnityEngine.Vector3 direction = pointer.WorldPosition - transform.Position;
+						direction.Set(direction.x, 0, direction.z);
+						direction.Normalize();
 
-							//TODO CASTING
-						}
-						else
-						{
-							//TODO: Approach and Cast
-						}
+						//TODO CASTING
 
 						Discard();
 						break;
 					}
-					case UnitTarget:
-					case ResourceSourceTarget:
+					case Target.Unit:
+					case Target.ResourceSource:
 					{
 						if (!commonActions.Select.WasPressedThisFrame())
 						{
@@ -153,7 +146,7 @@ namespace Omniverse.Input
 							return;
 						}
 
-						if (ability.Desc.Value.Target is NoneTarget)
+						if (ability.Desc.Value.Target is Target.None)
 						{
 							if (ability.Casting.Time == 0)
 							{

@@ -86,7 +86,7 @@ namespace Omniverse.Rendering
 
 					void DrawDireciton()
 					{
-						if (ability.Desc.Value.Target is not VectorTarget vectorTarget || vectorTarget.Mode is not VectorTargetMode.Direction)
+						if (ability.Desc.Value.Target is not Target.Vector)
 						{
 							return;
 						}

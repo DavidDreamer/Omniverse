@@ -47,7 +47,7 @@ namespace Omniverse.Editor
 			serializedObject.UpdateIfRequiredOrScript();
 
 			DrawMeta();
-			DrawTarget();
+			EditorGUILayout.PropertyField(Target);
 			DrawSection(Manacost);
 			DrawCasting();
 			DrawSection(Cooldown);
@@ -64,14 +64,6 @@ namespace Omniverse.Editor
 				EditorGUILayout.PropertyField(MetaName);
 				EditorGUILayout.PropertyField(MetaDescription);
 				MetaIcon.DrawIcon();
-			}
-		}
-
-		private void DrawTarget()
-		{
-			if (DrawSectionHeader(Target))
-			{
-				Target.VersatileField(typeof(ITarget), true);
 			}
 		}
 
@@ -107,15 +99,15 @@ namespace Omniverse.Editor
 
 			Type GetOperationTagetType()
 			{
-				switch (Target.managedReferenceValue)
+				switch ((Target)Target.enumValueIndex)
 				{
-					case NoneTarget:
+					case Abilities.Target.None:
 						return typeof(None);
-					case UnitTarget:
+					case Abilities.Target.Unit:
 						return typeof(Unit);
-					case ResourceSourceTarget:
+					case Abilities.Target.ResourceSource:
 						return typeof(ResourceSource);
-					case VectorTarget:
+					case Abilities.Target.Vector:
 						return typeof(Vector3);
 					default: throw new Exception();
 				}

@@ -38,7 +38,7 @@ namespace Omniverse.Rendering
 
 					switch (ability.Desc.Value.Target)
 					{
-						case UnitTarget:
+						case Target.Unit:
 							return EntityManager.HasComponent<Unit>(entity) ? settings.TargetUnit : settings.TargetInvalid;
 						default:
 							return settings.TargetDefault;

@@ -36,13 +36,13 @@ namespace Omniverse
 
 				switch (ability.Desc.Value.Target)
 				{
-					case NoneTarget:
+					case Target.None:
 					{
 						var operation = (IOperation<None>)abilityActiveOperation;
 						operation.Perform(state.EntityManager, dynamicEntity, None.Instance);
 						break;
 					}
-					case VectorTarget vectorTarget:
+					case Target.Vector:
 					{
 						var operation = (IOperation<Vector3>)abilityActiveOperation;
 						operation.Perform(state.EntityManager, dynamicEntity, input.ValueRO.Vector);

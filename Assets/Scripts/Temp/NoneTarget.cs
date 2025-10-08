@@ -1,6 +1,6 @@
 ﻿namespace Omniverse.Abilities
 {
-	public class NoneTarget : ITarget
+	public class NoneTarget
 	{
 	}
 }
