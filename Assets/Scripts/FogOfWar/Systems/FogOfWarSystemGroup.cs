@@ -11,6 +11,8 @@ namespace Omniverse
 		{
 			base.OnCreate();
 
+			EnableSystemSorting = false;
+
 			CreateSystem<RefreshSystem>();
 			CreateSystem<UpdateObstaclesSystem>();
 			CreateSystem<UpdateAgentPositionSystem>();
