@@ -13,20 +13,6 @@ namespace Omniverse
 		public partial struct UpdateGhostsRelevancySystem : ISystem
 		{
 			[BurstCompile]
-			public void OnCreate(ref SystemState state)
-			{
-				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
-
-				if (fogOfWarSettings.Mode is FogOfWarMode.Revealed)
-				{
-					return;
-				}
-
-				var ghostRelevancy = SystemAPI.GetSingletonRW<GhostRelevancy>();
-				ghostRelevancy.ValueRW.GhostRelevancyMode = GhostRelevancyMode.SetIsRelevant;
-			}
-
-			[BurstCompile]
 			public void OnUpdate(ref SystemState state)
 			{
 				var fogOfWarSettings = SystemAPI.GetSingleton<FogOfWarSettings>();
@@ -37,6 +23,8 @@ namespace Omniverse
 				}
 
 				var ghostRelevancy = SystemAPI.GetSingletonRW<GhostRelevancy>();
+
+				ghostRelevancy.ValueRW.GhostRelevancyMode = GhostRelevancyMode.SetIsRelevant;
 				ghostRelevancy.ValueRW.GhostRelevancySet.Clear();
 
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
