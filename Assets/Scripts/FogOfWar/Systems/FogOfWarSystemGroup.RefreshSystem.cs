@@ -6,7 +6,7 @@ namespace Omniverse
 	public partial class FogOfWarSystemGroup
 	{
 		[BurstCompile]
-		[UpdateInGroup(typeof(FogOfWarSystemGroup), OrderFirst = true)]
+		[DisableAutoCreation]
 		public partial struct RefreshSystem : ISystem
 		{
 			[BurstCompile]

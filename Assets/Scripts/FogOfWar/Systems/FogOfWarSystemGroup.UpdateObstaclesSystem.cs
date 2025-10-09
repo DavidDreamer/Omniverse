@@ -8,8 +8,7 @@ namespace Omniverse
 	public partial class FogOfWarSystemGroup
 	{
 		[BurstCompile]
-		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		[UpdateAfter(typeof(RefreshSystem))]
+		[DisableAutoCreation]
 		public partial struct UpdateObstaclesSystem : ISystem
 		{
 			[BurstCompile]

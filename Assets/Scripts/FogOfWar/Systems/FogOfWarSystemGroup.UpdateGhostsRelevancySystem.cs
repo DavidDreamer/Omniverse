@@ -9,9 +9,7 @@ namespace Omniverse
 	public partial class FogOfWarSystemGroup
 	{
 		[BurstCompile]
-		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		[UpdateAfter(typeof(UpdateVisibilitySystem))]
-		[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
+		[DisableAutoCreation]
 		public partial struct UpdateGhostsRelevancySystem : ISystem
 		{
 			[BurstCompile]

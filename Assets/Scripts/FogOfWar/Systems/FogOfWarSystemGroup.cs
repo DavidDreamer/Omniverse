@@ -1,11 +1,33 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
+using Unity.NetCode;
 
 namespace Omniverse
 {
 	[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 	public partial class FogOfWarSystemGroup : ComponentSystemGroup
 	{
+		protected override void OnCreate()
+		{
+			base.OnCreate();
+
+			CreateSystem<RefreshSystem>();
+			CreateSystem<UpdateObstaclesSystem>();
+			CreateSystem<UpdateAgentPositionSystem>();
+			CreateSystem<UpdateVisibilitySystem>();
+
+			if (World.IsServer())
+			{
+				CreateSystem<UpdateGhostsRelevancySystem>();
+			}
+
+			void CreateSystem<T>() where T : unmanaged, ISystem
+			{
+				SystemHandle systemHandle = World.CreateSystem<T>();
+				AddSystemToUpdateList(systemHandle);
+			}
+		}
+
 		protected override void OnStartRunning()
 		{
 			base.OnStartRunning();

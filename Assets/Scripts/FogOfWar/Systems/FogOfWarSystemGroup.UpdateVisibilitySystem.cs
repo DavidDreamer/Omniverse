@@ -10,8 +10,7 @@ namespace Omniverse
 	public partial class FogOfWarSystemGroup
 	{
 		[BurstCompile]
-		[UpdateInGroup(typeof(FogOfWarSystemGroup))]
-		[UpdateAfter(typeof(UpdateAgentPositionSystem))]
+		[DisableAutoCreation]
 		public partial struct UpdateVisibilitySystem : ISystem
 		{
 			private readonly struct BresenhamCircleHandler : IBresenhamCircleHandler
