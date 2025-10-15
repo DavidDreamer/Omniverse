@@ -20,7 +20,7 @@ namespace Omniverse.UI
 
 		public void LateUpdate()
 		{
-			Value.text = Property.Base.ToString();
+			Value.text = Property.Total.ToString();
 			Value.color = GetColor();
 		}
 

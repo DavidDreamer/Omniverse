@@ -82,7 +82,7 @@ namespace Omniverse.UI
 
 			//TODO ECS
 			//Experience.Bind(unit.Experience);
-			//Properties.Bind(unit);
+			Properties.Bind(entity);
 
 			//if (EntityManager.HasComponent<CommandModule>(entity))
 			//{

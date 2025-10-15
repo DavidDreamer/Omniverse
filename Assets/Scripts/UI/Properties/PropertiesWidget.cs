@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Omniverse.UI
 {
 	//TODO ECS
-	public class PropertiesWidget : MonoBehaviour
+	public class PropertiesWidget : Widget
 	{
 		[field: SerializeField]
 		private PropertyWidget AttackDamage { get; set; }
@@ -29,7 +29,10 @@ namespace Omniverse.UI
 			//AttackDamage.Bind(Unit.Properties[PropertyID.AttackDamage]);
 			//AttackSpeed.Bind(Unit.Properties[PropertyID.AttackSpeed]);
 			//AttackRange.Bind(Unit.Properties[PropertyID.AttackRange]);
-			//MovementSpeed.Bind(Unit.Properties[PropertyID.MovementSpeed]);
+
+			var movement = EntityManager.GetComponentData<Movement>(entity);
+			MovementSpeed.Bind(movement.Speed);
+
 			//RotationSpeed.Bind(Unit.Properties[PropertyID.RotationSpeed]);
 			//VisionRange.Bind(Unit.Properties[PropertyID.VisionRange]);
 		}
