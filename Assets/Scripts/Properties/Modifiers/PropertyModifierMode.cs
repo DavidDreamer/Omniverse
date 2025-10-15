@@ -2,7 +2,7 @@
 {
 	public enum PropertyModifierMode
 	{
-		Absolute,
-		Percentage
+		Addition,
+		Multiplication
 	}
 }

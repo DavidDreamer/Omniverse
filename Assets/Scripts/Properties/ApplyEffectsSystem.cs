@@ -21,8 +21,17 @@ namespace Omniverse
 					{
 						Property property = GetProperty(ref state, entity, propertyModifier.ID);
 
-						property.Additional += propertyModifier.Modifier.Value;
+						switch (propertyModifier.Modifier.Mode)
+						{
+							case PropertyModifierMode.Addition:
+								property.Additional += propertyModifier.Modifier.Value;
+								break;
+							case PropertyModifierMode.Multiplication:
+								property.Multipler += propertyModifier.Modifier.Value;
+								break;
 
+						}
+	
 						SetProperty(ref state, entity, propertyModifier.ID, property);
 					}
 				}

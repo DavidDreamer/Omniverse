@@ -20,7 +20,6 @@ MonoBehaviour:
   <PropertyModifiers>k__BackingField:
   - <ID>k__BackingField: 4
     <Modifier>k__BackingField:
-      Operation: 0
       Mode: 0
       Value: 5
   <OnAppliedOperation>k__BackingField:
