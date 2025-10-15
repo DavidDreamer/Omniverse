@@ -26,13 +26,13 @@ namespace Omniverse
 					case Command.Move:
 					{
 						var localTransform = SystemAPI.GetComponentRW<LocalTransform>(entity);
-						var movementSpeed = SystemAPI.GetComponent<MovementSpeed>(entity);
+						var movementSpeed = SystemAPI.GetComponent<Movement>(entity);
 
 						float3 vector = unitInput.ValueRW.Position - localTransform.ValueRW.Position;
 						float3 direction = math.normalize(vector);
 						direction.y = 0;
 
-						localTransform.ValueRW.Position += direction * movementSpeed.Current * deltaTime;
+						localTransform.ValueRW.Position += direction * movementSpeed.Speed.Total * deltaTime;
 
 						if (math.length(vector) < 0.1f)
 						{

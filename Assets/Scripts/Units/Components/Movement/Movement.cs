@@ -5,11 +5,9 @@ using Unity.NetCode;
 namespace Omniverse
 {
 	[BurstCompile]
-	public struct MovementSpeed : IComponentData
+	public struct Movement : IComponentData
 	{
-		public float Base;
-
 		[GhostField]
-		public float Current;
+		public Property Speed;
 	}
 }

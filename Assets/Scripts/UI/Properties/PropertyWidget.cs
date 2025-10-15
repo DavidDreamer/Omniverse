@@ -20,19 +20,14 @@ namespace Omniverse.UI
 
 		public void LateUpdate()
 		{
-			if (Property is null)
-			{
-				return;
-			}
-
-			Value.text = Property.Amount.ToString();
+			Value.text = Property.Base.ToString();
 			Value.color = GetColor();
 		}
 
 		private Color GetColor()
 		{
-			float rawAmount = Property.RawAmount;
-			float amount = Property.Amount;
+			float rawAmount = Property.Base;
+			float amount = Property.Total;
 
 			if (amount > rawAmount)
 			{

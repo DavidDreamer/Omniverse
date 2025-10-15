@@ -44,10 +44,12 @@ namespace Omniverse
 					Current = desc.Mana.Amount
 				});
 
-				AddComponent(entity, new MovementSpeed()
+				AddComponent(entity, new Movement()
 				{
-					Base = authoring.UnitDesc.Movement.BaseSpeed,
-					Current = authoring.UnitDesc.Movement.BaseSpeed
+					Speed = new()
+					{
+						Base = authoring.UnitDesc.Movement.Speed
+					}
 				});
 
 				AddBuffer<Effect>(entity);

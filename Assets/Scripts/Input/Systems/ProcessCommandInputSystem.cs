@@ -58,7 +58,7 @@ namespace Omniverse.Input
 						var selection = SystemAPI.GetSingleton<Selection>();
 						foreach (Entity entity in selection.Entities)
 						{
-							if (!SystemAPI.HasComponent<MovementSpeed>(entity))
+							if (!SystemAPI.HasComponent<Movement>(entity))
 							{
 								continue;
 							}
