@@ -15,8 +15,6 @@ namespace Omniverse
 		{
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
-			var networkTime = SystemAPI.GetSingleton<NetworkTime>();
-
 			foreach ((var unitInput, var entity) in SystemAPI.Query<RefRW<UnitInput>>().WithAll<Unit>().WithAll<Simulate>().WithEntityAccess())
 			{
 				switch (unitInput.ValueRW.Command)
@@ -32,9 +30,13 @@ namespace Omniverse
 						float3 direction = math.normalize(vector);
 						direction.y = 0;
 
-						localTransform.ValueRW.Position += direction * movementSpeed.Speed.Total * deltaTime;
+						float lenght = math.length(vector);
+						float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
+						float3 deltaPosition = direction * distance;
 
-						if (math.length(vector) < 0.1f)
+						localTransform.ValueRW.Position += deltaPosition;
+
+						if (lenght < 0.1f)
 						{
 							unitInput.ValueRW.Command = Command.Idle;
 						}
