@@ -82,12 +82,19 @@ namespace Omniverse
 
 				if (desc.BuildAbilityDesc != null)
 				{
-					var building = GetEntity(desc.BuildAbilityDesc.Prefab, TransformUsageFlags.Dynamic);
-					AddComponent(entity, new BuildAbility()
+					AddBuffer<Blueprint>(entity);
+
+					foreach (var prefab in desc.BuildAbilityDesc.Buildings)
 					{
-						Desc = desc.BuildAbilityDesc,
-						Building = building
-					});
+						Entity building = GetEntity(prefab, TransformUsageFlags.Dynamic);
+
+						Blueprint blueprint = new()
+						{
+							Building = building,
+						};
+
+						AppendToBuffer(entity, blueprint);
+					}
 				}
 
 				AddComponent<Unit>(entity);

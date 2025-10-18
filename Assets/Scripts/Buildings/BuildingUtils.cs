@@ -1,4 +1,5 @@
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Omniverse
 {
@@ -6,20 +7,17 @@ namespace Omniverse
 	{
 		public static void Build(EntityCommandBuffer commandBuffer, BuildOperationData data)
 		{
-			Entity entity = commandBuffer.Instantiate(data.Entity);
+			Entity entity = commandBuffer.Instantiate(data.Building);
 			commandBuffer.SetComponent(entity, data.LocalTransform);
-			commandBuffer.AddComponent(entity, data.Faction);
 
-			commandBuffer.AddComponent(entity, new MetaData
+			int2 position = new((int)data.LocalTransform.Position.x, (int)data.LocalTransform.Position.z);
+			commandBuffer.AddComponent(entity, new Obstacle
 			{
-				Icon = data.Desc.Value.Meta.Icon,
-				Name = data.Desc.Value.Meta.Name,
+				Start = position,
+				End = position
 			});
 
-			commandBuffer.AddComponent(entity, new Building
-			{
-				Desc = data.Desc
-			});
+			commandBuffer.SetComponent(entity, data.Faction);
 		}
 	}
 }

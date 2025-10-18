@@ -6,8 +6,8 @@ namespace Omniverse.Input
 	[BurstCompile]
 	public struct Builder : IComponentData
 	{
-		public UnityObjectRef<BuildingDesc> BuildingDesc;
+		public Entity Building;
 
-		public bool InProcess => BuildingDesc != null;
+		public bool InProcess => Building != Entity.Null;
 	}
 }

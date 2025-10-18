@@ -8,8 +8,5 @@ namespace Omniverse
 	{
 		[field: SerializeField]
 		public Meta Meta { get; private set; }
-
-		[field: SerializeField]
-		public Mesh Mesh { get; private set; }
 	}
 }

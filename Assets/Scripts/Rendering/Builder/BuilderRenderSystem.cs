@@ -56,7 +56,7 @@ namespace Omniverse.Rendering
 			var builder = SystemAPI.GetSingleton<Builder>();
 			var pointer = SystemAPI.GetSingleton<Pointer>();
 
-			Pass.BuildingDesc = builder.BuildingDesc.Value;
+			Pass.Building = builder.Building;
 			Pass.Pointer = pointer;
 		}
 	}

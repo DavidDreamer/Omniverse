@@ -1,6 +1,7 @@
 ﻿using Omniverse.Input;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
@@ -20,7 +21,7 @@ namespace Omniverse.Rendering
 
 		private EntityManager EntityManager { get; }
 
-		public BuildingDesc BuildingDesc { get; set; }
+		public Entity Building { get; set; }
 
 		public Pointer Pointer { get; set; }
 
@@ -28,7 +29,7 @@ namespace Omniverse.Rendering
 		{
 			public BuilderRenderSettings Settings;
 			public EntityManager EntityManager;
-			public BuildingDesc BuildingDesc;
+			public Entity Building;
 			public Pointer Pointer;
 		}
 
@@ -45,7 +46,7 @@ namespace Omniverse.Rendering
 				data.EntityManager = EntityManager;
 				data.Settings = Settings;
 				data.Pointer = Pointer;
-				data.BuildingDesc = BuildingDesc;
+				data.Building = Building;
 
 				builder.AllowGlobalStateModification(true);
 
@@ -56,7 +57,10 @@ namespace Omniverse.Rendering
 				{
 					RasterCommandBuffer commandBuffer = context.cmd;
 
-					Mesh mesh = data.BuildingDesc.Mesh;
+					var materialMeshInfo = data.EntityManager.GetComponentData<MaterialMeshInfo>(data.Building);
+					var renderMeshArray = data.EntityManager.GetSharedComponentManaged<RenderMeshArray>(data.Building);
+					Mesh mesh = renderMeshArray.GetMesh(materialMeshInfo);
+
 					Material material = data.Settings.Material;
 
 					Vector3 boundsSize = mesh.bounds.size;

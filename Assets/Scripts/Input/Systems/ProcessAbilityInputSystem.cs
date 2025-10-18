@@ -171,28 +171,27 @@ namespace Omniverse.Input
 
 			if (abilitiesActions.Build.WasPressedThisFrame())
 			{
-				if (builder.ValueRW.BuildingDesc == null)
+				if (builder.ValueRW.Building == Entity.Null)
 				{
-					var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
-					builder.ValueRW.BuildingDesc = buildAbility.Desc.Value.Building;
+					//TODO HARDCODE
+					var building = SystemAPI.GetBuffer<Blueprint>(dynamicEntity.Entity)[0].Building;
+					builder.ValueRW.Building = building;
 				}
 				else
 				{
-					builder.ValueRW.BuildingDesc = null;
+					builder.ValueRW.Building = Entity.Null;
 				}
 			}
 
-			if (builder.ValueRW.BuildingDesc != null && commonActions.Select.WasPressedThisFrame())
+			if (builder.ValueRW.Building != Entity.Null && commonActions.Select.WasPressedThisFrame())
 			{
 				var commandBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
-				var buildAbility = SystemAPI.GetComponent<BuildAbility>(dynamicEntity.Entity);
 				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
 
 				var data = new BuildOperationData
 				{
-					Desc = buildAbility.Desc.Value.Building,
-					Entity = buildAbility.Building,
+					Building = builder.ValueRO.Building,
 					LocalTransform = new LocalTransform()
 					{
 						Position = pointer.CellPosiiton,
@@ -204,7 +203,7 @@ namespace Omniverse.Input
 
 				BuildingUtils.Build(commandBuffer, data);
 
-				builder.ValueRW.BuildingDesc = null;
+				builder.ValueRW.Building = Entity.Null;
 				commandBuffer.Playback(entityManager);
 			}
 

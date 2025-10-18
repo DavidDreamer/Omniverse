@@ -5,8 +5,7 @@ namespace Omniverse
 {
 	public struct BuildOperationData
 	{
-		public UnityObjectRef<BuildingDesc> Desc;
-		public Entity Entity;
+		public Entity Building;
 		public LocalTransform LocalTransform;
 		public Faction Faction;
 	}

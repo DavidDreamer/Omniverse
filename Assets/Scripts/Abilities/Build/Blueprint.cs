@@ -4,7 +4,8 @@ using Unity.Entities;
 namespace Omniverse.Abilities
 {
 	[BurstCompile]
-	public struct BuildAbility : IComponentData
+	public struct Blueprint : IBufferElementData
 	{
+		public Entity Building;
 	}
 }
