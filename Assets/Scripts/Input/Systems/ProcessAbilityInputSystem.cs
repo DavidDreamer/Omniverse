@@ -188,20 +188,18 @@ namespace Omniverse.Input
 				var commandBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
 				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
+				var buildInput = SystemAPI.GetComponentRW<BuildInput>(dynamicEntity.Entity);
 
-				var data = new BuildOperationData
+				//TODO HARDCODE
+				buildInput.ValueRW.BlueprintIndex = 0;
+				buildInput.ValueRW.LocalTransform = new LocalTransform()
 				{
-					Building = builder.ValueRO.Building,
-					LocalTransform = new LocalTransform()
-					{
-						Position = pointer.CellPosiiton,
-						Rotation = quaternion.identity,
-						Scale = 1
-					},
-					Faction = faction
+					Position = pointer.CellPosiiton,
+					Rotation = quaternion.identity,
+					Scale = 1
 				};
-
-				BuildingUtils.Build(commandBuffer, data);
+				buildInput.ValueRW.Faction = faction.ID;
+				buildInput.ValueRW.Event.Set();
 
 				builder.ValueRW.Building = Entity.Null;
 				commandBuffer.Playback(entityManager);

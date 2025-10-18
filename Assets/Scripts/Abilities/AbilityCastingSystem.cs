@@ -17,6 +17,30 @@ namespace Omniverse
 				return;
 			}
 
+			var commandBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
+
+			foreach ((var input, var entity) in SystemAPI.Query<BuildInput>().WithEntityAccess())
+			{
+				if (!input.Event.IsSet)
+				{
+					continue;
+				}
+
+				var blueprints = SystemAPI.GetBuffer<Blueprint>(entity);
+
+				var data = new BuildOperationData()
+				{
+					Building = blueprints[input.BlueprintIndex].Building,
+					LocalTransform = input.LocalTransform,
+					Faction = input.Faction,
+				};
+
+				BuildingUtils.Build(commandBuffer, data);
+			}
+
+			commandBuffer.Playback(state.EntityManager);
+			commandBuffer.Dispose();
+
 			foreach ((var abilityBuffer, var input, var entity) in SystemAPI.Query<DynamicBuffer<Ability>, RefRW<AbilityInput>>().WithEntityAccess())
 			{
 				if (!input.ValueRO.Cast.IsSet)

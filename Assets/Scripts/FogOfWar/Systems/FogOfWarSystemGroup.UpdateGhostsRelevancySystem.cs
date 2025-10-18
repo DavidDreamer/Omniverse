@@ -29,7 +29,7 @@ namespace Omniverse
 
 				int2 mapSize = SystemAPI.GetSingleton<MapSettings>().Size;
 			
-				foreach ((var localTransform, var ghostInstance) in SystemAPI.Query<LocalTransform, GhostInstance>().WithAll<Unit>().WithAll<Simulate>())
+				foreach ((var localTransform, var ghostInstance) in SystemAPI.Query<LocalTransform, GhostInstance>().WithAny<Unit, Building>().WithAll<Simulate>())
 				{
 					int cellIndex = FogOfWarUtils.CellIndexFromPosition(localTransform.Position, mapSize, fogOfWarSettings.Size);
 

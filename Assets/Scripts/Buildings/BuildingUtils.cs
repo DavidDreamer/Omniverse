@@ -17,7 +17,10 @@ namespace Omniverse
 				End = position
 			});
 
-			commandBuffer.SetComponent(entity, data.Faction);
+			commandBuffer.SetComponent<Faction>(entity, new()
+			{
+				ID = data.Faction
+			});
 		}
 	}
 }

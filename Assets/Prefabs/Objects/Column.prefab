@@ -66,6 +66,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ba8fc0d3b121c0479655ed5e0e8e375, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5724014299918198886}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ba8fc0d3b121c0479655ed5e0e8e375, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431980705540754655}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ba8fc0d3b121c0479655ed5e0e8e375, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5425879442402165469}
   m_SourcePrefab: {fileID: 100100000, guid: 5ba8fc0d3b121c0479655ed5e0e8e375, type: 3}
 --- !u!1 &4362038500966249393 stripped
 GameObject:
@@ -106,3 +112,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Desc>k__BackingField: {fileID: 11400000, guid: edc8c4364e4dafd4aa28bfddd84fb88f, type: 2}
+--- !u!114 &1431980705540754655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362038500966249393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5425879442402165469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362038500966249393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultGhostMode: 1
+  SupportedGhostModes: 3
+  OptimizationMode: 0
+  Importance: 1
+  MaxSendRate: 0
+  prefabId: 538be99baecc42143845574df81b0fd8
+  HasOwner: 0
+  SupportAutoCommandTarget: 1
+  TrackInterpolationDelay: 0
+  GhostGroup: 0
+  UsePreSerialization: 0
+  RollbackPredictedSpawnedGhostState: 0
+  RollbackPredictionOnStructuralChanges: 1

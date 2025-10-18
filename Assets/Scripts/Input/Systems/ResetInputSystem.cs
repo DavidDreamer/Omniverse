@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using Omniverse.Abilities;
+using Unity.Burst;
 using Unity.Entities;
 
 namespace Omniverse.Input
@@ -13,6 +14,11 @@ namespace Omniverse.Input
 			foreach (var input in SystemAPI.Query<RefRW<AbilityInput>>())
 			{
 				input.ValueRW.Cast = default;
+			}
+
+			foreach (var input in SystemAPI.Query<RefRW<BuildInput>>())
+			{
+				input.ValueRW.Event = default;
 			}
 		}
 	}

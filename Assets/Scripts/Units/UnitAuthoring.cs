@@ -82,6 +82,8 @@ namespace Omniverse
 
 				if (desc.BuildAbilityDesc != null)
 				{
+					AddComponent<BuildInput>(entity);
+
 					AddBuffer<Blueprint>(entity);
 
 					foreach (var prefab in desc.BuildAbilityDesc.Buildings)
