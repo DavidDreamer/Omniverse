@@ -30,8 +30,14 @@ namespace Omniverse.UI
 			//AttackSpeed.Bind(Unit.Properties[PropertyID.AttackSpeed]);
 			//AttackRange.Bind(Unit.Properties[PropertyID.AttackRange]);
 
-			var movement = EntityManager.GetComponentData<Movement>(entity);
-			MovementSpeed.Bind(movement.Speed);
+			bool hasMovement = EntityManager.HasComponent<Movement>(entity);
+			MovementSpeed.gameObject.SetActive(hasMovement);
+
+			if (hasMovement)
+			{
+				var movement = EntityManager.GetComponentData<Movement>(entity);
+				MovementSpeed.Bind(movement.Speed);
+			}
 
 			//RotationSpeed.Bind(Unit.Properties[PropertyID.RotationSpeed]);
 			//VisionRange.Bind(Unit.Properties[PropertyID.VisionRange]);
