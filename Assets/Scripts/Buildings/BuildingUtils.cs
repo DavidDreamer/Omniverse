@@ -10,7 +10,10 @@ namespace Omniverse
 			Entity entity = commandBuffer.Instantiate(data.Building);
 			commandBuffer.SetComponent(entity, data.LocalTransform);
 
-			int2 position = new((int)data.LocalTransform.Position.x, (int)data.LocalTransform.Position.z);
+			int x = (int)math.floor(data.LocalTransform.Position.x);
+			int y = (int)math.floor(data.LocalTransform.Position.z);
+			int2 position = new(x, y);
+
 			commandBuffer.AddComponent(entity, new Obstacle
 			{
 				Start = position,
