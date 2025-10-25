@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using System.Numerics;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
@@ -12,9 +13,16 @@ namespace Omniverse
 	public partial struct ProcessCommandsSystem : ISystem
 	{
 		[BurstCompile]
+		public void OnCreate(ref SystemState state)
+		{
+			state.RequireForUpdate<Map>();
+		}
+
+		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
 			var networkTime = SystemAPI.GetSingleton<NetworkTime>();
+			var map = SystemAPI.GetSingleton<Map>();
 
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
@@ -35,12 +43,23 @@ namespace Omniverse
 							case Command.Move:
 								waypoints.Clear();
 
-								Waypoint waypoint = new()
-								{
-									Position = unitInput.ValueRW.Position
-								};
+								Node start = map.NodeFromPosition(localTransform.ValueRW.Position);
+								Node goal = map.NodeFromPosition(unitInput.ValueRW.Position);
+								var nodes = AStar.FindPath(map, start, goal);
 
-								waypoints.Add(waypoint);
+								if (nodes != null)
+								{
+									foreach (var node in nodes)
+									{
+										Waypoint waypoint = new()
+										{
+											Position = new float3(node.Coordinates.x + 0.5f, 0, node.Coordinates.y + 0.5f)
+										};
+
+										waypoints.Add(waypoint);
+									}
+								}
+						
 								break;
 						}
 					}
@@ -56,7 +75,7 @@ namespace Omniverse
 						{
 							float3 goal = waypoints[0].Position;
 							float3 vector = goal - localTransform.ValueRW.Position;
-							float3 direction = math.normalize(vector);
+							float3 direction = math.normalizesafe(vector);
 							direction.y = 0;
 
 							float lenght = math.length(vector);
@@ -64,6 +83,14 @@ namespace Omniverse
 							float3 deltaPosition = direction * distance;
 
 							localTransform.ValueRW.Position += deltaPosition;
+
+							float3 from = localTransform.ValueRW.Position;
+							for (int i = 0; i < waypoints.Length; i++)
+							{
+								var to = waypoints[i].Position;
+								UnityEngine.Debug.DrawLine(from, to);
+								from = to;
+							}
 
 							if (lenght < 0.1f)
 							{
