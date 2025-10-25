@@ -45,7 +45,7 @@ namespace Omniverse
 
 								Node start = map.NodeFromPosition(localTransform.ValueRW.Position);
 								Node goal = map.NodeFromPosition(unitInput.ValueRW.Position);
-								var nodes = AStar.FindPath(map, start, goal);
+								var nodes = Pathfinding.FindPath(map, start, goal);
 
 								if (nodes != null)
 								{

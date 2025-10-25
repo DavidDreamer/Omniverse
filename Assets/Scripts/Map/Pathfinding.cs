@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace Omniverse
 {
-	public static class AStar
+	public static class Pathfinding
 	{
 		private struct Score
 		{
