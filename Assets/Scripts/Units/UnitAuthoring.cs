@@ -101,6 +101,8 @@ namespace Omniverse
 
 				AddComponent<Unit>(entity);
 				AddComponent<UnitInput>(entity);
+
+				AddBuffer<Waypoint>(entity);
 			}
 		}
 	}

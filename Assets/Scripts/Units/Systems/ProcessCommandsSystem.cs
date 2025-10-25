@@ -8,38 +8,73 @@ namespace Omniverse
 {
 	[BurstCompile]
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
+	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	public partial struct ProcessCommandsSystem : ISystem
 	{
 		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
+			var networkTime = SystemAPI.GetSingleton<NetworkTime>();
+
 			float deltaTime = SystemAPI.Time.DeltaTime;
 
 			foreach ((var unitInput, var entity) in SystemAPI.Query<RefRW<UnitInput>>().WithAll<Unit>().WithAll<Simulate>().WithEntityAccess())
 			{
+				var localTransform = SystemAPI.GetComponentRW<LocalTransform>(entity);
+				var movementSpeed = SystemAPI.GetComponent<Movement>(entity);
+				var waypoints = SystemAPI.GetBuffer<Waypoint>(entity);
+
+				if (networkTime.IsFirstTimeFullyPredictingTick)
+				{
+					if (unitInput.ValueRW.Event.IsSet)
+					{
+						switch (unitInput.ValueRW.Command)
+						{
+							case Command.Idle:
+								break;
+							case Command.Move:
+								waypoints.Clear();
+
+								Waypoint waypoint = new()
+								{
+									Position = unitInput.ValueRW.Position
+								};
+
+								waypoints.Add(waypoint);
+								break;
+						}
+					}
+				}
+
 				switch (unitInput.ValueRW.Command)
 				{
 					case Command.Idle:
 						break;
 					case Command.Move:
 					{
-						var localTransform = SystemAPI.GetComponentRW<LocalTransform>(entity);
-						var movementSpeed = SystemAPI.GetComponent<Movement>(entity);
+						if (waypoints.Length > 0)
+						{
+							float3 goal = waypoints[0].Position;
+							float3 vector = goal - localTransform.ValueRW.Position;
+							float3 direction = math.normalize(vector);
+							direction.y = 0;
 
-						float3 vector = unitInput.ValueRW.Position - localTransform.ValueRW.Position;
-						float3 direction = math.normalize(vector);
-						direction.y = 0;
+							float lenght = math.length(vector);
+							float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
+							float3 deltaPosition = direction * distance;
 
-						float lenght = math.length(vector);
-						float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
-						float3 deltaPosition = direction * distance;
+							localTransform.ValueRW.Position += deltaPosition;
 
-						localTransform.ValueRW.Position += deltaPosition;
-
-						if (lenght < 0.1f)
+							if (lenght < 0.1f)
+							{
+								waypoints.RemoveAt(0);
+							}
+						}
+						else
 						{
 							unitInput.ValueRW.Command = Command.Idle;
 						}
+
 						break;
 					}
 					default: throw new System.Exception();
