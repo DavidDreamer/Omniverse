@@ -18,9 +18,9 @@ namespace Omniverse
 	{
 		private struct Info
 		{
-			public float G;
-			public float H;
-			public float F => G + H;
+			public float GScore;
+			public float HScore;
+			public float FScore => GScore + HScore;
 			public int Parent;
 		}
 
@@ -118,13 +118,13 @@ namespace Omniverse
 		private int GetSmallestGScore()
 		{
 			int id = openNodes[0];
-			float smallestScore = nodesInfo[id].G;
+			float smallestScore = nodesInfo[id].GScore;
 			int openNodeIndex = 0;
 
 			for (int i = 1; i < openNodes.Length; i++)
 			{
 				int currentId = openNodes[i];
-				float currentGScore = nodesInfo[currentId].G;
+				float currentGScore = nodesInfo[currentId].GScore;
 
 				if (currentGScore < smallestScore)
 				{
@@ -148,8 +148,8 @@ namespace Omniverse
 			openNodes.Add(start.Id);
 			nodesInfo.Add(start.Id, new Info
 			{
-				G = 0,
-				H = Heuristic(start, goal),
+				GScore = 0,
+				HScore = Heuristic(start, goal),
 				Parent = -1
 			});
 		
@@ -190,14 +190,14 @@ namespace Omniverse
 						continue;
 					}
 
-					float tentativeGScore = nodesInfo[currentId].G + Heuristic(currentNode, neighbourNode);
+					float tentativeGScore = nodesInfo[currentId].GScore + Heuristic(currentNode, neighbourNode);
 
-					if (!nodesInfo.ContainsKey(neighbourNode.Id) || tentativeGScore < nodesInfo[neighbourNode.Id].G)
+					if (!nodesInfo.ContainsKey(neighbourNode.Id) || tentativeGScore < nodesInfo[neighbourNode.Id].GScore)
 					{
 						Info score = new()
 						{
-							G = tentativeGScore,
-							H = Heuristic(neighbourNode, goal),
+							GScore = tentativeGScore,
+							HScore = Heuristic(neighbourNode, goal),
 							Parent = currentId
 						};
 
