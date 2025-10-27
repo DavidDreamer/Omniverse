@@ -192,30 +192,29 @@ namespace Omniverse
 
 					float tentativeGScore = nodesInfo[currentId].GScore + Heuristic(currentNode, neighbourNode);
 
-					if (!nodesInfo.ContainsKey(neighbourNode.Id) || tentativeGScore < nodesInfo[neighbourNode.Id].GScore)
+					if (!nodesInfo.ContainsKey(neighbourId))
 					{
-						Info score = new()
+						Info info = new()
 						{
 							GScore = tentativeGScore,
 							HScore = Heuristic(neighbourNode, goal),
 							Parent = currentId
 						};
 
-						if (!nodesInfo.ContainsKey(neighbourNode.Id))
-						{
-							nodesInfo.Add(neighbourId, score);
-						}
-						else
-						{
-							nodesInfo[neighbourId] = score;
-						}
+						nodesInfo.Add(neighbourId, info);
+					}
+					
+					if (tentativeGScore < nodesInfo[neighbourNode.Id].GScore)
+					{
+						Info info = nodesInfo[neighbourId];
+						info.GScore = tentativeGScore;
+						info.Parent = currentId;
+						nodesInfo[neighbourId] = info;
+					}
 
-						nodesInfo[neighbourNode.Id] = score;
-
-						if (!openNodes.Contains(neighbourNode.Id))
-						{
-							openNodes.Add(neighbourNode.Id);
-						}
+					if (!openNodes.Contains(neighbourNode.Id))
+					{
+						openNodes.Add(neighbourNode.Id);
 					}
 				}
 			}
