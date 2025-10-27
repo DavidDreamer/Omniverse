@@ -118,13 +118,13 @@ namespace Omniverse
 		private int GetSmallestGScore()
 		{
 			int id = openNodes[0];
-			float smallestScore = nodesInfo[id].GScore;
+			float smallestScore = nodesInfo[id].FScore;
 			int openNodeIndex = 0;
 
 			for (int i = 1; i < openNodes.Length; i++)
 			{
 				int currentId = openNodes[i];
-				float currentGScore = nodesInfo[currentId].GScore;
+				float currentGScore = nodesInfo[currentId].FScore;
 
 				if (currentGScore < smallestScore)
 				{
