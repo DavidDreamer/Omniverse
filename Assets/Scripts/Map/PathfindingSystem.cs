@@ -85,18 +85,6 @@ namespace Omniverse
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static float Heuristic(Node from, Node to) => math.distancesq(to.Coordinates, from.Coordinates);
 
-		private static int2[] Offsets = new int2[8]
-		{
-			new(-1, 1),
-			new(0, 1),
-			new(1, 1),
-			new(-1, 0),
-			new(1, 0),
-			new(-1, -1),
-			new(0, -1),
-			new(1, -1),
-		};
-
 		public List<Node> ReconstructPath(Map map, Node current)
 		{
 			var path = new List<Node> { current };
@@ -165,19 +153,8 @@ namespace Omniverse
 
 				closedNodes.Add(currentId);
 
-				foreach (int2 offset in Offsets)
+				foreach (int neighbourId in map.Nodes[currentId].Neighbours)
 				{
-					int2 neighbourCoordinate = currentNode.Coordinates + offset;
-
-					int halfX = map.Size.x / 2;
-					int halfY = map.Size.y / 2;
-
-					if (neighbourCoordinate.x < -halfX || neighbourCoordinate.x >= halfX || neighbourCoordinate.y < -halfY || neighbourCoordinate.y >= halfY)
-					{
-						continue;
-					}
-
-					int neighbourId = (neighbourCoordinate.y + (map.Size.y / 2)) * map.Size.x + (neighbourCoordinate.x + (map.Size.x / 2));
 					Node neighbourNode = map.Nodes[neighbourId];
 
 					if (neighbourNode.Obstacle)

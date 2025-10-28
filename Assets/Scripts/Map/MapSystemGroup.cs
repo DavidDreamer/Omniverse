@@ -1,6 +1,7 @@
 ﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.NetCode;
 
 namespace Omniverse
@@ -8,6 +9,18 @@ namespace Omniverse
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial class MapSystemGroup : ComponentSystemGroup
 	{
+		private static int2[] Offsets = new int2[8]
+{
+			new(-1, 1),
+			new(0, 1),
+			new(1, 1),
+			new(-1, 0),
+			new(1, 0),
+			new(-1, -1),
+			new(0, -1),
+			new(1, -1),
+};
+
 		protected override void OnCreate()
 		{
 			base.OnCreate();
@@ -38,15 +51,36 @@ namespace Omniverse
 
 			var nodes = new NativeArray<Node>(nodesCount, Allocator.Persistent);
 
+			int halfX = settings.Size.x / 2;
+			int halfY = settings.Size.y / 2;
+
 			for (int i = 0; i < settings.Size.x; i++)
 			{
 				for (int j = 0; j < settings.Size.y; j++)
 				{
+					var tempNodes = new NativeList<int>(Allocator.Temp);
+
+					foreach (int2 offset in Offsets)
+					{
+						int x = i + offset.x;
+						int y = j + offset.y;
+
+						if (x < 0 || x >= settings.Size.x || y < 0 || y >= settings.Size.y)
+						{
+							continue;
+						}
+
+						int neighbourId = y * settings.Size.x + x;
+
+						tempNodes.Add(neighbourId);
+					}
+
 					int id = j * settings.Size.x + i;
 					nodes[id] = new()
 					{
 						Id = id,
 						Coordinates = new(i - settings.Size.x / 2, j - settings.Size.y / 2),
+						Neighbours = tempNodes.ToArray(Allocator.Persistent)
 					};
 				}
 			}
@@ -67,6 +101,12 @@ namespace Omniverse
 			if (SystemAPI.HasSingleton<Map>())
 			{
 				var map = SystemAPI.GetSingleton<Map>();
+
+				foreach (var node in map.Nodes)
+				{
+					node.Neighbours.Dispose();
+				}
+
 				map.Nodes.Dispose();
 			}
 		}
