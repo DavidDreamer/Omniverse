@@ -154,7 +154,7 @@ namespace Omniverse
 					Node node = map.Nodes[neighbourNode.Id];
 					int neighbourId = neighbourNode.Id;
 
-					if (node.Obstacle)
+					if (map.Obstacles[neighbourId])
 					{
 						continue;
 					}

@@ -82,7 +82,8 @@ namespace Omniverse
 			Map map = new()
 			{
 				Size = settings.Size,
-				Nodes = nodes
+				Nodes = nodes,
+				Obstacles = new NativeArray<bool>(nodesCount, Allocator.Persistent)
 			};
 
 			EntityManager.SetComponentData(entity, map);
@@ -102,6 +103,7 @@ namespace Omniverse
 				}
 
 				map.Nodes.Dispose();
+				map.Obstacles.Dispose();
 			}
 		}
 	}
@@ -149,9 +151,7 @@ namespace Omniverse
 						&& node.Coordinates.y <= obstacle.End.y;
 				}
 
-				node.Obstacle = obs;
-
-				map.ValueRW.Nodes[i] = node;
+				map.ValueRW.Obstacles[i] = obs;
 			}
 
 			obstacles.Dispose();

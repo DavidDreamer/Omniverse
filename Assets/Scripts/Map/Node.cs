@@ -9,7 +9,6 @@ namespace Omniverse
 	{
 		public int Id;
 		public int2 Coordinates;
-		public bool Obstacle;
 		public NativeArray<NeighbourNodeData> Neighbours;
 	}
 }
