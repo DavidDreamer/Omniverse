@@ -3,6 +3,7 @@ Shader "Omniverse/Grid"
     Properties
     {
         _MainColor ("Main Color", Color) = (1,1,1,1)
+        ObstacleColor ("Obstacle Color", Color) = (1,1,1,1)
         _GridColor ("Grid Color", Color) = (1,1,1,1)
         _RenderingLayer ("Rendering Layer", Integer) = 2
         _Radius ("Radius", Integer) = 3
@@ -29,10 +30,13 @@ Shader "Omniverse/Grid"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareRenderingLayerTexture.hlsl"
 
             float4 _MainColor;
+            float4 ObstacleColor;
             float4 _GridColor;
             uint _RenderingLayer;
             uint _Radius;
             float _Thickness;
+
+            StructuredBuffer<int> ObstaclesBuffer;
 
             float SouldBeCulledByLayer(float4 positionCS)
             {
@@ -69,7 +73,14 @@ Shader "Omniverse/Grid"
                 float v = 1 - min(aa.y, bb.y);
                 float gridFactor = lerp(h, 1, v);
 
-                float4 finalColor = lerp(_MainColor, _GridColor, gridFactor);
+                int x = (int)floor(worldPos.x) + 128;
+                int y = (int)floor(worldPos.z) + 128;
+                int gridCellIndex = y * 256 + x;
+                bool isObstacle = ObstaclesBuffer[gridCellIndex];
+
+                float4 cellColor = isObstacle ? ObstacleColor : _MainColor;
+
+                float4 finalColor = lerp(cellColor, _GridColor, gridFactor);
 
                 return finalColor;
             }

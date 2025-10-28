@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -8,17 +10,29 @@ namespace Omniverse.Rendering
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
 	public partial class GridRenderSystem : SystemBase
 	{
+		private static class ShaderVariables
+		{
+			public static int ObstaclesBuffer { get; } = Shader.PropertyToID(nameof(ObstaclesBuffer));
+		}
+
 		private GridRenderSettings Settings { get; set; }
 
 		private GridRenderPass Pass { get; set; }
 
+		private ComputeBuffer ObstaclesBuffer { get; set; }
+
 		protected override void OnCreate()
 		{
 			RequireForUpdate<RenderSettings>();
+			RequireForUpdate<Map>();
 		}
 
 		protected override void OnStartRunning()
 		{
+			var map = SystemAPI.GetSingleton<Map>();
+			ObstaclesBuffer = new ComputeBuffer(map.Nodes.Length, Marshal.SizeOf<int>());
+			Shader.SetGlobalBuffer(ShaderVariables.ObstaclesBuffer, ObstaclesBuffer);
+
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.Grid;
 
@@ -32,6 +46,7 @@ namespace Omniverse.Rendering
 
 		protected override void OnStopRunning()
 		{
+			ObstaclesBuffer.Dispose();
 			RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
 		}
 
@@ -45,6 +60,8 @@ namespace Omniverse.Rendering
 
 		protected override void OnUpdate()
 		{
+			var map = SystemAPI.GetSingleton<Map>();
+			ObstaclesBuffer.SetData(map.Obstacles.Select(x => x ? 1 : 0).ToArray());
 		}
 	}
 }
