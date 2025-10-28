@@ -18,5 +18,6 @@ namespace Omniverse.Rendering
 		public UnityObjectRef<NavigationRenderSettings> Navigation;
 		public UnityObjectRef<OutlineRenderSettings> Outline;
 		public UnityObjectRef<BuilderRenderSettings> Builder;
+		public UnityObjectRef<GridRenderSettings> Grid;
 	}
 }

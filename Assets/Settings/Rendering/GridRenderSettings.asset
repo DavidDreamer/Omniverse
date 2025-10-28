@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622e798a4f8c475428e181c69ec51dc1, type: 3}
+  m_Name: GridRenderSettings
+  m_EditorClassIdentifier: Omniverse.Rendering::Omniverse.Rendering.GridRenderSettings
+  <RenderPassEvent>k__BackingField: 450
+  <CameraType>k__BackingField: 3
+  <Material>k__BackingField: {fileID: 2100000, guid: 009390621f4536841a53431398b00705, type: 2}

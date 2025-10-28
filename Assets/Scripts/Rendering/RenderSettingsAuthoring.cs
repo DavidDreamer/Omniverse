@@ -37,6 +37,9 @@ namespace Omniverse.Rendering
 		[field: SerializeField]
 		public BuilderRenderSettings Builder { get; set; }
 
+		[field: SerializeField]
+		public GridRenderSettings Grid { get; set; }
+
 		private class Baker : Baker<RenderSettingsAuthoring>
 		{
 			public override void Bake(RenderSettingsAuthoring authoring)
@@ -54,6 +57,7 @@ namespace Omniverse.Rendering
 					Navigation = authoring.Navigation,
 					Outline = authoring.Outline,
 					Builder = authoring.Builder,
+					Grid = authoring.Grid
 				});
 			}
 		}
