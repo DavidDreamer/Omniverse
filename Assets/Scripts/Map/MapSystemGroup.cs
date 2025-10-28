@@ -9,18 +9,6 @@ namespace Omniverse
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial class MapSystemGroup : ComponentSystemGroup
 	{
-		private static int2[] Offsets = new int2[8]
-{
-			new(-1, 1),
-			new(0, 1),
-			new(1, 1),
-			new(-1, 0),
-			new(1, 0),
-			new(-1, -1),
-			new(0, -1),
-			new(1, -1),
-};
-
 		protected override void OnCreate()
 		{
 			base.OnCreate();
@@ -58,9 +46,9 @@ namespace Omniverse
 			{
 				for (int j = 0; j < settings.Size.y; j++)
 				{
-					var tempNodes = new NativeList<int>(Allocator.Temp);
+					var tempNodes = new NativeList<NeighbourNodeData>(Allocator.Temp);
 
-					foreach (int2 offset in Offsets)
+					foreach (int2 offset in Pathfinding.Offsets)
 					{
 						int x = i + offset.x;
 						int y = j + offset.y;
@@ -72,7 +60,13 @@ namespace Omniverse
 
 						int neighbourId = y * settings.Size.x + x;
 
-						tempNodes.Add(neighbourId);
+						NeighbourNodeData neighbourNode = new()
+						{
+							Id = neighbourId,
+							HeuristicCost = Pathfinding.Heuristic(new float2(i, j), new float2(x, y))
+						};
+
+						tempNodes.Add(neighbourNode);
 					}
 
 					int id = j * settings.Size.x + i;

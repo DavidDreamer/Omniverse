@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -18,9 +17,9 @@ namespace Omniverse
 	{
 		private struct Info
 		{
-			public float GScore;
-			public float HScore;
-			public float FScore => GScore + HScore;
+			public float GCost;
+			public float HCost;
+			public float FCost => GCost + HCost;
 			public int Parent;
 		}
 
@@ -82,9 +81,6 @@ namespace Omniverse
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static float Heuristic(Node from, Node to) => math.distancesq(to.Coordinates, from.Coordinates);
-
 		public List<Node> ReconstructPath(Map map, Node current)
 		{
 			var path = new List<Node> { current };
@@ -106,13 +102,13 @@ namespace Omniverse
 		private int GetSmallestGScore()
 		{
 			int id = openNodes[0];
-			float smallestScore = nodesInfo[id].FScore;
+			float smallestScore = nodesInfo[id].FCost;
 			int openNodeIndex = 0;
 
 			for (int i = 1; i < openNodes.Length; i++)
 			{
 				int currentId = openNodes[i];
-				float currentGScore = nodesInfo[currentId].FScore;
+				float currentGScore = nodesInfo[currentId].FCost;
 
 				if (currentGScore < smallestScore)
 				{
@@ -136,8 +132,8 @@ namespace Omniverse
 			openNodes.Add(start.Id);
 			nodesInfo.Add(start.Id, new Info
 			{
-				GScore = 0,
-				HScore = Heuristic(start, goal),
+				GCost = 0,
+				HCost = Pathfinding.Heuristic(start.Coordinates, goal.Coordinates),
 				Parent = -1
 			});
 		
@@ -153,11 +149,12 @@ namespace Omniverse
 
 				closedNodes.Add(currentId);
 
-				foreach (int neighbourId in map.Nodes[currentId].Neighbours)
+				foreach (NeighbourNodeData neighbourNode in map.Nodes[currentId].Neighbours)
 				{
-					Node neighbourNode = map.Nodes[neighbourId];
+					Node node = map.Nodes[neighbourNode.Id];
+					int neighbourId = neighbourNode.Id;
 
-					if (neighbourNode.Obstacle)
+					if (node.Obstacle)
 					{
 						continue;
 					}
@@ -167,24 +164,24 @@ namespace Omniverse
 						continue;
 					}
 
-					float tentativeGScore = nodesInfo[currentId].GScore + Heuristic(currentNode, neighbourNode);
+					float tentativeGScore = nodesInfo[currentId].GCost + neighbourNode.HeuristicCost;
 
 					if (!nodesInfo.ContainsKey(neighbourId))
 					{
 						Info info = new()
 						{
-							GScore = tentativeGScore,
-							HScore = Heuristic(neighbourNode, goal),
+							GCost = tentativeGScore,
+							HCost = Pathfinding.Heuristic(node.Coordinates, goal.Coordinates),
 							Parent = currentId
 						};
 
 						nodesInfo.Add(neighbourId, info);
 					}
 					
-					if (tentativeGScore < nodesInfo[neighbourNode.Id].GScore)
+					if (tentativeGScore < nodesInfo[neighbourNode.Id].GCost)
 					{
 						Info info = nodesInfo[neighbourId];
-						info.GScore = tentativeGScore;
+						info.GCost = tentativeGScore;
 						info.Parent = currentId;
 						nodesInfo[neighbourId] = info;
 					}
