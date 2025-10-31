@@ -1,12 +1,11 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
-using Unity.NetCode;
 using Unity.Transforms;
 using UnityEngine;
 
 namespace Omniverse
 {
-	public class LaunchMissileAction : IAction<DynamicEntity>, IAction<Vector3>
+	public class LaunchMissileAction : IAction<Entity>, IAction<Vector3>
 	{
 		[field: SerializeField]
 		public MissileDesc Missile { get; private set; }
@@ -14,19 +13,21 @@ namespace Omniverse
 		[field: SerializeField]
 		public float Range { get; private set; }
 
-		public void Perform(EntityManager commandBuffer, DynamicEntity actor, DynamicEntity target)
+		public void Perform(EntityManager commandBuffer, Entity actor, Entity target)
 		{
 			//TODO ECS
 			//actor.SpawnMissile(Missile, target);
 		}
 
-		public void Perform(EntityManager entityManager, DynamicEntity actor, Vector3 target)
+		public void Perform(EntityManager entityManager, Entity actor, Vector3 target)
 		{
 			var references = entityManager.GetSingleton<EntityReferences>();
 
 			Entity fireball = entityManager.Instantiate(references.Fireball);
 
-			float3 position = actor.LocalTransform.ValueRO.Position + new float3(0f, 1f, 0f) + (float3)target;
+			var actorLocalTransform = entityManager.GetComponentData<LocalTransform>(actor);
+
+			float3 position = actorLocalTransform.Position + new float3(0f, 1f, 0f) + (float3)target;
 			var localTransform = entityManager.GetComponentData<LocalTransform>(fireball);
 			localTransform.Position = position;
 			entityManager.SetComponentData(fireball, localTransform);

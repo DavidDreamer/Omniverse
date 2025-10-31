@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Omniverse
@@ -9,11 +10,11 @@ namespace Omniverse
 
 		private ChainDesc Desc { get; set; }
 
-		public DynamicEntity Target { get; set; }
+		public Entity Target { get; set; }
 
-		public DynamicEntity Owner { get; set; }
+		public Entity Owner { get; set; }
 
-		public HashSet<DynamicEntity> Targets { get; } = new();
+		public HashSet<Entity> Targets { get; } = new();
 
 		public void Initialize(ChainDesc desc)
 		{

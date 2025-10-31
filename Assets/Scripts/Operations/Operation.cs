@@ -11,7 +11,7 @@ namespace Omniverse
 
 	public interface IOperation<TTarget> : IOperation
 	{
-		void Perform(EntityManager entityManager, DynamicEntity actor, TTarget target);
+		void Perform(EntityManager entityManager, Entity actor, TTarget target);
 	}
 
 	[Serializable]
@@ -23,7 +23,7 @@ namespace Omniverse
 		[field: SerializeReference]
 		private IAction<TTargetOut>[] Actions { get; set; }
 
-		public void Perform(EntityManager entityManager, DynamicEntity actor, TTargetIn targetIn)
+		public void Perform(EntityManager entityManager, Entity actor, TTargetIn targetIn)
 		{
 			IEnumerable<TTargetOut> targets = TargetConverter.Convert(entityManager, actor, targetIn);
 

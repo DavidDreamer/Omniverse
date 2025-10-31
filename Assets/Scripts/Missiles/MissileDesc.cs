@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -18,6 +19,6 @@ namespace Omniverse
 		public float Radius { get; private set; }
 
 		[field: SerializeReference]
-		public IOperation<DynamicEntity> HitOperation { get; private set; }
+		public IOperation<Entity> HitOperation { get; private set; }
 	}
 }

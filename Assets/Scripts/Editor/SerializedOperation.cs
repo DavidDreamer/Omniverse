@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Dreambox.Core.Editor;
+using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Omniverse.Editor
 	{
 		private static Type[] TargetTypes { get; } = new[]
 		{
-			typeof(DynamicEntity),
+			typeof(Entity),
 			typeof(ResourceSource),
 			typeof(Vector3)
 		};

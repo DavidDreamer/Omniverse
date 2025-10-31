@@ -3,18 +3,20 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace Omniverse
 {
 	public static class PhysicsService
 	{
-		public static IEnumerable<DynamicEntity> GetEntitiesInSphere(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
+		public static IEnumerable<Entity> GetEntitiesInSphere(EntityManager entityManager, Entity source, float radius, FactiousFilter filter)
 		{
 			var physicsWorld = entityManager.GetSingleton<PhysicsWorldSingleton>();
 			var settings = entityManager.GetSingleton<PhysicsSettings>();
 
-			Vector3 position = source.LocalTransform.ValueRO.Position;
+			var localTransform = entityManager.GetComponentData<LocalTransform>(source);
+			Vector3 position = localTransform.Position;
 
 			var distanceHits = new NativeList<DistanceHit>();
 			var collisionFilter = new CollisionFilter
@@ -29,20 +31,21 @@ namespace Omniverse
 				{
 					Entity hitEntity = hit.Entity;
 
-					if (entityManager.HasAspect<DynamicEntity>(hit.Entity))
+					if (entityManager.HasComponent<Unit>(hit.Entity))
 					{
-						yield return entityManager.GetAspect<DynamicEntity>(hitEntity);
+						yield return hitEntity;
 					}
 				}
 			}
 		}
 
-		public static DynamicEntity GetClosestEntity(EntityManager entityManager, DynamicEntity source, float radius, FactiousFilter filter)
+		public static Entity GetClosestEntity(EntityManager entityManager, Entity source, float radius, FactiousFilter filter)
 		{
 			var physicsWorld = entityManager.GetSingleton<PhysicsWorldSingleton>();
 			var settings = entityManager.GetSingleton<PhysicsSettings>();
 
-			float3 position = source.LocalTransform.ValueRO.Position;
+			var sourceLocalTransform = entityManager.GetComponentData<LocalTransform>(source);
+			float3 sourcePosition = sourceLocalTransform.Position;
 
 			var distanceHits = new NativeList<DistanceHit>();
 			var collisionFilter = new CollisionFilter
@@ -51,28 +54,29 @@ namespace Omniverse
 				CollidesWith = (uint)settings.HitboxLayerMask.value
 			};
 
-			if (physicsWorld.OverlapSphere(position, radius, ref distanceHits, collisionFilter))
+			if (physicsWorld.OverlapSphere(sourcePosition, radius, ref distanceHits, collisionFilter))
 			{
 				float minDistance = float.MaxValue;
-				DynamicEntity closestEntity = default;
+				Entity closestEntity = default;
 
 				foreach (DistanceHit hit in distanceHits)
 				{
-					Entity hitEntity = hit.Entity;
+					Entity entity = hit.Entity;
 
-					if (!entityManager.HasAspect<DynamicEntity>(hit.Entity))
+					if (!entityManager.HasComponent<Unit>(hit.Entity))
 					{
 						continue;
 					}
 
-					DynamicEntity dynamicEntity = entityManager.GetAspect<DynamicEntity>(hitEntity);
+					var localTransform = entityManager.GetComponentData<LocalTransform>(entity);
+					float3 position = localTransform.Position;
 
-					float distance = Vector3.SqrMagnitude(position - dynamicEntity.LocalTransform.ValueRO.Position);
+					float distance = Vector3.SqrMagnitude(sourcePosition - position);
 
 					if (distance < minDistance)
 					{
 						minDistance = distance;
-						closestEntity = dynamicEntity;
+						closestEntity = entity;
 					}
 				}
 
@@ -82,18 +86,23 @@ namespace Omniverse
 			return default;
 		}
 
-		public static IEnumerable<DynamicEntity> GetEntitiesInSector<TEntity>(
+		public static IEnumerable<Entity> GetEntitiesInSector<TEntity>(
 			EntityManager entityManager,
-			DynamicEntity source,
+			Entity source,
 			Vector3 forward,
 			float radius,
 			float angle,
 			FactiousFilter filter)
 		{
-			float3 position = source.LocalTransform.ValueRO.Position;
-			foreach (DynamicEntity entity in GetEntitiesInSphere(entityManager, source, radius, filter))
+			var sourceLocalTransform = entityManager.GetComponentData<LocalTransform>(source);
+			float3 sourcePosition = sourceLocalTransform.Position;
+
+			foreach (Entity entity in GetEntitiesInSphere(entityManager, source, radius, filter))
 			{
-				float3 direction = math.normalize(entity.LocalTransform.ValueRO.Position - position);
+				var localTransform = entityManager.GetComponentData<LocalTransform>(entity);
+				float3 position = localTransform.Position;
+
+				float3 direction = math.normalize(position - sourcePosition);
 
 				float currentAngle = Vector3.Angle(direction, forward);
 

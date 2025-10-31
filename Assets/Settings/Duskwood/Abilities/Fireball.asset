@@ -16,8 +16,7 @@ MonoBehaviour:
     <Name>k__BackingField: Fireball
     <Description>k__BackingField: 
     <Icon>k__BackingField: {fileID: 21300000, guid: c4c8f4afc6c8d364bbf3afe15ea7c3cd, type: 3}
-  <Target>k__BackingField:
-    rid: 4041151032854578049
+  <Target>k__BackingField: 0
   <Manacost>k__BackingField:
     <Value>k__BackingField: 0
     <Mode>k__BackingField: 0
@@ -29,27 +28,17 @@ MonoBehaviour:
   <Cooldown>k__BackingField:
     <Duration>k__BackingField: 0
   <ActiveOperation>k__BackingField:
-    rid: 1727845769367781457
+    rid: 6132872073110093900
   <Triggers>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 1727845769367781457
-      type: {class: 'Operation`2[[UnityEngine.Vector3, UnityEngine.CoreModule],[UnityEngine.Vector3, UnityEngine.CoreModule]]', ns: Omniverse, asm: Omniverse}
+    - rid: 6132872073110093900
+      type: {class: 'Operation`2[[Omniverse.None, Omniverse],[UnityEngine.Vector3, UnityEngine.CoreModule]]', ns: Omniverse, asm: Omniverse}
       data:
         <TargetConverter>k__BackingField:
-          rid: 1727845769367781458
-        <Actions>k__BackingField:
-        - rid: 1727845769367781459
-    - rid: 1727845769367781458
-      type: {class: NoneTargetConverter, ns: Omniverse, asm: Omniverse}
+          rid: 6132872073110093901
+        <Actions>k__BackingField: []
+    - rid: 6132872073110093901
+      type: {class: SelfTargetProvider, ns: Omniverse, asm: Omniverse}
       data: 
-    - rid: 1727845769367781459
-      type: {class: LaunchMissileAction, ns: Omniverse, asm: Omniverse}
-      data:
-        <Missile>k__BackingField: {fileID: 0}
-        <Range>k__BackingField: 20
-    - rid: 4041151032854578049
-      type: {class: VectorTarget, ns: Omniverse.Abilities, asm: Omniverse}
-      data:
-        <Mode>k__BackingField: 1

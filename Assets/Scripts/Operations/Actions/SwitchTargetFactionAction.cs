@@ -4,28 +4,28 @@ using UnityEngine;
 
 namespace Omniverse.Actions
 {
-	public class SwitchTargetFactionAction : IAction<DynamicEntity>
+	public class SwitchTargetFactionAction : IAction<Entity>
 	{
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
-		public IAction<DynamicEntity> Self { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Self { get; private set; }
 
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
-		public IAction<DynamicEntity> Ally { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Ally { get; private set; }
 
 		[field: SerializeReference]
-		[field: VersatileOptional(typeof(IAction<DynamicEntity>))]
-		public IAction<DynamicEntity> Enemy { get; private set; }
+		[field: VersatileOptional(typeof(IAction<Entity>))]
+		public IAction<Entity> Enemy { get; private set; }
 
-		public void Perform(EntityManager entityManager, DynamicEntity actor, DynamicEntity target)
+		public void Perform(EntityManager entityManager, Entity actor, Entity target)
 		{
 			var action = Switch();
 			action.Perform(entityManager, actor, target);
 
-			IAction<DynamicEntity> Switch()
+			IAction<Entity> Switch()
 			{
-				if (actor.Entity == target.Entity)
+				if (actor == target)
 				{
 					return Self;
 				}

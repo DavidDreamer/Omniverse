@@ -8,7 +8,7 @@ namespace Omniverse
 		[field: SerializeField]
 		public int Amount { get; private set; }
 
-		public void Perform(EntityManager entityManager, DynamicEntity actor, ResourceSource target)
+		public void Perform(EntityManager entityManager, Entity actor, ResourceSource target)
 		{
 			//TODO ECS
 			//actor.Extract(target, Amount);

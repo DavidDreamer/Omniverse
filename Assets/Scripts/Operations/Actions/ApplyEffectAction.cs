@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class ApplyEffectAction : IAction<DynamicEntity>
+	public class ApplyEffectAction : IAction<Entity>
 	{
 		[field: SerializeField]
 		public EffectDesc Effect { get; private set; }
 
-		public void Perform(EntityManager entityManager, DynamicEntity actor, DynamicEntity target)
+		public void Perform(EntityManager entityManager, Entity actor, Entity target)
 		{
 			Effect effect = new()
 			{
@@ -16,7 +16,7 @@ namespace Omniverse
 				Time = Effect.Duration
 			};
 
-			var effects = entityManager.GetBuffer<Effect>(target.Entity);
+			var effects = entityManager.GetBuffer<Effect>(target);
 
 			effects.Add(effect);
 		}

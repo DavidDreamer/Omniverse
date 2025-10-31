@@ -42,7 +42,6 @@ namespace Omniverse.Input
 				return;
 			}
 
-			var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
 			var transform = SystemAPI.GetComponent<LocalTransform>(entity);
 			var abilityBuffer = entityManager.GetBuffer<Ability>(selection.Entity);
 
@@ -174,7 +173,7 @@ namespace Omniverse.Input
 				if (builder.ValueRW.Building == Entity.Null)
 				{
 					//TODO HARDCODE
-					var building = SystemAPI.GetBuffer<Blueprint>(dynamicEntity.Entity)[0].Building;
+					var building = SystemAPI.GetBuffer<Blueprint>(entity)[0].Building;
 					builder.ValueRW.Building = building;
 				}
 				else
@@ -187,8 +186,8 @@ namespace Omniverse.Input
 			{
 				var commandBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
-				var faction = SystemAPI.GetComponent<Faction>(dynamicEntity.Entity);
-				var buildInput = SystemAPI.GetComponentRW<BuildInput>(dynamicEntity.Entity);
+				var faction = SystemAPI.GetComponent<Faction>(entity);
+				var buildInput = SystemAPI.GetComponentRW<BuildInput>(entity);
 
 				//TODO HARDCODE
 				buildInput.ValueRW.BlueprintIndex = 0;

@@ -56,20 +56,19 @@ namespace Omniverse
 				mana.ValueRW.Current -= ability.Manacost.Value;
 
 				var abilityActiveOperation = ability.Desc.Value.ActiveOperation;
-				var dynamicEntity = SystemAPI.GetAspect<DynamicEntity>(entity);
 
 				switch (ability.Desc.Value.Target)
 				{
 					case Target.None:
 					{
 						var operation = (IOperation<None>)abilityActiveOperation;
-						operation.Perform(state.EntityManager, dynamicEntity, None.Instance);
+						operation.Perform(state.EntityManager, entity, None.Instance);
 						break;
 					}
 					case Target.Vector:
 					{
 						var operation = (IOperation<Vector3>)abilityActiveOperation;
-						operation.Perform(state.EntityManager, dynamicEntity, input.ValueRO.Vector);
+						operation.Perform(state.EntityManager, entity, input.ValueRO.Vector);
 						break;
 					}
 				}

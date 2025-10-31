@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
-	public class CollectInRadiusTargetProvider : ITargetConverter<None, DynamicEntity>, ITargetConverter<DynamicEntity, DynamicEntity>
+	public class CollectInRadiusTargetProvider : ITargetConverter<None, Entity>, ITargetConverter<Entity, Entity>
 	{
 		[field: SerializeField]
 		public float Radius { get; private set; }
@@ -12,10 +12,10 @@ namespace Omniverse
 		[field: SerializeField]
 		public FactiousFilter Filter { get; private set; }
 
-		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, None input)
+		public IEnumerable<Entity> Convert(EntityManager entityManager, Entity actor, None input)
 			=> PhysicsService.GetEntitiesInSphere(entityManager, actor, Radius, Filter);
 
-		public IEnumerable<DynamicEntity> Convert(EntityManager entityManager, DynamicEntity actor, DynamicEntity input)
+		public IEnumerable<Entity> Convert(EntityManager entityManager, Entity actor, Entity input)
 			=> PhysicsService.GetEntitiesInSphere(entityManager, input, Radius, Filter);
 	}
 }
