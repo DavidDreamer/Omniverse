@@ -10,6 +10,7 @@ namespace Omniverse
 	{
 		public int2 Size;
 		public NativeArray<bool> Obstacles;
+		public NativeArray<float> Passability;
 		public NativeArray<Node> Nodes;
 
 		public Node NodeFromPosition(float3 position)

@@ -1,5 +1,4 @@
 ﻿using Unity.Entities;
-using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
@@ -8,6 +7,12 @@ namespace Omniverse.Rendering
 {
 	public class GridRenderPass : ScriptableRenderPass
 	{
+		private static class ShaderPass
+		{
+			public const int Obstacles = 0;
+			public const int Passability = 1;
+		}
+
 		private GridRenderSettings Settings { get; }
 
 		private EntityManager EntityManager { get; }
@@ -39,7 +44,7 @@ namespace Omniverse.Rendering
 				builder.SetRenderFunc(static (PassData data, RasterGraphContext context) =>
 				{
 					RasterCommandBuffer commandBuffer = context.cmd;
-					CoreUtils.DrawFullScreen(commandBuffer, data.Settings.Material, shaderPassId: 0);
+					CoreUtils.DrawFullScreen(commandBuffer, data.Settings.Material, shaderPassId: ShaderPass.Passability);
 				});
 			}
 		}

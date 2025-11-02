@@ -13,6 +13,7 @@ namespace Omniverse.Rendering
 		private static class ShaderVariables
 		{
 			public static int ObstaclesBuffer { get; } = Shader.PropertyToID(nameof(ObstaclesBuffer));
+			public static int PassabilityBuffer { get; } = Shader.PropertyToID(nameof(PassabilityBuffer));
 		}
 
 		private GridRenderSettings Settings { get; set; }
@@ -20,6 +21,8 @@ namespace Omniverse.Rendering
 		private GridRenderPass Pass { get; set; }
 
 		private ComputeBuffer ObstaclesBuffer { get; set; }
+
+		private ComputeBuffer PassabilityBuffer { get; set; }
 
 		protected override void OnCreate()
 		{
@@ -32,6 +35,9 @@ namespace Omniverse.Rendering
 			var map = SystemAPI.GetSingleton<Map>();
 			ObstaclesBuffer = new ComputeBuffer(map.Nodes.Length, Marshal.SizeOf<int>());
 			Shader.SetGlobalBuffer(ShaderVariables.ObstaclesBuffer, ObstaclesBuffer);
+
+			PassabilityBuffer = new ComputeBuffer(map.Passability.Length, Marshal.SizeOf<float>());
+			Shader.SetGlobalBuffer(ShaderVariables.PassabilityBuffer, PassabilityBuffer);
 
 			var renderSettings = SystemAPI.GetSingleton<RenderSettings>();
 			Settings = renderSettings.Grid;
@@ -62,6 +68,7 @@ namespace Omniverse.Rendering
 		{
 			var map = SystemAPI.GetSingleton<Map>();
 			ObstaclesBuffer.SetData(map.Obstacles.Select(x => x ? 1 : 0).ToArray());
+			PassabilityBuffer.SetData(map.Passability);
 		}
 	}
 }

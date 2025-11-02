@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -79,11 +80,31 @@ namespace Omniverse
 				}
 			}
 
+			var penalties = new NativeArray<float>(nodesCount, Allocator.Persistent);
+
+			var terrain = Object.FindFirstObjectByType<Terrain>();
+			var terrainData = terrain.terrainData;
+			var alphaMaps = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
+
+			for (int i = 0; i < settings.Size.x; i++)
+			{
+				for (int j = 0; j < settings.Size.y; j++)
+				{
+					int id = j * settings.Size.x + i;
+
+					int x = (int)(i / terrainData.size.x * terrainData.alphamapWidth);
+					int y = (int)(j / terrainData.size.z * terrainData.alphamapHeight);
+					var a = alphaMaps[y, x, 0];
+					penalties[id] = a;
+				}
+			}
+	
 			Map map = new()
 			{
 				Size = settings.Size,
 				Nodes = nodes,
-				Obstacles = new NativeArray<bool>(nodesCount, Allocator.Persistent)
+				Obstacles = new NativeArray<bool>(nodesCount, Allocator.Persistent),
+				Passability = penalties
 			};
 
 			EntityManager.SetComponentData(entity, map);
@@ -104,6 +125,7 @@ namespace Omniverse
 
 				map.Nodes.Dispose();
 				map.Obstacles.Dispose();
+				map.Passability.Dispose();
 			}
 		}
 	}
