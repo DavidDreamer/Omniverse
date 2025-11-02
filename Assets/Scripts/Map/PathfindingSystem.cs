@@ -164,7 +164,7 @@ namespace Omniverse
 						continue;
 					}
 
-					float tentativeGScore = nodesInfo[currentId].GCost + neighbourNode.HeuristicCost * map.Passability[neighbourId];
+					float tentativeGScore = nodesInfo[currentId].GCost + neighbourNode.HeuristicCost * map.Penalties[neighbourId];
 
 					if (!nodesInfo.ContainsKey(neighbourId))
 					{

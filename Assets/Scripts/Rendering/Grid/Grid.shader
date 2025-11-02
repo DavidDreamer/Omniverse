@@ -123,7 +123,7 @@ Shader "Omniverse/Grid"
 			float4 HighPassabilityColor;
 			float4 LowPassabilityColor;
 
-			StructuredBuffer<float> PassabilityBuffer;
+			StructuredBuffer<float> PenaltyBuffer;
 
 			float4 Frag(Varyings input) : SV_Target
 			{
@@ -133,8 +133,8 @@ Shader "Omniverse/Grid"
 				int cellId = GetCellId(positionWS);
 				float gridFactor = GetGridFactor(positionWS);
 
-				float penalty = PassabilityBuffer[cellId];
-				float4 cellColor = lerp(HighPassabilityColor, LowPassabilityColor, penalty);
+				float penalty = PenaltyBuffer[cellId];
+				float4 cellColor = lerp(LowPassabilityColor, HighPassabilityColor, 1 / penalty);
 
 				float4 finalColor = lerp(cellColor, GridColor, gridFactor);
 

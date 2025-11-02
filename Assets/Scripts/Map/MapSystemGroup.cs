@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Omniverse
 {
+
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial class MapSystemGroup : ComponentSystemGroup
 	{
@@ -94,8 +95,8 @@ namespace Omniverse
 
 					int x = (int)(i / terrainData.size.x * terrainData.alphamapWidth);
 					int y = (int)(j / terrainData.size.z * terrainData.alphamapHeight);
-					var a = alphaMaps[y, x, 0];
-					penalties[id] = a;
+					float a = math.lerp(0.25f, 1, math.max(0.001f, alphaMaps[y, x, 2]));
+					penalties[id] = 1.0f / a;
 				}
 			}
 
@@ -104,7 +105,7 @@ namespace Omniverse
 				Size = settings.Size,
 				Nodes = nodes,
 				Obstacles = new NativeArray<bool>(nodesCount, Allocator.Persistent),
-				Passability = penalties
+				Penalties = penalties
 			};
 
 			EntityManager.SetComponentData(entity, map);
@@ -125,7 +126,7 @@ namespace Omniverse
 
 				map.Nodes.Dispose();
 				map.Obstacles.Dispose();
-				map.Passability.Dispose();
+				map.Penalties.Dispose();
 			}
 		}
 	}
