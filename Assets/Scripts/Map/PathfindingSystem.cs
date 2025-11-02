@@ -136,7 +136,7 @@ namespace Omniverse
 				HCost = Pathfinding.Heuristic(start.Coordinates, goal.Coordinates),
 				Parent = -1
 			});
-		
+
 			while (openNodes.Length > 0)
 			{
 				int currentId = GetSmallestGScore();
@@ -177,7 +177,7 @@ namespace Omniverse
 
 						nodesInfo.Add(neighbourId, info);
 					}
-					
+
 					if (tentativeGScore < nodesInfo[neighbourNode.Id].GCost)
 					{
 						Info info = nodesInfo[neighbourId];

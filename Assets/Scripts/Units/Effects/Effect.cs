@@ -10,7 +10,7 @@ namespace Omniverse
 	{
 		[GhostField(SendData = false)]
 		public UnityObjectRef<EffectDesc> Desc;
-		
+
 		[GhostField]
 		public float Time;
 	}

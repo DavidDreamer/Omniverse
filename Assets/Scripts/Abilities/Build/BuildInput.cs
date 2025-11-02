@@ -1,5 +1,4 @@
-﻿using Unity.Burst;
-using Unity.NetCode;
+﻿using Unity.NetCode;
 using Unity.Transforms;
 
 namespace Omniverse.Abilities

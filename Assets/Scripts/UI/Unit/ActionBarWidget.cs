@@ -1,5 +1,4 @@
-﻿using Omniverse.Abilities;
-using Unity.Entities;
+﻿using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 

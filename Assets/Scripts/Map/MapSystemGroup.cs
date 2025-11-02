@@ -98,7 +98,7 @@ namespace Omniverse
 					penalties[id] = a;
 				}
 			}
-	
+
 			Map map = new()
 			{
 				Size = settings.Size,

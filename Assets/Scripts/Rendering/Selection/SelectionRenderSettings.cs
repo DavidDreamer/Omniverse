@@ -18,7 +18,7 @@ namespace Omniverse.Rendering
 
 		[field: SerializeField]
 		[field: Range(0f, 1f)]
-		public float UnitRadius{ get; set; }
+		public float UnitRadius { get; set; }
 
 		[field: SerializeField]
 		[field: Range(0f, 1f)]
