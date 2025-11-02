@@ -134,7 +134,7 @@ Shader "Omniverse/Grid"
 				float gridFactor = GetGridFactor(positionWS);
 
 				float penalty = PenaltyBuffer[cellId];
-				float4 cellColor = lerp(LowPassabilityColor, HighPassabilityColor, 1 / penalty);
+				float4 cellColor = lerp(HighPassabilityColor, LowPassabilityColor, penalty - 1);
 
 				float4 finalColor = lerp(cellColor, GridColor, gridFactor);
 

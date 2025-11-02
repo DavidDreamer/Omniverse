@@ -1,13 +1,12 @@
 ﻿using Unity.Burst;
 using Unity.Entities;
+using Unity.Transforms;
 
 namespace Omniverse
 {
-	[BurstCompile]
 	[DisableAutoCreation]
 	public partial struct ApplyEffectsSystem : ISystem
 	{
-		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
 			foreach ((var unit, var effectBuffer, var entity) in SystemAPI.Query<RefRW<Unit>, DynamicBuffer<Effect>>().WithEntityAccess().WithAll<Simulate>())
@@ -31,10 +30,19 @@ namespace Omniverse
 								break;
 
 						}
-	
+
 						SetProperty(ref state, entity, propertyModifier.ID, property);
 					}
 				}
+
+				var map = SystemAPI.GetSingleton<Map>();
+				var localPosisiton = SystemAPI.GetComponent<LocalTransform>(entity);
+
+				Property movementSpeed = GetProperty(ref state, entity, PropertyID.MovementSpeed);
+				var node = map.NodeFromPosition(localPosisiton.Position);
+				var penalty = map.Penalties[node.Id];
+				movementSpeed.Multipler += 1 / penalty - 1;
+				SetProperty(ref state, entity, PropertyID.MovementSpeed, movementSpeed);
 			}
 		}
 
@@ -45,7 +53,6 @@ namespace Omniverse
 				case PropertyID.MovementSpeed:
 					return SystemAPI.GetComponent<Movement>(entity).Speed;
 				default: throw new System.Exception();
-
 			}
 		}
 

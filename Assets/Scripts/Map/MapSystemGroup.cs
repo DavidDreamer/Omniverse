@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Omniverse
 {
-
 	[UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 	public partial class MapSystemGroup : ComponentSystemGroup
 	{
@@ -84,19 +83,30 @@ namespace Omniverse
 			var penalties = new NativeArray<float>(nodesCount, Allocator.Persistent);
 
 			var terrain = Object.FindFirstObjectByType<Terrain>();
+			var terrainPathfindingData = terrain.GetComponent<TerrainPathfindingData>();
+
 			var terrainData = terrain.terrainData;
 			var alphaMaps = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
+			var alphaMapsCount = alphaMaps.GetLength(2);
 
 			for (int i = 0; i < settings.Size.x; i++)
 			{
 				for (int j = 0; j < settings.Size.y; j++)
 				{
-					int id = j * settings.Size.x + i;
-
 					int x = (int)(i / terrainData.size.x * terrainData.alphamapWidth);
 					int y = (int)(j / terrainData.size.z * terrainData.alphamapHeight);
-					float a = math.lerp(0.25f, 1, math.max(0.001f, alphaMaps[y, x, 2]));
-					penalties[id] = 1.0f / a;
+
+					float penalty = 0;
+
+					for (int k = 0; k < alphaMapsCount; k++)
+					{
+						float alpha = alphaMaps[y, x, k];
+						float penaltyByLayer = terrainPathfindingData.PenaltiesByLayer[k];
+						penalty += alpha * penaltyByLayer;
+					}
+
+					int id = j * settings.Size.x + i;
+					penalties[id] = penalty;
 				}
 			}
 
