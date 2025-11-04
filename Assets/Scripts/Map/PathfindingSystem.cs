@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -19,13 +18,12 @@ namespace Omniverse
 		{
 			public float GCost;
 			public float HCost;
-			public float FCost => GCost + HCost;
-			public int Parent;
+			public float FCost;
 		}
 
-		private NativeList<int> openNodes;
+		private NativeArray<int> parents;
 		private NativeHashSet<int> closedNodes;
-		private NativeHashMap<int, Info> nodesInfo;
+		private NativeHashMap<int, Info> openNodes;
 
 		[BurstCompile]
 		public void OnCreate(ref SystemState state)
@@ -34,18 +32,19 @@ namespace Omniverse
 
 			int nodesCount = mapSettigns.Size.x * mapSettigns.Size.y;
 
-			openNodes = new NativeList<int>(nodesCount, Allocator.Persistent);
+			parents = new NativeArray<int>(nodesCount, Allocator.Persistent);
 			closedNodes = new NativeHashSet<int>(nodesCount, Allocator.Persistent);
-			nodesInfo = new NativeHashMap<int, Info>(nodesCount, Allocator.Persistent);
+			openNodes = new NativeHashMap<int, Info>(nodesCount, Allocator.Persistent);
 		}
 
 		[BurstCompile]
 		public void OnDestroy(ref SystemState state)
 		{
-			openNodes.Dispose();
+			parents.Dispose();
 			closedNodes.Dispose();
-			nodesInfo.Dispose();
+			openNodes.Dispose();
 		}
+
 
 		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
@@ -85,9 +84,9 @@ namespace Omniverse
 		{
 			var path = new List<Node> { current };
 
-			while (nodesInfo[current.Id].Parent != -1)
+			while (parents[current.Id] != -1)
 			{
-				int currentId = nodesInfo[current.Id].Parent;
+				int currentId = parents[current.Id];
 				current = map.Nodes[currentId];
 				path.Add(current);
 			}
@@ -101,43 +100,38 @@ namespace Omniverse
 
 		private int GetSmallestGScore()
 		{
-			int id = openNodes[0];
-			float smallestScore = nodesInfo[id].FCost;
-			int openNodeIndex = 0;
+			float smallestCost = float.MaxValue;
+			int smallestId = -1;
 
-			for (int i = 1; i < openNodes.Length; i++)
+			foreach (var pair in openNodes)
 			{
-				int currentId = openNodes[i];
-				float currentGScore = nodesInfo[currentId].FCost;
+				int id = pair.Key;
+				Info info = pair.Value;
 
-				if (currentGScore < smallestScore)
+				if (info.FCost < smallestCost)
 				{
-					smallestScore = currentGScore;
-					id = currentId;
-					openNodeIndex = i;
+					smallestCost = info.FCost;
+					smallestId = id;
 				}
 			}
 
-			openNodes.RemoveAt(openNodeIndex);
-
-			return id;
+			return smallestId;
 		}
 
 		public List<Node> FindPath(Map map, Node start, Node goal)
 		{
 			openNodes.Clear();
 			closedNodes.Clear();
-			nodesInfo.Clear();
 
-			openNodes.Add(start.Id);
-			nodesInfo.Add(start.Id, new Info
+			openNodes.Add(start.Id, new Info
 			{
 				GCost = 0,
 				HCost = Pathfinding.Heuristic(start.Coordinates, goal.Coordinates),
-				Parent = -1
 			});
 
-			while (openNodes.Length > 0)
+			parents[start.Id] = -1;
+
+			while (openNodes.Count > 0)
 			{
 				int currentId = GetSmallestGScore();
 				Node currentNode = map.Nodes[currentId];
@@ -147,6 +141,9 @@ namespace Omniverse
 					return ReconstructPath(map, currentNode);
 				}
 
+				float currentGCost = openNodes[currentId].GCost;
+
+				openNodes.Remove(currentId);
 				closedNodes.Add(currentId);
 
 				foreach (NeighbourNodeData neighbourNode in map.Nodes[currentId].Neighbours)
@@ -164,31 +161,29 @@ namespace Omniverse
 						continue;
 					}
 
-					float tentativeGScore = nodesInfo[currentId].GCost + neighbourNode.HeuristicCost * map.Penalties[neighbourId];
+					float tentativeGCost = currentGCost + neighbourNode.HeuristicCost * map.Penalties[neighbourId];
 
-					if (!nodesInfo.ContainsKey(neighbourId))
+					if (!openNodes.ContainsKey(neighbourId))
 					{
 						Info info = new()
 						{
-							GCost = tentativeGScore,
+							GCost = tentativeGCost,
 							HCost = Pathfinding.Heuristic(node.Coordinates, goal.Coordinates),
-							Parent = currentId
 						};
 
-						nodesInfo.Add(neighbourId, info);
+						info.FCost = info.GCost + info.HCost;
+
+						openNodes.Add(neighbourId, info);
+						parents[neighbourId] = currentId;
 					}
 
-					if (tentativeGScore < nodesInfo[neighbourNode.Id].GCost)
+					if (tentativeGCost < openNodes[neighbourNode.Id].GCost)
 					{
-						Info info = nodesInfo[neighbourId];
-						info.GCost = tentativeGScore;
-						info.Parent = currentId;
-						nodesInfo[neighbourId] = info;
-					}
-
-					if (!openNodes.Contains(neighbourNode.Id))
-					{
-						openNodes.Add(neighbourNode.Id);
+						Info info = openNodes[neighbourId];
+						info.GCost = tentativeGCost;
+						info.FCost = info.GCost + info.HCost;
+						openNodes[neighbourId] = info;
+						parents[neighbourId] = currentId;
 					}
 				}
 			}
