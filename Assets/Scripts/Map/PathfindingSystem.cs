@@ -14,16 +14,30 @@ namespace Omniverse
 	[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 	public partial struct PathfindingSystem : ISystem
 	{
-		private struct Info
+		private struct Info : IHeapItem<Info>
 		{
+			public int Id { get; set; }
+
 			public float GCost;
 			public float HCost;
 			public float FCost;
+
+			public int HeapIndex { get; set; }
+
+			public int CompareTo(Info other)
+			{
+				int compare = FCost.CompareTo(other.FCost);
+				if (compare == 0)
+				{
+					compare = HCost.CompareTo(other.HCost);
+				}
+				return -compare;
+			}
 		}
 
 		private NativeArray<int> parents;
 		private NativeHashSet<int> closedNodes;
-		private NativeHashMap<int, Info> openNodes;
+		private Heap<Info> openNodes;
 
 		[BurstCompile]
 		public void OnCreate(ref SystemState state)
@@ -34,7 +48,7 @@ namespace Omniverse
 
 			parents = new NativeArray<int>(nodesCount, Allocator.Persistent);
 			closedNodes = new NativeHashSet<int>(nodesCount, Allocator.Persistent);
-			openNodes = new NativeHashMap<int, Info>(nodesCount, Allocator.Persistent);
+			openNodes = new Heap< Info>(nodesCount);
 		}
 
 		[BurstCompile]
@@ -98,24 +112,19 @@ namespace Omniverse
 			return path;
 		}
 
-		private int GetSmallestGScore()
+		private void Add(Node start, Node goal, float gCost)
 		{
-			float smallestCost = float.MaxValue;
-			int smallestId = -1;
-
-			foreach (var pair in openNodes)
+			var info = new Info
 			{
-				int id = pair.Key;
-				Info info = pair.Value;
+				Id = start.Id,
+				GCost = gCost,
+				HCost = Pathfinding.Heuristic(start.Coordinates, goal.Coordinates),
+			};
 
-				if (info.FCost < smallestCost)
-				{
-					smallestCost = info.FCost;
-					smallestId = id;
-				}
-			}
+			info.FCost = info.GCost + info.HCost;
 
-			return smallestId;
+			openNodes.Add(info);
+			parents[start.Id] = -1;
 		}
 
 		public List<Node> FindPath(Map map, Node start, Node goal)
@@ -123,17 +132,12 @@ namespace Omniverse
 			openNodes.Clear();
 			closedNodes.Clear();
 
-			openNodes.Add(start.Id, new Info
-			{
-				GCost = 0,
-				HCost = Pathfinding.Heuristic(start.Coordinates, goal.Coordinates),
-			});
-
-			parents[start.Id] = -1;
+			Add(start, goal, 0);
 
 			while (openNodes.Count > 0)
 			{
-				int currentId = GetSmallestGScore();
+				Info currentInfo = openNodes.RemoveFirst();
+				int currentId = currentInfo.Id;
 				Node currentNode = map.Nodes[currentId];
 
 				if (currentId == goal.Id)
@@ -141,9 +145,8 @@ namespace Omniverse
 					return ReconstructPath(map, currentNode);
 				}
 
-				float currentGCost = openNodes[currentId].GCost;
+				float currentGCost = currentInfo.GCost;
 
-				openNodes.Remove(currentId);
 				closedNodes.Add(currentId);
 
 				foreach (NeighbourNodeData neighbourNode in map.Nodes[currentId].Neighbours)
@@ -163,27 +166,22 @@ namespace Omniverse
 
 					float tentativeGCost = currentGCost + neighbourNode.HeuristicCost * map.Penalties[neighbourId];
 
-					if (!openNodes.ContainsKey(neighbourId))
+					if (!openNodes.Contains(neighbourId))
 					{
-						Info info = new()
-						{
-							GCost = tentativeGCost,
-							HCost = Pathfinding.Heuristic(node.Coordinates, goal.Coordinates),
-						};
-
-						info.FCost = info.GCost + info.HCost;
-
-						openNodes.Add(neighbourId, info);
+						Add(node, goal, tentativeGCost);
 						parents[neighbourId] = currentId;
 					}
-
-					if (tentativeGCost < openNodes[neighbourNode.Id].GCost)
+					else
 					{
-						Info info = openNodes[neighbourId];
-						info.GCost = tentativeGCost;
-						info.FCost = info.GCost + info.HCost;
-						openNodes[neighbourId] = info;
-						parents[neighbourId] = currentId;
+						Info info = openNodes.Get(neighbourId);
+
+						if (tentativeGCost < info.GCost)
+						{
+							info.GCost = tentativeGCost;
+							info.FCost = info.GCost + info.HCost;
+							openNodes.SortUp(info);
+							parents[neighbourId] = currentId;
+						}
 					}
 				}
 			}
