@@ -72,12 +72,7 @@ namespace Omniverse
 				Node start = map.NodeFromPosition(localTransform.Position);
 				Node goal = map.NodeFromPosition(unitInput.Position);
 
-				var s = new Stopwatch();
-				s.Start();
 				var nodes = FindPath(map, start, goal);
-				s.Stop();
-
-				UnityEngine.Debug.Log($"{s.ElapsedTicks / (float)Stopwatch.Frequency * 1000} ms");
 
 				if (nodes != null)
 				{
