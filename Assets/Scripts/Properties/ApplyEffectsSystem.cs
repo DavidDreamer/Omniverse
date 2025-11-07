@@ -34,15 +34,6 @@ namespace Omniverse
 						SetProperty(ref state, entity, propertyModifier.ID, property);
 					}
 				}
-
-				var map = SystemAPI.GetSingleton<Map>();
-				var localPosisiton = SystemAPI.GetComponent<LocalTransform>(entity);
-
-				Property movementSpeed = GetProperty(ref state, entity, PropertyID.MovementSpeed);
-				var node = map.NodeFromPosition(localPosisiton.Position);
-				var penalty = map.Penalties[node.Id];
-				movementSpeed.Multipler += 1 / penalty - 1;
-				SetProperty(ref state, entity, PropertyID.MovementSpeed, movementSpeed);
 			}
 		}
 

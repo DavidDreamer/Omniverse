@@ -14,6 +14,7 @@ namespace Omniverse
 			EnableSystemSorting = false;
 
 			CreateSystem<ResetPropertiesSystem>();
+			CreateSystem<ApplyAreaModifiersSystem>();
 			CreateSystem<ApplyEffectsSystem>();
 			CreateSystem<CalculatePropertiesTotalSystem>();
 
