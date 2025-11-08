@@ -9,6 +9,12 @@ namespace Omniverse
 	public partial struct ApplyAreaModifiersSystem : ISystem
 	{
 		[BurstCompile]
+		public void OnCreate(ref SystemState state)
+		{
+			state.RequireForUpdate<Map>();
+		}
+
+		[BurstCompile]
 		public void OnUpdate(ref SystemState state)
 		{
 			var map = SystemAPI.GetSingleton<Map>();
@@ -18,9 +24,12 @@ namespace Omniverse
 				Node node = map.NodeFromPosition(localTransform.ValueRO.Position);
 				float penalty = map.Penalties[node.Id];
 
-				Property speed = movement.ValueRW.Speed;
-				speed.Multipler += 1 / penalty - 1;
-				movement.ValueRW.Speed = speed;
+				if (penalty > 0)
+				{
+					Property speed = movement.ValueRW.Speed;
+					speed.Multipler += 1 / penalty - 1;
+					movement.ValueRW.Speed = speed;
+				}
 			}
 		}
 	}
