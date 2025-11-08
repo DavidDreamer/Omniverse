@@ -6,5 +6,6 @@ namespace Omniverse
 	public class MovementDesc
 	{
 		public float Speed;
+		public float TurnRate;
 	}
 }

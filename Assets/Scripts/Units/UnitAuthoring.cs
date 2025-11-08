@@ -49,6 +49,10 @@ namespace Omniverse
 					Speed = new()
 					{
 						Base = authoring.UnitDesc.Movement.Speed
+					},
+					TurnRate = new()
+					{
+						Base = authoring.UnitDesc.Movement.TurnRate
 					}
 				});
 

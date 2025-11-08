@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace Omniverse
 {
@@ -44,13 +45,25 @@ namespace Omniverse
 							float3 direction = math.normalizesafe(vector);
 							direction.y = 0;
 
-							localTransform.ValueRW.Rotation = quaternion.LookRotation(direction, new float3(0f, 1f, 0f));
+							float rotationDelta = movementSpeed.TurnRate.Total * deltaTime;
+							Quaternion targetRotation = Quaternion.LookRotation(direction, new float3(0f, 1f, 0f));
+							Quaternion currentRotation = Quaternion.RotateTowards(localTransform.ValueRO.Rotation, targetRotation, rotationDelta);
+							localTransform.ValueRW.Rotation = currentRotation;
 
-							float lenght = math.length(vector);
-							float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
-							float3 deltaPosition = direction * distance;
+							bool looksTowardsDirection = Quaternion.Angle(currentRotation, targetRotation) <= 10f;
+							if (looksTowardsDirection)
+							{
+								float lenght = math.length(vector);
+								float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
+								float3 deltaPosition = direction * distance;
 
-							localTransform.ValueRW.Position += deltaPosition;
+								localTransform.ValueRW.Position += deltaPosition;
+
+								if (lenght < 0.1f)
+								{
+									waypoints.RemoveAt(0);
+								}
+							}
 
 							float3 from = localTransform.ValueRW.Position;
 							for (int i = 0; i < waypoints.Length; i++)
@@ -58,11 +71,6 @@ namespace Omniverse
 								var to = waypoints[i].Position;
 								UnityEngine.Debug.DrawLine(from, to);
 								from = to;
-							}
-
-							if (lenght < 0.1f)
-							{
-								waypoints.RemoveAt(0);
 							}
 						}
 						else

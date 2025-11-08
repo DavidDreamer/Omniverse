@@ -18,5 +18,16 @@ namespace Omniverse
 
 		[GhostField]
 		public float Total;
+
+		public void Reset()
+		{
+			Additional = 0;
+			Multipler = 1;
+		}
+
+		public void CalculateTotal()
+		{
+			Total = (Base + Additional) * Multipler;
+		}
 	}
 }

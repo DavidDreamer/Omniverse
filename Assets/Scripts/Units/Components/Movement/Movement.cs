@@ -9,5 +9,8 @@ namespace Omniverse
 	{
 		[GhostField]
 		public Property Speed;
+
+		[GhostField]
+		public Property TurnRate;
 	}
 }

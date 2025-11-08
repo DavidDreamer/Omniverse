@@ -12,8 +12,8 @@ namespace Omniverse
 		{
 			foreach (var movement in SystemAPI.Query<RefRW<Movement>>().WithAll<Simulate>())
 			{
-				movement.ValueRW.Speed.Additional = 0;
-				movement.ValueRW.Speed.Multipler = 1;
+				movement.ValueRW.Speed.Reset();
+				movement.ValueRW.TurnRate.Reset();
 			}
 		}
 	}
@@ -27,7 +27,8 @@ namespace Omniverse
 		{
 			foreach (var movement in SystemAPI.Query<RefRW<Movement>>().WithAll<Simulate>())
 			{
-				movement.ValueRW.Speed.Total = (movement.ValueRW.Speed.Base + movement.ValueRW.Speed.Additional) * movement.ValueRW.Speed.Multipler;
+				movement.ValueRW.Speed.CalculateTotal();
+				movement.ValueRW.TurnRate.CalculateTotal();
 			}
 		}
 	}
