@@ -44,6 +44,8 @@ namespace Omniverse
 							float3 direction = math.normalizesafe(vector);
 							direction.y = 0;
 
+							localTransform.ValueRW.Rotation = quaternion.LookRotation(direction, new float3(0f, 1f, 0f));
+
 							float lenght = math.length(vector);
 							float distance = math.min(movementSpeed.Speed.Total * deltaTime, lenght);
 							float3 deltaPosition = direction * distance;
