@@ -27,8 +27,10 @@
 ExportedObj/
 .consulo/
 *.csproj
+*.csproj.lscache
 *.unityproj
 *.sln
+*.slnx
 *.suo
 *.tmp
 *.user
@@ -69,3 +71,6 @@ Assets/SceneDependencyCache.meta
 
 # Blender
 *.blend1
+
+#VS Code
+.vscode
