@@ -41,6 +41,8 @@ namespace Omniverse.Rendering
 
 		private ComputeBuffer CellsVisibilityBuffer { get; set; }
 
+		private ComputeBuffer GaussianWeights { get; set; }
+
 		protected override void OnCreate()
 		{
 			RequireForUpdate<MapSettings>();
@@ -89,6 +91,9 @@ namespace Omniverse.Rendering
 
 			CellsVisibilityBuffer = new ComputeBuffer(fogOfWar.Visibility.Length, sizeof(CellVisibilityState));
 
+			GaussianWeights = BlurUtils.CalculateGaussianWeights(Settings.BlurMaterial.GetInt(BlurShaderVariable.Radius), 1);
+			Settings.BlurMaterial.SetBuffer(BlurShaderVariable.GaussianWeights, GaussianWeights);
+
 			RenderTexture CreateAnimationRT(string textureName)
 			{
 				return new RenderTexture(fogOfWarSettings.Size.x, fogOfWarSettings.Size.y,
@@ -96,6 +101,8 @@ namespace Omniverse.Rendering
 					GraphicsFormat.None)
 				{
 					name = textureName,
+					dimension = TextureXR.dimension,
+					volumeDepth = TextureXR.slices,
 					filterMode = FilterMode.Point,
 					anisoLevel = 0
 				};
@@ -108,6 +115,8 @@ namespace Omniverse.Rendering
 					GraphicsFormat.None)
 				{
 					name = textureName,
+					dimension = TextureXR.dimension,
+					volumeDepth = TextureXR.slices,
 					anisoLevel = 0
 				};
 			}
@@ -126,6 +135,7 @@ namespace Omniverse.Rendering
 				BlurRT1.Release();
 				BlurRT2.Release();
 				CellsVisibilityBuffer.Release();
+				GaussianWeights.Release();
 			}
 		}
 
@@ -150,6 +160,7 @@ namespace Omniverse.Rendering
 			Blitter.BlitTexture(commandBuffer, AnimationRT, BlurRT1, Settings.BlurMaterial, 0);
 			Blitter.BlitTexture(commandBuffer, BlurRT1, BlurRT2, Settings.BlurMaterial, 1);
 
+			//TODO: NOT WORKED
 			commandBuffer.SetGlobalTexture(ShaderVariables.FogOfWarTexture, BlurRT2);
 		}
 

@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core",
-    "com.david-dreamer.dreambox.math": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Math",
-    "com.david-dreamer.dreambox.physics": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Physics",
-    "com.david-dreamer.dreambox.rendering.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core",
-    "com.david-dreamer.dreambox.rendering.universal": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Universal",
-    "com.david-dreamer.dreambox.ui": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",
+    "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.core",
+    "com.david-dreamer.dreambox.math": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.math",
+    "com.david-dreamer.dreambox.physics": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.physics",
+    "com.david-dreamer.dreambox.rendering.core": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.rendering.core",
+    "com.david-dreamer.dreambox.rendering.urp": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.rendering.urp",
+    "com.david-dreamer.dreambox.ui": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.ui",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.entities": "1.4.2",
     "com.unity.entities.graphics": "1.4.15",

@@ -26,7 +26,8 @@ Shader "Omniverse/FogOfWar"
         #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
         uniform float4 FogOfWarResolution;
-        uniform sampler2D FogOfWarTexture;
+        TEXTURE2D_X(FogOfWarTexture);
+        SAMPLER(sampler_FogOfWarTexture);
         uniform StructuredBuffer<int> CellsVisibilityBuffer;
 
         #define CELL_VISIBILITY_UNEXPLORED 0
@@ -120,7 +121,7 @@ Shader "Omniverse/FogOfWar"
                 #ifdef MODE_REVEALED
                     return outOfBorderShading;
                 #else
-                    float4 fowData = tex2D(FogOfWarTexture, uv);
+                    float4 fowData = SAMPLE_TEXTURE2D_X(FogOfWarTexture, sampler_FogOfWarTexture, uv);
                     float fogValue = (fowData.r + 1.0) * 0.5;
 
                     fogValue = saturate(fogValue + cloud * fogValue);

@@ -38,11 +38,12 @@ Shader "Omniverse/Minimap"
             
             float4 FogOfWarColor;
 
-            uniform sampler2D FogOfWarTexture;
+            TEXTURE2D_X(FogOfWarTexture);
+            SAMPLER(sampler_FogOfWarTexture);
 
             float4 Frag(Varyings input) : SV_Target
             {
-                float4 color = (tex2D(FogOfWarTexture, input.texcoord).r + 1) * FogOfWarColor;
+                float4 color = (SAMPLE_TEXTURE2D_X(FogOfWarTexture, sampler_FogOfWarTexture, input.texcoord).r + 1) * FogOfWarColor;
                 return color;
             }
             ENDHLSL

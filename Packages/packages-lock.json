@@ -1,52 +1,55 @@
 {
   "dependencies": {
     "com.david-dreamer.dreambox.core": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core",
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.core",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "fd443844e969f556611191b7d39f985a65965df1"
+      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
     },
     "com.david-dreamer.dreambox.math": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Math",
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.math",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
+      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
     },
     "com.david-dreamer.dreambox.physics": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Physics",
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.physics",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c6d2996aa2487891e3e53b352f638b0fc532a6a4"
+      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
     },
     "com.david-dreamer.dreambox.rendering.core": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core",
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.rendering.core",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.core": "14.0.10",
-        "com.david-dreamer.dreambox.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Core"
+        "com.david-dreamer.dreambox.core": "1.0.0",
+        "com.david-dreamer.dreambox.math": "1.0.0"
       },
-      "hash": "fe026cb10fdbf85ce92f7227d8e1084fef1c186d"
+      "hash": "8d65524a3041525c84dad92660e6ea142f296c42"
     },
-    "com.david-dreamer.dreambox.rendering.universal": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Universal",
+    "com.david-dreamer.dreambox.rendering.urp": {
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.rendering.urp",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.universal": "14.0.10",
-        "com.david-dreamer.dreambox.rendering.core": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/Rendering/Core"
+        "com.david-dreamer.dreambox.rendering.core": "1.0.0"
       },
-      "hash": "fe026cb10fdbf85ce92f7227d8e1084fef1c186d"
+      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
     },
     "com.david-dreamer.dreambox.ui": {
-      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Assets/UI",
+      "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.ui",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "94460af2d59eb7adeb2535b67801bbbd1935805c"
+      "dependencies": {
+        "com.david-dreamer.dreambox.core": "1.0.0"
+      },
+      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
     },
     "com.unity.ai.navigation": {
       "version": "2.0.9",

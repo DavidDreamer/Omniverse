@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using Dreambox.Rendering;
+using Dreambox.Rendering.Core;
 using Dreambox.Rendering.Universal;
 using Omniverse.Input;
 using Unity.Entities;
@@ -20,7 +21,7 @@ namespace Omniverse.Rendering
 
 		private OutlineRenderPass Pass { get; set; }
 
-		private HashSet<OutlineTarget> Targets { get; } = new();
+		private HashSet<OutlineRenderer> Targets { get; } = new();
 
 		private ComputeBuffer VariantsBuffer { get; set; }
 
@@ -36,7 +37,7 @@ namespace Omniverse.Rendering
 			Settings = renderSettings.Outline;
 
 			VariantsBuffer = new ComputeBuffer(Settings.Variants.Length, Marshal.SizeOf<OutlineVariant>());
-			Settings.Material.SetBuffer(OutlineShaderVariables.VariantsBuffer, VariantsBuffer);
+			Settings.Material.SetBuffer(OutlineShaderVariable.VariantsBuffer, VariantsBuffer);
 
 			float width = Settings.Variants.Max(config => config.Width);
 			VariantsBuffer.SetData(Settings.Variants);
@@ -137,7 +138,7 @@ namespace Omniverse.Rendering
 				Material material = renderMeshArray.GetMaterial(materialMeshInfo);
 				Matrix4x4 matrix = localToWorld.Value;
 
-				var outlineTarget = new OutlineTarget(mesh, material, matrix, outlineVariant);
+				var outlineTarget = new OutlineRenderer(mesh, material, matrix, outlineVariant);
 				Targets.Add(outlineTarget);
 			}
 		}
