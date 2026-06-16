@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 namespace Omniverse.Rendering
 {
 	[UpdateInGroup(typeof(PresentationSystemGroup))]
+	[DisableAutoCreation]
 	public partial class GridRenderSystem : SystemBase
 	{
 		private static class ShaderVariables
