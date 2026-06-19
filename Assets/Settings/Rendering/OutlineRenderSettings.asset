@@ -17,20 +17,11 @@ MonoBehaviour:
   <Material>k__BackingField: {fileID: 2100000, guid: f0bcd7f3ff66270419aded6e294fc7f8, type: 2}
   <Variants>k__BackingField:
   - Color: {r: 0, g: 0.75, b: 0, a: 1}
-    Width: 0.01
+    Width: 16
     Softness: 5
-    FillColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickRate: 0
   - Color: {r: 0.75, g: 0, b: 0, a: 1}
-    Width: 0.01
+    Width: 16
     Softness: 5
-    FillColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickRate: 0
   - Color: {r: 0.75, g: 0.75, b: 0.75, a: 1}
-    Width: 0.01
+    Width: 16
     Softness: 5
-    FillColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickColor: {r: 0, g: 0, b: 0, a: 0}
-    FillFlickRate: 0

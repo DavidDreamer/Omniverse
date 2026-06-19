@@ -30,7 +30,7 @@
         "com.david-dreamer.dreambox.core": "1.0.0",
         "com.david-dreamer.dreambox.math": "1.0.0"
       },
-      "hash": "8d65524a3041525c84dad92660e6ea142f296c42"
+      "hash": "6798e20d2a648ee044fdf2c217348d09c00a8c1e"
     },
     "com.david-dreamer.dreambox.rendering.urp": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.rendering.urp",
@@ -40,7 +40,7 @@
         "com.unity.render-pipelines.universal": "14.0.10",
         "com.david-dreamer.dreambox.rendering.core": "1.0.0"
       },
-      "hash": "2b11a540360741ac72e3c55f2d617fc22ad92ff7"
+      "hash": "187c89db3ff9d8fa8a7d1e8b25629d3db6da9e73"
     },
     "com.david-dreamer.dreambox.ui": {
       "version": "https://github.com/DavidDreamer/Dreambox.git?path=Packages/com.david-dreamer.dreambox.ui",
